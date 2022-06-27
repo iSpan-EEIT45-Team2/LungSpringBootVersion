@@ -35,10 +35,10 @@
                 <div class="col-md-6 grid-margin stretch-card container">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">New Order</h4>
+                            <h4 class="card-title">Edit Order</h4>
                             <form action="#" id="form" class="forms-sample" th:action="@{/saveOrder}" method="post"
                                   th:object="${order}">
-
+                                <input type="hidden" th:field="*{od_id}">
                                 <div class="form-group">
                                     <label>商品名稱</label>
                                     <input type="text" th:field="*{od_name}" class="form-control" id="od_name"/>
@@ -93,7 +93,7 @@
 <div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
 <script type="text/javascript">
     function cancel() {
-        window.location.href = "./orderlist"
+        window.location.href = "../orderlist"
     }
 
     function add() {
