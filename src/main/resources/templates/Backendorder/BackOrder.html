@@ -5,7 +5,7 @@
     <div th:include="BackEnd/includes/head :: head"></div>
     <meta charset="UTF-8">
     <title>Lung-Hi Peace訂單管理系統</title>
-    <link href="BackEnd/css/dataTable.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/BackEnd/css/dataTable.css}" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 </head>
@@ -75,7 +75,8 @@
                                     <td th:text="${order.od_money}"/>
                                     <td><label class="badge badge-danger">未付款</label></td>
                                     <td>
-                                        <a th:href="@{'/updateForm/' + ${order.od_id} }" class="btn btn-sm btn-success"><i
+                                        <a th:href="@{'/Backendorder/updateForm/' + ${order.od_id} }"
+                                           class="btn btn-sm btn-success"><i
                                                 class="bi bi-pencil-fill"></i></a>
                                         <button class="btn btn-sm btn-danger"
                                                 th:onclick="deleteajax([[${order.od_id}]])" type="button"
@@ -124,7 +125,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "get",
-                    url: "/Lung/delete/" + od_id,
+                    url: "/Lung/Backendorder/delete/" + od_id,
 
                     success: function (msg) {
                         Swal.fire(

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/Backendorder")
+@RequestMapping("/Backendorder")
 public class OrderController {
 
     @Autowired
@@ -21,21 +21,21 @@ public class OrderController {
     public String listOrders(Model model) {
         List<OrderBean> orderBeans = orderService.findAll();
         model.addAttribute("orders", orderBeans);
-        return "/Backendorder/BackOrder";
+        return "Backendorder/BackOrder";
     }
 
     @RequestMapping("/showForm")
     public String showFormForAdd(Model model) {
         OrderBean orderBean = new OrderBean();
         model.addAttribute("order", orderBean);
-        return "/Backendorder/orderNewForm";
+        return "Backendorder/orderNewForm";
     }
 
 
     @PostMapping("/saveOrder")
     public String saveOrder(@ModelAttribute("order") OrderBean orderBean) {
         orderService.save(orderBean);
-        return "redirect:/orderlist";
+        return "redirect:/Backendorder/orderlist";
     }
 
     @GetMapping("/updateForm/{od_id}")
@@ -49,6 +49,6 @@ public class OrderController {
     @GetMapping(value = "/delete/{od_id}")
     public String deleteOrder(@PathVariable Long od_id) {
         orderService.delete(od_id);
-        return "redirect:/orderlist";
+        return "redirect:/Backendorder/orderlist";
     }
 }
