@@ -14,8 +14,10 @@ public interface OrderService {
 
     //FindById
     public OrderBean FindById(Long od_id);
-    
+
     //delete
     public void delete(Long od_id);
+
+    public void testDelete(String od_id);
 
 }
