@@ -77,10 +77,9 @@
                                     <td>
                                         <a th:href="@{'/updateForm/' + ${order.od_id} }" class="btn btn-sm btn-success"><i
                                                 class="bi bi-pencil-fill"></i></a>
-                                        <a th:href="@{'/delete/' + ${order.od_id} }">delete</a> <!-- 這個可用,但沒有Alert -->
-                                        <button type="button" class="btn btn-sm btn-danger"
-                                                onclick="deleteajax('${order.od_id}');" id="deleteajax">
-                                            <i class="bi bi-trash-fill"></i>
+                                        <button class="btn btn-sm btn-danger"
+                                                th:onclick="deleteajax([[${order.od_id}]])" type="button"
+                                                id="deleteajax"><i class="bi bi-trash-fill"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -123,7 +122,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "get",
-                    url: "/delete/" + od_id,
+                    url: "/Lung/delete/" + od_id,
                     success: function (msg) {
                         Swal.fire(
                             '已刪除!',
