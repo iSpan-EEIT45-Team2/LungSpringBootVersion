@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "MemberTable",
 	uniqueConstraints = { @UniqueConstraint(columnNames = "mi_account") })
+
 @Component
 public class MemberBean {
 	@Id   //PK值
