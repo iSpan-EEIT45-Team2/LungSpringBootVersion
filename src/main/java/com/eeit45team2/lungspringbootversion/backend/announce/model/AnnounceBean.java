@@ -1,6 +1,7 @@
 package com.eeit45team2.lungspringbootversion.backend.announce.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "ANNOUNCE_Table")
@@ -12,13 +13,14 @@ public class AnnounceBean {
 	String anContent;
 	String anType;
 	String anEditor;
+	Date anDate;
 
 
 	public AnnounceBean() {
 	}
 
-	public AnnounceBean(String anTitle, String anContent, String anType, String anEditor, Integer anDate,
-						Integer od_money) {
+	public AnnounceBean(String anTitle, String anContent, String anType, String anEditor,
+						 Date anDate) {
 		super();
 		this.anTitle = anTitle;
 		this.anContent = anContent;
@@ -28,7 +30,7 @@ public class AnnounceBean {
 	}
 
 	public AnnounceBean(Long anNo, String anTitle, String anContent, String anType, String anEditor,
-						Integer anDate) {
+						Date anDate) {
 		super();
 		this.anNo = anNo;
 		this.anTitle = anTitle;
@@ -82,11 +84,11 @@ public class AnnounceBean {
 		this.anEditor = anEditor;
 	}
 
-	public Integer getAnDate() {
+	public Date getAnDate() {
 		return anDate;
 	}
 
-	public void setAnDate(Integer anDate) {
+	public void setAnDate(Date anDate) {
 		this.anDate = anDate;
 	}
 
