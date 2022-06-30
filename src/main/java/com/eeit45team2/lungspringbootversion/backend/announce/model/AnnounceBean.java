@@ -1,108 +1,95 @@
-package com.eeit45team2.lungspringbootversion.backend.Announce.model;
+package com.eeit45team2.lungspringbootversion.backend.announce.model;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Order_Table")
-public class OrderBean {
+@Table(name = "ANNOUNCE_Table")
+public class AnnounceBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long od_id;
-	String od_name;
-	String od_catalogue;
-	String od_content;
-	String od_amount;
-	Integer od_number;
-	Integer od_money;
+	Long anNo;
+	String anTitle;
+	String anContent;
+	String anType;
+	String anEditor;
 
-	public OrderBean() {
+
+	public AnnounceBean() {
 	}
 
-	public OrderBean(String od_name, String od_catalogue, String od_content, String od_amount, Integer od_number,
-			Integer od_money) {
+	public AnnounceBean(String anTitle, String anContent, String anType, String anEditor, Integer anDate,
+						Integer od_money) {
 		super();
-		this.od_name = od_name;
-		this.od_catalogue = od_catalogue;
-		this.od_content = od_content;
-		this.od_amount = od_amount;
-		this.od_number = od_number;
-		this.od_money = od_money;
+		this.anTitle = anTitle;
+		this.anContent = anContent;
+		this.anType = anType;
+		this.anEditor = anEditor;
+		this.anDate = anDate;
 	}
 
-	public OrderBean(Long od_id, String od_name, String od_catalogue, String od_content, String od_amount,
-			Integer od_number, Integer od_money) {
+	public AnnounceBean(Long anNo, String anTitle, String anContent, String anType, String anEditor,
+						Integer anDate) {
 		super();
-		this.od_id = od_id;
-		this.od_name = od_name;
-		this.od_catalogue = od_catalogue;
-		this.od_content = od_content;
-		this.od_amount = od_amount;
-		this.od_number = od_number;
-		this.od_money = od_money;
+		this.anNo = anNo;
+		this.anTitle = anTitle;
+		this.anContent = anContent;
+		this.anType = anType;
+		this.anEditor = anEditor;
+		this.anDate = anDate;
 	}
 
-	public OrderBean(Long od_id) {
-		this.od_id = od_id;
+	public AnnounceBean(Long anNo) {
+		this.anNo = anNo;
 	}
 
-	public Long getOd_id() {
-		return od_id;
+	public Long getAnNo() {
+		return anNo;
 	}
 
-	public void setOd_id(Long od_id) {
-		this.od_id = od_id;
+	public void setAnNo(Long anNo) {
+		this.anNo = anNo;
 	}
 
-	public String getOd_name() {
-		return od_name;
+	public String getAnTitle() {
+		return anTitle;
 	}
 
-	public void setOd_name(String od_name) {
-		this.od_name = od_name;
+	public void setAnTitle(String anTitle) {
+		this.anTitle = anTitle;
 	}
 
-	public String getOd_catalogue() {
-		return od_catalogue;
+	public String getAnContent() {
+		return anContent;
 	}
 
-	public void setOd_catalogue(String od_catalogue) {
-		this.od_catalogue = od_catalogue;
+	public void setAnContent(String anContent) {
+		this.anContent = anContent;
 	}
 
-	public String getOd_content() {
-		return od_content;
+	public String getAnType() {
+		return anType;
 	}
 
-	public void setOd_content(String od_content) {
-		this.od_content = od_content;
+	public void setAnType(String anType) {
+		this.anType = anType;
 	}
 
-	public String getOd_amount() {
-		return od_amount;
+	public String getAnEditor() {
+		return anEditor;
 	}
 
-	public void setOd_amount(String od_amount) {
-		this.od_amount = od_amount;
+	public void setAnEditor(String anEditor) {
+		this.anEditor = anEditor;
 	}
 
-	public Integer getOd_number() {
-		return od_number;
+	public Integer getAnDate() {
+		return anDate;
 	}
 
-	public void setOd_number(Integer od_number) {
-		this.od_number = od_number;
+	public void setAnDate(Integer anDate) {
+		this.anDate = anDate;
 	}
 
-	public Integer getOd_money() {
-		return od_money;
-	}
 
-	public void setOd_money(Integer od_money) {
-		this.od_money = od_money;
-	}
 
-//	public String toString() {
-//		return "Order [od_id=" + od_id + ", od_name=" + od_name + ", od_catalogue=" + od_catalogue + ", od_content="
-//				+ od_content + ", od_amount=" + od_amount + ", od_number=" + od_number + ", od_money=" + od_money + "]";
-//	}
 }

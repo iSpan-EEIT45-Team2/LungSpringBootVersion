@@ -1,57 +1,52 @@
-package com.eeit45team2.lungspringbootversion.backend.order.controller;
+package com.eeit45team2.lungspringbootversion.backend.announce.controller;
 
-import java.util.List;
-
+import com.eeit45team2.lungspringbootversion.backend.announce.model.AnnounceBean;
+import com.eeit45team2.lungspringbootversion.backend.announce.service.AnnounceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import com.eeit45team2.lungspringbootversion.backend.order.model.OrderBean;
-import com.eeit45team2.lungspringbootversion.backend.order.service.OrderService;
+import java.util.List;
 
 @Controller
-//@RequestMapping("/Backendorder")
-public class OrderController {
+//@RequestMapping("/Backendannounce")
+public class AnnounceController {
 
 	@Autowired
-	private OrderService orderService;
+	private AnnounceService announceService;
 
-	@GetMapping("/orderlist")
-	public String listOrders(Model model) {
-		List<OrderBean> orderBeans = orderService.findAll();
-		model.addAttribute("orders", orderBeans);
-		return "/Backendorder/BackOrder";
+	@GetMapping("/announcelist")
+	public String listAnnounce(Model model) {
+		List<AnnounceBean> announceBeans = announceService.findAll();
+		model.addAttribute("announces", announceBeans);
+		return "/Backendannounce/announce";
 	}
 
 	@RequestMapping("/showForm")
 	public String showFormForAdd(Model model) {
-		OrderBean orderBean = new OrderBean();
-		model.addAttribute("order", orderBean);
-		return "/Backendorder/orderNewForm";
+		AnnounceBean announceBean = new AnnounceBean();
+		model.addAttribute("announce", announceBean);
+		return "/Backendannounce/announceNewForm";
 	}
 
 
-	@PostMapping("/saveOrder")
-	public String saveOrder(@ModelAttribute("order") OrderBean orderBean) {
-		orderService.save(orderBean);
-		return "redirect:/Backendorder/orderlist";
+	@PostMapping("/saveAnnounce")
+	public String saveAnnounce(@ModelAttribute("announce") AnnounceBean announceBean) {
+		announceService.save(announceBean);
+		return "redirect:/Backendannounce/announcelist";
 	}
 
 	@GetMapping("/updateForm")
-	public String showFormForUpdate(@RequestParam("orderID") Long od_id, Model model) {
-		OrderBean orderBean = orderService.FindById(od_id);
-		model.addAttribute("order", orderBean);
-		return "Backendorder/orderEditForm";
+	public String showFormForUpdate(@RequestParam("announceID") Long anNO, Model model) {
+		AnnounceBean announceBean = announceService.FindById(anNO);
+		model.addAttribute("order", announceBean);
+		return "Backendannounce/announceEditForm";
 	}
 	
 	@GetMapping("/delete")
-	public String deleteOrder(@RequestParam("orderID") Long od_id) {
-		orderService.delete(od_id);
-		return "redirect:/Backendorder/orderlist";
+	public String deleteAnnounce(@RequestParam("announceID") Long anNO) {
+		announceService.delete(anNO);
+		return "redirect:/Backendannounce/announcelist";
 	}
 }

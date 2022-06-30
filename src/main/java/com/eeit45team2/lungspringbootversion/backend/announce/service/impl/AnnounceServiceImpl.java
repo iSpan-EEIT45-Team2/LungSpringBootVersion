@@ -1,8 +1,8 @@
-package com.eeit45team2.lungspringbootversion.backend.Announce.service.impl;
+package com.eeit45team2.lungspringbootversion.backend.announce.service.impl;
 
-import com.eeit45team2.lungspringbootversion.backend.Announce.model.OrderBean;
-import com.eeit45team2.lungspringbootversion.backend.Announce.repository.OrderRepository;
-import com.eeit45team2.lungspringbootversion.backend.Announce.service.OrderService;
+import com.eeit45team2.lungspringbootversion.backend.announce.model.AnnounceBean;
+import com.eeit45team2.lungspringbootversion.backend.announce.repository.AnnouncerRepository;
+import com.eeit45team2.lungspringbootversion.backend.announce.service.AnnounceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,31 +11,31 @@ import java.util.List;
 
 @Service
 @Transactional
-public class OrderServiceImpl implements OrderService {
+public class AnnounceServiceImpl implements AnnounceService {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private AnnouncerRepository announcerRepository;
 
     @Override
 
-    public List<OrderBean> findAll() {
-        return orderRepository.findAll();
+    public List<AnnounceBean> findAll() {
+        return announcerRepository.findAll();
     }
 
     @Override
-    public void save(OrderBean theOrderBean) {
-        orderRepository.save(theOrderBean);
+    public void save(AnnounceBean theAnnounceBean) {
+        announcerRepository.save(theAnnounceBean);
     }
 
     @Override
-    public OrderBean FindById(Long od_id) {
-        return orderRepository.findById(od_id).get();
+    public AnnounceBean FindById(Long anNo) {
+        return announcerRepository.findById(anNo).get();
         //找到這筆資料回傳,Update方法
     }
 
     @Override
-    public void delete(Long od_id) {
-        orderRepository.deleteById(od_id);
+    public void delete(Long anNo) {
+        announcerRepository.deleteById(anNo);
     }
 
 }

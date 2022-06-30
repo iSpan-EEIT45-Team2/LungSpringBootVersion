@@ -1,10 +1,10 @@
-package com.eeit45team2.lungspringbootversion.backend.Announce.service;
+package com.eeit45team2.lungspringbootversion.backend.announce.service;
 
-import com.eeit45team2.lungspringbootversion.backend.Announce.model.AnnounceBean;
+import com.eeit45team2.lungspringbootversion.backend.announce.model.AnnounceBean;
 
 import java.util.List;
 
-public interface AnnouncerService {
+public interface AnnounceService {
 	
 		//show all
 		public List<AnnounceBean> findAll();
@@ -13,9 +13,9 @@ public interface AnnouncerService {
 		public void save(AnnounceBean theAnnounceBean);
 		
 		//FindById
-		public AnnounceBean FindById(Long od_id);
+		public AnnounceBean FindById(Long anNo);
 		
 		//delete
-		public void delete(Long od_id);
+		public void delete(Long anNo);
 	
 }
