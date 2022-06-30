@@ -27,7 +27,7 @@ public class AbDogController {
 //		public String viewHomePage(Model model) {  //Modelo儲存
 //		return viewPage(model, 1);// 連動viewPage()方法 引數 1
 //	}
-
+ 
 //	@RequestMapping("/page/{pageNum}") //映照path url
 //	public String viewPage(Model model,
 //						   @PathVariable(name = "pageNum") int pageNum) {
