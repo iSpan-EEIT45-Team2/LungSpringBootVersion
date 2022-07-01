@@ -1,11 +1,14 @@
 package com.eeit45team2.lungspringbootversion.backend.announce.controller;
 
+import com.eeit45team2.lungspringbootversion.backend.animal.model.AdDogBean;
 import com.eeit45team2.lungspringbootversion.backend.announce.model.AnnounceBean;
 import com.eeit45team2.lungspringbootversion.backend.announce.service.AnnounceService;
+import com.eeit45team2.lungspringbootversion.backend.order.model.OrderBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -34,19 +37,25 @@ public class AnnounceController {
 	@PostMapping("/saveAnnounce")
 	public String saveAnnounce(@ModelAttribute("announce") AnnounceBean announceBean) {
 		announceService.save(announceBean);
-		return "redirect:/Backendannounce/announcelist";
+		return "redirect:/announcelist";
 	}
 
-	@GetMapping("/updateForm")
-	public String showFormForUpdate(@RequestParam("announceID") Long anNO, Model model) {
+	@GetMapping("/updateForm/{anNO}")
+	public ModelAndView showFormForUpdate(@PathVariable Long anNO) {
+		ModelAndView mav1 = new ModelAndView("Backendannounce/announceEditForm");
 		AnnounceBean announceBean = announceService.FindById(anNO);
-		model.addAttribute("order", announceBean);
-		return "Backendannounce/announceEditForm";
+		mav1.addObject("announce",announceBean);
+		return mav1;
 	}
-	
-	@GetMapping("/delete")
-	public String deleteAnnounce(@RequestParam("announceID") Long anNO) {
+
+	@GetMapping(value = "/delete/{anNO}")
+	public String deleteAnnounce(@PathVariable Long anNO) {
 		announceService.delete(anNO);
-		return "redirect:/Backendannounce/announcelist";
+		return "redirect:/announcelist";
 	}
 }
+
+
+
+
+

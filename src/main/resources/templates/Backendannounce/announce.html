@@ -4,14 +4,12 @@
 <head>
     <div th:include="BackEnd/includes/head :: head"></div>
     <meta charset="UTF-8">
-    <title>Lung-Hi Peace棄養管理系統</title>
-    <link href="BackEnd/css/dataTable.css" rel="stylesheet" type="text/css">
+    <title>Lung-Hi Peace公告管理系統</title>
+    <link th:href="@{/BackEnd/css/dataTable.css}" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 </head>
-
 <body>
-
 
 <!-- _navbar -->
 <div th:include="BackEnd/includes/navbar :: navbar"></div>
@@ -41,12 +39,10 @@
                     <div class="card material-table">
                         <div class="table-header">
                             <!-- Table標題 -->
-
-                            <span class="table-title">AbDog Table</span>
+                            <span class="table-title">Announce Table</span>
                             <div class="actions">
                                 <!-- 新增 -->
-
-                                <a href="abshowForm" class="modal-trigger waves-effect btn-flat nopadding"><i
+                                <a href="showForm" class="modal-trigger waves-effect btn-flat nopadding"><i
                                         class="mdi mdi-plus"></i></a><!-- i標籤是icon -->
                                 <!-- 搜尋 -->
                                 <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i
@@ -57,33 +53,32 @@
                             <table class="table table-hover" id="datatable">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>姓名</th>
-                                    <th>電話</th>
-                                    <th>信箱</th>
-                                    <th>圖片</th>
-                                    <th>種類</th>
-                                    <th>年紀</th>
-                                    <th>操作</th>
+                                    <th>公告編號</th>
+                                    <th>公告標題</th>
+                                    <th>公告內容</th>
+                                    <th>公告類型</th>
+                                    <th>編輯者</th>
+                                    <th>公告日期</th>
+                                    <th>功能</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="abdog : ${abdogs}">
-                                    <td th:text="${abdog.abid}"/>
-                                    <td th:text="${abdog.abname}"/>
-                                    <td th:text="${abdog.abphone}"/>
-                                    <td th:text="${abdog.abemail}"/>
-                                    <td><img th:src="@{image/{id}(id=${abdog.abphonto})}"width="50" ></td>
-                                    <td th:text="${abdog.abtype}"/>
-                                    <td th:text="${abdog.abage}"/>
-                                    <td>
-                                    <a th:href="@{'/abupdateForm/' + ${abdog.abid} }" class="btn btn-sm btn-success"><i
-                                                class="bi bi-pencil-fill"></i></a>
+                                <tr th:each="announce : ${announces}">
+                                    <td th:text="${announce.anNo}"/>
+                                    <td th:text="${announce.anTitle}"/>
+                                    <td th:text="${announce.anContent}"/>
+                                    <td th:text="${announce.anType}"/>
+                                    <td th:text="${announce.anEditor}"/>
+                                    <td th:text="${announce.anDate}"/>
+                                   <td>
+                                       <a th:href="@{'/updateForm/' + ${announce.anNo} }" class="btn btn-sm btn-success"><i
+                                               class="bi bi-pencil-fill"></i></a>
 
-                                        <button class="btn btn-sm btn-danger"
-                                                th:onclick="deleteajax([[${abdog.abid}]])" type="button"
-                                                id="deleteajax"><i class="bi bi-trash-fill"></i>
-                                        </button>
+                                       <button class="btn btn-sm btn-danger"
+                                               th:onclick="deleteajax([[${announce.anNo}]])" type="button"
+                                               id="deleteajax"><i class="bi bi-trash-fill"></i>
+                                       </button>
+
                                     </td>
                                 </tr>
                                 </tbody>
@@ -92,7 +87,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- content-wrapper ends -->
             <!-- partial:partials/_footer.jsp -->
             <div th:include="BackEnd/includes/footer :: footer"></div>
@@ -113,11 +107,11 @@
 <!-- 寫自己的Js -->
 <script>
 
-    function deleteajax(abid) {
-        console.log(abid);
+    function deleteajax(anNo) {
+        console.log(anNo);
         Swal.fire({
-            title: '請問是否要刪除寵物表單?',
-            text: "已刪除的資料無法復原，請再次確認",
+            title: '請問是否要刪除此公告?',
+            text: "已刪除的公告無法復原，請再次確認",
             icon: 'warning',
             showCancelButton: true,
             cancelButtonText: '取消',
@@ -128,12 +122,12 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "get",
-                    url: "/Lung/abdelete/" + abid,
+                    url: "/Lung/delete/" + anNo,
 
                     success: function (msg) {
                         Swal.fire(
                             '已刪除!',
-                            '資料已成功刪除!',
+                            '公告已成功刪除!',
                             'success'
                         ).then((result) => {
                             if (result.isConfirmed) {
