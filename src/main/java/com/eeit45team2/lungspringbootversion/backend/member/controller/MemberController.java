@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
 import javax.sql.rowset.serial.SerialBlob;
@@ -23,8 +24,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/Backendmember")
 public class MemberController {
-	
-
 	@Autowired
 	private MemberService memberService;
 	@Autowired
@@ -47,7 +46,7 @@ public class MemberController {
 		}
 		memberBeans.remove(0);  // 不顯示default user
 		model.addAttribute("members", memberBeans);
-		return "Backendmember/member";
+		return "Backendmember/backmember";
 	}
 
 	@GetMapping("/showForm")  // 顯示新增表單
@@ -64,21 +63,22 @@ public class MemberController {
 		
 		MemberBean memberBean1 = saveHeadshotInDB(memberBean,isInsert);  // 取得MultipartFile，把圖片以BLOB型態塞進DB //setImage( )
 		saveHeadshotInLocal(memberBean1,isInsert);  // 把圖片塞到本機 && setLocalfileName()
-		memberService.saveMember(memberBean1);  // 塞進DB後才產生mi_no
+		memberService.save(memberBean1);  // 塞進DB後才產生mi_no
 		
 		return "redirect:/Backendmember/memberlist";  // 重導到查詢頁面 //redirect不帶資料
 	}
 
-	@GetMapping("/updateForm")  // 顯示更新頁面
-	public String showFormForUpdate(@RequestParam("memberID") Integer mi_no, Model model) {
+	@GetMapping("/updateForm/{mi_no}")  // 顯示更新頁面
+	public ModelAndView showFormForUpdate(@PathVariable Long mi_no) {
+		ModelAndView mav = new ModelAndView("Backendmember/memberEditForm");//指向memberEditForm.html
 		MemberBean memberBean = memberService.findById(mi_no);
-		model.addAttribute("member", memberBean);
-		return "Backendmember/memberEditForm";
+		mav.addObject("member", memberBean);
+		return mav;
 	}
 	
-	@GetMapping("/delete")  //刪除
-	public String deleteMember(@RequestParam("memberID") Integer mi_no) {
-		memberService.deleteMember(mi_no);
+	@GetMapping("/delete/{mi_no}")  //刪除
+	public String deleteMember(@PathVariable Long mi_no) {
+		memberService.delete(mi_no);
 		return "redirect:/Backendmember/memberlist";
 	}
 	
@@ -87,7 +87,7 @@ public class MemberController {
 	
 	// 讓「查詢頁面」可以取得db中的BLOB圖片欄
 	@GetMapping("/picture/{mi_no}")
-	public ResponseEntity<byte[]> getPicture(@PathVariable("mi_no") Integer mi_no) {
+	public ResponseEntity<byte[]> getPicture(@PathVariable("mi_no") Long mi_no) {
 		byte[] body = null;
 		ResponseEntity<byte[]> responseEntity = null;
 		MediaType mediaType = null;
