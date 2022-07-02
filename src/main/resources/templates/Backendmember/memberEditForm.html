@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>會員密碼</label>
-                                    <input th:field="*{mi_password}" type="password" class="form-control"
+                                    <input th:field="*{mi_password}" type="text" class="form-control"
                                            id="mi_password" autocomplete="off"/>
                                 </div>
                                 <div class="form-group">
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>會員生日</label>
-                                    <input th:field="*{mi_birth}" type="Date" class="form-control" id="mi_birth"
+                                    <input th:field="*{mi_birth}" type="date" class="form-control" id="mi_birth"
                                            max="3000-12-31" autocomplete="off" maxlength="10"/>
                                 </div>
                                 <div class="form-group">
@@ -128,7 +128,7 @@
 
 
     function cancel(){
-        window.location.href = "./memberlist"
+        window.location.href = "../memberlist"
     }
 
     function add(){
