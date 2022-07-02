@@ -37,7 +37,7 @@ public class MemberController {
 		this.ctx = ctx;
 	}
 
-	
+	/* 匯入CSV時把專案下的圖片set到DB，查詢會員頁面時再把DB的圖片抓到畚箕Server下  */
 	@GetMapping("/memberlist")  // 查詢(用GET)
 	public String listMembers(Model model) {
 		List<MemberBean> memberBeans = memberService.findAll();
@@ -58,6 +58,7 @@ public class MemberController {
 
 	@PostMapping(value ="/saveMember")  // 新增或更新
 	public String saveMember(@ModelAttribute("member") MemberBean memberBean) {
+		System.out.println(" > getMi_birth: " + (memberBean.getMi_birth()==null));
 		System.out.println(" > getImage: " + (memberBean.getImage()==null));
 		Boolean isInsert = (memberBean.getMi_no() ==null); // 判斷是否為insert
 		

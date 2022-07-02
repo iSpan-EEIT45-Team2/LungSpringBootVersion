@@ -40,14 +40,14 @@
                                   method="post"
                                   th:object="${member}" enctype='multipart/form-data'>
                                 <div class="form-group">
-                                    <img id="blah" src="<c:url value='/Backendmember/picture/${member.mi_no}'/>" style="display:block;width: 180px; height: 180px; margin:20px auto;border:2px solid #c0c3c4;border-radius:50%;background-color:#ebeff2;" />
+                                    <img id="blah" th:src="@{'/Backendmember/picture/' + ${member.mi_no} }" style="display:block;width: 180px; height: 180px; margin:20px auto;border:2px solid #c0c3c4;border-radius:50%;background-color:#ebeff2;" />
                                     <label>會員大頭貼</label>
                                     <input th:field="*{productImage}" type='file' class="form-control" id="mi_headshot" onchange="previewHeadshot(event)" accept="image/*"/>
                                 </div>
                                 <input type="hidden" th:field="*{mi_no}">
                                 <div class="form-group">
                                     <label>會員編號</label>
-                                    <input type="text" class="form-control" value="<c:out value='${member.mi_no}'/>" disabled/>
+                                    <input type="text" class="form-control" th:field="*{mi_no}" disabled/>
                                 </div>
                                 <div class="form-group">
                                     <label>會員帳號</label>
