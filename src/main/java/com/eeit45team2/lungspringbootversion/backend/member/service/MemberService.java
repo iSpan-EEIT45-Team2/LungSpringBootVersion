@@ -10,12 +10,14 @@ public interface MemberService {
 	public List<MemberBean> findAll();
 	
 	//save
-	public void saveMember(MemberBean theMemberBean);
+	public void save(MemberBean theMemberBean);
 	
-	//getOrder
-	public MemberBean findById(Integer mi_no);
+	//findById
+	public MemberBean findById(Long mi_no);
 	
 	//delete
-	public void deleteMember(Integer mi_no);
+	public void delete(Long mi_no);
+
+	public void testDelete(String mi_no);
 	
 }

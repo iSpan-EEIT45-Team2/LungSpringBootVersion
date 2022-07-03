@@ -24,7 +24,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //	}
 @Override
 public void addResourceHandlers(ResourceHandlerRegistry registry) {
+<<<<<<< HEAD
     registry.addResourceHandler("/image/**","/image3/**").addResourceLocations("file:src/main/resources/static/BackEnd/images/animal/"
             ,"file:src/main/resources/static/BackEnd/images/activity/");
     }
 }
+=======
+    //registry.addResourceHandler("/image/**").addResourceLocations("file:user-photos/");
+    registry.addResourceHandler("/image/**").addResourceLocations("file:src/main/resources/static/BackEnd/images/animal/");
+    //path name                            //real path date.jpg
+}
+}
+>>>>>>> fefb37cc038d1a582a32438edaf98c614c77ae42
