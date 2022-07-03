@@ -1,6 +1,7 @@
 package com.eeit45team2.lungspringbootversion.backend.springmvc.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -21,5 +22,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //		registry.addRedirectViewController("/", "loginmain");
 ////		registry.addRedirectViewController("/logout", "logoutmain");
 //	}
-
+@Override
+public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/image/**","/image3/**").addResourceLocations("file:src/main/resources/static/BackEnd/images/animal/"
+            ,"file:src/main/resources/static/BackEnd/images/activity/");
+    }
 }
