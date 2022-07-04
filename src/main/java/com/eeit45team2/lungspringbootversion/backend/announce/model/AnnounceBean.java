@@ -1,5 +1,7 @@
 package com.eeit45team2.lungspringbootversion.backend.announce.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,6 +15,9 @@ public class AnnounceBean {
 	String anContent;
 	String anType;
 	String anEditor;
+//	Date anDate;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	Date anDate;
 
 
