@@ -157,9 +157,10 @@
             text: "您將修改一筆公告",
             icon: 'warning',
             showCancelButton: true,
+            confirmButtonText: '確認!',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: '新增!'
+            cancelButtonText: '取消!'
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire(
