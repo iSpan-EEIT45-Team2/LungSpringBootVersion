@@ -17,7 +17,6 @@ public class AnnounceServiceImpl implements AnnounceService {
     private AnnouncerRepository announcerRepository;
 
     @Override
-
     public List<AnnounceBean> findAll() {
         return announcerRepository.findAll();
     }
@@ -38,9 +37,9 @@ public class AnnounceServiceImpl implements AnnounceService {
         announcerRepository.deleteById(anNo);
     }
 
-//    @Override
-//    public void testDelete(String  anNo) {
-//        Long id = Long.valueOf( anNo);
-//        announcerRepository.deleteById(id);
-//    }
+    @Override
+    public void testDelete(String  anNo) {
+        Long id = Long.valueOf( anNo);
+        announcerRepository.deleteById(id);
+    }
 }

@@ -19,5 +19,9 @@ public interface MemberService {
 	public void delete(Long mi_no);
 
 	public void testDelete(String mi_no);
+
+	public Boolean existsByMiAccount(String miAccount);
+
+	public MemberBean findByMiAccount(String miAccount);
 	
 }

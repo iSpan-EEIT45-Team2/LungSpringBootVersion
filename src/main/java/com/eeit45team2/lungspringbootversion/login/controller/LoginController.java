@@ -13,9 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.login.service.LoginService;
@@ -28,14 +26,20 @@ public class LoginController {
 	private LoginService loginService;
 
 	
-	@RequestMapping(path = "/loginmain" , method = RequestMethod.GET)
+	@RequestMapping(path = "/loginPage" , method = RequestMethod.GET)
 	public String processMainAction() {
 		return "login";
 	}
-	
+
+
+	@RequestMapping(path = "/loginPage-error" , method=RequestMethod.GET)
+	public String loginError(Model model) {
+		model.addAttribute("errormsg", "請輸入正確的帳號和密碼");
+		return "login";
+	}
 
 	
-	@RequestMapping(path = "/LungIndex.controller" , method=RequestMethod.POST)
+	@RequestMapping(path = "/indexPage" , method=RequestMethod.POST)
 	public String checkLogin(@RequestParam("loginAccount") String username , @RequestParam("loginPassword") String pwd , Model m) {
 		Map<String, String> errors = new HashMap<String, String>();
 		m.addAttribute("errors", errors);
@@ -52,9 +56,9 @@ public class LoginController {
 			return "login";
 		}
 		
-		boolean CheckLogBoolean = loginService.checkLogin(new MemberBean(username,pwd));
+		MemberBean memberexisted = loginService.findByMiAccountAndMiPassword(username, pwd);
 		
-		if(CheckLogBoolean) {
+		if(memberexisted !=null) {
 			m.addAttribute("user", username);
 			m.addAttribute("pwd", pwd);
 			return "index";  // 導到首頁

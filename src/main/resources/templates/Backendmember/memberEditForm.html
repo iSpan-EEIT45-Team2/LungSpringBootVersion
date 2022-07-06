@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>
 <head>
     <div th:include="BackEnd/includes/head :: head"></div>
     <meta charset="UTF-8">
-    <title>Lung-Hi Peace會員管理系統</title>
+    <title>LungHi Peace會員管理系統</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="@{/BackEnd/css/memberForm.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <!-- _navbar -->
@@ -32,6 +35,27 @@
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="row">
+                <!-- 上排按鈕 -->
+                <div class="d-sm-flex justify-content-between align-items-center  border-bottom">
+                    <!-- 拿掉justify-content-between，讓按鈕自動靠左 -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <!-- 這邊是空的用來排版 -->
+                    </ul>
+                    <div>
+                        <div class="btn-wrapper">
+                            <button type="button" id="backbutton" class="btn btn-sm btn-outline-primary btn-fw"
+                                    onclick="cancel()"><i
+                                    class="fa-solid fa-circle-arrow-left"></i> 返回
+                            </button>
+                            <button type="button" id="oneClickEnter"
+                                    class="btn btn-sm btn-outline-primary btn-fw"><i
+                                    class="fa-solid fa-check"></i>一鍵輸入
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of 上排按鈕 -->
+                <div style="margin:10px 0"></div>
                 <div class="col-md-6 grid-margin stretch-card container">
                     <div class="card">
                         <div class="card-body">
@@ -50,49 +74,96 @@
                                     <input type="text" class="form-control" th:field="*{mi_no}" disabled/>
                                 </div>
                                 <div class="form-group">
+                                    <label>會員權限</label>
+                                    <select th:field="*{type}" id="type"
+                                            class="js-example-basic-single w-100">
+                                        <option value="ADMIN">ADMIN</option>
+                                        <option value="USER">USER</option>
+                                    </select>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
                                     <label>會員帳號</label>
-                                    <input th:field="*{mi_account}" type="text" class="form-control" id="mi_account"
+                                    <input th:field="*{miAccount}" type="text" class="form-control" id="mi_account"
                                            autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small id='result0c'>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員密碼</label>
-                                    <input th:field="*{mi_password}" type="text" class="form-control"
+                                    <input th:field="*{miPassword}" type="text" class="form-control"
                                            id="mi_password" autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small id='result0c'>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員姓名</label>
                                     <input th:field="*{mi_name}" type="text" class="form-control" id="mi_name"
                                            autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small id='result0c'>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員身分證</label>
                                     <input th:field="*{mi_id}" type="text" class="form-control" id="mi_id"
                                            maxlength="10" autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small id='result0c'>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員生日</label>
                                     <input th:field="*{mi_birth}" type="date" class="form-control" id="mi_birth"
                                            max="3000-12-31" autocomplete="off" maxlength="10"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small id='result0c'>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員電話</label>
                                     <input th:field="*{mi_phone}" type="text" class="form-control" id="mi_phone"
                                            onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="10"
                                            autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small id='result0c'>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員Email</label>
                                     <input th:field="*{mi_email}" type="text" class="form-control" id="mi_email"
                                            autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small id='result0c'>Error message</small>
                                 </div>
                                 <div class="form-group">
-                                    <label>會員地址</label>
-                                    <input th:field="*{mi_address}" type="text" class="form-control" id="mi_address"
-                                           onblur="print()" autocomplete="off"/>
+                                    <div id="label_addtess">
+                                        <label for="mi_address">地址api</label>
+                                    </div>
+                                    <div id="div_select" class="js-demeter-tw-zipcode-selector" data-city="#city3" data-dist="#dist3">
+                                        <select autofocus onchange="plusAddress()" id="city3" name="city"  placeholder="縣市" ></select>
+                                        <select autofocus onchange="plusAddress()" id="dist3" name="location" placeholder="鄉鎮市區"></select>
+                                    </div>
+                                    <div id="div_address" style="margin: 5px 0;">
+                                        <input autofocus oninput="plusAddress()" th:field="*{mi_address}" name="mi_address" id="mi_address" type="text"  placeholder="請輸入詳細地址，例如:街道名稱、門牌號" class="form-control" >
+                                    </div>
+                                    <i style="top:76px;" class="fas fa-check-circle"></i>
+                                    <i style="top:76px;" class="fas fa-exclamation-circle"></i>
+                                    <small style="top:100px;">Error message</small>
                                 </div>
-                                <button type="button" class="btn btn-inverse-warning btn-fw btn-icon-text" onclick="cancel()"><i class="fa-solid fa-circle-arrow-left"></i> 返回</button>
-                                <button type="reset" class="btn btn-inverse-warning btn-fw btn-icon-text"><i class="fa-solid fa-eraser"></i>清除輸入</button>
-                                <button type="button" class="btn btn-inverse-warning btn-fw btn-icon-text" onclick="add();"><i class="fa-solid fa-check"></i>送出</button>
+                                <div style="margin:20px 0 ;">
+                                    <button id="form_button_reset" type="reset" class="btn btn-md btn-outline-primary btn-fw">
+                                        <i class="fa-solid fa-eraser"></i>清除輸入
+                                    </button>
+                                    <button id="form_button_submit" type="submit" class="btn btn-md btn-outline-primary btn-fw">
+                                        <i class="fa-solid fa-check"></i>送出
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -108,8 +179,20 @@
 
 <!-- Js匯入 -->
 <div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
+<!-- 引用Zipcode -->
+<script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
+<script type='text/javascript' class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#location" /></script>
+<!-- fontawesome-->
 <script src="https://kit.fontawesome.com/ae6733f6ec.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
+
+    $("#zipcode3").twzipcode({
+        "zipcodeIntoDistrict": false,
+        'countySel': '臺北市',
+        'districtSel': '大安區',
+        'zipcodeSel': '114',
+        'readonly': false
+    });
 
     // 顯示選取的照片
     function previewHeadshot(event) {

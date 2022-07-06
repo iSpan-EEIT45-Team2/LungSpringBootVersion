@@ -59,8 +59,8 @@
                                     <th>本機照片</th>
                                     <th>會員帳號</th>
                                     <th>會員密碼</th>
+<!--                                    <th>會員權限</th>-->
                                     <th>會員姓名</th>
-                                    <th>會員身分證</th>
                                     <th>會員生日</th>
                                     <!-- 											<th>會員電話</th> -->
                                     <!-- 											<th>會員Email</th> -->
@@ -73,10 +73,10 @@
                                 <tr th:each="member : ${members}">
                                     <td th:text="${member.mi_no}"/>
                                     <td><img th:src="@{'/Backendmember/picture/' + ${member.mi_no} }" /></td>
-                                    <td th:text="${member.mi_account}"/>
-                                    <td th:text="${member.mi_password}"/>
+                                    <td th:text="${member.miAccount}"/>
+                                    <td th:text="${member.miPassword}"/>
+<!--                                    <td th:text="${member.TYPE}"/>-->
                                     <td th:text="${member.mi_name}"/>
-                                    <td th:text="${member.mi_id}"/>
                                     <td th:text="${member.mi_birth}"/>
                                     <td>
                                         <a th:href="@{'/Backendmember/updateForm/' + ${member.mi_no} }"
