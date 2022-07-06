@@ -3,14 +3,7 @@ package com.eeit45team2.lungspringbootversion.backend.member.model;
 import java.sql.Blob;
 import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -50,24 +43,28 @@ public class MemberBean {
 	@Column(columnDefinition = "NVARCHAR(100) NOT NULL")
 	String mi_address;  // 會員地址
 	
-	@Column(columnDefinition = "NVARCHAR(50) NOT NULL")
-	String mi_account;  // 會員帳號 //UK
+	@Column(name="mi_account" , columnDefinition = "NVARCHAR(100) NOT NULL")
+	String miAccount;  // 會員帳號 //UK
 	
-	@Column(columnDefinition = "NVARCHAR(50) NOT NULL")
-	String mi_password;  // 會員密碼
+	@Column(name="mi_password" ,columnDefinition = "NVARCHAR(500) NOT NULL")
+	String miPassword;  // 會員密碼
 	
 	
 	String localfileName;
-	
+
+	@Lob
 	Blob image;
 	
 	@Transient
 	MultipartFile productImage;
-	
-	
+
+	@Column(name="TYPE", length=15, nullable=false)
+	private String type = UserAuthority.USER.getUserAuthority();
+
+
 	//All Constructor  //9個欄位
 	public MemberBean(Long mi_no, String mi_name, String mi_id, Date mi_birth, String mi_phone, String mi_email,
-			String mi_address, String mi_account, String mi_password) {
+			String mi_address, String miAccount, String miPassword) {
 		super();
 		this.mi_no = mi_no;
 		this.mi_name = mi_name;
@@ -76,13 +73,13 @@ public class MemberBean {
 		this.mi_phone = mi_phone;
 		this.mi_email = mi_email;
 		this.mi_address = mi_address;
-		this.mi_account = mi_account;
-		this.mi_password = mi_password;
+		this.miAccount = miAccount;
+		this.miPassword = miPassword;
 	}
 	
 	//Constructor without mi_no  //8個欄位
 	public MemberBean(String mi_name, String mi_id, Date mi_birth, String mi_phone, String mi_email, String mi_address,
-			String mi_account, String mi_password) {
+			String miAccount, String miPassword) {
 		super();
 		this.mi_name = mi_name;
 		this.mi_id = mi_id;
@@ -90,15 +87,15 @@ public class MemberBean {
 		this.mi_phone = mi_phone;
 		this.mi_email = mi_email;
 		this.mi_address = mi_address;
-		this.mi_account = mi_account;
-		this.mi_password = mi_password;
+		this.miAccount = miAccount;
+		this.miPassword = miPassword;
 	}
 	
 	// Constructor with account and password
-	public MemberBean(String mi_account, String mi_password) {
+	public MemberBean(String miAccount, String miPassword) {
 		super();
-		this.mi_account = mi_account;
-		this.mi_password = mi_password;
+		this.miAccount = miAccount;
+		this.miPassword = miPassword;
 	}
 
 	public MemberBean(Long mi_no) {
