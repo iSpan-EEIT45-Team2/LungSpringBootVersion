@@ -1,48 +1,43 @@
-package com.eeit45team2.lungspringbootversion.backend.order.service.impl;
+package com.eeit45team2.lungspringbootversion.backend.product.service.impl;
 
-import com.eeit45team2.lungspringbootversion.backend.order.model.OrderBean;
-import com.eeit45team2.lungspringbootversion.backend.order.repository.OrderRepository;
-import com.eeit45team2.lungspringbootversion.backend.order.service.OrderService;
+import com.eeit45team2.lungspringbootversion.backend.product.model.ProductBean;
+import com.eeit45team2.lungspringbootversion.backend.product.repository.ProductRepository;
+import com.eeit45team2.lungspringbootversion.backend.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
 @Service
 @Transactional
-public class OrderServiceImpl implements OrderService {
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private ProductRepository productRepository;
 
     @Override
 
-    public List<OrderBean> findAll() {
-        return orderRepository.findAll();
+    public List<ProductBean> findAll() {
+        return productRepository.findAll();
     }
 
     @Override
-    public void save(OrderBean theOrderBean) {
-        orderRepository.save(theOrderBean);
+    public void save(ProductBean theProductBean) {
+        productRepository.save(theProductBean);
     }
 
     @Override
-    public OrderBean FindById(Long od_id) {
-        return orderRepository.findById(od_id).get();
+    public ProductBean FindById(Long pd_id) {
+        return productRepository.findById(pd_id).get();
         //找到這筆資料回傳,Update方法
     }
 
     @Override
-    public void delete(Long od_id) {
-        orderRepository.deleteById(od_id);
+    public void delete(Long pd_id) {
+        productRepository.deleteById(pd_id);
     }
 
-    @Override
-    public void testDelete(String od_id) {
-        Long id = Long.valueOf(od_id);
-        orderRepository.deleteById(id);
-
-    }
 
 }
