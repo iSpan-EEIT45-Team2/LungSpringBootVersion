@@ -6,7 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "ANNOUNCE_Table")
@@ -22,7 +23,7 @@ public class AnnounceBean {
 	String anType;
 	String anEditor;
 
-
+	@Column(columnDefinition = "DATE")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	Date anDate;
 

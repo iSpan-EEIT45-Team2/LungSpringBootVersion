@@ -17,7 +17,6 @@ public class AnnounceServiceImpl implements AnnounceService {
     private AnnouncerRepository announcerRepository;
 
     @Override
-
     public List<AnnounceBean> findAll() {
         return announcerRepository.findAll();
     }
