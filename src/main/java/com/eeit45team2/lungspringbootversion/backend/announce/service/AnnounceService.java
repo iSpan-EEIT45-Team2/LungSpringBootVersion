@@ -17,5 +17,6 @@ public interface AnnounceService {
 		
 		//delete
 		public void delete(Long anNo);
-	
+
+	public void testDelete(String anNo);
 }

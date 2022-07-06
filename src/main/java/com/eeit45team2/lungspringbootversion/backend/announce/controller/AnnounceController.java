@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/Backendannounce")
+//RequestMapping("/Backendannounce")
 public class AnnounceController {
 
 	@Autowired
