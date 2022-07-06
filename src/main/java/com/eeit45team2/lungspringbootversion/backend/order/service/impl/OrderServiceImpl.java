@@ -38,4 +38,11 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.deleteById(od_id);
     }
 
+    @Override
+    public void testDelete(String od_id) {
+        Long id = Long.valueOf(od_id);
+        orderRepository.deleteById(id);
+
+    }
+
 }
