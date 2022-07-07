@@ -45,14 +45,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label>活動照片</label>
-                                    <input type="file" name="image" class="form-control" id="localfileName"/>
+                                    <img id="blah" th:src="@{/BackEnd/images/memberHeadshot/defaultHeadshot.jpg}"
+                                         style="display:block;width: 50%"/>
+                                    <input type="file" name="image" class="form-control" id="localfileName" onchange="previewHeadshot(event)" />
                                 </div>
                                 <div class="form-group">
                                     <label>活動時間</label>
                                     <input type="date" th:field="*{ac_date}" class="form-control" id="ac_date"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>參加對象</label>
+                                    <label>活動簡介</label>
                                     <input type="text" th:field="*{ac_participant}" class="form-control" id="ac_participant"/>
                                 </div>
                                 <div class="form-group">
@@ -78,7 +80,8 @@
                                 <button type="button" class="btn btn-warning me-2" onclick="add();"><i
                                         class="bi bi-send"></i>送出
                                 </button>
-                                <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>
+                                <button type="button" class="btn btn-light"><a class="nav-link" th:href="@{/activitylist}">Cancel</a></button>
+<!--                                <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>-->
                             </form>
                         </div>
                     </div>
@@ -95,6 +98,22 @@
 <!-- Js匯入 -->
 <div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
 <script type="text/javascript">
+
+    // 顯示選取的照片
+    function previewHeadshot(event) {
+        /*
+        files = ['src']
+        法一:
+            const file = files[0] -> file = 'src'
+        法二:
+            const [file] = files -> file = 'src'
+        */
+        const [file] = document.getElementById("localfileName").files
+        if (file) {
+            document.getElementById("blah").src = URL.createObjectURL(file)
+        }
+    }
+
     function cancel() {
         window.location.href = "./activitylist"
     }

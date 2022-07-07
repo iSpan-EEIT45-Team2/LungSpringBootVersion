@@ -1,5 +1,9 @@
 package com.eeit45team2.lungspringbootversion.backend.activity.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,8 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 // 本類別存放訂單資料
 import javax.persistence.UniqueConstraint;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
-@Table(name="MemberActivity", 
+@Getter
+@Setter
+@ToString
+@Table(name="MemberActivity",
 uniqueConstraints = { @UniqueConstraint(columnNames = {"ac_id","mi_no"}) })
 public class MemberActivityBean {
 	@Id
@@ -16,15 +26,25 @@ public class MemberActivityBean {
 	Integer orderNo;
 	Integer mi_no;
 	Integer ac_id;
-	
-	
-	
+	LocalDateTime date;
+
+
+
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+
 	public MemberActivityBean(Integer orderNo, Integer mi_no, Integer ac_id) {
 		super();
 		this.orderNo = orderNo;
 		this.mi_no = mi_no;
 		this.ac_id = ac_id;
 	}
+
+	public MemberActivityBean() {
+
+	}
+
 	public Integer getOrderNo() {
 		return orderNo;
 	}

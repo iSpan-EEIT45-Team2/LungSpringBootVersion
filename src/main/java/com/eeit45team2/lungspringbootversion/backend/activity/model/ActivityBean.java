@@ -25,7 +25,7 @@ public class ActivityBean {
 	@Column(columnDefinition = "DATE NOT NULL")
 	Date ac_date;
 
-	@Column(columnDefinition = "NVARCHAR(20) NOT NULL")
+	@Column(columnDefinition = "NVARCHAR(200) NOT NULL")
 	String ac_participant;
 
 	@Column(columnDefinition = "NVARCHAR(50) NOT NULL")
@@ -61,8 +61,21 @@ public class ActivityBean {
 	public ActivityBean() {
 	}
 
+	public ActivityBean(String ac_name, Date ac_date, String ac_participant, String ac_venue, Integer ac_quota, Integer ac_waitlist_quota, Integer ac_fee, String ac_organizer, String localFileName, MultipartFile productImage) {
+		this.ac_name = ac_name;
+		this.ac_date = ac_date;
+		this.ac_participant = ac_participant;
+		this.ac_venue = ac_venue;
+		this.ac_quota = ac_quota;
+		this.ac_waitlist_quota = ac_waitlist_quota;
+		this.ac_fee = ac_fee;
+		this.ac_organizer = ac_organizer;
+		this.localFileName = localFileName;
+		this.productImage = productImage;
+	}
+
 	public ActivityBean(String ac_name, Date ac_date, String ac_participant, String ac_venue, Integer ac_quota,
-			Integer ac_waitlist_quota, Integer ac_fee, String ac_organizer) {
+						Integer ac_waitlist_quota, Integer ac_fee, String ac_organizer) {
 		super();
 		this.ac_name = ac_name;
 //		this.ac_image = ac_image;
