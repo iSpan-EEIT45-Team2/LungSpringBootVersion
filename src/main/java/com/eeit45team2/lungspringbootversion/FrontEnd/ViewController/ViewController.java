@@ -12,4 +12,9 @@ public class ViewController {
     public String index() {
         return "FrontEnd/FrontIndex";
     }
+
+    @GetMapping("/products")
+    public String shop() {
+        return "FrontEnd/Shop/shop";
+    }
 }

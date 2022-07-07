@@ -18,19 +18,19 @@ function clearInputError(inputElement) {
 
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.querySelector("#login");
-    const createAccountForm = document.querySelector("#createAccount");
+    // const createAccountForm = document.querySelector("#createAccount");
 
-    document.querySelector("#linkCreateAccount").addEventListener("click", e => {
-        e.preventDefault();
-        loginForm.classList.add("form--hidden");
-        createAccountForm.classList.remove("form--hidden");
-    });
+    // document.querySelector("#linkCreateAccount").addEventListener("click", e => {
+    //     e.preventDefault();
+    //     loginForm.classList.add("form--hidden");
+    //     createAccountForm.classList.remove("form--hidden");
+    // });
 
-    document.querySelector("#linkLogin").addEventListener("click", e => {
-        e.preventDefault();
-        loginForm.classList.remove("form--hidden");
-        createAccountForm.classList.add("form--hidden");
-    });
+    // document.querySelector("#linkLogin").addEventListener("click", e => {
+    //     e.preventDefault();
+    //     loginForm.classList.remove("form--hidden");
+    //     createAccountForm.classList.add("form--hidden");
+    // });
 
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
@@ -40,15 +40,15 @@ document.addEventListener("DOMContentLoaded", () => {
         setFormMessage(loginForm, "error", "Invalid username/password combination");
     });
 
-    document.querySelectorAll(".form__input").forEach(inputElement => {
-        inputElement.addEventListener("blur", e => {
-            if (e.target.id === "signupUsername" && e.target.value.length > 20) {
-                setInputError(inputElement, "Username不能超過20位");
-            }
-        });
-
-        inputElement.addEventListener("input", e => {
-            clearInputError(inputElement);
-        });
-    });
+    // document.querySelectorAll(".form__input").forEach(inputElement => {
+    //     inputElement.addEventListener("blur", e => {
+    //         if (e.target.id === "signupUsername" && e.target.value.length > 20) {
+    //             setInputError(inputElement, "Username不能超過20位");
+    //         }
+    //     });
+    //
+    //     inputElement.addEventListener("input", e => {
+    //         clearInputError(inputElement);
+    //     });
+    // });
 });

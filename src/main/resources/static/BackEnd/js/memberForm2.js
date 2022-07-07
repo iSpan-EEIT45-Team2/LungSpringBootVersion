@@ -9,7 +9,11 @@ const mi_id = document.getElementById('mi_id');
 const mi_birth = document.getElementById('mi_birth');
 const mi_phone = document.getElementById('mi_phone');
 const mi_email = document.getElementById('mi_email');
+const city3 = document.getElementById('city3');
+const dist3 = document.getElementById('dist3');
 const mi_address = document.getElementById('mi_address');
+const type = document.getElementById('type');
+
 
 // trim to remove the whitespaces
 const mi_accountValue = mi_account.value.trim();
@@ -22,10 +26,13 @@ const mi_emailValue = mi_email.value.trim();
 const mi_addressValue = mi_address.value.trim();
 
 
+
+
 /*送出資料*/
 form_button_submit.addEventListener('click', e => {
 	e.preventDefault();
 	if(!checkInputsError()){
+		mi_address.value = city3.value.trim() + dist3.value.trim() + mi_address.value.trim();
 		form.submit(); /* 如果沒有error，就執行送出*/
 	}
 });
@@ -42,34 +49,108 @@ const isFalse = (element) => element === false;
 
 function checkInputsError() {
 	let checkSuccess;
-	
-	checkSuccess = [oninputCheckAccount(),
+
+	checkSuccess = [onblurCheckAccount(),
 					oninputCheckPassword(),
 					oninputCheckName(),
 					oninputCheckId(),
 					oninputCheckBirth(),
 					oninputCheckPhone(),
 					oninputCheckEmail(),
-					oninputCheckAddress()]
+					plusAddress()]
 	console.log(checkSuccess);
 	return checkSuccess.some(isFalse);  /*翻譯: 陣列中有沒有false?*/
 	// some 裡面放方法, 會把 array(eg.checkSuccess) 裡面的東西一個一個放到 some 括號內的方法中
 	// array 中有任何滿足 some 中方法(eg.isFalse)的條件, some 就回傳 true(對，陣列中有false)
 }
 
- 
-//驗證帳號
-function verifyAccount(){
-	
+//轉換eye -> 顯示密碼
+const togglePassword = document.querySelector("#togglePassword");
+const password = document.querySelector("#mi_password");
+togglePassword.addEventListener('click', function() {
+	// 判斷password 還是text
+	const type = password.getAttribute('type') === 'password' ? 'text' : 'password';  //三元運算式，把抓到的type存回type
+	password.setAttribute('type', type);  //改變type
+	this.classList.toggle('fa-solid fa-eye-slash'); //轉換眼睛圖示
+	document.getElementById("mi_password").focus();
+});
+
+/* 測試 -> 地址加總 */
+function plusAddress(){
+	let city3V = document.getElementById('city3').value.trim();
+	let dist3V = document.getElementById('dist3').value.trim();
+	let mi_addressV = document.getElementById('mi_address').value.trim();
+//         document.getElementById('total_address').value = city3V + dist3V + mi_addressV;
+//         console.log(document.getElementById('total_address').value)
+	console.log('完整地址:' +city3V + dist3V + mi_addressV);
+
+	if(city3V === '') {
+		setErrorForAddress(mi_address, '縣市不能為空');
+		return false;
+		console.log('city3V為空');
+	} else if(dist3V === ''){
+		setErrorForAddress(mi_address, '鄉鎮市區不能為空');
+		return false;
+		console.log('dist3V為空');
+	} else if(mi_addressV === ''){
+		setErrorForAddress(mi_address, '詳細地址不能為空');
+		return false;
+		console.log('mi_addressV為空');
+	} else {
+		setSuccessForAddress(mi_address);
+		return true;
+		console.log('都不為空');
+	}
+
 }
 
-function oninputCheckAccount(){
+function setErrorForAddress(input, message){
+	const formGroup = input.parentElement.parentElement;
+	const small = formGroup.querySelector('small');
+	formGroup.className = 'form-group error';
+	small.innerText = message;
+}
+
+function setSuccessForAddress(input) {
+	const formGroup = input.parentElement.parentElement;
+	formGroup.className = 'form-group success';
+}
+
+
+
+
+
+//驗證帳號
+function verifyAccount(mi_accountValue){
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", "/Lung/Backendmember/CheckMemberAccount", false);
+	xhr.setRequestHeader("Content-Type",
+		"application/x-www-form-urlencoded");
+	xhr.send("accountToCheck=" + mi_accountValue);  //送出user輸入的值
+	let accountCanUse = false;
+	if (xhr.readyState === 4 && xhr.status === 200) {
+		console.log("第一步");
+		let result = JSON.parse(xhr.responseText);
+		console.log(result);
+		//帳號不存在就回傳true，帳號存在回傳false
+		accountCanUse = !result.accountExisted; //取key的方式，拿到 map 中的 value
+	}else if(xhr.status !== 200){
+		setErrorFor(mi_account, '錯誤訊息：Server Error! 請聯絡系統管理員。');
+		accountCanUse = false;
+	}
+	console.log('accountCanUse:' + accountCanUse)
+	return accountCanUse;
+}
+
+function onblurCheckAccount(){
 	//確認帳號
 	let mi_accountValue = mi_account.value.trim();
 	console.log(mi_accountValue); 
 	if(mi_accountValue === '') {
 		setErrorFor(mi_account, '帳號不能為空');
 		return false;
+	} else if(verifyAccount(mi_accountValue) === false){
+		setErrorFor(mi_account, '帳號重複，請重新輸入帳號');
 	} else {
 		setSuccessFor(mi_account);
 		return true;
@@ -230,59 +311,63 @@ function oninputCheckEmail(){
 	}
 } 
  
-function oninputCheckAddress(){
-	//確認地址
-	let mi_addressValue = mi_address.value.trim();
-	if(mi_addressValue === '') {
-		setErrorFor(mi_address, '地址不能為空');
-		return false;
-	} else {
-		setSuccessFor(mi_address);
-		return true;
-	}
-}
+// function onblurCheckAddress(){
+// 	//確認地址
+// 	let city3V = city3.value.trim();
+// 	let dist3V = dist3.value.trim();
+// 	let mi_addressV = mi_address.value.trim();
+// 	if( city3V === '' || dist3V === '' || mi_addressV === '') {
+// 		setErrorFor(mi_address, '地址不能為空');
+// 		return false;
+// 	} else {
+// 		setSuccessFor(mi_address);
+// 		return true;
+// 	}
+// }
  
 /* 塞錯誤訊息 */ 
 function setErrorFor(input, message) {
-	const formControl = input.parentElement;
-	const small = formControl.querySelector('small');
-	formControl.className = 'form-control error';
+	const formGroup = input.parentElement;
+	const small = formGroup.querySelector('small');
+	formGroup.className = 'form-group error';
 	small.innerText = message;
 }
 
 /* 塞正確訊息 */
 function setSuccessFor(input) {
-	const formControl = input.parentElement;
-	formControl.className = 'form-control success';
+	const formGroup = input.parentElement;
+	formGroup.className = 'form-group success';
 }
  
  /* 執行一鍵輸入*/
 function oneClickToEnter(){
 	/* 取消變顏色*/
-	let errorNodes = document.getElementsByClassName('form-control error');
-	let successNodes = document.getElementsByClassName('form-control success');
+	let errorNodes = document.getElementsByClassName('form-group error');
+	let successNodes = document.getElementsByClassName('form-group success');
 	for(let i = 0 ; i<errorNodes.length ; i++){
-		errorNodes[i].className = 'form-control'
+		errorNodes[i].className = 'form-group'
 	}
-	
 	for(let i = 0 ; i<successNodes.length ; i++){
-		successNodes[i].className = 'form-control'
+		successNodes[i].className = 'form-group'
 	}
-	
 	/*塞入值到input框*/
 	mi_account.value = randomAccount();
-	mi_password.value = 'Password1';
+	mi_password.value = randomPassword();
 	mi_name.value = randomName();
 	mi_id.value = randomId();
-	mi_birth.value = '1999-01-10';
+	mi_birth.value = randomBirth();
 	mi_phone.value = '0987993557';
 	mi_email.value = 'email@mail.com';
-	mi_address.value = '桃園市中壢區新生路二段421號';
+	city3.value = '臺北市';
+	// for (let i = 0; i < 50000000000; i++) {}
+	dist3.value = '大安區';
+	mi_address.value = '羅斯福路三段126之5號';
+	type.value = 'USER';
 	
 	/* 重新把success加上去 */
-	let nodes = document.getElementsByClassName('form-control');
+	let nodes = document.getElementsByClassName('form-group');
 	for(let i = 0 ; i<nodes.length ; i++){
-		nodes[i].className = 'form-control success'
+		nodes[i].className = 'form-group success'
 	}
 	
 }
@@ -296,6 +381,26 @@ function oneClickToEnter(){
 		let index = Math.floor(Math.random()*36);//取得隨機數的索引（0~35） 
 		code  += random[index];//根據索引取得隨機數加到code上 
 	} 
+	return code;
+}
+
+/*產生隨機帳號*/
+function randomPassword(){
+	let code="";
+	let codeLength = Math.floor(Math.random()*6)+5;//隨機產生驗證碼的長度0-5碼再加8 -> 產生5-10碼
+	let randomNumber = '0123456789';
+	let randomLower = 'abcdefghijklmnopqrstuvwxyz';
+	let randomUpper = randomLower.toUpperCase();
+	let randomAll = randomNumber + randomLower + randomUpper;
+
+	let resultNumber = randomNumber[Math.floor(Math.random()*10)]; //randomNumber[index]
+	let resultLower = randomLower[Math.floor(Math.random()*26)];  //randomLower[index]
+	let resultUpper = randomUpper[Math.floor(Math.random()*26)];  //randomUpper[index]
+
+	for(let i = 0; i < codeLength; i++  ) {//迴圈操作
+		code  += randomAll[Math.floor(Math.random()*62)]; //隨機從62位數中取得 //根據索引取得隨機數加到code上
+	}
+	code += resultNumber + resultLower + resultUpper;
 	return code;
 }
 
@@ -345,10 +450,31 @@ function randomId(){
     return id.join('');
 }
 
+/*隨機產生生日*/
+function randomBirth(){
+	let code="";
+	// 年
+	let randomYear = new Array('1971','1973','1975','1977','1979','1981','1983','1985','1987','1989',
+		'1991','1993','1995','1997','1999','2000','2001','2002','2003','2004','2005','2006','2007','2008',
+		'2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020');//隨機月份
+	let indexYear = Math.floor(Math.random()*35);//陣列中有35個數 //取得隨機數的索引（0-34）
+	code  += randomYear[indexYear];//根據索引取得隨機數加到code上
+	// 月
+	let randomMonth = new Array('01','02','03','04','05','06','07','08','09','10','11','12');//隨機月份
+	let indexMonth = Math.floor(Math.random()*12);//取得隨機數的索引（0-11）
+	code  += ("-" + randomMonth[indexMonth]);//根據索引取得隨機數加到code上
+	// 日
+	let randomDay = new Array('01','02','03','04','05','06','07','08','09','10','11','12',
+		'13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31');//隨機日期
+	let indexDay = Math.floor(Math.random()*31);//取得隨機數的索引（0-30）
+	code  += ( "-" + randomDay[indexDay]);//根據索引取得隨機數加到code上
+
+	return code;
+}
+
 
 
 //返回會員系統
-function back(){
-//		window.location.href = "<%=request.getContextPath()%>/MemberSysServlet?action"
- 		history.back()
-	}
+// function back(){
+//  		history.back()
+// 	}

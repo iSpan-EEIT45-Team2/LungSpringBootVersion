@@ -4,5 +4,5 @@ import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 
 public interface LoginService {
 
-	public boolean checkLogin(MemberBean member);
+	public MemberBean findByMiAccountAndMiPassword(String miAccount, String miPassword);
 }
