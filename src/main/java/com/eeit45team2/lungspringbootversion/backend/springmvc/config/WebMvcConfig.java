@@ -32,7 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //path name                            //real path date.jpg
         //       registry.addResourceHandler("productpicture/**").addResourceLocations("file:src/main/resources/static/FrontEnd/images/product/");
 
-        registry.addResourceHandler("image4/**").addResourceLocations("file:src/main/resources/static/BackEnd/images/product/");
+        registry.addResourceHandler("/image4/**").addResourceLocations("file:src/main/resources/static/BackEnd/images/product/");
 
         registry.addResourceHandler("/productImage/**").addResourceLocations("file:src/main/resources/static/FrontEnd/images/Product/");
         registry.addResourceHandler("/memberHeadshotDir/**").addResourceLocations("file:src/main/resources/static/BackEnd/images/memberHeadshot/");
