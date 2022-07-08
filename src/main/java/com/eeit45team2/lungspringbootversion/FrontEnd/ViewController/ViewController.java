@@ -17,4 +17,9 @@ public class ViewController {
     public String shop() {
         return "FrontEnd/Shop/shop";
     }
+
+    @GetMapping("/my-account-home")
+    public String myAccountHome() {
+        return "FrontEnd/member/my-account";
+    }
 }
