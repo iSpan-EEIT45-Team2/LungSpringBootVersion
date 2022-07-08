@@ -29,23 +29,30 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void save(MemberBean theMemberBean) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		theMemberBean.setMiPassword(passwordEncoder.encode(theMemberBean.getMiPassword())); //對密碼進行加密
+		if(theMemberBean.getMiNo()!=null){ //是修改時
+			String oldPassword = memberRepository.findById(theMemberBean.getMiNo()).get().getMiPassword();
+			if(!theMemberBean.getMiPassword().equals(oldPassword)){ //有修改密碼
+				theMemberBean.setMiPassword(passwordEncoder.encode(theMemberBean.getMiPassword())); //對密碼進行加密
+			}
+		}else{  //是新增時
+			theMemberBean.setMiPassword(passwordEncoder.encode(theMemberBean.getMiPassword())); //對密碼進行加密
+		}
 		memberRepository.save(theMemberBean);
 	}
 
 	@Override
-	public MemberBean findById(Long mi_no) {
-		return memberRepository.findById(mi_no).get();
+	public MemberBean findById(Long miNo) {
+		return memberRepository.findById(miNo).get();
 	}
 
 	@Override
-	public void delete(Long mi_no) {
-		memberRepository.deleteById(mi_no);
+	public void delete(Long miNo) {
+		memberRepository.deleteById(miNo);
 	}
 
 	@Override
-	public void testDelete(String mi_no) {
-		Long id = Long.valueOf(mi_no);
+	public void testDelete(String miNo) {
+		Long id = Long.valueOf(miNo);
 		memberRepository.deleteById(id);
 
 	}

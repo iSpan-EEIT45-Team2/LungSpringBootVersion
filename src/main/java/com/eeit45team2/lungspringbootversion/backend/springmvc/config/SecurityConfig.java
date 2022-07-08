@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .authorizeRequests()  //開始自訂授權規則
                 .anyRequest().permitAll()  // 第一次登入前都要先打開這個!! 然後建一個會員，才會拿到帳號和加密後的密碼!!
+                // 操作說明: 開啟anyRequest()，關閉下面所有的antMatchers()
 //                .antMatchers(HttpMethod.GET,"/loginPage**").permitAll()  //不限授權皆可進到登入
 //                .antMatchers(HttpMethod.GET,"/BackEnd/css/**").permitAll()
 //                .antMatchers(HttpMethod.GET,"/BackEnd/images/**").permitAll()
@@ -37,9 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                     .exceptionHandling().accessDeniedPage("/loginPage") //如果有權限錯誤時，重導到「/login」
                 .and()
-                    .logout().logoutSuccessUrl("/login?logout")
+                    .logout().logoutSuccessUrl("/loginPage")
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
                 .and()
-                    .csrf().disable(); //關閉對 CSRF（跨站請求偽造）攻擊的防護。這樣 Security 機制才不會拒絕外部直接對 API 發出的請求
+                .csrf().disable(); //關閉對 CSRF（跨站請求偽造）攻擊的防護。這樣 Security 機制才不會拒絕外部直接對 API 發出的請求
     }
 
     @Override

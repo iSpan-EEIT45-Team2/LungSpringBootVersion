@@ -67,7 +67,7 @@ public class MemberController {
 	public String saveMember(@ModelAttribute("member") MemberBean memberBean) {
 //		System.out.println(" > getMi_birth: " + (memberBean.getMi_birth()==null));
 //		System.out.println(" > getImage: " + (memberBean.getImage()==null));
-		Boolean isInsert = (memberBean.getMi_no() ==null); // 判斷是否為insert
+		Boolean isInsert = (memberBean.getMiNo() ==null); // 判斷是否為insert
 		
 		MemberBean memberBean1 = saveHeadshotInDB(memberBean,isInsert);  // 取得MultipartFile，把圖片以BLOB型態塞進DB //setImage( )
 		System.out.println("memberBean1的localfilename: " + memberBean1.getLocalfileName());
@@ -85,9 +85,9 @@ public class MemberController {
 		return mav;
 	}
 	
-	@GetMapping("/delete/{mi_no}")  //刪除
-	public String deleteMember(@PathVariable Long mi_no) {
-		memberService.delete(mi_no);
+	@GetMapping("/delete/{miNo}")  //刪除
+	public String deleteMember(@PathVariable Long miNo) {
+		memberService.delete(miNo);
 		return "redirect:/Backendmember/memberlist";
 	}
 
@@ -107,14 +107,14 @@ public class MemberController {
 
 	
 	// 讓「查詢頁面」可以取得圖片欄
-	@GetMapping("/picture/{mi_no}")
-	public ResponseEntity<byte[]> getPicture(@PathVariable("mi_no") Long mi_no) {
+	@GetMapping("/picture/{miNo}")
+	public ResponseEntity<byte[]> getPicture(@PathVariable("miNo") Long miNo) {
 		byte[] body = null;
 		ResponseEntity<byte[]> responseEntity = null;
 		MediaType mediaType = null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		MemberBean member = memberService.findById(mi_no);
+		MemberBean member = memberService.findById(miNo);
 
 		// 沒有會員資料
 		if(member == null) {
@@ -226,7 +226,8 @@ public class MemberController {
 			// 如果沒有上傳照片
 			if( !isInsert ) { // 是update時
 				try {
-					memberBean.setImage(memberService.findById(memberBean.getMi_no()).getImage());  // 找DB中的舊照片
+					memberBean.setImage(memberService.findById(memberBean.getMiNo()).getImage());  // 找DB中的舊照片
+					memberBean.setLocalfileName(memberService.findById(memberBean.getMiNo()).getLocalfileName());  // 找DB中的舊檔名
 					System.out.println(" > setImaget 成功");
 					return memberBean;
 				} catch (Exception e) {

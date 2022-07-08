@@ -13,12 +13,12 @@ public interface MemberService {
 	public void save(MemberBean theMemberBean);
 	
 	//findById
-	public MemberBean findById(Long mi_no);
+	public MemberBean findById(Long miNo);
 	
 	//delete
-	public void delete(Long mi_no);
+	public void delete(Long miNo);
 
-	public void testDelete(String mi_no);
+	public void testDelete(String miNo);
 
 	public Boolean existsByMiAccount(String miAccount);
 

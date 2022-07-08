@@ -11,7 +11,9 @@ body {
     --color-four: #B8AA95;
     --color-five: #5E5A54;
     --color-six: #f5eada;
-
+    --color-blue: #9ac9d6;
+    --color-yellow: rgb(253, 244, 236);
+    --color-blue-lite: #c1e0e8;
 
     margin: 0;
     height: 100vh;
@@ -60,6 +62,7 @@ body {
 .form__title {
     margin-bottom: 2rem;
     text-align: center;
+    color: var(--color-blue);
 }
 
 
@@ -78,6 +81,7 @@ body {
 
 .form__input-group {
     margin-bottom: 1rem;
+    position: relative;
 }
 
 .form__input {
@@ -86,7 +90,7 @@ body {
     padding: 0.75rem;
     box-sizing: border-box;
     border-radius: var(--border-radius);
-    border: 1px solid #c1e0e8;/*#dddddd;*/
+    border: 1px solid var(--color-blue-lite);/*#dddddd;*/
     outline: none;
     background: #ffffff;
     transition: background 0.2s, border-color 0.2s;
@@ -119,12 +123,12 @@ body {
     border-radius: var(--border-radius);
     outline: none;
     cursor: pointer;
-    background: #9ac9d6;/*rgb(217, 244, 251);*/
+    background: var(--color-blue);/*rgb(217, 244, 251);*/
 }
 
 .form__button:hover {
     color: var(--color-five);
-    background: #c1e0e8;/*var(--color-three);*/
+    background: var(--color-yellow);/*var(--color-three);*/
 }
 
 .form__button:active {
@@ -144,3 +148,15 @@ body {
 /*.form__link:hover {*/
 /*    text-decoration: underline;*/
 /*}*/
+
+
+
+
+/*密碼的eye*/
+.form__input-group i.fa-eye{
+    visibility: visible;
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    color: var(--color-blue);
+}
