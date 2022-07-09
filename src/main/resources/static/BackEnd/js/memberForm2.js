@@ -71,7 +71,7 @@ togglePassword.addEventListener('click', function() {
 	// 判斷password 還是text
 	const type = password.getAttribute('type') === 'password' ? 'text' : 'password';  //三元運算式，把抓到的type存回type
 	password.setAttribute('type', type);  //改變type
-	this.classList.toggle('fa-solid fa-eye-slash'); //轉換眼睛圖示
+	this.classList.toggle('fa-eye-slash'); //轉換眼睛圖示
 	document.getElementById("mi_password").focus();
 });
 
@@ -472,6 +472,14 @@ function randomBirth(){
 	return code;
 }
 
+
+/* 只有ADMIN權限的人可以新增/修改他人成為ADMIN */
+// document.querySelectorAll("#type option").forEach(opt => {
+//
+// 	if (opt.value == "ADMIN") {
+// 		opt.disabled = true;
+// 	}
+// });
 
 
 //返回會員系統

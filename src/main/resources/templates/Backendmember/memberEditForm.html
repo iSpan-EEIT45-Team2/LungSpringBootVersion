@@ -64,21 +64,21 @@
                                   method="post"
                                   th:object="${member}" enctype='multipart/form-data'>
                                 <div class="form-group">
-                                    <img id="blah" th:src="@{'/Backendmember/picture/' + ${member.mi_no} }" style="display:block;width: 180px; height: 180px; margin:20px auto;border:2px solid #c0c3c4;border-radius:50%;background-color:#ebeff2;" />
+                                    <img id="blah" th:src="@{'/Backendmember/picture/' + ${member.miNo} }" style="display:block;width: 180px; height: 180px; margin:20px auto;border:2px solid #c0c3c4;border-radius:50%;background-color:#ebeff2;" />
                                     <label>會員大頭貼</label>
                                     <input th:field="*{productImage}" type='file' class="form-control" id="mi_headshot" onchange="previewHeadshot(event)" accept="image/*"/>
                                 </div>
-                                <input type="hidden" th:field="*{mi_no}">
+                                <input type="hidden" th:field="*{miNo}">
                                 <div class="form-group">
                                     <label>會員編號</label>
-                                    <input type="text" class="form-control" th:field="*{mi_no}" disabled/>
+                                    <input type="text" class="form-control" th:field="*{miNo}" disabled/>
                                 </div>
                                 <div class="form-group">
                                     <label>會員權限</label>
                                     <select th:field="*{type}" id="type"
                                             class="js-example-basic-single w-100">
                                         <option value="ADMIN">ADMIN</option>
-                                        <option value="USER">USER</option>
+                                        <option value="USER" selected>USER</option>
                                     </select>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
@@ -90,67 +90,80 @@
                                            autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
-                                    <small id='result0c'>Error message</small>
+                                    <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員密碼</label>
-                                    <input th:field="*{miPassword}" type="text" class="form-control"
+                                    <input th:field="*{miPassword}" type="text" class="form-control hidetext"
                                            id="mi_password" autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
-                                    <small id='result0c'>Error message</small>
+                                    <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員姓名</label>
-                                    <input th:field="*{mi_name}" type="text" class="form-control" id="mi_name"
+                                    <input th:field="*{miName}" type="text" class="form-control" id="mi_name"
                                            autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
-                                    <small id='result0c'>Error message</small>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>會員性別</label>
+                                    <select th:field="*{miGender}"
+                                            class="js-example-basic-single w-100">
+                                        <option value="女">女</option>
+                                        <option value="男" selected>男</option>
+                                        <option value="不公開">不公開</option>
+                                    </select>
+
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員身分證</label>
-                                    <input th:field="*{mi_id}" type="text" class="form-control" id="mi_id"
+                                    <input th:field="*{miId}" type="text" class="form-control" id="mi_id"
                                            maxlength="10" autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
-                                    <small id='result0c'>Error message</small>
+                                    <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員生日</label>
-                                    <input th:field="*{mi_birth}" type="date" class="form-control" id="mi_birth"
+                                    <input th:field="*{miBirth}" type="date" class="form-control" id="mi_birth"
                                            max="3000-12-31" autocomplete="off" maxlength="10"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
-                                    <small id='result0c'>Error message</small>
+                                    <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員電話</label>
-                                    <input th:field="*{mi_phone}" type="text" class="form-control" id="mi_phone"
+                                    <input th:field="*{miPhone}" type="text" class="form-control" id="mi_phone"
                                            onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="10"
                                            autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
-                                    <small id='result0c'>Error message</small>
+                                    <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員Email</label>
-                                    <input th:field="*{mi_email}" type="text" class="form-control" id="mi_email"
+                                    <input th:field="*{miEmail}" type="text" class="form-control" id="mi_email"
                                            autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
-                                    <small id='result0c'>Error message</small>
+                                    <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <div id="label_addtess">
-                                        <label for="mi_address">地址api</label>
+                                        <label for="mi_address">會員地址</label>
                                     </div>
                                     <div id="div_select" class="js-demeter-tw-zipcode-selector" data-city="#city3" data-dist="#dist3">
                                         <select autofocus onchange="plusAddress()" id="city3" name="city"  placeholder="縣市" ></select>
                                         <select autofocus onchange="plusAddress()" id="dist3" name="location" placeholder="鄉鎮市區"></select>
                                     </div>
                                     <div id="div_address" style="margin: 5px 0;">
-                                        <input autofocus oninput="plusAddress()" th:field="*{mi_address}" name="mi_address" id="mi_address" type="text"  placeholder="請輸入詳細地址，例如:街道名稱、門牌號" class="form-control" >
+                                        <input autofocus oninput="plusAddress()" th:field="*{miAddress}" name="mi_address" id="mi_address" type="text"  placeholder="請輸入詳細地址，例如:街道名稱、門牌號" class="form-control" >
                                     </div>
                                     <i style="top:76px;" class="fas fa-check-circle"></i>
                                     <i style="top:76px;" class="fas fa-exclamation-circle"></i>

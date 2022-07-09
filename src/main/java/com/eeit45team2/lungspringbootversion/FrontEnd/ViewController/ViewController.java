@@ -13,7 +13,15 @@ public class ViewController {
         return "FrontEnd/FrontIndex";
     }
 
+    @GetMapping("/products")
+    public String shop() {
+        return "FrontEnd/Shop/shop";
+    }
 
+    @GetMapping("/my-account-home")
+    public String myAccountHome() {
+        return "FrontEnd/member/my-account";
+    }
 }
 
 

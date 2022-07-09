@@ -11,7 +11,7 @@
 <!--    <link th:href="@{/BackEnd/vendors/select2/select2.min.css}" rel="stylesheet" type="text/css">-->
 <!--    <link th:href="@{/BackEnd/vendors/select2-bootstrap-theme/select2-bootstrap.min.css}" rel="stylesheet" type="text/css">-->
     <link th:href="@{/BackEnd/css/memberForm.css}" rel="stylesheet" type="text/css">
-
+    <script src="https://kit.fontawesome.com/ae6733f6ec.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <!-- _navbar -->
@@ -81,7 +81,7 @@
                                         <select th:field="*{type}" id="type"
                                                 class="js-example-basic-single w-100">
                                             <option value="ADMIN">ADMIN</option>
-                                            <option value="USER">USER</option>
+                                            <option value="USER" selected>USER</option>
                                         </select>
                                         <i class="fas fa-check-circle"></i>
                                         <i class="fas fa-exclamation-circle"></i>
@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>會員姓名</label>
-                                        <input th:field="*{mi_name}" type="text" class="form-control"
+                                        <input th:field="*{miName}" type="text" class="form-control"
                                                id="mi_name"
                                                autocomplete="off" oninput="oninputCheckName()"/>
                                         <i class="fas fa-check-circle"></i>
@@ -115,8 +115,21 @@
                                         <small>Error message</small>
                                     </div>
                                     <div class="form-group">
+                                        <label>會員性別</label>
+                                        <select th:field="*{miGender}"
+                                                class="js-example-basic-single w-100">
+                                            <option value="女">女</option>
+                                            <option value="男" selected>男</option>
+                                            <option value="不公開">不公開</option>
+                                        </select>
+
+                                        <i class="fas fa-check-circle"></i>
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <small>Error message</small>
+                                    </div>
+                                    <div class="form-group">
                                         <label>會員身分證</label>
-                                        <input th:field="*{mi_id}" type="text" class="form-control" id="mi_id"
+                                        <input th:field="*{miId}" type="text" class="form-control" id="mi_id"
                                                maxlength="10" autocomplete="off" oninput="oninputCheckId()"/>
                                         <i class="fas fa-check-circle"></i>
                                         <i class="fas fa-exclamation-circle"></i>
@@ -124,7 +137,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>會員生日</label>
-                                        <input th:field="*{mi_birth}" type="date" class="form-control"
+                                        <input th:field="*{miBirth}" type="date" class="form-control"
                                                id="mi_birth"
                                                max="3000-12-31" autocomplete="off" maxlength="10" oninput="oninputCheckBirth()"/>
                                         <i class="fas fa-check-circle"></i>
@@ -133,7 +146,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>會員電話</label>
-                                        <input th:field="*{mi_phone}" type="text" class="form-control"
+                                        <input th:field="*{miPhone}" type="text" class="form-control"
                                                id="mi_phone"
                                                onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"
                                                maxlength="10"
@@ -144,32 +157,23 @@
                                     </div>
                                     <div class="form-group">
                                         <label>會員Email</label>
-                                        <input th:field="*{mi_email}" type="text" class="form-control"
+                                        <input th:field="*{miEmail}" type="text" class="form-control"
                                                id="mi_email"
                                                autocomplete="off" oninput="oninputCheckEmail()"/>
                                         <i class="fas fa-check-circle"></i>
                                         <i class="fas fa-exclamation-circle"></i>
                                         <small>Error message</small>
                                     </div>
-<!--                                    <div class="form-group">-->
-<!--                                        <label>會員地址</label>-->
-<!--                                        <input th:field="*{mi_address}" type="text" class="form-control"-->
-<!--                                                   id="mi_address"-->
-<!--                                                   autocomplete="off"/>-->
-<!--                                        <i class="fas fa-check-circle"></i>-->
-<!--                                        <i class="fas fa-exclamation-circle"></i>-->
-<!--                                        <small>Error message</small>-->
-<!--                                    </div>-->
                                     <div class="form-group">
                                         <div id="label_addtess">
-                                            <label for="mi_address">地址api</label>
+                                            <label for="mi_address">會員地址</label>
                                         </div>
                                         <div id="div_select" class="js-demeter-tw-zipcode-selector" data-city="#city3" data-dist="#dist3">
                                             <select autofocus onchange="plusAddress()" id="city3" name="city"  placeholder="縣市" ></select>
                                             <select autofocus onchange="plusAddress()" id="dist3" name="location" placeholder="鄉鎮市區"></select>
                                         </div>
                                         <div id="div_address" style="margin: 5px 0;">
-                                            <input autofocus onblur="plusAddress()"  th:field="*{mi_address}" name="mi_address" id="mi_address" type="text"  placeholder="請輸入詳細地址，例如:街道名稱、門牌號" class="form-control" >
+                                            <input autofocus onblur="plusAddress()"  th:field="*{miAddress}" name="mi_address" id="mi_address" type="text"  placeholder="請輸入詳細地址，例如:街道名稱、門牌號" class="form-control" >
                                         </div>
                                         <i style="top:76px;" class="fas fa-check-circle"></i>
                                         <i style="top:76px;" class="fas fa-exclamation-circle"></i>
@@ -201,7 +205,6 @@
     <!-- 引用Zipcode -->
     <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
     <script type='text/javascript' class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#location" /></script>
-    <script src="https://kit.fontawesome.com/ae6733f6ec.js" crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{/BackEnd/js/memberForm2.js}"></script>
 <!--    <script type="text/javascript" th:src="@{/BackEnd/vendors/select2/select2.min.js}"></script>-->
 <!--    <script type="text/javascript" th:src="@{/BackEnd/js/select2.js}"></script>-->
