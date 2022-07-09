@@ -84,12 +84,13 @@
                             <div class="thumb">
                                 <a href="single-product.html" class="image">
                                     <img class="fit-image"
-                                         th:src="@{/FrontEnd/assets/images/products/medium-product/1.png}"
+                                         th:src="@{/image4/{id}(id=${product.localfileName})}"
                                          alt="Product"/>
                                 </a>
                                 <div class="action-wrapper">
-                                    <a href="#/" class="action quickview" data-bs-toggle="modal"
-                                       data-bs-target="#quick-view" title="Quickview"><i class="ti-plus"></i></a>
+                                    <a href="" class="action quickview" data-bs-toggle="modal"
+                                       th:attr="data-bs-target= '#addModel' + *{product.pd_id}" title="Quickview"><i
+                                            class="ti-plus"></i></a>
                                     <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
                                             class="ti-heart"></i></a>
                                     <a href="cart.html" class="action cart" title="Cart"><i
@@ -97,8 +98,7 @@
                                 </div>
                             </div>
                             <div class="content">
-                                <h5 class="title"><a href="single-product.html" th:text="${product.pd_items}">An Animal
-                                    Album</a></h5>
+                                <h5 class="title"><a href="single-product.html">[[${product.pd_product_name}]]</a></h5>
                                 <span class="rating">
                                             <i class="fa fa-star-o"></i>
                                             <i class="fa fa-star-o"></i>
@@ -107,12 +107,9 @@
                                             <i class="fa fa-star-o"></i>
                                         </span>
                                 <span class="price">
-                                            <span class="new" th:text="${product.pd_amount}"></span>
+                                            $<span class="new">[[${product.pd_amount}]]</span>
                                     </span>
-                                <p>It is a long established fact that a reader will be distracted by the readable
-                                    content of a page when looking at its layout. The point of using Lorem Ipsum is that
-                                    it has a more-or-less normal distribution of letters, as opposed to using 'Content
-                                    here, content here', making it look like readable English.</p>
+                                <p>[[${product.pd_content}]]</p>
                                 <!-- Cart Button Start -->
                                 <div class="cart-btn action-btn">
                                     <div class="action-cart-btn-wrapper d-flex">
@@ -122,7 +119,7 @@
                                         </div>
                                         <a href="wishlist.html" title="Wishlist" class="action"><i class="ti-heart"></i></a>
                                         <a href="#/" class="action quickview" data-bs-toggle="modal"
-                                           data-bs-target="#quick-view" title="Quickview"><i class="ti-plus"></i></a>
+                                           data-bs-target="#addModel" title="Quickview"><i class="ti-plus"></i></a>
                                     </div>
                                 </div>
                                 <!-- Cart Button End -->
@@ -162,6 +159,138 @@
     </div>
 </div>
 <!-- Shop Section End -->
+
+<!-- Modal Start  -->
+<div class="modalquickview modal fade" th:id="*{'addModel'+ {product.pd_id}}" tabindex="-1" aria-labelledby="addModel"
+     role="dialog"
+     aria-hidden="true" th:each="product : ${products}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button class="btn close" data-bs-dismiss="modal">×</button>
+            <div class="row">
+                <div class="col-md-6 col-12">
+
+                    <!-- Product Details Image Start -->
+                    <div class="modal-product-carousel">
+
+                        <!-- Single Product Image Start -->
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <a class="swiper-slide" href="#">
+                                    <img class="w-100" th:src="@{/image4/{id}(id=${product.localfileName})}"
+                                         alt="Product">
+                                </a>
+                            </div>
+
+                            <!-- Swiper Pagination Start -->
+                            <!-- <div class="swiper-pagination d-md-none"></div> -->
+                            <!-- Swiper Pagination End -->
+
+                            <!-- Next Previous Button Start -->
+                            <div class="swiper-product-button-next swiper-button-next"><i class="ti-arrow-right"></i>
+                            </div>
+                            <div class="swiper-product-button-prev swiper-button-prev"><i class="ti-arrow-left"></i>
+                            </div>
+                            <!-- Next Previous Button End -->
+                        </div>
+                        <!-- Single Product Image End -->
+
+                    </div>
+                    <!-- Product Details Image End -->
+
+                </div>
+                <div class="col-md-6 col-12 overflow-hidden position-relative">
+
+                    <!-- Product Summery Start -->
+                    <div class="product-summery position-relative">
+
+                        <!-- Product Head Start -->
+                        <div class="product-head m-b-15">
+                            <h2 class="product-title">[[${product.pd_product_name}]]</h2>
+                        </div>
+                        <!-- Product Head End -->
+
+                        <!-- Rating Start -->
+                        <span class="rating justify-content-start m-b-10">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <i class="fa fa-star-o"></i>
+                        </span>
+                        <!-- Rating End -->
+
+                        <!-- Price Box Start -->
+                        <div class="price-box m-b-10">
+                            $<span class="regular-price">[[${product.pd_amount}]]</span>
+                        </div>
+                        <!-- Price Box End -->
+
+
+                        <!-- Description Start -->
+                        <p class="desc-content m-b-25">[[${product.pd_content}]]</p>
+                        <!-- Description End -->
+
+                        <!-- Quantity Start -->
+                        <div class="quantity d-flex align-items-center justify-content-start m-b-25">
+                            <span class="m-r-10"><strong>數量: </strong></span>
+                            <form action="/Lung/addToCart" method="post">
+                                <input type="hidden" name="id" th:value="${product.pd_id}"/>
+                                <div class="cart-plus-minus">
+                                    <input class="cart-plus-minus-box" value="1" name="quantity">
+                                    <div class="dec qtybutton">-</div>
+                                    <div class="inc qtybutton">+</div>
+                                </div>
+                                <!-- Cart Button Start -->
+                                <div class="cart-btn action-btn m-b-30">
+                                    <div class="action-cart-btn-wrapper d-flex justify-content-start">
+                                        <div class="add-to_cart">
+                                            <button class="btn btn-primary btn-hover-dark rounded-0 " type="submit"
+                                                    th:onclick="addCart([[${product.pd_id}]])">
+                                                加入購物車
+                                            </button>
+                                        </div>
+                                        <a href="wishlist.html" title="Wishlist" class="action"><i class="ti-heart"></i></a>
+                                    </div>
+                                </div>
+                                <!-- Cart Button End -->
+                            </form>
+                        </div>
+                        <!-- Quantity End -->
+
+
+                        <!-- Social Shear Start -->
+                        <div class="social-share">
+                            <div class="widget-social justify-content-center m-b-30">
+                                <a title="Twitter" href="#/"><i class="icon-social-twitter"></i></a>
+                                <a title="Instagram" href="#/"><i class="icon-social-instagram"></i></a>
+                                <a title="Linkedin" href="#/"><i class="icon-social-linkedin"></i></a>
+                                <a title="Skype" href="#/"><i class="icon-social-skype"></i></a>
+                                <a title="Dribble" href="#/"><i class="icon-social-dribbble"></i></a>
+                            </div>
+                        </div>
+                        <!-- Social Shear End -->
+
+                        <!-- Payment Option Start -->
+                        <div class="payment-option m-t-20 d-flex justify-content-start">
+                            <span><strong>Payment: </strong></span>
+                            <a href="#">
+                                <img class="fit-image m-l-5"
+                                     th:src="@{/FrontEnd/assets/images/payment/payment_large.png}"
+                                     alt="Payment Option Image">
+                            </a>
+                        </div>
+                        <!-- Payment Option End -->
+
+                    </div>
+                    <!-- Product Summery End -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal End  -->
 
 
 <!-- Breadcrumb Area End -->
@@ -316,5 +445,13 @@
 </div>
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
 <!-- Blog Section End -->
+<script>
+    $(function () {
+        $("button.test").click(function () {
+
+
+        })
+    })
+</script>
 </body>
 </html>

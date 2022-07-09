@@ -13,8 +13,7 @@ public class ViewController {
         return "FrontEnd/FrontIndex";
     }
 
-    @GetMapping("/products")
-    public String shop() {
-        return "FrontEnd/Shop/shop";
-    }
+
 }
+
+

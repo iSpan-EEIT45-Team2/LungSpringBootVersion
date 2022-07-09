@@ -14,10 +14,10 @@ public interface ProductService {
     public void save(ProductBean theProductBean);
 
     //getOrder
-    public ProductBean FindById(Long pd_id);
+    public ProductBean FindById(Long id);
 
     //delete
-    public void delete(Long pd_id);
+    public void delete(Long id);
 
 
 }

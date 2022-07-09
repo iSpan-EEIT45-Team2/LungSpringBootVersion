@@ -17,10 +17,9 @@
         <div class="row">
             <div class="col-12 text-center">
                 <div class="breadcrumb-wrapper">
-                    <h2 class="breadcrumb-title">Shop Grid</h2>
+                    <h2 class="breadcrumb-title">購物車</h2>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li>Shop Grid</li>
+                        <li>請確認商品內容</li>
                     </ul>
                 </div>
             </div>
@@ -43,90 +42,50 @@
                         <!-- Table Head Start -->
                         <thead>
                         <tr>
-                            <th class="pro-thumbnail">Image</th>
-                            <th class="pro-title">Product</th>
-                            <th class="pro-price">Price</th>
-                            <th class="pro-quantity">Quantity</th>
-                            <th class="pro-subtotal">Total</th>
-                            <th class="pro-remove">Remove</th>
+                            <th class="pro-thumbnail">商品圖</th>
+                            <th class="pro-title">商品</th>
+                            <th class="pro-price">金額</th>
+                            <th class="pro-quantity">數量</th>
+                            <th class="pro-subtotal">總金額</th>
+                            <th class="pro-remove">移除購物車</th>
                         </tr>
                         </thead>
                         <!-- Table Head End -->
 
                         <!-- Table Body Start -->
                         <tbody>
-                        <tr>
+                        <tr th:each="cart : ${shoppingCart.items}">
                             <td class="pro-thumbnail"><a href="#"><img class="fit-image"
-                                                                       src="assets/images/products/small-product/6.png"
+                                                                       th:src="@{/image4/{id}(id=${cart.product.localfileName})}"
                                                                        alt="Product"/></a></td>
-                            <td class="pro-title"><a href="#">Learn About Fish Farming</a></td>
-                            <td class="pro-price"><span>$95.00</span></td>
-                            <td class="pro-quantity">
-                                <div class="quantity">
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" value="1" type="text">
-                                        <div class="dec qtybutton">-</div>
-                                        <div class="inc qtybutton">+</div>
-                                    </div>
-                                </div>
+                            <td class="pro-title"><a href="#">[[${cart.product.pd_product_name}]]</a>
                             </td>
-                            <td class="pro-subtotal"><span>$95.00</span></td>
-                            <td class="pro-remove"><a href="#"><i class="ti-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class="pro-thumbnail"><a href="#"><img class="fit-image"
-                                                                       src="assets/images/products/small-product/5.png"
-                                                                       alt="Product"/></a></td>
-                            <td class="pro-title"><a href="#">Basic Birds Food</a></td>
-                            <td class="pro-price"><span>$75.00</span></td>
+                            <td class="pro-price"><span>$[[${cart.product.pd_amount}]]</span></td>
                             <td class="pro-quantity">
-                                <div class="quantity">
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" value="1" type="text">
-                                        <div class="dec qtybutton">-</div>
-                                        <div class="inc qtybutton">+</div>
+                                <form action="/Lung/updateShoppingCart" method="post">
+                                    <div class="quantity">
+                                        <input hidden th:value="${cart.id}" name="item_id"/>
+                                        <div class="cart-plus-minus">
+                                            <input class="cart-plus-minus-box" value="1" type="text" name="quantity"
+                                                   th:value="${cart.quantity}"
+                                                   th:attr="max=${cart.product.pd_quantity}">
+                                            <div class="dec qtybutton">-</div>
+                                            <div class="inc qtybutton">+</div>
+                                            <button type="submit">check</button>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </td>
-                            <td class="pro-subtotal"><span>$75.00</span></td>
-                            <td class="pro-remove"><a href="#"><i class="ti-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class="pro-thumbnail"><a href="#"><img class="fit-image"
-                                                                       src="assets/images/products/small-product/3.png"
-                                                                       alt="Product"/></a></td>
-                            <td class="pro-title"><a href="#">Dog Trainning Center</a></td>
-                            <td class="pro-price"><span>$28.00</span></td>
-                            <td class="pro-quantity">
-                                <div class="quantity">
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" value="1" type="text">
-                                        <div class="dec qtybutton">-</div>
-                                        <div class="inc qtybutton">+</div>
-                                    </div>
-                                </div>
+
+                            <td class="pro-subtotal">
+                                <span>$[[${cart.product.pd_amount}*${cart.quantity}]]</span>
                             </td>
-                            <td class="pro-subtotal"><span>$56.00</span></td>
-                            <td class="pro-remove"><a href="#"><i class="ti-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td class="pro-thumbnail"><a href="#"><img class="fit-image"
-                                                                       src="assets/images/products/small-product/4.png"
-                                                                       alt="Product"/></a></td>
-                            <td class="pro-title"><a href="#">Animal Rescue Center</a></td>
-                            <td class="pro-price"><span>$20.00</span></td>
-                            <td class="pro-quantity">
-                                <div class="quantity">
-                                    <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" value="1" type="text">
-                                        <div class="dec qtybutton">-</div>
-                                        <div class="inc qtybutton">+</div>
-                                    </div>
-                                </div>
+                            <td class="pro-remove"><a th:href="@{/removeItem/{id}(id= ${cart.id}) }"><i
+                                    class="ti-trash"></i></a>
                             </td>
-                            <td class="pro-subtotal"><span>$40.00</span></td>
-                            <td class="pro-remove"><a href="#"><i class="ti-trash"></i></a></td>
                         </tr>
+
+
                         </tbody>
                         <!-- Table Body End -->
 
@@ -139,14 +98,13 @@
 
                     <!-- Cart Button left Side Start -->
                     <div class="cart-btn-lef-side m-b-20">
-                        <a href="#" class="btn btn btn-gray-deep btn-hover-primary">Continue Shopping</a>
-                        <a href="#" class="btn btn btn-gray-deep btn-hover-primary">Update Shopping Cart</a>
+                        <a href="/Lung/products" class="btn btn btn-gray-deep btn-hover-primary">繼續購物</a>
                     </div>
                     <!-- Cart Button left Side End -->
 
                     <!-- Cart Button Right Side Start -->
                     <div class="cart-btn-right-right m-b-20">
-                        <a href="#" class="btn btn btn-gray-deep btn-hover-primary">Clear Shopping Cart</a>
+                        <a th:href="@{/clearShoppingCart}" class="btn btn btn-gray-deep btn-hover-primary">清除購物車</a>
                     </div>
                     <!-- Cart Button Right Side End -->
 
@@ -166,23 +124,23 @@
                     <div class="cart-calculate-items">
 
                         <!-- Cart Calculate Items Title Start -->
-                        <h3 class="title">Cart Totals</h3>
+                        <h3 class="title">購物車金額</h3>
                         <!-- Cart Calculate Items Title End -->
 
                         <!-- Responsive Table Start -->
                         <div class="table-responsive">
                             <table class="table">
-                                <tr>
-                                    <td>Sub Total</td>
-                                    <td>$230</td>
-                                </tr>
-                                <tr>
-                                    <td>Shipping</td>
-                                    <td>$70</td>
-                                </tr>
+                                <!--                                <tr>-->
+                                <!--                                    <td>Sub Total</td>-->
+                                <!--                                    <td>$230</td>-->
+                                <!--                                </tr>-->
+                                <!--                                <tr>-->
+                                <!--                                    <td>Shipping</td>-->
+                                <!--                                    <td>$70</td>-->
+                                <!--                                </tr>-->
                                 <tr class="total">
-                                    <td>Total</td>
-                                    <td class="total-amount">$300</td>
+                                    <td>總金額</td>
+                                    <td class="total-amount">$[[${shoppingCart.totalPrice}]]</td>
                                 </tr>
                             </table>
                         </div>
@@ -192,8 +150,7 @@
                     <!-- Cart Calculate Items End -->
 
                     <!-- Cart Checktout Button Start -->
-                    <a href="checkout.html" class="btn btn btn-gray-deep btn-hover-primary m-t-30">Proceed To
-                        Checkout</a>
+                    <a href="checkout.html" class="btn btn btn-gray-deep btn-hover-primary m-t-30">結帳</a>
                     <!-- Cart Checktout Button End -->
 
                 </div>

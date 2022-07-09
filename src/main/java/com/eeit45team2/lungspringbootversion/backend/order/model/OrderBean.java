@@ -22,11 +22,13 @@ public class OrderBean {
     Integer od_number;
     Integer od_money;
 
+    Integer type;
+
     public OrderBean() {
     }
 
     public OrderBean(String od_name, String od_catalogue, String od_content, String od_amount, Integer od_number,
-                     Integer od_money) {
+                     Integer od_money, Integer type) {
         super();
         this.od_name = od_name;
         this.od_catalogue = od_catalogue;
@@ -34,10 +36,11 @@ public class OrderBean {
         this.od_amount = od_amount;
         this.od_number = od_number;
         this.od_money = od_money;
+        this.type = type;
     }
 
     public OrderBean(Long od_id, String od_name, String od_catalogue, String od_content, String od_amount,
-                     Integer od_number, Integer od_money) {
+                     Integer od_number, Integer od_money, Integer type) {
         super();
         this.od_id = od_id;
         this.od_name = od_name;
@@ -46,6 +49,7 @@ public class OrderBean {
         this.od_amount = od_amount;
         this.od_number = od_number;
         this.od_money = od_money;
+        this.type = type;
     }
-	
+
 }
