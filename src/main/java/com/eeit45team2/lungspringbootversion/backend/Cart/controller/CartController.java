@@ -1,5 +1,7 @@
-package com.eeit45team2.lungspringbootversion.backend.Cart;
+package com.eeit45team2.lungspringbootversion.backend.Cart.controller;
 
+import com.eeit45team2.lungspringbootversion.backend.Cart.model.ShoppingCart;
+import com.eeit45team2.lungspringbootversion.backend.Cart.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

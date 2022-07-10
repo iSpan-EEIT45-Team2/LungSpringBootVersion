@@ -1,4 +1,4 @@
-package com.eeit45team2.lungspringbootversion.backend.Cart;
+package com.eeit45team2.lungspringbootversion.backend.Cart.model;
 
 import com.eeit45team2.lungspringbootversion.backend.product.model.ProductBean;
 

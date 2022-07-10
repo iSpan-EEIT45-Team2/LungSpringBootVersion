@@ -1,5 +1,9 @@
-package com.eeit45team2.lungspringbootversion.backend.Cart;
+package com.eeit45team2.lungspringbootversion.backend.Cart.service;
 
+import com.eeit45team2.lungspringbootversion.backend.Cart.model.CartItem;
+import com.eeit45team2.lungspringbootversion.backend.Cart.model.ShoppingCart;
+import com.eeit45team2.lungspringbootversion.backend.Cart.repository.CartItemRepository;
+import com.eeit45team2.lungspringbootversion.backend.Cart.repository.ShoppingCartRepository;
 import com.eeit45team2.lungspringbootversion.backend.product.model.ProductBean;
 import com.eeit45team2.lungspringbootversion.backend.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
