@@ -58,15 +58,8 @@
                                     <th>會員編號</th>
                                     <th>活動編號</th>
                                     <th>成立時間</th>
-<!--                                    <th>活動時間</th>-->
-<!--                                    <th>活動簡介</th>-->
-<!--                                    <th>活動地點</th>-->
-<!--                                    <th>活動名額</th>-->
-<!--                                    <th>候補名額</th>-->
-<!--                                    <th>報名費用</th>-->
-<!--                                    <th>主辦單位</th>-->
-<!--                                    <th>報名</th>-->
-                                    <th>操作</th>
+                                    <th>付款狀態</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -75,30 +68,9 @@
                                     <td th:text="${APs.mi_no}"/>
                                     <td th:text="${APs.ac_id}"/>
                                     <td th:text="${APs.date}"/>
-<!--&lt;!&ndash;                                    <td><img th:src="@{'/acpicture/' + ${activity.ac_id} }" /></td>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <td><img th:src="@{../../static/BackEnd/images/activity/${activity.localFileName}}"width="50" ></td>&ndash;&gt;-->
-<!--                                    <td><img th:src="@{image3/{id}(id=${activity.localFileName})}" style="border-radius: 0px;width: 50px"  ></td>-->
-<!--&lt;!&ndash;                                    <td><img th:src="@{image/{id}(id=${abdog.abphonto})}"width="50" ></td>&ndash;&gt;-->
-<!--                                    &lt;!&ndash; <td><img style=" border-radius : 0px ; width:50px ;height:auto"src="<c:url value='/ActivityImage/${activity.localfileName}'/>"/> </td>&ndash;&gt;-->
-<!--                                    <td th:text="${activity.ac_date}"/>-->
-<!--                                    <td th:text="${activity.ac_participant}"/>-->
-<!--                                    <td th:text="${activity.ac_venue}"/>-->
-<!--                                    <td th:text="${activity.ac_quota}"/>-->
-<!--                                    <td th:text="${activity.ac_waitlist_quota}"/>-->
-<!--                                    <td th:text="${activity.ac_fee}"/>-->
-<!--                                    <td th:text="${activity.ac_organizer}"/>-->
-<!--                                    <td>-->
-<!--                                        <a th:href="@{'/updateacForm/' + ${activity.ac_id} }" class="btn btn-sm btn-warning"><i-->
-<!--                                                class="bi bi-check-square"></i></a>-->
-<!--                                    </td>-->
-                                    <td>
-<!--                                        <a th:href="@{'/updateacForm/' + ${activity.ac_id} }" class="btn btn-sm btn-success"><i-->
-<!--                                                class="bi bi-pencil-fill"></i></a>-->
-
-                                        <button class="btn btn-sm btn-danger"
-                                                th:onclick="deleteajax([[${APs.orderNo}]])" type="button"
-                                                id="deleteajax"><i class="bi bi-trash-fill"></i>
-                                        </button>
+                                    <td><label class="badge badge-danger" th:if="${APs.type} eq '0'">付款成功</label>
+                                        <label class="badge badge-success" th:if="${APs.type} eq '1'">退款申請中</label>
+                                        <label class="badge badge-success" th:if="${APs.type} eq '2'">退款成功</label>
                                     </td>
                                 </tr>
                                 </tbody>

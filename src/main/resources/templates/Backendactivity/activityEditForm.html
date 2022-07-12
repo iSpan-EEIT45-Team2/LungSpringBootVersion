@@ -77,10 +77,20 @@
                                     <label>主辦單位</label>
                                     <input type="text" th:field="*{ac_organizer}" class="form-control" id="ac_organizer"/>
                                 </div>
+                                <div class="form-group">
+                                    <label> <span>活動狀態</span>
+                                        <select th:field="*{type}"
+                                                class="js-example-basic-single w-100 select2-hidden-accessible"
+                                                id="type">
+                                            <option value="1">上架中</option>
+                                            <option value="0">未上架</option>
+                                        </select>
+                                    </label>
+                                </div>
                                 <button type="button" class="btn btn-warning me-2" onclick="add();"><i
                                         class="bi bi-send"></i>送出
                                 </button>
-                                <button type="button" class="btn btn-light"><a class="nav-link" th:href="@{/activitylist}">Cancel</a></button>
+                                <button type="button" class="btn btn-light"><a class="nav-link" th:href="@{/Backendactivity/activitylist}">Cancel</a></button>
 <!--                                <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>-->
                             </form>
                         </div>

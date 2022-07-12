@@ -27,7 +27,7 @@ import java.util.List;
 
 
 @Controller
-//@RequestMapping("/Backendactivity")
+@RequestMapping("/Backendactivity")
 public class ActivityController {
 
 	@Autowired
@@ -46,26 +46,26 @@ public class ActivityController {
 		this.ActivityService = activityService;
 		this.ctx = ctx;
 	}
-	
+
 	@GetMapping("/activitylist")
 	public String listActivity(Model model) {//model.addAttribute=req.setAttribute
 		List<ActivityBean> activityBeans = ActivityService.findAll();
 		model.addAttribute("activities", activityBeans);
-		return "/Backendactivity/BackActivity";
+		return "Backendactivity/BackActivity";
 	}
 
 	@GetMapping("/APlist")
 	public String listAP(Model model) {//model.addAttribute=req.setAttribute
 		List<MemberActivityBean> memberActivityBeans = ActivityService.findAllAP();
 		model.addAttribute("AP", memberActivityBeans);
-		return "/Backendactivity/BackAP";
+		return "Backendactivity/BackAP";
 	}
 
 	@RequestMapping("/acShowForm")
 	public String showFormForAdd(Model model) {
 		ActivityBean ActivityBean = new ActivityBean();
 		model.addAttribute("activity", ActivityBean);
-		return "/Backendactivity/activityNewForm";
+		return "Backendactivity/activityNewForm";
 	}
 
 	@PostMapping("/saveActivity")
@@ -78,7 +78,7 @@ public class ActivityController {
 //		String uploadDir = "./src/main/resources/static/BackEnd/images/activity/"  ;
 //		FileUploadUtil.saveFile(imageLocation, fileName, multipartFile);
 		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-		return "redirect:/activitylist";
+		return "redirect:/Backendactivity/activitylist";
 	}
 	@PostMapping("/saveAP")
 	public String saveAP(MemberActivityBean memberActivityBean,
@@ -90,7 +90,7 @@ public class ActivityController {
 		memberActivityBean.setMi_no(mi_no);
 		ActivityService.saveAP(memberActivityBean);
 
-		return "redirect:/APlist";
+		return "redirect:/Backendactivity/APlist";
 	}
 
 	@GetMapping ("/saveActivity1")
@@ -104,8 +104,9 @@ public class ActivityController {
 		ActivityBean.setAc_waitlist_quota(0);
 		ActivityBean.setAc_fee(500);
 		ActivityBean.setAc_organizer("主辦");
+		ActivityBean.setType(0);
 		ActivityService.save(ActivityBean);
-		return "redirect:/activitylist";
+		return "redirect:/Backendactivity/activitylist";
 	}
 
 	@GetMapping ("/saveActivity2")
@@ -119,8 +120,9 @@ public class ActivityController {
 		ActivityBean.setAc_waitlist_quota(0);
 		ActivityBean.setAc_fee(500);
 		ActivityBean.setAc_organizer("主辦");
+		ActivityBean.setType(0);
 		ActivityService.save(ActivityBean);
-		return "redirect:/activitylist";
+		return "redirect:/Backendactivity/activitylist";
 	}
 
 	@GetMapping ("/saveActivity3")
@@ -134,8 +136,9 @@ public class ActivityController {
 		ActivityBean.setAc_waitlist_quota(0);
 		ActivityBean.setAc_fee(500);
 		ActivityBean.setAc_organizer("主辦");
+		ActivityBean.setType(0);
 		ActivityService.save(ActivityBean);
-		return "redirect:/activitylist";
+		return "redirect:/Backendactivity/activitylist";
 	}
 
 	@GetMapping ("/saveActivity4")
@@ -149,8 +152,9 @@ public class ActivityController {
 		ActivityBean.setAc_waitlist_quota(0);
 		ActivityBean.setAc_fee(500);
 		ActivityBean.setAc_organizer("主辦");
+		ActivityBean.setType(0);
 		ActivityService.save(ActivityBean);
-		return "redirect:/activitylist";
+		return "redirect:/Backendactivity/activitylist";
 	}
 
 //	@PostMapping("/saveActivity")
@@ -185,12 +189,12 @@ public class ActivityController {
 	@GetMapping("/deleteac/{ac_id}")
 	public String deleteActivity(@PathVariable long ac_id) {
 		ActivityService.delete(ac_id);
-		return "redirect:/activitylist";
+		return "redirect:/Backendactivity/activitylist";
 	}
 	@GetMapping("/deleteap/{orderNo}")
 	public String deleteAP(@PathVariable long orderNo) {
 		ActivityService.deleteAP(orderNo);
-		return "redirect:/APlist";
+		return "redirect:/Frontendactivity/APlist";
 	}
 
 	// 讓「查詢頁面」可以取得db中的BLOB圖片欄
