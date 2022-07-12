@@ -20,7 +20,7 @@
                     <h2 class="breadcrumb-title">Shop Grid</h2>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li>Shop Grid</li>
+                        <li>Animal Grid</li>
                     </ul>
                 </div>
             </div>
@@ -79,17 +79,18 @@
                 <div class="row shop_wrapper grid_4">
 
                     <!-- Single Product Start -->
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 product" th:each="product : ${products}">
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 product" th:each="animal : ${animals}">
                         <div class="product-inner">
                             <div class="thumb">
                                 <a href="single-product.html" class="image">
                                     <img class="fit-image"
-                                         th:src="@{/image4/{id}(id=${product.localfileName})}"
-                                         alt="Product"/>
+                                         th:src="@{/image/{id}(id=${animal.abphonto})}"
+                                         alt="Animal"/>
                                 </a>
+
                                 <div class="action-wrapper">
                                     <a href="" class="action quickview" data-bs-toggle="modal"
-                                       th:attr="data-bs-target= '#addModel' + *{product.pd_id}" title="Quickview"><i
+                                       th:attr="data-bs-target= '#addModel' + *{animal.abid}" title="Quickview"><i
                                             class="ti-plus"></i></a>
                                     <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
                                             class="ti-heart"></i></a>
@@ -97,8 +98,9 @@
                                             class="ti-shopping-cart"></i></a>
                                 </div>
                             </div>
+
                             <div class="content">
-                                <h5 class="title"><a href="single-product.html">[[${product.pd_product_name}]]</a></h5>
+                                <h5 class="title"><a href="single-product.html">[[${animal.ab_type}]]</a></h5>
                                 <span class="rating">
                                             <i class="fa fa-star-o"></i>
                                             <i class="fa fa-star-o"></i>
@@ -107,9 +109,9 @@
                                             <i class="fa fa-star-o"></i>
                                         </span>
                                 <span class="price">
-                                            $<span class="new">[[${product.pd_amount}]]</span>
+                                            $<span class="new">[[${animal.ab_variety}]]</span>
                                     </span>
-                                <p>[[${product.pd_content}]]</p>
+                                <p>[[${animal.ab_sex}]]</p>
                                 <!-- Cart Button Start -->
                                 <div class="cart-btn action-btn">
                                     <div class="action-cart-btn-wrapper d-flex">
@@ -161,9 +163,9 @@
 <!-- Shop Section End -->
 
 <!-- Modal Start  -->
-<div class="modalquickview modal fade" th:id="*{'addModel'+ {product.pd_id}}" tabindex="-1" aria-labelledby="addModel"
+<div class="modalquickview modal fade" th:id="*{'addModel'+ {animal.abid}}" tabindex="-1" aria-labelledby="addModel"
      role="dialog"
-     aria-hidden="true" th:each="product : ${products}">
+     aria-hidden="true" th:each="animal : ${animals}">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <button class="btn close" data-bs-dismiss="modal">×</button>
@@ -177,8 +179,9 @@
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 <a class="swiper-slide" href="#">
-                                    <img class="w-100" th:src="@{/image4/{id}(id=${product.localfileName})}"
-                                         alt="Product">
+
+                                    <img class="w-100" th:src=" @{/image/{id}(id=${animal.abphonto})}"
+                                         alt="Animal">
                                 </a>
                             </div>
 
@@ -206,7 +209,7 @@
 
                         <!-- Product Head Start -->
                         <div class="product-head m-b-15">
-                            <h2 class="product-title">[[${product.pd_product_name}]]</h2>
+                            <h2 class="product-title">[[${animal.ab_type}]]</h2>
                         </div>
                         <!-- Product Head End -->
 
@@ -222,20 +225,19 @@
 
                         <!-- Price Box Start -->
                         <div class="price-box m-b-10">
-                            $<span class="regular-price">[[${product.pd_amount}]]</span>
+                            $<span class="regular-price">[[${animal.ab_variety}]]</span>
                         </div>
                         <!-- Price Box End -->
 
-
                         <!-- Description Start -->
-                        <p class="desc-content m-b-25">[[${product.pd_content}]]</p>
+                        <p class="desc-content m-b-25">[[${animal.ab_sex}]]</p>
                         <!-- Description End -->
 
                         <!-- Quantity Start -->
                         <div class="quantity d-flex align-items-center justify-content-start m-b-25">
                             <span class="m-r-10"><strong>數量: </strong></span>
                             <form action="/Lung/addToCart" method="post">
-                                <input type="hidden" name="id" th:value="${product.pd_id}"/>
+                                <input type="hidden" name="id" th:value="${animal.abid}"/>
                                 <div class="cart-plus-minus">
                                     <input class="cart-plus-minus-box" value="1" name="quantity">
                                     <div class="dec qtybutton">-</div>
@@ -246,7 +248,7 @@
                                     <div class="action-cart-btn-wrapper d-flex justify-content-start">
                                         <div class="add-to_cart">
                                             <button class="btn btn-primary btn-hover-dark rounded-0 " type="submit"
-                                                    th:onclick="addCart([[${product.pd_id}]])">
+                                                    th:onclick="addCart([[${animal.abid}]])">
                                                 加入購物車
                                             </button>
                                         </div>
@@ -337,7 +339,7 @@
                         <li class="has-children">
                             <a href="#">Shop <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                             <ul class="dropdown">
-                                <li><a href="shop.html">Shop Grid</a></li>
+                                <li><a href="animal.html">Animal Grid</a></li>
                                 <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
                                 <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
                                 <li><a href="shop-list-fullwidth.html">Shop List Fullwidth</a></li>

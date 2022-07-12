@@ -1,6 +1,5 @@
 package com.eeit45team2.lungspringbootversion.backend.announce.controller;
 
-import com.eeit45team2.lungspringbootversion.backend.animal.model.AdDogBean;
 import com.eeit45team2.lungspringbootversion.backend.announce.model.AnnounceBean;
 import com.eeit45team2.lungspringbootversion.backend.announce.service.AnnounceService;
 import com.eeit45team2.lungspringbootversion.backend.order.model.OrderBean;

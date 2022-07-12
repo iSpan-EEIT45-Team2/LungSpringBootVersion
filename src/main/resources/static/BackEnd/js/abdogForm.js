@@ -1,346 +1,31 @@
 const form = document.getElementById("form");
 const form_button_submit = document.getElementById('form_button_submit');
-const oneClickEnter = document.getElementById('oneClickEnter');
+const Click1 = document.getElementById('Click1');
 
-const mi_account = document.getElementById('mi_account');
-const mi_password = document.getElementById('mi_password');
-const mi_name = document.getElementById('mi_name');
-const mi_id = document.getElementById('mi_id');
-const mi_birth = document.getElementById('mi_birth');
-const mi_phone = document.getElementById('mi_phone');
-const mi_email = document.getElementById('mi_email');
-const city3 = document.getElementById('city3');
-const dist3 = document.getElementById('dist3');
-const mi_address = document.getElementById('mi_address');
-const type = document.getElementById('type');
+const ab_type = document.getElementById('ab_type');
+const ab_variety = document.getElementById('ab_variety');
+const ab_sex = document.getElementById('ab_sex');
+const ab_phonto = document.getElementById('ab_phonto');
+const ab_area = document.getElementById('ab_area');
+const ab_name = document.getElementById('ab_name');
+const ab_phone = document.getElementById('ab_phone');
+const ab_email = document.getElementById('ab_email');
+const ab_date = document.getElementById('ab_date');
+const ab_remark = document.getElementById('ab_remark');
+const ab_audit = document.getElementById('ab_audit');
+const ab_remark = document.getElementById('ab_remark');
 
 
 // trim to remove the whitespaces
-const mi_accountValue = mi_account.value.trim();
-const mi_passwordValue = mi_password.value.trim();
-const mi_nameValue = mi_name.value.trim();
-const mi_idValue = mi_id.value.trim();
-const mi_birthValue = mi_birth.value.trim();
-const mi_phoneValue = mi_phone.value.trim();
-const mi_emailValue = mi_email.value.trim();
-const mi_addressValue = mi_address.value.trim();
-
-
-
-
-/*送出資料*/
-form_button_submit.addEventListener('click', e => {
-	e.preventDefault();
-	if(!checkInputsError()){
-		mi_address.value = city3.value.trim() + dist3.value.trim() + mi_address.value.trim();
-		form.submit(); /* 如果沒有error，就執行送出*/
-	}
-});
 
 /*一鍵輸入*/
-oneClickEnter.addEventListener('click', e => {
+Click1.addEventListener('click', e => {
 	e.preventDefault();
-	oneClickToEnter();
-}); 
-
-
-/*送出時進行資料確認*/
-const isFalse = (element) => element === false;
-
-function checkInputsError() {
-	let checkSuccess;
-
-	checkSuccess = [onblurCheckAccount(),
-					oninputCheckPassword(),
-					oninputCheckName(),
-					oninputCheckId(),
-					oninputCheckBirth(),
-					oninputCheckPhone(),
-					oninputCheckEmail(),
-					plusAddress()]
-	console.log(checkSuccess);
-	return checkSuccess.some(isFalse);  /*翻譯: 陣列中有沒有false?*/
-	// some 裡面放方法, 會把 array(eg.checkSuccess) 裡面的東西一個一個放到 some 括號內的方法中
-	// array 中有任何滿足 some 中方法(eg.isFalse)的條件, some 就回傳 true(對，陣列中有false)
-}
-
-//轉換eye -> 顯示密碼
-const togglePassword = document.querySelector("#togglePassword");
-const password = document.querySelector("#mi_password");
-togglePassword.addEventListener('click', function() {
-	// 判斷password 還是text
-	const type = password.getAttribute('type') === 'password' ? 'text' : 'password';  //三元運算式，把抓到的type存回type
-	password.setAttribute('type', type);  //改變type
-	this.classList.toggle('fa-eye-slash'); //轉換眼睛圖示
-	document.getElementById("mi_password").focus();
+	Click();
 });
 
-/* 測試 -> 地址加總 */
-function plusAddress(){
-	let city3V = document.getElementById('city3').value.trim();
-	let dist3V = document.getElementById('dist3').value.trim();
-	let mi_addressV = document.getElementById('mi_address').value.trim();
-//         document.getElementById('total_address').value = city3V + dist3V + mi_addressV;
-//         console.log(document.getElementById('total_address').value)
-	console.log('完整地址:' +city3V + dist3V + mi_addressV);
-
-	if(city3V === '') {
-		setErrorForAddress(mi_address, '縣市不能為空');
-		return false;
-		console.log('city3V為空');
-	} else if(dist3V === ''){
-		setErrorForAddress(mi_address, '鄉鎮市區不能為空');
-		return false;
-		console.log('dist3V為空');
-	} else if(mi_addressV === ''){
-		setErrorForAddress(mi_address, '詳細地址不能為空');
-		return false;
-		console.log('mi_addressV為空');
-	} else {
-		setSuccessForAddress(mi_address);
-		return true;
-		console.log('都不為空');
-	}
-
-}
-
-function setErrorForAddress(input, message){
-	const formGroup = input.parentElement.parentElement;
-	const small = formGroup.querySelector('small');
-	formGroup.className = 'form-group error';
-	small.innerText = message;
-}
-
-function setSuccessForAddress(input) {
-	const formGroup = input.parentElement.parentElement;
-	formGroup.className = 'form-group success';
-}
-
-
-
-
-
-//驗證帳號
-function verifyAccount(mi_accountValue){
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", "/Lung/Backendmember/CheckMemberAccount", false);
-	xhr.setRequestHeader("Content-Type",
-		"application/x-www-form-urlencoded");
-	xhr.send("accountToCheck=" + mi_accountValue);  //送出user輸入的值
-	let accountCanUse = false;
-	if (xhr.readyState === 4 && xhr.status === 200) {
-		console.log("第一步");
-		let result = JSON.parse(xhr.responseText);
-		console.log(result);
-		//帳號不存在就回傳true，帳號存在回傳false
-		accountCanUse = !result.accountExisted; //取key的方式，拿到 map 中的 value
-	}else if(xhr.status !== 200){
-		setErrorFor(mi_account, '錯誤訊息：Server Error! 請聯絡系統管理員。');
-		accountCanUse = false;
-	}
-	console.log('accountCanUse:' + accountCanUse)
-	return accountCanUse;
-}
-
-function onblurCheckAccount(){
-	//確認帳號
-	let mi_accountValue = mi_account.value.trim();
-	console.log(mi_accountValue); 
-	if(mi_accountValue === '') {
-		setErrorFor(mi_account, '帳號不能為空');
-		return false;
-	} else if(verifyAccount(mi_accountValue) === false){
-		setErrorFor(mi_account, '帳號重複，請重新輸入帳號');
-	} else {
-		setSuccessFor(mi_account);
-		return true;
-	}
-}
-
-
-
-//驗證password的正規表達式
-function verifyPassword (mi_passwordValue) {
-	//最少八個字符，至少一個大寫字母，一個小寫字母和一個數字
-	let regex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g)
-	verification = regex.test(mi_passwordValue)
-	return verification
-}
-	
-function oninputCheckPassword(){
-	//確認密碼
-	let mi_passwordValue = mi_password.value.trim();
-	if(mi_passwordValue === '') {
-		setErrorFor(mi_password, '密碼不能為空');
-		return false;
-	} else if(verifyPassword(mi_passwordValue) === false){
-		setErrorFor(mi_password, '密碼格式錯誤，請重新輸入');
-		return false;
-	} else {
-		setSuccessFor(mi_password);
-		return true;
-	}
-}
-
-//驗證姓名
-function oninputCheckName(){
-	//確認姓名
-	let mi_nameValue = mi_name.value.trim();
-	if(mi_nameValue === '') {
-		setErrorFor(mi_name, '姓名不能為空');
-		return false;
-	} else {
-		setSuccessFor(mi_name);
-		return true;
-	}
-}
-
-
-	
- //驗證id
-function verifyId(id) {
-	//建立字母分數陣列(A~Z)
-	var city = new Array(1,10,19,28,37,46,55,64,39,73,82, 2,11,20,48,29,38,47,56,65,74,83,21, 3,12,30)
-	id = id.trim().toUpperCase();
-	//使用「正規表達式」檢驗格式
-	if (id.search(/^[A-Z](1|2)\d{8}$/i) == -1) {
-	    return false;
-	} else {
-	    //將字串分割為陣列(IE必需這麼做才不會出錯)
-	    id = id.split('');
-	    //計算總分
-	    var total = city[id[0].charCodeAt(0)-65];
-	    for(var i=1; i<=8; i++){
-	        total += eval(id[i]) * (9 - i);
-	    }
-	    //補上檢查碼(最後一碼)
-	    total += eval(id[9]);
-	    //檢查比對碼(餘數應為0);
-	    return ((total%10 == 0 ));
-	}
-}
- 
-function oninputCheckId(){
-	let mi_idValue = mi_id.value.trim();
-	//確認id
-	if(mi_idValue === ''){
-		setErrorFor(mi_id, '身分證字號不能為空');
-		return false;
-	}else if(verifyId(mi_idValue) === false) {
-		setErrorFor(mi_id, '您的身分證不合法，請重新輸入');
-		return false;
-	}else {
-		setSuccessFor(mi_id);
-		return true;
-	}
-}
-
- 
- //驗證生日
- function verifyBirth(mi_birthValue){
-	let today = new Date().getTime();  //獲得自1970年到當前時間之間的秒數
-	let mi_birth = new Date(mi_birthValue); //取得user輸入的生日
-	//console.log(mi_birth.getTime());  //取得user生日自1970算到現在的秒數
-	if(mi_birth>today){
-		return false;
-	}else{
-		return true;
-	}
-
-}
- 
- function oninputCheckBirth(){
-	//確認生日
-	let mi_birthValue = mi_birth.value.trim();
-	if(mi_birthValue === ''){
-		setErrorFor(mi_birth, '生日不能為空');
-		return false;
-	}else if(verifyBirth(mi_birthValue) === false){
-		setErrorFor(mi_birth, '生日不能大於今天');
-		return false;
-	}else{
-		setSuccessFor(mi_birth);
-		return true;
-	}
-}
- 
- //驗證電話的正規表達式
-function verifyPhone(phone) {
-	let regex = new RegExp(/^09[0-9]{8}$/g) //規則:09開頭，後面接著8個0~9的數字
-	phone = phone.trim();
-	verification = regex.test(phone)  
-	return verification
-}
- 
-function oninputCheckPhone(){
-	//確認電話
-	let mi_phoneValue = mi_phone.value.trim();
-	if(mi_phoneValue === ''){
-		setErrorFor(mi_phone, '電話不能為空');
-		return false;
-	}else if(verifyPhone(mi_phoneValue) === false) {
-		setErrorFor(mi_phone, '電話號碼格式錯誤，請重新輸入');
-		return false;
-	}else{
-		setSuccessFor(mi_phone);
-		return true;
-	}
-}
- 
- 
-//驗證email的正規表達式
-function verifyEmail(email) {
-	let regex = new RegExp(/^([A-Za-z0-9_\-\.]+)@([A-Za-z0-9_\-\.]+)\.([A-Za-z]{2,6})$/g)
-	email = email.trim();
-    verification = regex.test(email)  //規則:任意字符(包括英文數字_-.)無限個  + @ + 任意字符無限個 + . + 二至六位英文字母
-	return verification
-}
- 
-function oninputCheckEmail(){
-	//確認Email
-	let mi_emailValue = mi_email.value.trim();
-	if(mi_emailValue === '') {
-		setErrorFor(mi_email, 'Email不能為空');
-		return false;
-	} else if (verifyEmail(mi_emailValue) === false) {
-		setErrorFor(mi_email, '無效Email，請重新輸入');
-		return false;
-	} else {
-		setSuccessFor(mi_email);
-		return true;
-	}
-} 
- 
-// function onblurCheckAddress(){
-// 	//確認地址
-// 	let city3V = city3.value.trim();
-// 	let dist3V = dist3.value.trim();
-// 	let mi_addressV = mi_address.value.trim();
-// 	if( city3V === '' || dist3V === '' || mi_addressV === '') {
-// 		setErrorFor(mi_address, '地址不能為空');
-// 		return false;
-// 	} else {
-// 		setSuccessFor(mi_address);
-// 		return true;
-// 	}
-// }
- 
-/* 塞錯誤訊息 */ 
-function setErrorFor(input, message) {
-	const formGroup = input.parentElement;
-	const small = formGroup.querySelector('small');
-	formGroup.className = 'form-group error';
-	small.innerText = message;
-}
-
-/* 塞正確訊息 */
-function setSuccessFor(input) {
-	const formGroup = input.parentElement;
-	formGroup.className = 'form-group success';
-}
- 
  /* 執行一鍵輸入*/
-function oneClickToEnter(){
+function Click(){
 	/* 取消變顏色*/
 	let errorNodes = document.getElementsByClassName('form-group error');
 	let successNodes = document.getElementsByClassName('form-group success');
@@ -351,18 +36,17 @@ function oneClickToEnter(){
 		successNodes[i].className = 'form-group'
 	}
 	/*塞入值到input框*/
-	mi_account.value = randomAccount();
-	mi_password.value = randomPassword();
-	mi_name.value = randomName();
-	mi_id.value = randomId();
-	mi_birth.value = randomBirth();
-	mi_phone.value = '0987993557';
-	mi_email.value = 'email@mail.com';
-	city3.value = '臺北市';
+	// mi_account.value = randomAccount();
+	// mi_password.value = randomPassword();
+	// mi_name.value = randomName();
+	// mi_id.value = randomId();
+	ab_area.value = '基隆市';
+	ab_name.value = '基隆市福樂寵物收容所';
+	ab_phone.value = '0987993557';
+	ab_email.value = 'email@mail.com';
 	// for (let i = 0; i < 50000000000; i++) {}
-	dist3.value = '大安區';
-	mi_address.value = '羅斯福路三段126之5號';
-	type.value = 'USER';
+	ab_date.value = randomBirth();
+	ab_remark.value = '喜歡吃雞胸肉,普通的飼料拒絕';
 	
 	/* 重新把success加上去 */
 	let nodes = document.getElementsByClassName('form-group');
@@ -404,10 +88,11 @@ function randomPassword(){
 	return code;
 }
 
+
 /*產生隨機姓名*/
 function randomName(){
 	let familyNames = new Array(
-	"王", "陳",  "林", "許", "張" , "蔡", "李", "黃", "吳", "蔡", 
+	"沈", "陳",  "林", "許", "張" , "蔡", "李", "黃", "吳", "蔡",
 	"鄭", "楊", "劉" , "郭", "許", "洪", "邱", "曾", "周", "謝"
 	);
 	

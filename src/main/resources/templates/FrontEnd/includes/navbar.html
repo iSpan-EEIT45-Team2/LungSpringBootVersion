@@ -83,10 +83,19 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="has-children">
+
+
+
+
+                                   <li class="has-children">
                                     <a href="#">認養/棄養</a>
                                     <ul class="sub-menu">
-                                        <li><a href="about.html">About Us</a></li>
+                                        <li>
+                                            <a th:href="@{/animals}">認領養</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/animalForm}">寵物媒合</a>
+                                        </li>
                                         <li><a href="contact.html">Contact Us</a></li>
                                         <li><a href="error-404.html">Error 404</a></li>
                                         <li><a href="faq.html">FAQ</a></li>

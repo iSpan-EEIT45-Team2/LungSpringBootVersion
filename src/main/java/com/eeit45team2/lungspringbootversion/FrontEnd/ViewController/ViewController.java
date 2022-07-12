@@ -22,6 +22,11 @@ public class ViewController {
     public String myAccountHome() {
         return "FrontEnd/member/my-account";
     }
+
+    @GetMapping("/animals")
+    public String animal() {
+        return "FrontEnd/Animal/animal";
+    }
 }
 
 
