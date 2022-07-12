@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Controller
+@RequestMapping("/Front")
 public class ProductControllerF {
     @Autowired
     private ProductService productService;
@@ -20,9 +24,16 @@ public class ProductControllerF {
 //        return modelAndView;
 //    }
     @GetMapping("/products")
-    public String showProducts(Model model) {
+    public String showProducts(Model model, Principal principal) {
         model.addAttribute("products", productService.findAll());
-        return "FrontEnd/Shop/shop";
+        if (principal != null) {
+            principal.getName();
+            System.out.println("--------------------------");
+            System.out.println("目前登入是: " + principal.getName());
+            return "FrontEnd/Shop/shop";
+        } else {
+            return "login";
+        }
     }
 
 }
