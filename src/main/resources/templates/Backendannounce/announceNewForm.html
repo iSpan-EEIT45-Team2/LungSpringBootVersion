@@ -49,7 +49,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label> <span>公告內容</span>
-                                        <input type="text" th:field="*{anContent}" class="form-control" id="anContent"/>
+                                        <!--<input type="text" th:field="*{anContent}" class="form-control" id="anContent"/>-->
+                                        <textarea th:field="*{anContent}" class="form-control" id="anContent" rows="4"></textarea>
                                     </label>
                                 </div>
 
@@ -57,6 +58,7 @@
                                 <div class="form-group">
                                     <label> <span>公告類型</span>
                                         <select th:field="*{anType}" class="js-example-basic-single w-100 select2-hidden-accessible" id="anType">
+                                            <option value="">請選擇</option>
                                             <option value="新聞">新聞</option>
                                             <option value="教育">教育</option>
                                         </select>
@@ -64,9 +66,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label>編輯者</label>
-                                    <select th:field="*{anEditor}"
-                                            class="js-example-basic-single w-100 select2-hidden-accessible"
-                                            id="anEditor">
+                                    <select th:field="*{anEditor}" class="js-example-basic-single w-100 select2-hidden-accessible" id="anEditor">
+                                        <option value="">請選擇</option>
+                                        <option value="亭妤">亭妤</option>
                                         <option value="亭妤">亭妤</option>
                                         <option value="鴻銘">鴻銘</option>
                                         <option value="毓蓉">毓蓉</option>
@@ -81,10 +83,12 @@
 
                                 </div>
 
-                                <button type="button" class="btn btn-warning me-2" onclick="add();"><i
-                                        class="bi bi-send"></i>送出
+                                <button type="button" class="btn btn-warning me-2" onclick="add();">
+                                    <i class="bi bi-send"></i>送出
                                 </button>
-                                <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>
+                                <button type="button" class="btn btn-light" onclick="cancel();">取消</button>
+                                <button type="button" class="btn btn-light" onclick="quickData();">一鍵輸入</button>
+                                <button type="rest" class="btn btn-light">重置</button>
                             </form>
                         </div>
                     </div>
@@ -169,6 +173,35 @@
         })
 
     }
+
+    function quickData() {
+        // 各欄位預設內容
+        let titles = [
+            '日本首相中彈QQ',
+            '遊戲王作者GG',
+            '網紅被紅毛猩猩摸奶奶'
+        ];
+        let contents = [
+            '日本首相被瘋子開槍射擊不幸中彈, 又要重新選舉了',
+            '遊戲王作者潛水意外身亡, 使用死者甦醒魔法卡也無效',
+            '網紅被紅毛猩猩親親跟摸ㄋㄟㄋㄟ, 真是令人羨慕'
+        ];
+        let titleIndex = Math.floor(Math.random() * 3); // 若有新增預設標題及內容, 這裡的數字也要修正成對應的數量
+        let types = ['新聞', '教育'];
+        let editors = ['亭妤', '鴻銘', '毓蓉', '容緯', '奕成', '鄭漢'];
+        let now = new Date();
+        let nowYear = now.getFullYear();
+        let nowMonth = now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1;
+        let nowDay = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
+        let today = nowYear + '-' + nowMonth + '-' + nowDay;
+        // 各個欄位給值
+        document.getElementById('anTitle').value = titles[titleIndex];
+        document.getElementById('anContent').value = contents[titleIndex];
+        document.getElementById('anType').value = types[Math.floor(Math.random() * 2)];
+        document.getElementById('anEditor').value = editors[Math.floor(Math.random() * 6)];
+        document.getElementById('anDate').value = today;
+    }
 </script>
 </body>
 </html>
+
