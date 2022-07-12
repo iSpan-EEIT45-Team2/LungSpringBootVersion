@@ -20,7 +20,16 @@ public class ViewController {
 
     @GetMapping("/my-account-home")
     public String myAccountHome() {
-        return "FrontEnd/member/my-account";
+        return "FrontEnd/member/my-account"; }
+
+    @GetMapping("/announcedetailspage")
+    public String announcedetails() {
+        return "FrontEnd/announce/announceDetail";
+    }
+
+    @GetMapping("/announcepage")
+    public String announce() {
+        return "FrontEnd/announce/announce";
     }
 }
 
