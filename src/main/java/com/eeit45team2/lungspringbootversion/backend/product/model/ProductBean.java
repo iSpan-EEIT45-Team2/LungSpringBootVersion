@@ -79,23 +79,30 @@ public class ProductBean {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         ProductBean other = (ProductBean) obj;
         if (pd_id == null) {
-            if (other.pd_id != null)
+            if (other.pd_id != null) {
                 return false;
-        } else if (!pd_id.equals(other.pd_id))
+            }
+        } else if (!pd_id.equals(other.pd_id)) {
             return false;
+        }
         if (pd_product_name == null) {
-            if (other.pd_product_name != null)
+            if (other.pd_product_name != null) {
                 return false;
-        } else if (!pd_product_name.equals(other.pd_product_name))
+            }
+        } else if (!pd_product_name.equals(other.pd_product_name)) {
             return false;
+        }
         return true;
     }
 }

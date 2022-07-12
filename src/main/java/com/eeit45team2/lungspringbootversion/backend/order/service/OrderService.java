@@ -1,23 +1,22 @@
 package com.eeit45team2.lungspringbootversion.backend.order.service;
 
-import com.eeit45team2.lungspringbootversion.backend.order.model.OrderBean;
+import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
 
 import java.util.List;
 
 public interface OrderService {
 
     //show all
-    public List<OrderBean> findAll();
+    public List<Order> findAll();
 
     //save
-    public void save(OrderBean theOrderBean);
+    public void save(Order order);
 
     //FindById
-    public OrderBean FindById(Long od_id);
+    public Order FindById(Integer id);
 
     //delete
-    public void delete(Long od_id);
+    public void delete(Integer id);
 
-    public void testDelete(String od_id);
 
 }

@@ -79,17 +79,17 @@
                 <div class="row shop_wrapper grid_4">
 
                     <!-- Single Product Start -->
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 product" th:each="product : ${products}">
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 product" th:each="activity : ${activities}">
                         <div class="product-inner">
                             <div class="thumb">
                                 <a href="single-product.html" class="image">
                                     <img class="fit-image"
-                                         th:src="@{/image4/{id}(id=${product.localfileName})}"
+                                         th:src="@{/image3/{id}(id=${activity.localfileName})}"
                                          alt="Product"/>
                                 </a>
                                 <div class="action-wrapper">
                                     <a href="" class="action quickview" data-bs-toggle="modal"
-                                       th:attr="data-bs-target= '#addModel' + *{product.pd_id}" title="Quickview"><i
+                                       th:attr="data-bs-target= '#addModel' + *{activity.ac_id}" title="Quickview"><i
                                             class="ti-plus"></i></a>
                                     <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
                                             class="ti-heart"></i></a>
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                             <div class="content">
-                                <h5 class="title"><a href="single-product.html">[[${product.pd_product_name}]]</a></h5>
+                                <h5 class="title"><a href="single-product.html">[[${activity.ac_name}]]</a></h5>
                                 <span class="rating">
                                             <i class="fa fa-star-o"></i>
                                             <i class="fa fa-star-o"></i>
@@ -107,9 +107,9 @@
                                             <i class="fa fa-star-o"></i>
                                         </span>
                                 <span class="price">
-                                            $<span class="new">[[${product.pd_amount}]]</span>
+                                            $<span class="new">[[${activity.ac_fee}]]</span>
                                     </span>
-                                <p>[[${product.pd_content}]]</p>
+                                <p>[[${activity.ac_participant}]]</p>
                                 <!-- Cart Button Start -->
                                 <div class="cart-btn action-btn">
                                     <div class="action-cart-btn-wrapper d-flex">
@@ -161,9 +161,9 @@
 <!-- Shop Section End -->
 
 <!-- Modal Start  -->
-<div class="modalquickview modal fade" th:id="*{'addModel'+ {product.pd_id}}" tabindex="-1" aria-labelledby="addModel"
+<div class="modalquickview modal fade" th:id="*{'addModel'+ {activity.ac_id}}" tabindex="-1" aria-labelledby="addModel"
      role="dialog"
-     aria-hidden="true" th:each="product : ${products}">
+     aria-hidden="true" th:each="activity : ${activities}">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <button class="btn close" data-bs-dismiss="modal">×</button>
@@ -177,7 +177,7 @@
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 <a class="swiper-slide" href="#">
-                                    <img class="w-100" th:src="@{/image4/{id}(id=${product.localfileName})}"
+                                    <img class="w-100" th:src="@{/image3/{id}(id=${activity.localfileName})}"
                                          alt="Product">
                                 </a>
                             </div>
@@ -206,7 +206,7 @@
 
                         <!-- Product Head Start -->
                         <div class="product-head m-b-15">
-                            <h2 class="product-title">[[${product.pd_product_name}]]</h2>
+                            <h2 class="product-title">[[${activity.ac_name}]]</h2>
                         </div>
                         <!-- Product Head End -->
 
@@ -222,20 +222,20 @@
 
                         <!-- Price Box Start -->
                         <div class="price-box m-b-10">
-                            $<span class="regular-price">[[${product.pd_amount}]]</span>
+                            $<span class="regular-price">[[${activity.ac_quota}]]</span>
                         </div>
                         <!-- Price Box End -->
 
 
                         <!-- Description Start -->
-                        <p class="desc-content m-b-25">[[${product.pd_content}]]</p>
+                        <p class="desc-content m-b-25">[[${activity.ac_participant}]]</p>
                         <!-- Description End -->
 
                         <!-- Quantity Start -->
                         <div class="quantity d-flex align-items-center justify-content-start m-b-25">
                             <span class="m-r-10"><strong>數量: </strong></span>
-                            <form action="/Lung/Front/addToCart" method="post">
-                                <input type="hidden" name="id" th:value="${product.pd_id}"/>
+                            <form action="/Lung/addToCart" method="post">
+                                <input type="hidden" name="id" th:value="${activity.ac_id}"/>
                                 <div class="cart-plus-minus">
                                     <input class="cart-plus-minus-box" value="1" name="quantity">
                                     <div class="dec qtybutton">-</div>
@@ -246,7 +246,7 @@
                                     <div class="action-cart-btn-wrapper d-flex justify-content-start">
                                         <div class="add-to_cart">
                                             <button class="btn btn-primary btn-hover-dark rounded-0 " type="submit"
-                                                    th:onclick="addCart([[${product.pd_id}]])">
+                                                    th:onclick="addCart([[${activity.ac_id}]])">
                                                 加入購物車
                                             </button>
                                         </div>
