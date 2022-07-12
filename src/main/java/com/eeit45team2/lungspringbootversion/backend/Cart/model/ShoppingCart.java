@@ -1,5 +1,7 @@
 package com.eeit45team2.lungspringbootversion.backend.Cart.model;
 
+import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -23,6 +25,10 @@ public class ShoppingCart {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<CartItem> items = new HashSet<CartItem>();
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orderId")
+    private Order order;
     private String sessionToken;
 
     public ShoppingCart() {

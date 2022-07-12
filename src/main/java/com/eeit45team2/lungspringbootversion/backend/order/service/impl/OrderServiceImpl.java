@@ -1,6 +1,6 @@
 package com.eeit45team2.lungspringbootversion.backend.order.service.impl;
 
-import com.eeit45team2.lungspringbootversion.backend.order.model.OrderBean;
+import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
 import com.eeit45team2.lungspringbootversion.backend.order.repository.OrderRepository;
 import com.eeit45team2.lungspringbootversion.backend.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +18,25 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
 
-    public List<OrderBean> findAll() {
+    public List<Order> findAll() {
         return orderRepository.findAll();
     }
 
     @Override
-    public void save(OrderBean theOrderBean) {
-        orderRepository.save(theOrderBean);
+    public void save(Order order) {
+        orderRepository.save(order);
     }
 
     @Override
-    public OrderBean FindById(Long od_id) {
-        return orderRepository.findById(od_id).get();
+    public Order FindById(Integer id) {
+        return orderRepository.findById(id).get();
         //找到這筆資料回傳,Update方法
     }
 
     @Override
-    public void delete(Long od_id) {
-        orderRepository.deleteById(od_id);
-    }
-
-    @Override
-    public void testDelete(String od_id) {
-        Long id = Long.valueOf(od_id);
+    public void delete(Integer id) {
         orderRepository.deleteById(id);
-
     }
+
 
 }
