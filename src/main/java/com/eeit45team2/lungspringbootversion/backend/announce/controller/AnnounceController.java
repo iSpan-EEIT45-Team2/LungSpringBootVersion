@@ -1,9 +1,7 @@
 package com.eeit45team2.lungspringbootversion.backend.announce.controller;
 
-import com.eeit45team2.lungspringbootversion.backend.animal.model.AdDogBean;
 import com.eeit45team2.lungspringbootversion.backend.announce.model.AnnounceBean;
 import com.eeit45team2.lungspringbootversion.backend.announce.service.AnnounceService;
-import com.eeit45team2.lungspringbootversion.backend.order.model.OrderBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +28,7 @@ public class AnnounceController {
 	public String showFormForAdd(Model model) {
 		AnnounceBean announceBean = new AnnounceBean();
 		model.addAttribute("announce", announceBean);
-		return "/Backendannounce/announceNewForm";
+		return "Backendannounce/announceNewForm";
 	}
 
 
