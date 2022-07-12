@@ -60,7 +60,7 @@
                                     <th>訂單規格</th>
                                     <th>訂單數量</th>
                                     <th>訂單金額</th>
-                                    <th>test</th>
+                                    <th>訂單狀態</th>
                                     <th>訂單操作</th>
                                 </tr>
                                 </thead>
@@ -73,7 +73,9 @@
                                     <td th:text="${order.od_amount}"/>
                                     <td th:text="${order.od_number}"/>
                                     <td th:text="${order.od_money}"/>
-                                    <td><label class="badge badge-danger">未付款</label></td>
+                                    <td><label class="badge badge-danger" th:if="${order.type} eq '0'">未付款</label>
+                                        <label class="badge badge-success" th:if="${order.type} eq '1'">已付款</label>
+                                    </td>
                                     <td>
                                         <a th:href="@{'/Backendorder/updateForm/' + ${order.od_id} }"
                                            class="btn btn-sm btn-success"><i

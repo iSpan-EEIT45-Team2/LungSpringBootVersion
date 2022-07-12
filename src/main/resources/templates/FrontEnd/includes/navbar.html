@@ -8,8 +8,8 @@
                     <!-- Header Logo Start -->
                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="header-logo">
-                            <a href="index.html"><img th:src="@{/FrontEnd/assets/images/logo/logo.png}"
-                                                      alt="Site Logo"/></a>
+                            <a href="/Lung/Front"><img th:src="@{/FrontEnd/assets/images/logo/logo.png}"
+                                                       alt="Site Logo"/></a>
                         </div>
                     </div>
                     <!-- Header Logo End -->
@@ -36,7 +36,7 @@
                                             <h4 class="mega-menu-title">Shop Layout</h4>
                                             <ul class="m-b-n10">
                                                 <li>
-                                                    <router-link :to="{name: 'Category'}">List</router-link>
+                                                    <a th:href="@{/products}">商品</a>
                                                 </li>
                                                 <li><a href="shop-left-sidebar.html">Left Sidebar</a></li>
                                                 <li><a href="shop-right-sidebar.html">Right Sidebar</a></li>
@@ -68,7 +68,7 @@
                                                 <li><a href="login.html">Login | Register</a></li>
                                                 <li><a href="wishlist.html">Wishlist</a></li>
                                                 <li><a href="cart.html">Cart</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
+                                                <li><a th:href="@{/cart}">Checkout</a></li>
                                                 <li><a href="compare.html">Compare</a></li>
                                             </ul>
                                         </li>
@@ -161,7 +161,6 @@
                             <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
                                 <a class="cart-visible" href="javascript:void(0)">
                                     <i class="icon-handbag icons"></i>
-                                    <span class="header-action-num">3</span>
                                 </a>
 
                                 <!-- Header Cart Content Start -->
@@ -170,86 +169,84 @@
                                     <!-- Cart Procut Wrapper Start  -->
                                     <div class="cart-product-wrapper">
 
-                                        <!-- Cart Product/Price Start -->
-                                        <div class="cart-product-inner p-b-20 m-b-20 border-bottom">
+                                        <!--                                        &lt;!&ndash; Cart Product/Price Start &ndash;&gt;-->
+                                        <!--                                        <div class="cart-product-inner p-b-20 m-b-20 border-bottom">-->
 
-                                            <!-- Single Cart Product Start -->
-                                            <div class="single-cart-product">
-                                                <div class="cart-product-thumb">
-                                                    <a href="single-product.html"><img
-                                                            th:src="@{/FrontEnd/assets/images/header/header-cart/1.png}"
-                                                            alt="Cart Product"></a>
-                                                </div>
-                                                <div class="cart-product-content">
-                                                    <h3 class="title"><a href="single-product.html">Basic Dog
-                                                        Trainning</a></h3>
-                                                    <div class="product-quty-price">
-                                                        <span class="cart-quantity">Qty: <strong> 1 </strong></span>
-                                                        <span class="price">
-                                                            <span class="new">$70.00</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single Cart Product End -->
+                                        <!--                                            &lt;!&ndash; Single Cart Product Start &ndash;&gt;-->
+                                        <!--                                            <div class="single-cart-product">-->
+                                        <!--                                                <div class="cart-product-thumb">-->
+                                        <!--                                                    <a href="single-product.html"><img-->
+                                        <!--                                                            th:src="@{/FrontEnd/assets/images/header/header-cart/1.png}"-->
+                                        <!--                                                            alt="Cart Product"></a>-->
+                                        <!--                                                </div>-->
+                                        <!--                                                <div class="cart-product-content">-->
+                                        <!--                                                    <h3 class="title"><a href="single-product.html">Basic Dog-->
+                                        <!--                                                        Trainning</a></h3>-->
+                                        <!--                                                    <div class="product-quty-price">-->
+                                        <!--                                                        <span class="cart-quantity">Qty: <strong> 1 </strong></span>-->
+                                        <!--                                                        <span class="price">-->
+                                        <!--                                                            <span class="new">$70.00</span>-->
+                                        <!--                                                        </span>-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            &lt;!&ndash; Single Cart Product End &ndash;&gt;-->
 
-                                            <!-- Product Remove Start -->
-                                            <div class="cart-product-remove">
-                                                <a href="#/"><i class="icon-close"></i></a>
-                                            </div>
-                                            <!-- Product Remove End -->
+                                        <!--                                            &lt;!&ndash; Product Remove Start &ndash;&gt;-->
+                                        <!--                                            <div class="cart-product-remove">-->
+                                        <!--                                                <a href="#/"><i class="icon-close"></i></a>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            &lt;!&ndash; Product Remove End &ndash;&gt;-->
 
-                                        </div>
+                                        <!--                                        </div>-->
                                         <!-- Cart Product/Price End -->
 
                                         <!-- Cart Product/Price Start -->
-                                        <div class="cart-product-inner p-b-20 m-b-20 border-bottom">
+                                        <!--                                        <div class="cart-product-inner p-b-20 m-b-20 border-bottom">-->
 
-                                            <!-- Single Cart Product Start -->
-                                            <div class="single-cart-product">
-                                                <div class="cart-product-thumb">
-                                                    <a href="single-product.html"><img
-                                                            th:src="@{/FrontEnd/assets/images/header/header-cart/2.png}"
-                                                            alt="Cart Product"></a>
-                                                </div>
-                                                <div class="cart-product-content">
-                                                    <h3 class="title"><a href="single-product.html">Wait, You Need
-                                                        This</a></h3>
-                                                    <div class="product-quty-price">
-                                                        <span class="cart-quantity">Qty: <strong> 1 </strong></span>
-                                                        <span class="price">
-                                                            <span class="new">$80.00</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single Cart Product End -->
+                                        <!--                                            &lt;!&ndash; Single Cart Product Start &ndash;&gt;-->
+                                        <!--                                            <div class="single-cart-product">-->
+                                        <!--                                                <div class="cart-product-thumb">-->
+                                        <!--                                                    <a href="single-product.html"><img-->
+                                        <!--                                                            th:src="@{/FrontEnd/assets/images/header/header-cart/2.png}"-->
+                                        <!--                                                            alt="Cart Product"></a>-->
+                                        <!--                                                </div>-->
+                                        <!--                                                <div class="cart-product-content">-->
+                                        <!--                                                    <h3 class="title"><a href="single-product.html">Wait, You Need-->
+                                        <!--                                                        This</a></h3>-->
+                                        <!--                                                    <div class="product-quty-price">-->
+                                        <!--                                                        <span class="cart-quantity">Qty: <strong> 1 </strong></span>-->
+                                        <!--                                                        <span class="price">-->
+                                        <!--                                                            <span class="new">$80.00</span>-->
+                                        <!--                                                        </span>-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            &lt;!&ndash; Single Cart Product End &ndash;&gt;-->
 
-                                            <!-- Product Remove Start -->
-                                            <div class="cart-product-remove">
-                                                <a href="#/"><i class="icon-close"></i></a>
-                                            </div>
-                                            <!-- Product Remove End -->
+                                        <!--                                            &lt;!&ndash; Product Remove Start &ndash;&gt;-->
+                                        <!--                                            <div class="cart-product-remove">-->
+                                        <!--                                                <a href="#/"><i class="icon-close"></i></a>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            &lt;!&ndash; Product Remove End &ndash;&gt;-->
 
-                                        </div>
+                                        <!--                                        </div>-->
                                         <!-- Cart Product/Price End -->
 
                                     </div>
                                     <!-- Cart Procut Wrapper -->
 
                                     <!-- Cart Product Total Start -->
-                                    <div class="cart-product-total p-b-20 m-b-20 border-bottom">
-                                        <span class="value">Total</span>
-                                        <span class="price">200$</span>
-                                    </div>
+                                    <!--                                    <div class="cart-product-total p-b-20 m-b-20 border-bottom">-->
+                                    <!--                                        <span class="value">Total</span>-->
+                                    <!--                                        <span class="price">200$</span>-->
+                                    <!--                                    </div>-->
                                     <!-- Cart Product Total End -->
 
                                     <!-- Cart Product Button Start -->
                                     <div class="cart-product-btn m-t-20">
-                                        <a href="cart.html" class="btn btn-outline-light btn-hover-primary w-100">View
-                                            cart</a>
-                                        <a href="checkout.html"
-                                           class="btn btn-outline-light btn-hover-primary w-100 m-t-20">Checkout</a>
+                                        <a th:href="@{/shoppingCart}"
+                                           class="btn btn-outline-light btn-hover-primary w-100 m-t-20">前往購物車</a>
                                     </div>
                                     <!-- Cart Product Button End -->
 

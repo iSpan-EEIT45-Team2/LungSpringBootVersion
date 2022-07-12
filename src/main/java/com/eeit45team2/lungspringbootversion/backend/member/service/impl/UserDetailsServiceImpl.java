@@ -29,15 +29,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             System.out.println("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
-        return new org.springframework.security.core.userdetails.User(member.getMiAccount(), member.getMiPassword(),
-                true, true, true, true, getGrantedAuthorities(member));
+        return new org.springframework.security.core.userdetails.User(
+                member.getMiAccount(), member.getMiPassword(), getGrantedAuthorities(member));
     }
 
 
     private List<GrantedAuthority> getGrantedAuthorities(MemberBean member){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        authorities.add(new SimpleGrantedAuthority("ROLE_"+member.getType()));
+        authorities.add(new SimpleGrantedAuthority(member.getType()));
         System.out.print("authorities :"+authorities);
         return authorities;
     }

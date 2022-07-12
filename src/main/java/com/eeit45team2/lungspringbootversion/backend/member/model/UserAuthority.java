@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.Arrays;
 
 public enum UserAuthority {
-    USER("USER"), ADMIN("ADMIN");
+    USER("USER"),EMPLOYEE("EMPLOYEE") , ADMIN("ADMIN");
 
     String UserAuthority;
 
