@@ -1,10 +1,12 @@
 package com.eeit45team2.lungspringbootversion.backend.order.model;
 
+import com.eeit45team2.lungspringbootversion.backend.Cart.model.CartItem;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Order_Table")
@@ -23,6 +25,9 @@ public class OrderBean {
     Integer od_money;
 
     Integer type;
+    @OneToMany
+    @JoinColumn(name = "orderId")
+    private Set<CartItem> cartId;
 
     public OrderBean() {
     }

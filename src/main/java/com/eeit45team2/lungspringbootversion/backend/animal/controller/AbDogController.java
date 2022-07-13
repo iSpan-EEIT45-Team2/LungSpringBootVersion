@@ -88,6 +88,14 @@ public class AbDogController {
 		return mav;
 	}
 
+
+	@RequestMapping("/pass/{id}")
+		public String pass(@PathVariable(name="id") int abid){
+		AbDogBean abDogBean =abdogService.get(abid);
+		abDogBean.setAbaudit(0);
+		abdogService.save(abDogBean);
+		return "redirect:/abdoglist";
+	}
 	    }
 
 	

@@ -62,7 +62,7 @@
                             </td>
                             <td class="pro-price"><span>$[[${cart.product.pd_amount}]]</span></td>
                             <td class="pro-quantity">
-                                <form action="/Lung/updateShoppingCart" method="post">
+                                <form action="/Lung/Front/updateShoppingCart" method="post">
                                     <div class="quantity">
                                         <input hidden th:value="${cart.id}" name="item_id"/>
                                         <div class="cart-plus-minus">
@@ -80,7 +80,7 @@
                             <td class="pro-subtotal">
                                 <span>$[[${cart.product.pd_amount}*${cart.quantity}]]</span>
                             </td>
-                            <td class="pro-remove"><a th:href="@{/removeItem/{id}(id= ${cart.id}) }"><i
+                            <td class="pro-remove"><a th:href="@{/Front/removeItem/{id}(id= ${cart.id}) }"><i
                                     class="ti-trash"></i></a>
                             </td>
                         </tr>
@@ -98,13 +98,14 @@
 
                     <!-- Cart Button left Side Start -->
                     <div class="cart-btn-lef-side m-b-20">
-                        <a href="/Lung/products" class="btn btn btn-gray-deep btn-hover-primary">繼續購物</a>
+                        <a href="/Lung/Front/products" class="btn btn btn-gray-deep btn-hover-primary">繼續購物</a>
                     </div>
                     <!-- Cart Button left Side End -->
 
                     <!-- Cart Button Right Side Start -->
                     <div class="cart-btn-right-right m-b-20">
-                        <a th:href="@{/clearShoppingCart}" class="btn btn btn-gray-deep btn-hover-primary">清除購物車</a>
+                        <a th:href="@{/Front/clearShoppingCart}"
+                           class="btn btn btn-gray-deep btn-hover-primary">清除購物車</a>
                     </div>
                     <!-- Cart Button Right Side End -->
 
@@ -150,7 +151,7 @@
                     <!-- Cart Calculate Items End -->
 
                     <!-- Cart Checktout Button Start -->
-                    <a href="checkout.html" class="btn btn btn-gray-deep btn-hover-primary m-t-30">結帳</a>
+                    <a th:href="@{/Front/orders}" class="btn btn btn-gray-deep btn-hover-primary m-t-30">結帳</a>
                     <!-- Cart Checktout Button End -->
 
                 </div>

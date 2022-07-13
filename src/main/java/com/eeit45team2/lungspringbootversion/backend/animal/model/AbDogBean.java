@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 
 @Entity //實體類
-@Table(name="abdog_table") //資料表
+@Table(name="abdog_table1") //資料表
 @Getter
 @Setter
 @ToString
@@ -17,52 +17,51 @@ import javax.persistence.*;
 public class AbDogBean {
 	@Id //主KEY     自動生成                     每次+1
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long abid; //自動給號碼
+	private String abtype; //類
+	private String abvariety; //品種
+	private String absex;//姓 公 母
+	private String abphonto;//圖片
+	private String abarea;//行政區
+	private String abname;//收容所地址
+	private String abphone;//收容所電話
+	private String abemail;//收容所信箱
+	private String abdate;//入所日期
+	private String abremark;//描述
 
-	private Long abid;
-	@Column(columnDefinition = "NVARCHAR(50)")
 
-	private String abname;
-	@Column(columnDefinition = "NVARCHAR(50)")
-
-	private String abphone;
-	@Column(columnDefinition = "NVARCHAR(50)")
-
-	private String abemail;
-
-	private String abphonto;
-	@Column(columnDefinition = "NVARCHAR(50)")
-
-	private String abtype;
-	@Column(columnDefinition = "Int")
-	private int abage;
-	@Column(columnDefinition = "DATE ")
-
-	private String abdate;
+	private int abaudit;//審核 是否開放認領養
 
 	public AbDogBean() {
 	}
 
-	public AbDogBean(Long abid, String abname, String abphone, String abemail, String abimage, String abtype, int abage, String abdate) {
+	public AbDogBean(Long abid, String abtype, String abvariety, String absex, String abphonto, String abarea, String abname, String abphone, String abemail, String abdate, String abremark, int abaudit) {
 		this.abid = abid;
+		this.abtype = abtype;
+		this.abvariety = abvariety;
+		this.absex = absex;
+		this.abphonto = abphonto;
+		this.abarea = abarea;
 		this.abname = abname;
 		this.abphone = abphone;
 		this.abemail = abemail;
-		this.abphonto = abphonto;
-		this.abtype = abtype;
-		this.abage = abage;
 		this.abdate = abdate;
+		this.abremark = abremark;
+		this.abaudit = abaudit;
 	}
 
-	public AbDogBean(String abname, String abphone, String abemail, String abimage, String abtype, int abage, String abdate) {
+	public AbDogBean( String abtype, String abvariety, String absex, String abphonto, String abarea, String abname, String abphone, String abemail, String abdate, String abremark, int abaudit) {
+		this.abtype = abtype;
+		this.abvariety = abvariety;
+		this.absex = absex;
+		this.abphonto = abphonto;
+		this.abarea = abarea;
 		this.abname = abname;
 		this.abphone = abphone;
 		this.abemail = abemail;
-		this.abphonto = abphonto;
-		this.abtype = abtype;
-		this.abage = abage;
 		this.abdate = abdate;
+		this.abremark = abremark;
+		this.abaudit = abaudit;
 	}
 }
-
-
 

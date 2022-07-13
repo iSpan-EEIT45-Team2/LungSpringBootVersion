@@ -26,6 +26,8 @@ public class MemberActivityBean {
 	Integer orderNo;
 	Integer mi_no;
 	Integer ac_id;
+
+	Integer type;
 	LocalDateTime date;
 
 
@@ -34,35 +36,19 @@ public class MemberActivityBean {
 		this.date = date;
 	}
 
-	public MemberActivityBean(Integer orderNo, Integer mi_no, Integer ac_id) {
-		super();
-		this.orderNo = orderNo;
-		this.mi_no = mi_no;
-		this.ac_id = ac_id;
-	}
 
 	public MemberActivityBean() {
 
 	}
 
-	public Integer getOrderNo() {
-		return orderNo;
-	}
-	public void setOrderNo(Integer orderNo) {
-		this.orderNo = orderNo;
-	}
-	public Integer getMi_no() {
-		return mi_no;
-	}
 	public void setMi_no(Integer mi_no) {
 		this.mi_no = mi_no;
-	}
-	public Integer getAc_id() {
-		return ac_id;
 	}
 	public void setAc_id(Integer ac_id) {
 		this.ac_id = ac_id;
 	}
 
-	
+	public void setType(Integer type) {
+		this.type = type;
+	}
 }

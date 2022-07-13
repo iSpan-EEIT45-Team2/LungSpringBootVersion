@@ -58,24 +58,25 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>姓名</th>
-                                    <th>電話</th>
-                                    <th>信箱</th>
+                                    <th>類</th>
+                                    <th>品種</th>
                                     <th>圖片</th>
-                                    <th>種類</th>
-                                    <th>年紀</th>
+                                    <th>收容所</th>
+                                    <th>審核狀態</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="abdog : ${abdogs}">
                                     <td th:text="${abdog.abid}"/>
-                                    <td th:text="${abdog.abname}"/>
-                                    <td th:text="${abdog.abphone}"/>
-                                    <td th:text="${abdog.abemail}"/>
-                                    <td><img th:src="@{image/{id}(id=${abdog.abphonto})}"width="50" ></td>
                                     <td th:text="${abdog.abtype}"/>
-                                    <td th:text="${abdog.abage}"/>
+                                    <td th:text="${abdog.abvariety}"/>
+                                    <td><img th:src="@{image/{id}(id=${abdog.abphonto})}"width="50" ></td>
+                                    <td th:text="${abdog.abarea}"/>
+
+                                    <td th:if="${abdog.abaudit} eq '0'" th:text="審核完成">long</td>
+                                    <td th:if="${abdog.abaudit} eq '1'" th:text="審核中">long</td>
+
                                     <td>
                                     <a th:href="@{'/abupdateForm/' + ${abdog.abid} }" class="btn btn-sm btn-success"><i
                                                 class="bi bi-pencil-fill"></i></a>
@@ -84,6 +85,15 @@
                                                 th:onclick="deleteajax([[${abdog.abid}]])" type="button"
                                                 id="deleteajax"><i class="bi bi-trash-fill"></i>
                                         </button>
+
+<!--                                     <a th:href="@{Lung/pass/{id}(id=${abdog.abid})}" class="btn btn-sm btn-success">審核<i-->
+<!--                                                class="bi bi-pencil-fill"></i></a>-->
+
+                                        <a th:href="@{'/pass/' + ${abdog.abid} }" class="btn btn-sm btn-success">審核<i
+                                                class="bi bi-pencil-fill"></i></a>
+
+
+
                                     </td>
                                 </tr>
                                 </tbody>

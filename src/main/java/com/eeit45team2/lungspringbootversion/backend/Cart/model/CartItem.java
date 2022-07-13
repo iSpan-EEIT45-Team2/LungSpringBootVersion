@@ -17,6 +17,7 @@ public class CartItem {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", nullable = false, updatable = false)
     private ProductBean product;
+    
 
     public Long getId() {
         return id;
