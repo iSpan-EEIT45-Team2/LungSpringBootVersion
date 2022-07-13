@@ -1,10 +1,15 @@
 package com.eeit45team2.lungspringbootversion.backend.animal.controller;
 
+import com.eeit45team2.lungspringbootversion.backend.animal.json.JsonExporter;
 import com.eeit45team2.lungspringbootversion.backend.animal.model.AbDogBean;
+import com.eeit45team2.lungspringbootversion.backend.animal.repository.AbDogRepository;
 import com.eeit45team2.lungspringbootversion.backend.animal.service.AbDogService;
 import com.eeit45team2.lungspringbootversion.backend.animal.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -14,14 +19,22 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
 @Controller
 public class AbDogController {
+//	@Autowired
+//	private EmailSenderService senderService;
 
 	@Autowired
 	private AbDogService abdogService;
 	//自動實現
+	@Autowired
+
+	private AbDogRepository abdogRepository;
+	@Autowired
+	private JsonExporter jsonExporter;
 
 //	 @RequestMapping("/abdoglist")//映照path url
 //		public String viewHomePage(Model model) {  //Modelo儲存
@@ -44,13 +57,25 @@ public class AbDogController {
 //		//共回傳 四個參數  currentPage現在頁,/總頁數totalPages/記錄總數totalItems//  資料"listbooks"
 //		return "/BackendAnimal/BackAbDog";
 //	}
+
+	@GetMapping("showjs")
+	public String showjs1(Model model) {//call service撈資料 >連API>listall
+
+		return "/BackendAnimal/abchartjs";
+		//真實程式 非虛擬路徑
+	}
+
 	@GetMapping("abdoglist")
-	public String listabdogs(Model model) {//call service撈資料 >連API>listall
-		List <AbDogBean> abdogbeans = abdogService.abdoglistAll();
+	public String listabdogs(Model model, @Param("keyword") String keyword) {//call service撈資料 >連API>listall
+		List<AbDogBean> abdogbeans = abdogService.abdoglistAll(keyword);
 		model.addAttribute("abdogs", abdogbeans);
+		model.addAttribute("keyword", keyword);
+
 		return "/BackendAnimal/BackAbDog";
 		//真實程式 非虛擬路徑
 	}
+
+
 	@RequestMapping("/abshowForm")
 	public String showFormForAdd(Model model) {
 		AbDogBean abdogbean = new AbDogBean();
@@ -60,24 +85,23 @@ public class AbDogController {
 
 	@PostMapping("/saveAbDog")
 	public RedirectView AbDogSave(AbDogBean abdogbean,
-	 @RequestParam("image") MultipartFile multipartFile) throws IOException {
+								  @RequestParam("image") MultipartFile multipartFile) throws IOException {
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		abdogbean.setAbphonto(fileName);
 		abdogService.save(abdogbean);
 		//String uploadDir = "./user-photos/" +book.getId();./是當前目錄/user-photos/book.getId()
 		//   String uploadDir = "./user-photos/"  ;// ./是當前目錄/user-photos
-		String uploadDir = "./src/main/resources/static/BackEnd/images/animal/"  ;
+		String uploadDir = "./src/main/resources/static/BackEnd/images/animal/";
 		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 		return new RedirectView("/abdoglist", true);
 	}
 
 
 	@GetMapping(value = "/abdelete/{abid}")
-		public String deleteabdog(@PathVariable Long abid) {
-			abdogService.delete(abid);
-			return "redirect:/abdoglist";
-		}
-
+	public String deleteabdog(@PathVariable Long abid) {
+		abdogService.delete(abid);
+		return "redirect:/abdoglist";
+	}
 
 
 	@GetMapping("/abupdateForm/{abid}")
@@ -90,14 +114,40 @@ public class AbDogController {
 
 
 	@RequestMapping("/pass/{id}")
-		public String pass(@PathVariable(name="id") int abid){
-		AbDogBean abDogBean =abdogService.get(abid);
+	public String pass(@PathVariable(name = "id") int abid) {
+		AbDogBean abDogBean = abdogService.get(abid);
 		abDogBean.setAbaudit(0);
 		abdogService.save(abDogBean);
 		return "redirect:/abdoglist";
 	}
-	    }
 
+
+	@RequestMapping(value = "/down", produces = "application/json;charset=UTF-8")
+	//  @GetMapping("/down"     )
+	public ResponseEntity<byte[]> downloadJsonFile() {
+		List<AbDogBean> abdogbeans = (List<AbDogBean>) abdogRepository.findAll();
+		String abdogJsonString = jsonExporter.export(abdogbeans);
+		//byte[] productJsonBytes = productJsonString.getBytes();
+		byte[] abdogJsonBytes = abdogJsonString.getBytes(Charset.forName("GBK"));
+		//(json.getBytes(Charset.forName("GBK"))); //將json資料寫入流中
+		return ResponseEntity
+				.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=customers.json")
+				.contentType(MediaType.APPLICATION_JSON)
+				.contentLength(abdogJsonBytes.length)
+				.body(abdogJsonBytes);
+	}
+
+//
+//	@EventListener(ApplicationReadyEvent.class)
+//	public void sendMail() {
+//		senderService.sendEmail("shen775207@gmail.com"),
+//				"This is object",
+//				"This is Body of Email";
+//
+//
+//	}
+}
 	
 	
 

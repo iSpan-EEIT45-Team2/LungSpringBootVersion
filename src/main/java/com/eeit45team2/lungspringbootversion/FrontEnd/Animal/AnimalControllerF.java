@@ -5,6 +5,7 @@ import com.eeit45team2.lungspringbootversion.backend.animal.service.AbDogService
 import com.eeit45team2.lungspringbootversion.backend.animal.util.FileUploadUtil;
 import com.eeit45team2.lungspringbootversion.backend.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,19 +23,25 @@ public class AnimalControllerF {
     private AbDogService abDogService;
 
 
-    //顯示商品
-//    @GetMapping("/products")
-//    public ModelAndView getAllProducts() {
-//        ModelAndView modelAndView = new ModelAndView("/FrontEnd/Shop/shop"); //對應的html檔路徑
-//        modelAndView.addObject("products", productService.findAll());
-//        return modelAndView;
+
+//    @GetMapping("animals")
+//    public String showAnimal(Model model, @Param("keyword") String keyword) {//call service撈資料 >連API>listall
+//        List <AbDogBean> animal = abDogService.abdoglistAll(keyword);
+//        model.addAttribute("animals", animal);
+//        model.addAttribute("keyword", keyword);
+//
+//        return "/BackendAnimal/BackAbDog";
+//        //真實程式 非虛擬路徑
 //    }
     @GetMapping("/animals")
-    public String showAnimal(Model model) {
-        List<AbDogBean> animal = abDogService.abdoglistAll();
-        model.addAttribute("animals", abDogService.abdoglistAll());
+    public String showAnimal(Model model, @Param("keyword") String keyword) {
+        List<AbDogBean> animal = abDogService.abdoglistAll(keyword);
+        model.addAttribute("animals", animal);
+        model.addAttribute("keyword", keyword);
+
         return "FrontEnd/Animal/blog";
     }
+
     @RequestMapping("/animalForm")
     public String showFormForAdd(Model model) {
         AbDogBean abdogbean = new AbDogBean();

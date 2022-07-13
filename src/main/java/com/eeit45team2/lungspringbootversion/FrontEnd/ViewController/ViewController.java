@@ -28,7 +28,7 @@ public class ViewController {
 
     @GetMapping("/announcepage")
     public String announce() {
-        return "FrontEnd/announce/announce1";
+        return "FrontEnd/announce/announce";
     }
 
     @GetMapping("/animals")
