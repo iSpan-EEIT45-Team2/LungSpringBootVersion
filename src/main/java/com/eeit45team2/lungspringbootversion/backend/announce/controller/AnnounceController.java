@@ -24,6 +24,13 @@ public class AnnounceController {
 		return "/Backendannounce/announce";
 	}
 
+	@GetMapping("/announcelist2")
+	public String listAnnounce2(Model model) {
+		List<AnnounceBean> announceBeans = announceService.findAll();
+		model.addAttribute("announces2", announceBeans);
+		return "/FrontEnd/announce/announce";
+	}
+
 	@RequestMapping("/showForm")
 	public String showFormForAdd(Model model) {
 		AnnounceBean announceBean = new AnnounceBean();

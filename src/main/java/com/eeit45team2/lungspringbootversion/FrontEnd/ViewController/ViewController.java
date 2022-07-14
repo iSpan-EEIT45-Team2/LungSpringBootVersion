@@ -37,6 +37,11 @@ public class ViewController {
         return "security";
     }
 
+    @GetMapping("/animals")
+    public String animal() {
+        return "FrontEnd/Animal/animal";
+    }
+
 }
 
 
