@@ -88,6 +88,7 @@ public class MemberControllerF {
         {
             MemberBean member = userRepository.findByMiEmailIgnoreCase(token.getMember().getMiEmail());
             member.setMiActive("Y");
+            member.setMiRole("USER;ACTIVE");
             userRepository.save(member);
             modelAndView.setViewName("/FrontEnd/registerVerifySuccess");
         }
@@ -141,17 +142,8 @@ public class MemberControllerF {
 
 
 
-
-
     @GetMapping("/registerpage")
     public String showRegisterPage(Model model) {
-        List<String> allRole = new ArrayList<String>();
-        allRole.add("USER");
-        allRole.add("ACTIVE");
-        allRole.add("EMPLOYEE");
-        allRole.add("ADMIN");
-        model.addAttribute("allRole", allRole);
-
         MemberBean memberBean = new MemberBean();
         model.addAttribute("member", memberBean);
         return "FrontEnd/register";

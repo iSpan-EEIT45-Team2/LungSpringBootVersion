@@ -6202,7 +6202,7 @@ only screen and (min-width: 768px) and (max-width: 991px) {
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
-    justify-content: space-between
+    justify-content: flex-end; /*space-between*/
 }
 
 .login-wrapper .single-input-item .login-reg-form-meta .btn,

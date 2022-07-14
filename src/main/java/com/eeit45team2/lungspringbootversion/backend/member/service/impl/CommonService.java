@@ -6,6 +6,9 @@ import com.eeit45team2.lungspringbootversion.backend.member.service.MemberServic
 import com.eeit45team2.lungspringbootversion.backend.member.util.CommonFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,34 +34,41 @@ public class CommonService {
     @Autowired
     ServletContext ctx;
 
-    public @ResponseBody String getCurrentUserMiName(){
+
+    public String getCurrentUserMiNameString() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) { // user不是anonymousUser
+            CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return customUserDetails.getMiname();
+        } else {
+            return (String) authentication.getPrincipal(); //是anonymousUser
+        }
+    }
+
+    public @ResponseBody String getCurrentUserMiName() {
         CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return customUserDetails.getMiname(); // 呼叫CustomUserDetails.java取得那裡變數member的name
     }
 
 
     public ResponseEntity<byte[]> getCurrentUserImage() {
-        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long currentUserMiNo = customUserDetails.getMino();
-
         byte[] body = null;
         ResponseEntity<byte[]> responseEntity = null;
         MediaType mediaType = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-        MemberBean member = memberService.findById(currentUserMiNo);
 
-        // 沒有會員資料
-        if(member == null) {
-            return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
-        }else {
-            // 有會員資料
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        MemberBean member = null;
+
+        // user不是anonymousUser ->　已登入
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            member = customUserDetails.getUser();
             String localfilename = member.getLocalfileName();
-//			Blob image = member.getImage();
             // 有local檔名 -> 因為csv直接匯入 || 有新增照片
-            if(localfilename != null) {
+            if (localfilename != null) {
                 // 設定ResponseHeaders
-                /* 透過檔名 setContentType(MediaType) */
                 if (localfilename.toLowerCase().endsWith("jfif")) {
                     mediaType = MediaType.valueOf(ctx.getMimeType("dummy.jpeg"));
                 } else {
@@ -66,18 +76,39 @@ public class CommonService {
                     headers.setContentType(mediaType);
                 }
                 // 設定ResponseBody
-//				body = getServerFileToByteArray("/resources/images/memberHeadshot" + localfilename);  //有問題: 每次都產生暫時目錄
                 body = commonFunction.blobToByteArray(member.getImage()); // 改成抓DB圖片
-            }else {
-                //沒有local檔名 -> 新增不傳圖片 -> 所以要顯示預設圖片
-                body = commonFunction.getProjectFileToByteArray(".\\src\\main\\resources\\static\\BackEnd\\images\\memberHeadshot\\defaultHeadshot.jpg");  //如果圖片為空，就上傳預設圖片
+            } else {
+                //沒有local檔名 -> 新增不傳圖片
+//                member.getMiAccount().equals(defaultAccount);
+                switch (member.getMiAccount()) {
+                    case "admin":
+                        body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/luffy.jpg");
+                        break;
+                    case "employee":
+                        body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/nami.jpg");
+                        break;
+                    case "active":
+                        body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/choppa.jpg");
+                        break;
+                    case "user":
+                        body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/sanji.jpg");
+                        break;
+                    default:
+                        // 顯示預設圖片
+                        body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/defaultHeadshot.jpg");
+                }
             }
-            responseEntity = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
-            return responseEntity;
+        } else {
+            // user未登入 -> show default
+            body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/defaultUserIcon.jpg");
+//            return (String) authentication.getPrincipal(); //是anonymousUser
         }
+        responseEntity = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+        return responseEntity;
     }
-
-
-
-
 }
+
+
+
+
+
