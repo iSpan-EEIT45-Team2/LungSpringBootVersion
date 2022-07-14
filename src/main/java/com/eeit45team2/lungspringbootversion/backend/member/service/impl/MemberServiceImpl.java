@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
 import java.util.List;
 
 
@@ -65,6 +68,39 @@ public class MemberServiceImpl implements MemberService {
     public MemberBean findByMiAccount(String miAccount) {
         return memberRepository.findByMiAccount(miAccount);
     }
+
+	// MultipartFile 轉 BLOB型態 ，塞進DB
+	public MemberBean saveHeadshotInDB(MemberBean memberBean, Boolean isInsert) {
+		MultipartFile picture = memberBean.getProductImage(); //取得MultipartFile檔案
+		// setImage (建立Blob物件，交由 Hibernate 寫入資料庫)
+		if (picture != null && !picture.isEmpty()) {
+			// 如果有上傳照片
+			try {
+				byte[] b = picture.getBytes();
+				Blob blob = new SerialBlob(b);
+				memberBean.setImage(blob);   //塞BLOB
+				memberBean.setLocalfileName(System.currentTimeMillis() + "_" + picture.getOriginalFilename()); // 暫時先這樣寫
+				return memberBean;
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+			}
+		}else {
+			// 如果沒有上傳照片
+			if( !isInsert ) { // 是update時
+				try {
+					memberBean.setImage(findById(memberBean.getMiNo()).getImage());  // 找DB中的舊照片
+					memberBean.setLocalfileName(findById(memberBean.getMiNo()).getLocalfileName());  // 找DB中的舊檔名
+					System.out.println(" > setImaget 成功");
+					return memberBean;
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("修改時 檔案上傳發生異常: " + e.getMessage());
+				}
+			} // 不是update時不用setImage
+			return memberBean;
+		}
+	}
 
 	
 }

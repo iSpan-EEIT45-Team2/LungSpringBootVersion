@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <div th:include="BackEnd/includes/head :: head"></div>
     <meta charset="UTF-8">
@@ -11,7 +12,9 @@
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <style>
         .hidetext { -webkit-text-security: disc;}
+
     </style>
+
 </head>
 <body>
 
@@ -63,7 +66,7 @@
                                     <!-- 											<th>DB照片</th> -->
                                     <th>本機照片</th>
                                     <th>會員帳號</th>
-                                    <th>會員密碼</th>
+<!--                                    <th>會員密碼</th>-->
                                     <th>會員權限</th>
                                     <th>會員姓名</th>
                                     <th>會員生日</th>
@@ -79,8 +82,8 @@
                                     <td th:text="${member.miNo}"/>
                                     <td><img th:src="@{'/Backendmember/picture/' + ${member.miNo} }" /></td>
                                     <td th:text="${member.miAccount}"/>
-                                    <td th:text="${member.miPassword}" class="hidetext"/>
-                                    <td th:text="${member.type}"/>
+<!--                                    <td th:text="${member.miPassword}" class="hidetext"/>-->
+                                    <td th:text="${member.miRole}" name="miRole"/>
                                     <td th:text="${member.miName}"/>
                                     <td th:text="${member.miBirth}"/>
                                     <td>
@@ -116,7 +119,18 @@
 <!-- End custom js for this page-->
 
 <!-- 寫自己的Js -->
+
 <script>
+    let nodelistrole = document.querySelectorAll("td[name='miRole']");  //是一個 List，幾個會員就有幾個nodelistrole
+    console.log("原nodelistrole: " + nodelistrole);
+    console.log("nodelistrole.length: " + nodelistrole.length);
+
+    for (let i = 0; i < nodelistrole.length; i++) {
+        nodelistrole[i].innerHTML =  nodelistrole[i].innerHTML.replaceAll(';','/');
+    }
+</script>
+<script>
+
     function deleteajax(miNo) {
         console.log(miNo);
         Swal.fire({

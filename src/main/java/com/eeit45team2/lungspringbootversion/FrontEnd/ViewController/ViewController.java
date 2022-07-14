@@ -30,6 +30,13 @@ public class ViewController {
     public String announce() {
         return "FrontEnd/announce/announce";
     }
+
+    //測試用: 拿來看session id
+    @RequestMapping("/security")
+    public String security() {
+        return "security";
+    }
+
 }
 
 
