@@ -58,6 +58,14 @@ public class AnnounceController {
 		announceService.delete(anNO);
 		return "redirect:/announcelist";
 	}
+
+	@GetMapping("/viewForm/{anNO}")
+	public ModelAndView showFormForView(@PathVariable Long anNO) {
+		ModelAndView mav1 = new ModelAndView("/FrontEnd/announce/announceDetail");
+		AnnounceBean announceBean = announceService.FindById(anNO);
+		mav1.addObject("announce",announceBean);
+		return mav1;
+	}
 }
 
 
