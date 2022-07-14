@@ -54,7 +54,7 @@ public class AnimalControllerF {
         //   String uploadDir = "./user-photos/"  ;// ./是當前目錄/user-photos
         String uploadDir = "./src/main/resources/static/BackEnd/images/animal/";
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-        message.setFrom("shen775207@gmail.com");
+        message.setFrom("Lunghipeace0302@gmail.com");
         message.setTo(abdogbean.getAbemail());
         message.setSubject("謝謝您的來信");
         message.setText("目前表單正在審核中");

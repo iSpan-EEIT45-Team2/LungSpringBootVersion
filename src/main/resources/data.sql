@@ -16,3 +16,4 @@ INSERT INTO MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, mi
 
 INSERT INTO MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress) VALUES
     ('USER香吉士','W143802241',CAST('1996/06/30' AS DATE),'0956410662','abc40@mail.com','user','$2a$10$Zy.cMMbYSb6x0PS5WYVDwOEokd0bMkAjpw/W9jyBmIuijkAulJ6Ee','USER', '女', 'Y', '花蓮縣', '壽豐鄉', '189號');
+

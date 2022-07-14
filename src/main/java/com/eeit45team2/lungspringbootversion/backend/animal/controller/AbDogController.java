@@ -101,7 +101,7 @@ public class AbDogController {
 		//   String uploadDir = "./user-photos/"  ;// ./是當前目錄/user-photos
 		String uploadDir = "./src/main/resources/static/BackEnd/images/animal/";
 		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-		message.setFrom("shen775207@gmail.com");
+		message.setFrom("Lunghipeace0302@gmail.com");
 		message.setTo(abdogbean.getAbemail());
 		message.setSubject("謝謝您的來信");
 		message.setText("目前表單正在審核中");
@@ -143,7 +143,7 @@ public class AbDogController {
 		List<AbDogBean> abdogbeans = (List<AbDogBean>) abdogRepository.findAll();
 		String abdogJsonString = jsonExporter.export(abdogbeans);
 		//byte[] productJsonBytes = productJsonString.getBytes();
-		byte[] abdogJsonBytes = abdogJsonString.getBytes(Charset.forName("GBK"));
+		byte[] abdogJsonBytes = abdogJsonString.getBytes(Charset.forName("utf-8"));
 		//(json.getBytes(Charset.forName("GBK"))); //將json資料寫入流中
 		return ResponseEntity
 				.ok()
