@@ -18,6 +18,8 @@ public class AnnounceBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long anNo;
+
+	String anPhoto;
 	String anTitle;
 	String anContent;
 	String anType;
@@ -31,9 +33,10 @@ public class AnnounceBean {
 	public AnnounceBean() {
 	}
 
-	public AnnounceBean(String anTitle, String anContent, String anType, String anEditor,
+	public AnnounceBean(String anPhoto,String anTitle, String anContent, String anType, String anEditor,
 						Date anDate) {
 		super();
+		this.anPhoto = anPhoto;
 		this.anTitle = anTitle;
 		this.anContent = anContent;
 		this.anType = anType;
@@ -41,10 +44,11 @@ public class AnnounceBean {
 		this.anDate = anDate;
 	}
 
-	public AnnounceBean(Long anNo, String anTitle, String anContent, String anType, String anEditor,
+	public AnnounceBean(Long anNo,String anPhoto, String anTitle, String anContent, String anType, String anEditor,
 						Date anDate) {
 		super();
 		this.anNo = anNo;
+		this.anPhoto = anPhoto;
 		this.anTitle = anTitle;
 		this.anContent = anContent;
 		this.anType = anType;

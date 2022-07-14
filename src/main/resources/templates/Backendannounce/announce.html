@@ -54,6 +54,7 @@
                                 <thead>
                                 <tr>
                                     <th>公告編號</th>
+                                    <th>公告圖片</th>
                                     <th>公告標題</th>
                                     <th>公告內容</th>
                                     <th>公告類型</th>
@@ -65,6 +66,7 @@
                                 <tbody>
                                 <tr th:each="announce : ${announces}">
                                     <td th:text="${announce.anNo}"/>
+                                    <td th:text="${announce.anPhoto}"/>
                                     <td th:text="${announce.anTitle}"/>
                                     <td th:text="${announce.anContent}"/>
                                     <td th:text="${announce.anType}"/>
