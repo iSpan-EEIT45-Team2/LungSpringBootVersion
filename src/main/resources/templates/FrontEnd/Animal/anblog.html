@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <div th:include="FrontEnd/includes/head :: head"></div>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Amber - Pet Care Bootstrap 5 Template</title>
+    <title>Lung-Hi Peace</title>
 
     <!-- Favicons -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!-- Vendor CSS (Icon Font) -->
 
-    <!-- 
+    <!--
 <link rel="stylesheet" href="assets/css/vendor/fontawesome.min.css" />
 <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css" />
 <link rel="stylesheet" href="assets/css/vendor/simple-line-icons.min.css" />
-<link rel="stylesheet" href="assets/css/vendor/themify-icons-min.css" /> 
+<link rel="stylesheet" href="assets/css/vendor/themify-icons-min.css" />
  -->
 
     <!-- Plugins CSS (All Plugins Files) -->
 
-    <!-- 
+    <!--
 <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
 <link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
 <link rel="stylesheet" href="assets/css/plugins/lightgallery.min.css" />
 <link rel="stylesheet" href="assets/css/plugins/aos.min.css" />
-<link rel="stylesheet" href="assets/css/plugins/nice-select.min.css" /> 
+<link rel="stylesheet" href="assets/css/plugins/nice-select.min.css" />
 -->
 
     <!-- Main Style CSS -->
@@ -49,6 +50,68 @@
 <body>
 <div th:include="FrontEnd/includes/navbar :: navbar"></div>
 
+    <!-- Header Section Start -->
+    <div class="header section">
+
+        <!-- Header Top Start -->
+        <div class="header-top bg-name-primary">
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <!-- Header Top Message Start -->
+                    <div class="col-12 col-lg-6">
+                        <div class="header-top-msg-wrapper">
+                            <p class="header-top-message">Welcome To our shop !</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="header-top-settings">
+                            <ul class="nav">
+                                <li class="curreny-wrap">
+                                    <a href="#">USD</a>
+                                    <i class="fa fa-angle-down"></i>
+                                    <ul class="dropdown-list curreny-list">
+                                        <li><a href="#">$ USD</a></li>
+                                        <li><a href="#">€ EUR</a></li>
+                                        <li><a href="#">£ GBP</a></li>
+                                        <li><a href="#">₹ INR</a></li>
+                                        <li><a href="#">¥ JPY</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Header Top Message End -->
+
+                </div>
+            </div>
+        </div>
+
+
+                             </div>
+
+
+
+                                <!-- Mobile Menu Hambarger Action Button Start -->
+                                <a href="javascript:void(0)" class="header-action-btn header-action-btn-menu d-lg-none d-md-flex">
+                                    <i class="icon-menu"></i>
+                                </a>
+                                <!-- Mobile Menu Hambarger Action Button End -->
+
+                            </div>
+                        </div>
+                        <!-- Header Action End -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header Bottom End -->
+
+    </div>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Area Start -->
     <div class="section breadcrumb-area bg-name-bright">
         <div class="container">
             <div class="row">
@@ -56,8 +119,8 @@
                     <div class="breadcrumb-wrapper">
                         <h2 class="breadcrumb-title">寵物媒合</h2>
                         <ul>
-                            <li><a href="index.html">浪浪的家</a></li>
-                            <li>希望每一隻動物都能好好對待</li>
+                            <li><a href="index.html">Home</a></li>
+                            <li>Blog Grid</li>
                         </ul>
                     </div>
                 </div>
@@ -66,166 +129,127 @@
     </div>
     <!-- Breadcrumb Area End -->
 
-    <!-- Blog Details Section Start -->
-    <div class="section section-margin">
+    <!-- Blog Grid Section Start -->
+<form th:action="@{/animals}">
+    查詢: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
+    &nbsp;
+    <input type="submit" value="Search" />
+    &nbsp;
+    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+    <a href="animalForm" >新增寵物表單</a><!-- i標籤是icon -->
+
+</form>
+
+
+</form>
+<form th:action="@{/animals}">
+
+    <select name="keyword">
+        <option value="請選擇狗的類型"selected>請選擇狗的類型 </option>
+        <option value="混種狗">混種狗</option>
+        <option value="米格魯" >米格魯</option>
+        <option value="哈士奇">哈士奇</option>
+        <option value="柯基">柯基</option>
+        <option value="高山犬">高山犬</option>
+
+    </select>
+
+    <input type="submit" value="Search" />
+    &nbsp;
+
+</form>
+
+
+</form>
+<form th:action="@{/animals}">
+
+    <select name="keyword">
+        <option value="">請選擇貓的類型</option>
+        <option value="金絲">金絲</option>
+        <option value="混種貓" >混種貓</option>
+        <option value="緬因">緬因</option>
+        <option value="加菲">加菲</option>
+        <option value="折耳">折耳</option>
+
+    </select>
+
+    <input type="submit" value="Search" />
+    &nbsp;
+<!--    <a href="/saveAnimal"></a>-->
+
+</form>
+
+    <div class="section section-margin" >
         <div class="container">
-            <div class="row">
-                <div class="col-lg-9 m-auto overflow-hidden"th:each="animal : ${animals}">
-                    <!-- Blog Details Wrapper Start -->
-                    <div class="blog-details-wrapper">
+            <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1 m-b-n40" >
 
-                        <!-- Blog Details Content Start -->
-                        <div class="blog-details-content">
+                <div class="col m-b-40" th:each="animal : ${animals}">
 
-                            <!-- Blog Image Start -->
-                            <div class="blog-image">
-                                <img class="fit-image" th:src="@{/image/{id}(id=${animal.abphonto})}" alt="Animal"/>
+                    <!-- Single Blog Start -->
+                    <div class="single-blog-wrapper" >
 
-                            </div>
-                            <!-- Blog Image End -->
 
-                            <!-- Blog details title & Meta Start -->
-                            <div class="blog-details-title-meta">
-                                <h2 class="title">寵物資訊相關</h2>
-                                <ul class="blog-meta">
-                                    <li>By: <a href="#/">Admin</a> <span><td th:text="${animal.abdate}"/></span></li>
-                                    <li>03 Comments</li>
+                        <!-- Blog Thumb Start -->
+                        <div class="blog-thumb thumb-effect" >
+                            <a class="image" href="anblog-details.html">
+                                <img class="fit-image"
+                                 th:src="@{/image/{id}(id=${animal.abphonto})}"
+                                 alt="Animal"/>
+                            </a>
+                        </div>
+
+                        <!-- Blog Thumb End -->
+
+                        <!-- Blog Content Start -->
+                        <div class="blog-content"  >
+                            <div class="blog-meta">
+                                <ul>
+                                    <li><span> </span><a href="#/">日期</a></li>
+                                    <li><span> <td th:text="${animal.abdate}"/></span></li>
                                 </ul>
                             </div>
-                            <!-- Blog details title & Meta End -->
 
-                            <!-- Content Start -->
+
+                              <h2 class="blog-title" >詳細資訊</h2>
                             <tr>
                                 <p><h3>寵物單號碼：<td th:text="${animal.abid}"/></p> </h3>
                                 <p><h3>寵物類型：<td th:text="${animal.abtype}"/></p></h3>
                                 <p><h3>寵物品種：<td th:text="${animal.abvariety}"/></p></h3>
                                 <p><h3>寵物姓：<td th:text="${animal.absex}"/> </p></h3>
-
-
-                            </tr>
-                            <!-- Blogquote Start -->
-                            <blockquote> 收容所資訊相關 </blockquote>
-                            <!-- Blogquote End -->
-                            <tr>
                                 <p><h3>收容行政區域：<td th:text="${animal.abname}"/></p></h3>
-                                <p><h3>收容所地址：<td th:text="${animal.abarea}"/></p></h3>
-                                <p><h3>收容所電話：<td th:text="${animal.abphone}"/></p></h3>
-                                <p><h3>聯絡信箱：<td th:text="${animal.abemail}"/> </p></h3>
-                                <p><h3>相關評論：<td th:text="${animal.abremark}"/></p></h3>
 
-                                </p>
-                            </tr>                            <!-- Content End -->
+                            </p>
+                            <a class="more-link" th:href="@{'/animalUpdateForm/' +${animal.abid}}">Read More</a>
+                            </tr>
 
-                            <!-- Blog Details Tags & Social Shear Start -->
-                            <div class="blog-details-tag-social m-b-n20">
-
-                                <!-- Blog Details Tags Start -->
-                                <div class="blog-details-tag m-b-20">
-                                    <ul>
-                                        <li><a href="#/">Cat</a></li>
-                                        <li><a href="#/">Dog</a></li>
-                                        <li><a href="#/">Fish</a></li>
-                                    </ul>
-                                </div>
-                                <!-- Blog Details Tags End -->
-
-                                <!-- Social Shear Start -->
-                                <div class="social-share m-b-20">
-                                    <div class="widget-social">
-                                        <span>Share: </span>
-                                        <a title="Twitter" href="#/"><i class="icon-social-twitter"></i></a>
-                                        <a title="Instagram" href="#/"><i class="icon-social-instagram"></i></a>
-                                        <a title="Linkedin" href="#/"><i class="icon-social-linkedin"></i></a>
-                                        <a title="Skype" href="#/"><i class="icon-social-skype"></i></a>
-                                        <a title="Dribble" href="#/"><i class="icon-social-dribbble"></i></a>
-                                    </div>
-                                </div>
-                                <!-- Social Shear End -->
-
-                            </div>
-                            <!-- Blog Details Tags & Social Shear End -->
                         </div>
-                        <!-- Blog Details Content End -->
-
-                        <!-- Blog Details Comments area Start -->
-                        <div class="blog-details-comment-area m-b-n30">
-                            <h2 class="blog-desc-title m-b-30 m-t-40">Comments</h2>
-                            <div class="blog-details-comment-wrapper m-b-30">
-                                <div class="thumb">
-                                    <img class="fit-image" src="assets/images/blog/small-size/95x95.jpg" alt="Blog Review">
-                                </div>
-                                <div class="content">
-                                    <h4 class="title">Catherin Betty</h4>
-                                    <ul class="meta">
-                                        <li>27 Oct 2021</li>
-                                    </ul>
-                                    <p>Praesent bibendum risus pellentesque faucibus rhoncus. Etiam a mollis odio. Integer urna nisl, fermentum eu mollis et, gravida eu elit. Excepteur sint occaecat cupidatat.</p>
-                                </div>
-                            </div>
-
-                            <div class="blog-details-comment-wrapper m-b-30">
-                                <div class="thumb">
-                                    <img class="fit-image" src="assets/images/blog/small-size/95x95-2.jpg" alt="Blog Review">
-                                </div>
-                                <div class="content">
-                                    <h4 class="title">Alex Due</h4>
-                                    <ul class="meta">
-                                        <li>27 Oct 2021</li>
-                                    </ul>
-                                    <p>Praesent bibendum risus pellentesque faucibus rhoncus. Etiam a mollis odio. Integer urna nisl, fermentum eu mollis et, gravida eu elit. Excepteur sint occaecat cupidatat.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Blog Details Comments area End -->
-
-                        <!-- Comments Post Area Start -->
-                        <div class="comment-post-area">
-                            <h2 class="blog-desc-title m-b-30 p-t-40">Post a Comment</h2>
-                            <form action="#">
-                                <div class="row">
-
-                                    <!-- Name Input Start -->
-                                    <div class="col-md-6 col-custom">
-                                        <div class="input-item m-b-20">
-                                            <input class="rounded-0 w-100 input-area name" type="text" placeholder="Name">
-                                        </div>
-                                    </div>
-                                    <!-- Name Input End -->
-
-                                    <!-- Email Input Start -->
-                                    <div class="col-md-6 col-custom">
-                                        <div class="input-item m-b-20">
-                                            <input class="rounded-0 w-100 input-area email" type="text" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <!-- Email Input End -->
-
-                                    <!-- Message Input Start -->
-                                    <div class="col-12 col-custom">
-                                        <div class="input-item m-b-20">
-                                            <textarea cols="30" rows="10" name="comment" class="rounded-0 w-100 custom-textarea input-area" placeholder="Message" spellcheck="false" data-gramm="false"></textarea>
-                                        </div>
-                                    </div>
-                                    <!-- Message Input End -->
-
-                                    <!-- Submit Button Start -->
-                                    <div class="col-12 col-custom m-t-20">
-                                        <button type="submit" class="btn btn-primary btn-hover-dark">Send Message</button>
-                                    </div>
-                                    <!-- Submit Button End -->
-
-                                </div>
-                            </form>
-                        </div>
-                        <!-- Comments Post Area End -->
-
                     </div>
-                    <!-- Blog Details Wrapper End -->
+                </div>
+
+            </div>
+        </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-12 m-t-50">
+                    <nav class="d-flex justify-content-center">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link active" href="#/">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#/">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#/">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link rounded-0" href="#/" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Blog Details Section End -->
+    <!-- Blog Grid Section End -->
 
     <!-- Footer Section Start -->
 <div th:include="BackEnd/includes/footer :: footer"></div>
@@ -301,6 +325,8 @@
         <!-- Footer Top End -->
 
         <!-- Footer Bottom Start -->
+        <div th:include="BackEnd/includes/footer :: footer"></div>
+
         <div class="footer-bottom bg-name-light p-t-20 p-b-20">
             <div class="container">
                 <div class="row align-items-center m-b-n20">
@@ -474,6 +500,8 @@
     </a>
     <!-- Scroll Top End -->
 
+<div th:include="BackEnd/includes/footer :: footer"></div>
+
     <!-- Mobile Menu Start -->
     <div class="mobile-menu-wrapper">
         <div class="offcanvas-overlay"></div>
@@ -551,10 +579,10 @@
                             <li class="has-children">
                                 <a href="#">Blog <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                 <ul class="dropdown">
-                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="anblog.html">Blog</a></li>
                                     <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
                                     <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                    <li><a href="blog-details.html">Blog Details</a></li>
+                                    <li><a href="anblog-details.html">Blog Details</a></li>
                                     <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>
                                 </ul>
                             </li>
@@ -618,14 +646,13 @@
         </div>
         <!-- Mobile Menu Inner End -->
     </div>
-<div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
-
     <!-- Mobile Menu End -->
 
     <!-- Global Vendor, plugins JS -->
 
     <!-- Vendor JS -->
 
+<div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
 
     <!-- 
     <script src="assets/js/vendor/popper.min.js"></script>
@@ -657,6 +684,8 @@
 
     <!--Main JS-->
     <script src="assets/js/main.js"></script>
+
+
 </body>
 
 </html>
