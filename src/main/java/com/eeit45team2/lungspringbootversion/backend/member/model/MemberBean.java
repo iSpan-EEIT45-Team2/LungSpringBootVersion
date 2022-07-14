@@ -2,9 +2,11 @@ package com.eeit45team2.lungspringbootversion.backend.member.model;
 
 import java.sql.Blob;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -39,7 +41,13 @@ public class MemberBean {
 	
 	@Column(columnDefinition = "NVARCHAR(50) NOT NULL")
 	String miEmail;  // 會員Email
-	
+
+	@Column(columnDefinition = "NVARCHAR(10) NOT NULL")
+	String miCity;  // 會員縣市
+
+	@Column(columnDefinition = "NVARCHAR(20) NOT NULL")
+	String miDistrict;  // 會員鄉鎮市區
+
 	@Column(columnDefinition = "NVARCHAR(100) NOT NULL")
 	String miAddress;  // 會員地址
 	
@@ -58,11 +66,16 @@ public class MemberBean {
 	@Transient
 	MultipartFile productImage;
 
-	@Column(name="TYPE", length=15, nullable=false)
-	private String type = UserAuthority.USER.getUserAuthority();
+	@Column(columnDefinition = "NVARCHAR(100) NOT NULL")
+	private String miRole;
+//	private String type = UserAuthority.USER.getUserAuthority();
+
 
 	@Column(columnDefinition = "NVARCHAR(100) NOT NULL")
 	String miGender;
+
+	@Column(columnDefinition = "NVARCHAR(2) NOT NULL")
+	String miActive;
 
 	//All Constructor  //9個欄位
 

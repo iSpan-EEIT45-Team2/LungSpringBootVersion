@@ -23,5 +23,7 @@ public interface MemberService {
 	public Boolean existsByMiAccount(String miAccount);
 
 	public MemberBean findByMiAccount(String miAccount);
+
+	public MemberBean saveHeadshotInDB(MemberBean memberBean, Boolean isInsert);
 	
 }

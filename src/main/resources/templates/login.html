@@ -40,7 +40,7 @@
         let type = password.getAttribute('type') === 'password' ? 'text' : 'password';  //三元運算式，把抓到的type存回type
         password.setAttribute('type', type);  //改變type
         this.classList.toggle('fa-eye-slash'); //轉換眼睛圖示
-        document.getElementById("password").focus();
+        password.focus();
     });
 
 </script>

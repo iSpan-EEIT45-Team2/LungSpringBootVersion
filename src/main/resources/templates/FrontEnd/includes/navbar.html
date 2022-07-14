@@ -94,7 +94,8 @@
                                             <a th:href="@{/animals}">認領養</a>
                                         </li>
                                         <li>
-                                            <a th:href="@{/animalForm}">寵物媒合</a>
+
+                                            <a th:href="@{/animalForm}">填寫寵物表單  </a>
                                         </li>
                                         <li><a href="contact.html">Contact Us</a></li>
                                         <li><a href="error-404.html">Error 404</a></li>
@@ -118,7 +119,7 @@
 <!--                                        <li><a href="blog.html">Blog</a></li>-->
 <!--                                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>-->
 <!--                                        <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>-->
-<!--                                        <li><a href="blog-details.html">Blog Details</a></li>-->
+<!--                                        <li><a href="anblog-details.html">Blog Details</a></li>-->
 <!--                                        <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>-->
 <!--                                    </ul>-->
                                 </li>
@@ -161,9 +162,25 @@
                             <!-- Header Action Search Button End -->
 
                             <!-- Header My Account Button Start -->
-                            <a href="my-account.html" class="header-action-btn header-action-btn-wishlist">
-                                <i class="icon-user icons"></i>
-                            </a>
+                            <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
+                                <a class="account-visible" href="javascript:void(0)">
+                                    <i class="icon-user icons"></i>
+                                    <!--                                        <span class="header-action-num">1</span>-->
+                                </a>
+                                <!-- Header Account Content Start -->
+                                <div class="header-account-content">
+                                    <!-- Cart Product Button Start -->
+                                    <div class="cart-account-btn m-t-20">
+                                        <a th:href="@{/loginPage}" class="btn btn-outline-light btn-hover-primary w-100 m-t-20"><i
+                                                class="fa-solid fa-right-to-bracket"></i><span style="margin:0 8px">登入</span></a>
+                                        <a href="#" class="btn btn-outline-light btn-hover-primary w-100 m-t-20" ><i
+                                                class="fa-solid fa-address-book"></i><span style="margin:0 8px">會員中心</span></a>
+                                        <a th:href="@{/logout}" class="btn btn-outline-light btn-hover-primary w-100 m-t-20"><i
+                                                class="fa-solid fa-right-from-bracket"></i><span style="margin:0 8px">登出</span></a>
+                                    </div>
+                                </div>
+                                <!-- Header Account Content End -->
+                            </div>
                             <!-- Header My Account Button End -->
 
                             <!-- Header Action Button Start -->
