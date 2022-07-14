@@ -73,8 +73,12 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <label>姓</label>
-                                    <input type="text" th:field="*{absex}" class="form-control" id="ab_sex"/>
+                                    <label> <span>性別</span>
+                                        <select th:field="*{absex}" class="js-example-basic-single w-100 select2-hidden-accessible" id="ab_sex">
+                                            <option value="公">公</option>
+                                            <option value="母">母</option>
+                                        </select>
+                                    </label>
                                 </div>
                                 <div>
                                     <label>Photos: </label>
