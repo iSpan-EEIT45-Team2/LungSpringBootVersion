@@ -216,7 +216,7 @@
                                 <p><h3>寵物類型：<td th:text="${animal.abtype}"/></p></h3>
                                 <p><h3>寵物品種：<td th:text="${animal.abvariety}"/></p></h3>
                                 <p><h3>寵物姓：<td th:text="${animal.absex}"/> </p></h3>
-                                <p><h3>收容行政區域：<td th:text="${animal.abname}"/></p></h3>
+                                <p><h3>行政區域：<td th:text="${animal.abname}"/></p></h3>
 
                             </p>
                             <a class="more-link" th:href="@{'/animalUpdateForm/' +${animal.abid}}">Read More</a>
@@ -653,31 +653,6 @@
     <!-- Vendor JS -->
 
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
-
-    <!-- 
-    <script src="assets/js/vendor/popper.min.js"></script>
-    <script src="assets/js/vendor/bootstrap.min.js"></script>
-    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
-    <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>   
-    -->
-
-
-    <!-- Plugins JS -->
-
-
-    <!-- 
-    <script src="assets/js/plugins/aos.min.js"></script>
-    <script src="assets/js/plugins/jquery.ajaxchimp.min.js"></script>
-    <script src="assets/js/plugins/jquery-ui.min.js"></script>
-    <script src="assets/js/plugins/nice-select.min.js"></script>
-    <script src="assets/js/plugins/swiper-bundle.min.js"></script>
-    <script src="assets/js/plugins/countdown.min.js"></script>
-    <script src="assets/js/plugins/lightgallery-all.min.js"></script>  
-    -->
-
-
-    <!-- Use the minified version files listed below for better performance and remove the files listed above -->
 
     <script src="assets/js/vendor.min.js"></script>
     <script src="assets/js/plugins.min.js"></script>

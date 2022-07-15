@@ -27,7 +27,6 @@ public class Order implements Serializable {
 
     @Transient
     private String username;
-
     @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "miNo")
     private MemberBean memberBean;

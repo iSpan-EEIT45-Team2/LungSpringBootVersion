@@ -17,10 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("FrontEndAnimalF")
+//@RequestMapping("FrontEndAnimalF")
 public class AnimalControllerF {
     @Autowired
     private AbDogService abDogService;
@@ -29,20 +30,54 @@ public class AnimalControllerF {
     @Autowired
     private JavaMailSender mailSender;
     @GetMapping("/animals")
-    public String showAnimal(Model model, @Param("keyword") String keyword) {
-        List<AbDogBean> animal = abDogService.abdoglistAll(keyword);
-        model.addAttribute("animals", animal);
+    public String showAnimal(Model model, @Param("keyword") String keyword ) {
+        List<AbDogBean> abdogbeans = abDogService.abdoglistAll(keyword);
+        model.addAttribute("animals", abdogbeans);
         model.addAttribute("keyword", keyword);
+//        if (principal != null) {
+//            principal.getName();
+//            System.out.println("--------------------------");
+//            System.out.println("沈77: " + principal.getName());
+            return "FrontEnd/Animal/anblog";
+//        } else {
+//            return "login";
+//        }
+    }
 
-        return "FrontEnd/Animal/anblog";
+    @RequestMapping("/animal1")
+    public String showAnimal1(Model model, Principal principal, @Param("keyword") String keyword ) {
+        String key = principal.getName();
+        List<AbDogBean> animal1 = abDogService.abdoglistAll(key);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("animal1", animal1);
+        if (principal != null) {
+            principal.getName();
+            System.out.println("--------------------------");
+            System.out.println("沈77: " + principal.getName());
+
+            return "/FrontEnd/Animal/anaaa1";
+        } else {
+            return "login";
+        }
+
+
+
     }
 
     @RequestMapping("/animalForm")
-    public String showFormForAdd(Model model) {
+    public String showFormForAdd(Model model,Principal principal) {
         AbDogBean abdogbean = new AbDogBean();
-        model.addAttribute("animals", abdogbean);
-        return "/FrontEnd/Animal/anblog-save";
+        if (principal != null) {
+            principal.getName();
+            System.out.println("--------------------------");
+            System.out.println("目前登入是: " + principal.getName());
+            model.addAttribute("animals", abdogbean);
+            return "/FrontEnd/Animal/anblog-save";
+        } else {
+            return "login";
+        }
     }
+
     @PostMapping("/saveAnimal")
     public RedirectView AbDogSave(AbDogBean abdogbean,
                                   @RequestParam("image") MultipartFile multipartFile) throws IOException {

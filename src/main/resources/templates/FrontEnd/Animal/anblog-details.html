@@ -87,6 +87,8 @@
                             <!-- Blog details title & Meta Start -->
                             <div class="blog-details-title-meta">
                                 <h2 class="title">寵物資訊相關</h2>
+
+
                                 <ul class="blog-meta">
                                     <li>By: <a href="#/">Admin</a> <span><td th:text="${animal.abdate}"/></span></li>
                                     <li>03 Comments</li>
@@ -107,8 +109,8 @@
                             <blockquote> 收容所資訊相關 </blockquote>
                             <!-- Blogquote End -->
                             <tr>
+                                <p><h3>帳戶名稱：<td th:text="${animal.abarea}"/></p></h3>
                                 <p><h3>收容行政區域：<td th:text="${animal.abname}"/></p></h3>
-                                <p><h3>收容所地址：<td th:text="${animal.abarea}"/></p></h3>
                                 <p><h3>收容所電話：<td th:text="${animal.abphone}"/></p></h3>
                                 <p><h3>聯絡信箱：<td th:text="${animal.abemail}"/> </p></h3>
                                 <p><h3>相關評論：<td th:text="${animal.abremark}"/></p></h3>

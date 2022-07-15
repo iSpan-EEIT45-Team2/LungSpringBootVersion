@@ -64,10 +64,9 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>類</th>
                                     <th>品種</th>
                                     <th>圖片</th>
-                                    <th>收容所</th>
+                                    <th>帳戶名稱</th>
                                     <th>審核狀態</th>
                                     <th>操作</th>
                                 </tr>
@@ -75,7 +74,6 @@
                                 <tbody>
                                 <tr th:each="abdog : ${abdogs}">
                                     <td th:text="${abdog.abid}"/>
-                                    <td th:text="${abdog.abtype}"/>
                                     <td th:text="${abdog.abvariety}"/>
                                     <td><img th:src="@{image/{id}(id=${abdog.abphonto})}"width="50" ></td>
                                     <td th:text="${abdog.abarea}"/>

@@ -27,7 +27,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 @Controller
-@RequestMapping("/BackendAbdog")
+//@RequestMapping("/BackendAbdog")
 public class AbDogController {
 //	@Autowired
 //	private EmailSenderService senderService;
