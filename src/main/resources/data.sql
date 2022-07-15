@@ -15,7 +15,7 @@ INSERT INTO MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, mi
     ('ACTIVE喬巴','X181771234',CAST('2005/03/16' AS DATE),'0930152563','abc30@mail.com','active','$2a$10$aBcQul7PMtaZLRanssgOTeO3r2n3sIy1S9YkUyWdPFbDB3iYc7XX6','USER;ACTIVE', '男', 'Y', '屏東縣', '恆春鎮', '大光路79號' );
 
 INSERT INTO MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress) VALUES
-    ('USER香吉士','W143802241',CAST('1996/06/30' AS DATE),'0956410662','abc40@mail.com','user','$2a$10$Zy.cMMbYSb6x0PS5WYVDwOEokd0bMkAjpw/W9jyBmIuijkAulJ6Ee','USER', '女', 'Y', '花蓮縣', '壽豐鄉', '189號');
+    ('USER香吉士','W143802241',CAST('1996/06/30' AS DATE),'0956410662','abc40@mail.com','user','$2a$10$Zy.cMMbYSb6x0PS5WYVDwOEokd0bMkAjpw/W9jyBmIuijkAulJ6Ee','USER', '不公開', 'Y', '花蓮縣', '壽豐鄉', '189號');
 
 --新增公告資料
 -- DELETE FROM ANNOUNCE_Table WHERE anNo = '';
