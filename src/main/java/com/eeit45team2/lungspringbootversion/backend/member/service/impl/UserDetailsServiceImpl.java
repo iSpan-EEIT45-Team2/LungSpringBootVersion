@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String miAccount)
             throws UsernameNotFoundException {
         MemberBean member = memberService.findByMiAccount(miAccount); //去DB查詢匹配的帳號，回傳一個User物件
-        System.out.println("member : "+member);
+//        System.out.println("用帳號查詢member資訊 : "+member);
         // 判斷是否有從DB找到匹配的用戶
         // 沒有匹配帳號
         if(Objects.isNull(member)){

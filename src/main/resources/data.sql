@@ -15,7 +15,7 @@ INSERT INTO MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, mi
     ('ACTIVE喬巴','X181771234',CAST('2005/03/16' AS DATE),'0930152563','abc30@mail.com','active','$2a$10$aBcQul7PMtaZLRanssgOTeO3r2n3sIy1S9YkUyWdPFbDB3iYc7XX6','USER;ACTIVE', '男', 'Y', '屏東縣', '恆春鎮', '大光路79號' );
 
 INSERT INTO MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress) VALUES
-    ('USER香吉士','W143802241',CAST('1996/06/30' AS DATE),'0956410662','abc40@mail.com','user','$2a$10$Zy.cMMbYSb6x0PS5WYVDwOEokd0bMkAjpw/W9jyBmIuijkAulJ6Ee','USER', '女', 'Y', '花蓮縣', '壽豐鄉', '189號');
+    ('USER香吉士','W143802241',CAST('1996/06/30' AS DATE),'0956410662','abc40@mail.com','user','$2a$10$Zy.cMMbYSb6x0PS5WYVDwOEokd0bMkAjpw/W9jyBmIuijkAulJ6Ee','USER', '不公開', 'Y', '花蓮縣', '壽豐鄉', '189號');
 
 --新增公告資料
 -- DELETE FROM ANNOUNCE_Table WHERE anNo = '';
@@ -35,8 +35,8 @@ INSERT INTO ANNOUNCE_Table ( anPhoto,anTitle, anContent, anType, anEditor, anDat
 INSERT INTO ANNOUNCE_Table ( anPhoto,anTitle, anContent, anType, anEditor, anDate) VALUES
     ('cat9.jpg','免費犬貓三合一','新竹縣免費犬貓三合一列車抵達芎林村活動中心，為毛小孩們絕育(結紮)、登記植入晶片及注射狂犬病疫苗', '新聞', '容緯', CAST('2022/06/20' AS DATE) );
 
--- INSERT INTO ANNOUNCE_Table ( anPhoto,anTitle, anContent, anType, anEditor, anDate) VALUES
---     ('dog5.jpg','離島遊蕩犬絕育計畫奏效!', '2020年8月前往馬祖列島的西莒島進行一個月的「遊蕩母犬駐點絕育任務」（以下簡稱駐紮任務）。在一個月內將島上所有母犬進行捕捉、絕育，最終為15隻遊蕩母犬進行絕育。時隔一年，於2021年底接獲當地志工回報，這一年來，西莒島上已經沒有再增加任何新生幼犬。本次駐紮任務解決了當地長久以來的困擾，此一成果令人相當振奮。', '新聞', '鴻明', CAST('2022/06/30' AS DATE) );
+INSERT INTO ANNOUNCE_Table ( anPhoto,anTitle, anContent, anType, anEditor, anDate) VALUES
+    ('dog5.jpg','離島遊蕩犬絕育計畫奏效!', '2020年8月前往馬祖列島的西莒島進行一個月的「遊蕩母犬駐點絕育任務」（以下簡稱駐紮任務）。在一個月內將島上所有母犬進行捕捉、絕育，最終為15隻遊蕩母犬進行絕育。時隔一年，於2021年底接獲當地志工回報，這一年來，西莒島上已經沒有再增加任何新生幼犬。本次駐紮任務解決了當地長久以來的困擾，此一成果令人相當振奮。', '新聞', '鴻明', CAST('2022/06/30' AS DATE) );
 
 INSERT INTO ANNOUNCE_Table ( anPhoto,anTitle, anContent, anType, anEditor, anDate) VALUES
     ('dog7.jpg','晶片寵登立大功！ 走失米克斯犬找到家', '日前於台中潭子舉辦下鄉犬貓絕育活動時，民眾帶來一隻剛拾獲的母犬，經協會掃描晶片時發現牠原本就有飼主、疑似走失。原飼主接獲通知時欣喜若狂，表示狗狗不見多日，全家非常心急卻遍尋不著，飼主慶幸當初有替寵物植入晶片，才能重新找回毛小孩。協會呼籲，為寵物植入晶片為落實飼主責任不可或缺的動作。','新聞', '奕成', CAST('2022/07/15' AS DATE) );

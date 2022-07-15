@@ -55,7 +55,7 @@
                                     <a href="#account-info" class="active" data-bs-toggle="tab"><i class="fa fa-user"></i>
                                         會員基本資料</a>
                                     <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> 訂單查詢</a>
-                                    <a th:href="@{/animal1}"><i class="fa-solid fa-hand-holding-heart"></i> 認養/送養記錄查詢</a>
+                                    <a href="#download" data-bs-toggle="tab"><i class="fa-solid fa-hand-holding-heart"></i> 認養/送養記錄查詢</a>
                                     <a href="#payment-method" data-bs-toggle="tab"><i class="fa-solid fa-star"></i> 商品收藏</a>
                                     <a href="login.html"><i class="fa fa-sign-out"></i> 登出</a>
                                 </div>
@@ -123,32 +123,31 @@
                                     <!-- Single Tab Content End -->
 
                                     <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="download" role="tabpanel" th:each="animal : ${animal1}">
+                                    <div class="tab-pane fade" id="download" role="tabpanel">
                                         <div class="myaccount-content">
-                                            <h3 class="title">使用者認養紀錄</h3>
+                                            <h3 class="title">Downloads</h3>
                                             <div class="myaccount-table table-responsive text-center">
                                                 <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                         <tr>
-                                                            <th>使用者帳戶</th>
-                                                            <th>日期</th>
-                                                            <th>品種</th>
-                                                            <th>表單紀錄</th>
+                                                            <th>Product</th>
+                                                            <th>Date</th>
+                                                            <th>Expire</th>
+                                                            <th>Download</th>
                                                         </tr>
                                                     </thead>
-
                                                     <tbody>
-<!--                                                        <tr>-->
-<!--                                                            <td th:text="${animal.abarea}" ></td>-->
-<!--                                                            <td th:text="${animal.abdate}" ></td>-->
-<!--                                                            <td th:text="${animal.abvariety}" ></td>-->
-<!--                                                            <td><a href="#" class="btn btn btn-dark btn-hover-primary rounded-0"><i class="fa fa-cloud-download m-r-5"></i> 詳細狀態</a></td>-->
-<!--                                                        </tr>-->
                                                         <tr>
-                                                            <td>active</td>
-                                                            <td>july 29, 2022</td>
-                                                            <td>摺耳貓</td>
-                                                            <td><a href="#" class="btn btn btn-dark btn-hover-primary rounded-0"><i class="fa fa-cloud-download m-r-5"></i> 詳細狀態</a></td>
+                                                            <td>Haven - Free Real Estate PSD Template</td>
+                                                            <td>Aug 22, 2018</td>
+                                                            <td>Yes</td>
+                                                            <td><a href="#" class="btn btn btn-dark btn-hover-primary rounded-0"><i class="fa fa-cloud-download m-r-5"></i> Download File</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>TechWorld - Profolio Business Template</td>
+                                                            <td>Sep 12, 2018</td>
+                                                            <td>Never</td>
+                                                            <td><a href="#" class="btn btn btn-dark btn-hover-primary rounded-0"><i class="fa fa-cloud-download m-r-5"></i> Download File</a></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
