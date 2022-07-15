@@ -117,6 +117,7 @@ xhr.send();
 let xhr1 = new XMLHttpRequest();
 let sumMember;  //會員總數
 let sumAnnounce;  //公告總數
+let sumAnimal;
 
 xhr1.onreadystatechange = function () {
 
@@ -124,8 +125,11 @@ xhr1.onreadystatechange = function () {
         let result = JSON.parse(xhr1.responseText);
         sumMember = parseInt(result.sumMember);
         sumAnnounce = parseInt(result.sumAnnounce);
+        sumAnimal = parseInt(result.sumAnimal);
+
         console.log("result.sumMember: " + sumMember);
         console.log("result.sumAnnounce: " + sumAnnounce);
+        console.log("result.sumAnimal: " + sumAnimal);
 
     }
     if ($("#lungHiOverview").length) {
@@ -134,7 +138,7 @@ xhr1.onreadystatechange = function () {
             labels: ["會員總數", "商品總數", "訂單總數", "志工活動總數", "公告總數", "待認養總數", "待送養總數"],
             datasets: [{
                 label: '',
-                data: [sumMember, 5, 6, 7, sumAnnounce, 8, 9],
+                data: [sumMember, 5, 6, 7, sumAnnounce, 8, 9,sumAnimal,10],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)',
                     'rgba(255, 206, 86, 0.5)',
