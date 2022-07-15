@@ -161,7 +161,7 @@
                             <!-- Header Action Search Button End -->
 
                             <!-- Header My Account Button Start -->
-                            <a href="my-account.html" class="header-action-btn header-action-btn-wishlist">
+                            <a href="/Lung/loginPage" class="header-action-btn header-action-btn-wishlist" sec:authorize="!isAuthenticated()">
                                 <i class="icon-user icons"></i>
                             </a>
                             <!-- Header My Account Button End -->
@@ -254,7 +254,7 @@
 
                                     <!-- Cart Product Button Start -->
                                     <div class="cart-product-btn m-t-20">
-                                        <a th:href="@{/Front/shoppingCart}"
+                                        <a th:href="@{/Front/Cart}"
                                            class="btn btn-outline-light btn-hover-primary w-100 m-t-20">前往購物車</a>
                                     </div>
                                     <!-- Cart Product Button End -->

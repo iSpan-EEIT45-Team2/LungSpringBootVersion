@@ -5,6 +5,7 @@ import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatus;
 import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatusConverter;
 import com.eeit45team2.lungspringbootversion.backend.order.constant.PayType;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,6 +31,7 @@ public class Order implements Serializable {
 
     @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "miNo")
+    @JsonIgnore
     private MemberBean memberBean;
 
     private String name;
@@ -132,6 +134,14 @@ public class Order implements Serializable {
 
     public OrderStatus getOrderStatus() {
         return orderStatus;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {

@@ -23,5 +23,8 @@ public interface MemberService {
 	public Boolean existsByMiAccount(String miAccount);
 
 	public MemberBean findByMiAccount(String miAccount);
-	
+
+	MemberBean findByUsername(String username);
+
+
 }

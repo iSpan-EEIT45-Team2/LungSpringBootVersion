@@ -1,8 +1,10 @@
 package com.eeit45team2.lungspringbootversion.backend.order.service;
 
 import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
+import org.aspectj.weaver.ast.Or;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderService {
 
@@ -18,5 +20,10 @@ public interface OrderService {
     //delete
     public void delete(Integer id);
 
+    Order createOrder(Order order);
 
+
+    Optional<Order> findByOrderNo(String orderNo);
+
+    Order pay(Integer orderId);
 }

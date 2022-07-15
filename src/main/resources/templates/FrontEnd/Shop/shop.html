@@ -89,7 +89,7 @@
                                 </a>
                                 <div class="action-wrapper">
                                     <a href="" class="action quickview" data-bs-toggle="modal"
-                                       th:attr="data-bs-target= '#addModel' + *{product.pd_id}" title="Quickview"><i
+                                       th:attr="data-bs-target= '#addModel' + *{product.id}" title="Quickview"><i
                                             class="ti-plus"></i></a>
                                     <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
                                             class="ti-heart"></i></a>
@@ -161,7 +161,7 @@
 <!-- Shop Section End -->
 
 <!-- Modal Start  -->
-<div class="modalquickview modal fade" th:id="*{'addModel'+ {product.pd_id}}" tabindex="-1" aria-labelledby="addModel"
+<div class="modalquickview modal fade" th:id="*{'addModel'+ {product.id}}" tabindex="-1" aria-labelledby="addModel"
      role="dialog"
      aria-hidden="true" th:each="product : ${products}">
     <div class="modal-dialog modal-dialog-centered">
@@ -232,12 +232,12 @@
                         <!-- Description End -->
 
                         <!-- Quantity Start -->
-                        <div class="quantity d-flex align-items-center justify-content-start m-b-25">
+                        <div class="quantity d-flex align-items-center justify-content-start m-b-25" id="cart">
                             <span class="m-r-10"><strong>數量: </strong></span>
-                            <form action="/Lung/Front/addToCart" method="post">
-                                <input type="hidden" name="id" th:value="${product.pd_id}"/>
+<!--                            <form action="/Lung/Front/addToCart" method="post">-->
+                                <input type="hidden" name="id" th:value="${product.id}"/>
                                 <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" value="1" name="quantity">
+                                    <input class="cart-plus-minus-box" value="1" name="qty" id="qty"  >
                                     <div class="dec qtybutton">-</div>
                                     <div class="inc qtybutton">+</div>
                                 </div>
@@ -245,8 +245,8 @@
                                 <div class="cart-btn action-btn m-b-30">
                                     <div class="action-cart-btn-wrapper d-flex justify-content-start">
                                         <div class="add-to_cart">
-                                            <button class="btn btn-primary btn-hover-dark rounded-0 " type="submit"
-                                                    th:onclick="addCart([[${product.pd_id}]])">
+                                            <button class="btn btn-primary btn-hover-dark rounded-0 "
+                                                     th:onclick="add([[${product.id}]])">
                                                 加入購物車
                                             </button>
                                         </div>
@@ -254,7 +254,7 @@
                                     </div>
                                 </div>
                                 <!-- Cart Button End -->
-                            </form>
+<!--                            </form>-->
                         </div>
                         <!-- Quantity End -->
 
@@ -446,12 +446,23 @@
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
 <!-- Blog Section End -->
 <script>
-    $(function () {
-        $("button.test").click(function () {
+    function add(id){
+        Swal.fire({
+            icon: 'success',
+            title: '成功加入購物車',
+            showConfirmButton: false,
+            timer: 1500
+
+        },
+        fetch('[[@{/Carts/Add}]]' + '?itemId=' + id)
+            .then(response => response.json())
+        )
+
+    }
 
 
-        })
-    })
+
+
 </script>
 </body>
 </html>

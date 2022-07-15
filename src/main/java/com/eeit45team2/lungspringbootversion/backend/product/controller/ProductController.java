@@ -82,17 +82,17 @@ public class ProductController {
 		return "redirect:/productlist";
 	}*/
 
-    @GetMapping("/updateForm/{pd_id}")
-    public ModelAndView showFormForUpdate(@PathVariable Long pd_id) {
+    @GetMapping("/updateForm/{id}")
+    public ModelAndView showFormForUpdate(@PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("Backendproduct/productEditForm");//指向orderEditForm.html
-        ProductBean productBean = productService.FindById(pd_id);
+        ProductBean productBean = productService.FindById(id);
         mav.addObject("product", productBean);
         return mav;
     }
 
-    @GetMapping(value = "/delete/{pd_id}")
-    public String deleteProduct(@PathVariable Long pd_id) {
-        productService.delete(pd_id);
+    @GetMapping(value = "/delete/{id}")
+    public String deleteProduct(@PathVariable Integer id) {
+        productService.delete(id);
         return "redirect:/Backendproduct/productlist";
     }
 

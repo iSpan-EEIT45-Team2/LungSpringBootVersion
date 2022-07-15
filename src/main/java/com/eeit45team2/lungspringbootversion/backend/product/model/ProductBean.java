@@ -1,6 +1,7 @@
 package com.eeit45team2.lungspringbootversion.backend.product.model;
 
 
+import com.eeit45team2.lungspringbootversion.backend.order.model.CartItem;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,10 +14,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class ProductBean {
+public class ProductBean implements CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pd_id;
+    private Integer id;
     private String pd_items;
     private String pd_product_name;
     private String localfileName;
@@ -35,11 +36,11 @@ public class ProductBean {
     public ProductBean() {
     }
 
-    public ProductBean(Long pd_id, String pd_items, String pd_product_name, String pd_content,
+    public ProductBean(Integer pd_id, String pd_items, String pd_product_name, String pd_content,
                        String pd_specification, Integer pd_quantity, Integer pd_amount) {
         super();
 
-        this.pd_id = pd_id;
+        this.id = id;
         this.pd_items = pd_items;
         this.pd_product_name = pd_product_name;
         this.pd_content = pd_content;
@@ -72,7 +73,7 @@ public class ProductBean {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((pd_id == null) ? 0 : pd_id.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((pd_product_name == null) ? 0 : pd_product_name.hashCode());
         return result;
     }
@@ -89,11 +90,11 @@ public class ProductBean {
             return false;
         }
         ProductBean other = (ProductBean) obj;
-        if (pd_id == null) {
-            if (other.pd_id != null) {
+        if (id == null) {
+            if (other.id != null) {
                 return false;
             }
-        } else if (!pd_id.equals(other.pd_id)) {
+        } else if (!id.equals(other.id)) {
             return false;
         }
         if (pd_product_name == null) {
@@ -104,5 +105,20 @@ public class ProductBean {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String getCartNo() {
+        return "P" + this.id;
+    }
+
+    @Override
+    public Integer getCartPrice() {
+        return this.pd_amount;
+    }
+
+    @Override
+    public String getCartName() {
+        return this.pd_product_name;
     }
 }

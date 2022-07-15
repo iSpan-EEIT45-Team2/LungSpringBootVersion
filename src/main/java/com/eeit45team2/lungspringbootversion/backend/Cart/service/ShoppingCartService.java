@@ -23,7 +23,7 @@ public class ShoppingCartService {
     private CartItemRepository cartItemRepository;
 
 
-    public ShoppingCart addShoppingCartFirstTime(Long id, String sessionToken, int quantity) {
+    public ShoppingCart addShoppingCartFirstTime(Integer id, String sessionToken, int quantity) {
         ShoppingCart shoppingCart = new ShoppingCart();
         CartItem cartItem = new CartItem();
         cartItem.setQuantity(quantity);
@@ -35,7 +35,7 @@ public class ShoppingCartService {
         return shoppingCartRepository.save(shoppingCart);
     }
 
-    public ShoppingCart addToExistingShoppingCart(Long id, String sessionToken, int quantity) {
+    public ShoppingCart addToExistingShoppingCart(Integer id, String sessionToken, int quantity) {
 
         ShoppingCart shoppingCart = shoppingCartRepository.findBySessionToken(sessionToken);
         ProductBean productBean = productService.FindById(id);

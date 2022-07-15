@@ -27,7 +27,7 @@ public class CartController {
     }
 
     @PostMapping("/addToCart")
-    public String addToCart(HttpServletRequest request, Model model, @RequestParam("id") Long id, @RequestParam("quantity") int quantity) {
+    public String addToCart(HttpServletRequest request, Model model, @RequestParam("id") Integer id, @RequestParam("quantity") int quantity) {
         String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
         if (sessionToken == null) {
             sessionToken = UUID.randomUUID().toString();

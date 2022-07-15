@@ -3,6 +3,7 @@ package com.eeit45team2.lungspringbootversion.backend.member.service.impl;
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.repository.MemberRepository;
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -66,5 +67,12 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByMiAccount(miAccount);
     }
 
-	
+	@Override
+	public MemberBean findByUsername(String username) {
+		return memberRepository.findByMiName(username);
+	}
+
+
+
+
 }
