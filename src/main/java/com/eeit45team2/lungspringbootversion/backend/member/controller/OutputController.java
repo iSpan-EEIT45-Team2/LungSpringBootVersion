@@ -36,7 +36,7 @@ public class OutputController {
             aRow.put("會員姓名", member.getMiName());
             aRow.put("會員帳號", member.getMiAccount());
             aRow.put("會員密碼", member.getMiPassword());
-            aRow.put("會員權限", member.getType());
+            aRow.put("會員權限", member.getMiRole());
             aRow.put("會員身分證", member.getMiId());
             aRow.put("會員生日", dateFormat.format(member.getMiBirth()));
             aRow.put("會員電話", member.getMiPhone());

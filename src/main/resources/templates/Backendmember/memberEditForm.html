@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>
 <head>
-    <div th:include="BackEnd/includes/head :: head"></div>
+    <div th:replace="BackEnd/includes/head :: head"></div>
     <meta charset="UTF-8">
     <title>LungHi Peace會員管理系統</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link th:href="@{/BackEnd/css/memberForm.css}" rel="stylesheet" type="text/css">
+
+    <script>
+        window.onload = function (){
+
+        }
+    </script>
+
 </head>
 <body>
 <!-- _navbar -->
-<div th:include="BackEnd/includes/navbar :: navbar"></div>
+<div th:replace="BackEnd/includes/navbar :: navbar"></div>
 <!-- partial -->
 <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_settings-panel.jsp -->
@@ -29,7 +37,7 @@
     </div>
     <!-- partial -->
     <!-- partial:partials/_sidebar.jsp -->
-    <div th:include="BackEnd/includes/sidebar :: sidebar"></div>
+    <div th:replace="BackEnd/includes/sidebar :: sidebar"></div>
     <!-- partial -->
     <!-- 顯示區域從這開始 -->
     <div class="main-panel">
@@ -63,46 +71,49 @@
                             <form action="#" id="form" class="forms-sample" th:action="@{/Backendmember/saveMember}"
                                   method="post"
                                   th:object="${member}" enctype='multipart/form-data'>
+                                <input type="hidden" th:field="*{miActive}" value="Y">
                                 <div class="form-group">
                                     <img id="blah" th:src="@{'/Backendmember/picture/' + ${member.miNo} }" style="display:block;width: 180px; height: 180px; margin:20px auto;border:2px solid #c0c3c4;border-radius:50%;background-color:#ebeff2;" />
                                     <label>會員大頭貼</label>
-                                    <input th:field="*{productImage}" type='file' class="form-control" id="mi_headshot" onchange="previewHeadshot(event)" accept="image/*"/>
+                                    <input th:field="*{productImage}" type='file' class="form-control" id="miHeadshot" onchange="previewHeadshot(event)" accept="image/*"/>
                                 </div>
                                 <input type="hidden" th:field="*{miNo}">
                                 <div class="form-group">
                                     <label>會員編號</label>
                                     <input type="text" class="form-control" th:field="*{miNo}" disabled/>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" >  <!--  sec:authorize="hasRole('ADMIN')" -->
                                     <label>會員權限</label>
-                                    <select th:field="*{type}" id="type"
-                                            class="js-example-basic-single w-100">
-                                        <option value="ADMIN">ADMIN</option>
-                                        <option value="USER" selected>USER</option>
-                                    </select>
+                                    <div>
+                                        <span th:each="role : ${allRole}" >
+                                            <label class="membertype-label">
+                                                <input type="checkbox" th:id="'check-role' + ${role}" th:value="${role}" />
+                                                <span th:text="${role}"></span>
+                                            </label>
+                                        </span>
+                                        <input type="hidden" th:field="*{miRole}"/>
+                                    </div>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
                                     <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員帳號</label>
-                                    <input th:field="*{miAccount}" type="text" class="form-control" id="mi_account"
-                                           autocomplete="off"/>
+                                    <input th:field="*{miAccount}" type="text" class="form-control" autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
                                     <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員密碼</label>
-                                    <input th:field="*{miPassword}" type="text" class="form-control hidetext"
-                                           id="mi_password" autocomplete="off"/>
+                                    <input th:field="*{miPassword}" type="text" class="form-control hidetext" autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
                                     <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員姓名</label>
-                                    <input th:field="*{miName}" type="text" class="form-control" id="mi_name"
+                                    <input th:field="*{miName}" type="text" class="form-control"
                                            autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
@@ -116,14 +127,13 @@
                                         <option value="男" selected>男</option>
                                         <option value="不公開">不公開</option>
                                     </select>
-
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
                                     <small>Error message</small>
                                 </div>
                                 <div class="form-group">
                                     <label>會員身分證</label>
-                                    <input th:field="*{miId}" type="text" class="form-control" id="mi_id"
+                                    <input th:field="*{miId}" type="text" class="form-control"
                                            maxlength="10" autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
@@ -131,7 +141,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>會員生日</label>
-                                    <input th:field="*{miBirth}" type="date" class="form-control" id="mi_birth"
+                                    <input th:field="*{miBirth}" type="date" class="form-control"
                                            max="3000-12-31" autocomplete="off" maxlength="10"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
@@ -139,7 +149,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>會員電話</label>
-                                    <input th:field="*{miPhone}" type="text" class="form-control" id="mi_phone"
+                                    <input th:field="*{miPhone}" type="text" class="form-control"
                                            onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="10"
                                            autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
@@ -148,22 +158,22 @@
                                 </div>
                                 <div class="form-group">
                                     <label>會員Email</label>
-                                    <input th:field="*{miEmail}" type="text" class="form-control" id="mi_email"
+                                    <input th:field="*{miEmail}" type="text" class="form-control"
                                            autocomplete="off"/>
                                     <i class="fas fa-check-circle"></i>
                                     <i class="fas fa-exclamation-circle"></i>
                                     <small>Error message</small>
                                 </div>
                                 <div class="form-group">
-                                    <div id="label_addtess">
-                                        <label for="mi_address">會員地址</label>
+                                    <div>
+                                        <label>會員地址</label>
                                     </div>
-                                    <div id="div_select" class="js-demeter-tw-zipcode-selector" data-city="#city3" data-dist="#dist3">
-                                        <select autofocus onchange="plusAddress()" id="city3" name="city"  placeholder="縣市" ></select>
-                                        <select autofocus onchange="plusAddress()" id="dist3" name="location" placeholder="鄉鎮市區"></select>
+                                    <div class="js-demeter-tw-zipcode-selector" data-city="#miCity" data-dist="#miDistrict">
+                                        <select autofocus onchange="onblurCheckAddress()" th:field="*{miCity}" placeholder="縣市" ></select>
+                                        <select autofocus onchange="onblurCheckAddress()" th:field="*{miDistrict}" placeholder="鄉鎮市區"></select>
                                     </div>
-                                    <div id="div_address" style="margin: 5px 0;">
-                                        <input autofocus oninput="plusAddress()" th:field="*{miAddress}" name="mi_address" id="mi_address" type="text"  placeholder="請輸入詳細地址，例如:街道名稱、門牌號" class="form-control" >
+                                    <div style="margin: 5px 0;">
+                                        <input autofocus oninput="onblurCheckAddress()" th:field="*{miAddress}" type="text" placeholder="請輸入詳細地址，例如:街道名稱、門牌號" class="form-control" >
                                     </div>
                                     <i style="top:76px;" class="fas fa-check-circle"></i>
                                     <i style="top:76px;" class="fas fa-exclamation-circle"></i>
@@ -186,12 +196,16 @@
     </div>
 </div>
 <!-- partial:partials/_footer.jsp -->
-<div th:include="BackEnd/includes/footer :: footer"></div>
+<div th:replace="BackEnd/includes/footer :: footer"></div>
 <!-- 主畫面結束 -->
 <!-- container-scroller -->
 
+<script th:inline="javascript">
+    let allRole = [[${allRole}]];
+</script>
+<script type="text/javascript" th:src="@{/BackEnd/js/memberForm2.js}"></script>
 <!-- Js匯入 -->
-<div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
+<div th:replace="BackEnd/includes/JavaScript :: JavaScript"></div>
 <!-- 引用Zipcode -->
 <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
 <script type='text/javascript' class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#location" /></script>
@@ -199,13 +213,13 @@
 <script src="https://kit.fontawesome.com/ae6733f6ec.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-    $("#zipcode3").twzipcode({
-        "zipcodeIntoDistrict": false,
-        'countySel': '臺北市',
-        'districtSel': '大安區',
-        'zipcodeSel': '114',
-        'readonly': false
-    });
+    // $("#zipcode3").twzipcode({
+        // "zipcodeIntoDistrict": false,
+        // 'countySel': '臺北市',
+        // 'districtSel': '大安區',
+        // 'zipcodeSel': '114',
+        // 'readonly': false
+    // });
 
     // 顯示選取的照片
     function previewHeadshot(event) {
@@ -216,7 +230,7 @@
         法二:
             const [file] = files -> file = 'src'
         */
-        const [file] = document.getElementById("mi_headshot").files
+        const [file] = document.getElementById("productImage").files
         if (file) {
             document.getElementById("blah").src = URL.createObjectURL(file)
         }
@@ -227,93 +241,93 @@
         window.location.href = "../memberlist"
     }
 
-    function add(){
-        var form = document.getElementById("form").value;
-        var mi_account = document.getElementById("mi_account").value;
-        var mi_password = document.getElementById("mi_password").value;
-        var mi_name = document.getElementById("mi_name").value;
-        var mi_id = document.getElementById("mi_id").value;
-        var mi_birth = document.getElementById("mi_birth").value;
-        var mi_phone = document.getElementById("mi_phone").value;
-        var mi_email = document.getElementById("mi_email").value;
-        var mi_address = document.getElementById("mi_address").value;
-        if (mi_account == null || mi_account == ''){
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入帳號！！',
-            })
-            return;
-        }
-        if (mi_password == null || mi_password == ''){
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入密碼！！',
-            })
-            return;
-        }
-        if (mi_name == null || mi_name == ''){
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入姓名！！',
-            })
-            return;
-        }
-        if (mi_id == null || mi_id == ''){
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入身分證字號！！',
-            })
-            return;
-        }
-        if (mi_birth == null || mi_birth == ''){
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入生日！！',
-            })
-            return;
-        }
-        if (mi_phone == null || mi_phone == ''){
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入電話！！',
-            })
-            return;
-        }
-        if (mi_email == null || mi_email == ''){
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入Email！！',
-            })
-            return;
-        }
-        if (mi_address == null || mi_address == ''){
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入地址！！',
-            })
-            return;
-        }
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "您將修改一筆會員",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '修改!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                    '新增成功!',
-                    '您已成功修改一筆會員',
-                    'success'
-                )
-                var timeoutID = window.setTimeout(( () =>  document.getElementById("form").submit() ), 1000);
-            }
-        })
-
-    }
+    // function add(){
+    //     var form = document.getElementById("form").value;
+    //     var mi_account = document.getElementById("mi_account").value;
+    //     var mi_password = document.getElementById("mi_password").value;
+    //     var mi_name = document.getElementById("mi_name").value;
+    //     var mi_id = document.getElementById("mi_id").value;
+    //     var mi_birth = document.getElementById("mi_birth").value;
+    //     var mi_phone = document.getElementById("mi_phone").value;
+    //     var mi_email = document.getElementById("mi_email").value;
+    //     var mi_address = document.getElementById("mi_address").value;
+    //     if (mi_account == null || mi_account == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入帳號！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_password == null || mi_password == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入密碼！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_name == null || mi_name == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入姓名！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_id == null || mi_id == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入身分證字號！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_birth == null || mi_birth == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入生日！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_phone == null || mi_phone == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入電話！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_email == null || mi_email == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入Email！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_address == null || mi_address == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入地址！！',
+    //         })
+    //         return;
+    //     }
+    //
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "您將修改一筆會員",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: '修改!'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             Swal.fire(
+    //                 '新增成功!',
+    //                 '您已成功修改一筆會員',
+    //                 'success'
+    //             )
+    //             var timeoutID = window.setTimeout(( () =>  document.getElementById("form").submit() ), 1000);
+    //         }
+    //     })
+    //
+    // }
 </script>
 </body>
 </html>

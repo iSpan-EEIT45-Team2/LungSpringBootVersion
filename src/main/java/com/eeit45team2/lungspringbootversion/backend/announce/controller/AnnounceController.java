@@ -24,6 +24,13 @@ public class AnnounceController {
 		return "/Backendannounce/announce";
 	}
 
+	@GetMapping("/announcelist2")
+	public String listAnnounce2(Model model) {
+		List<AnnounceBean> announceBeans = announceService.findAll();
+		model.addAttribute("announces2", announceBeans);
+		return "/FrontEnd/announce/announce";
+	}
+
 	@RequestMapping("/showForm")
 	public String showFormForAdd(Model model) {
 		AnnounceBean announceBean = new AnnounceBean();
@@ -50,6 +57,14 @@ public class AnnounceController {
 	public String deleteAnnounce(@PathVariable Long anNO) {
 		announceService.delete(anNO);
 		return "redirect:/announcelist";
+	}
+
+	@GetMapping("/viewForm/{anNO}")
+	public ModelAndView showFormForView(@PathVariable Long anNO) {
+		ModelAndView mav1 = new ModelAndView("/FrontEnd/announce/announceDetail");
+		AnnounceBean announceBean = announceService.FindById(anNO);
+		mav1.addObject("announce",announceBean);
+		return mav1;
 	}
 }
 

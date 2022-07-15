@@ -2,170 +2,168 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:include="FrontEnd/includes/head :: head"></div>
     <meta charset="UTF-8">
-    <title>Lung-Hi Peace</title>
-</head>
+    <title>LungHi Peace請前往註冊信箱進行驗證</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <div th:include="FrontEnd/includes/head :: head"></div>
 <body>
+<!-- Header Section Start -->
+<!--<div class="header section">-->
+
 <!-- _navbar -->
 <div th:include="FrontEnd/includes/navbar :: navbar"></div>
-<!--主畫面開始-->
-<!-- 商品Title -->
-<!-- Breadcrumb Area Start -->
-<div class="section breadcrumb-area bg-name-bright">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="breadcrumb-wrapper">
-                    <h2 class="breadcrumb-title">Shop Grid</h2>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li>Animal Grid</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Breadcrumb Area End -->
 
-<!-- Shop Section Start -->
-<div class="section section-margin">
+<!--</div>-->
+<!-- Header Section End -->
+
+<!--主畫面開始-->
+
+<!-- Testimonial Section Start -->
+<div class="section bg-name-bright section-padding">
     <div class="container">
         <div class="row">
             <div class="col-12">
 
-                <!--shop toolbar start-->
-                <div class="shop_toolbar_wrapper flex-column flex-md-row p-2 m-b-40 border">
+<!--                <div class="testimonial-content text-center">-->
+<!--                    <p>請前往您的信箱進行認證</p>-->
+<!--                </div>-->
 
-                    <!-- Shop Top Bar Left start -->
-                    <div class="shop-top-bar-left">
+                <!-- Team section Start -->
+                <div class="section section-margin">
+                    <div class="container">
+                        <div class="row m-50">  <!--row-cols-md-2 row-cols-sm-1 row-cols-1 m-b-n30-->
 
-                        <div class="shop_toolbar_btn">
-                            <button data-role="grid_4" type="button" class="active btn-grid-4" title="Grid"><i
-                                    class="ti-layout-grid4-alt"></i></button>
-                            <button data-role="grid_list" type="button" class="btn-list" title="List"><i
-                                    class="ti-align-justify"></i></button>
-                        </div>
-                        <div class="shop-top-show">
-                            <span>Showing 1–12 of 39 results</span>
-                        </div>
-
-                    </div>
-                    <!-- Shop Top Bar Left end -->
-
-                    <!-- Shopt Top Bar Right Start -->
-                    <div class="shop-top-bar-right">
-
-                        <h4 class="title m-r-10">Short By: </h4>
-
-                        <div class="shop-short-by">
-                            <select class="nice-select" aria-label=".form-select-sm example">
-                                <option selected>Short by Default</option>
-                                <option value="1">Short by Popularity</option>
-                                <option value="2">Short by Rated</option>
-                                <option value="3">Short by Latest</option>
-                                <option value="3">Short by Price</option>
-                                <option value="3">Short by Price</option>
-                            </select>
-                        </div>
-                    </div>
-                    <!-- Shopt Top Bar Right End -->
-
-                </div>
-                <!--shop toolbar end-->
-
-                <!-- Shop Wrapper Start -->
-                <div class="row shop_wrapper grid_4">
-
-                    <!-- Single Product Start -->
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 product" th:each="animal : ${animals}">
-                        <div class="product-inner">
-                            <div class="thumb">
-                                <a href="single-product.html" class="image">
-                                    <img class="fit-image"
-                                         th:src="@{/image/{id}(id=${animal.abphonto})}"
-                                         alt="Animal"/>
-                                </a>
-
-                                <div class="action-wrapper">
-                                    <a href="" class="action quickview" data-bs-toggle="modal"
-                                       th:attr="data-bs-target= '#addModel' + *{animal.abid}" title="Quickview"><i
-                                            class="ti-plus"></i></a>
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="ti-heart"></i></a>
-                                    <a href="cart.html" class="action cart" title="Cart"><i
-                                            class="ti-shopping-cart"></i></a>
-                                </div>
-                            </div>
-
-                            <div class="content">
-                                <h5 class="title"><a href="single-product.html">[[${animal.ab_type}]]</a></h5>
-                                <span class="rating">
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </span>
-                                <span class="price">
-                                            $<span class="new">[[${animal.ab_variety}]]</span>
-                                    </span>
-                                <p>[[${animal.ab_sex}]]</p>
-                                <!-- Cart Button Start -->
-                                <div class="cart-btn action-btn">
-                                    <div class="action-cart-btn-wrapper d-flex">
-                                        <div class="add-to_cart">
-                                            <a class="btn btn-primary btn-hover-dark rounded-0" href="cart.html">Add to
-                                                cart</a>
+                            <div class="col m-b-30" data-aos="fade-up" data-aos-duration="2000">
+                                <!-- Single Team Wrapper Start -->
+                                <div class="single-team-wrapper">
+                                    <div class="thumb">
+                                        <!-- Social Shear Start -->
+                                        <div class="social-share">
+                                            <a title="Twitter" href="#/"><i class="ti-facebook"></i></a>
+                                            <a title="Instagram" href="#/"><i class="ti-pinterest"></i></a>
+                                            <a title="Linkedin" href="#/"><i class="ti-twitter-alt"></i></a>
+                                            <a title="Skype" href="#/"><i class="ti-instagram"></i></a>
                                         </div>
-                                        <a href="wishlist.html" title="Wishlist" class="action"><i class="ti-heart"></i></a>
-                                        <a href="#/" class="action quickview" data-bs-toggle="modal"
-                                           data-bs-target="#addModel" title="Quickview"><i class="ti-plus"></i></a>
+                                        <!-- Social Shear End -->
+                                    </div>
+                                    <div class="content" >
+                                        <h4 class="title">請前往您的信箱進行認證</h4>
+                                        <h4 class="subtitle"><span th:text="'認證信已寄到: ' + ${miEmail}"></span></h4>
                                     </div>
                                 </div>
-                                <!-- Cart Button End -->
+                                <!-- Single Team Wrapper End -->
                             </div>
+
                         </div>
                     </div>
-                    <!-- Single Product End -->
-
                 </div>
-                <!-- Shop Wrapper End -->
+                <!-- Team section End -->
 
-                <!--shop toolbar start-->
-                <div class="shop_toolbar_wrapper justify-content-center m-t-50">
 
-                    <!-- 商品分頁 -->
-                    <div class="shop-top-bar-right">
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link active" href="#/">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#/">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#/">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link rounded-0" href="#/" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- Shopt Top Bar Right End -->
-
-                </div>
-                <!--shop toolbar end-->
 
             </div>
         </div>
     </div>
 </div>
-<!-- Shop Section End -->
+<!-- Testimonial Section End -->
+
+
+<!-- Footer Section Start -->
+<footer class="section footer-section">
+    <!-- Footer Top Start -->
+    <div class="footer-top bg-name-bright section-padding">
+        <div class="container">
+            <div class="row m-b-n40">
+                <div class="col-12 col-sm-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="single-footer-widget">
+                        <h1 class="widget-title">About Us</h1>
+                        <p class="desc-content">Lorem ipsum dolor sit amet, co adipisi elit, sed eiusmod tempor incididunt ut labore et dolore</p>
+                        <!-- Soclial Link Start -->
+                        <div class="widget-social justify-content-start m-b-n10">
+                            <a title="Twitter" href="#/"><i class="icon-social-twitter"></i></a>
+                            <a title="Instagram" href="#/"><i class="icon-social-instagram"></i></a>
+                            <a title="Linkedin" href="#/"><i class="icon-social-linkedin"></i></a>
+                            <a title="Skype" href="#/"><i class="icon-social-skype"></i></a>
+                            <a title="Dribble" href="#/"><i class="icon-social-dribbble"></i></a>
+                        </div>
+                        <!-- Social Link End -->
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="1200">
+                    <div class="single-footer-widget">
+                        <h2 class="widget-title">Useful Links</h2>
+                        <ul class="widget-list">
+                            <li><a href="wishlist.html">Help & Contact Us</a></li>
+                            <li><a href="contact.html">Returns & Refunds</a></li>
+                            <li><a href="contact.html">Online Stores</a></li>
+                            <li><a href="contact.html">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="1400">
+                    <div class="single-footer-widget">
+                        <h2 class="widget-title">Help</h2>
+                        <ul class="widget-list">
+                            <li><a href="wishlist.html">Wishlist</a></li>
+                            <li><a href="contact.html">Pricing Plans</a></li>
+                            <li><a href="contact.html">Order Traking</a></li>
+                            <li><a href="contact.html">Returns</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="1600">
+                    <div class="single-footer-widget">
+                        <h2 class="widget-title">Send newsletter</h2>
+                        <div class="widget-body">
+                            <p class="desc-content m-b-20">Subscribe to our newsletter and get 10% off your first purchase..</p>
+                            <!-- Newsletter Form Start -->
+                            <div class="newsletter-form-wrap p-t-5">
+                                <form id="mc-form" class="mc-form">
+                                    <input type="email" id="mc-email" class="form-control email-box" placeholder="demo@example.com" name="EMAIL">
+                                    <button id="mc-submit" class="newsletter-btn" type="submit">Send</button>
+                                </form>
+                                <!-- mailchimp-alerts Start -->
+                                <div class="mailchimp-alerts text-centre">
+                                    <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
+                                    <div class="mailchimp-success text-success"></div><!-- mailchimp-success end -->
+                                    <div class="mailchimp-error text-danger"></div><!-- mailchimp-error end -->
+                                </div>
+                                <!-- mailchimp-alerts end -->
+                            </div>
+                            <!-- Newsletter Form End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Top End -->
+
+    <!-- Footer Bottom Start -->
+    <div class="footer-bottom bg-name-light p-t-20 p-b-20">
+        <div class="container">
+            <div class="row align-items-center m-b-n20">
+                <div class="col-md-6 text-center text-md-start order-2 order-md-1 m-b-20">
+                    <div class="copyright-content">
+                        <p class="mb-0">Copyright &copy; 2021.Company name All rights reserved.<a target="_blank" href="https://sc.51qianduan.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center text-md-end order-1 order-md-2 m-b-20">
+                    <div class="payment">
+                        <a href="#/">
+                            <img class="fit-image" src="assets/images/payment/payment_large.png" alt="Payment">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Bottom End -->
+</footer>
+<!-- Footer Section End -->
 
 <!-- Modal Start  -->
-<div class="modalquickview modal fade" th:id="*{'addModel'+ {animal.abid}}" tabindex="-1" aria-labelledby="addModel"
-     role="dialog"
-     aria-hidden="true" th:each="animal : ${animals}">
+<div class="modalquickview modal fade" id="quick-view" tabindex="-1" aria-labelledby="quick-view" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <button class="btn close" data-bs-dismiss="modal">×</button>
@@ -179,9 +177,19 @@
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 <a class="swiper-slide" href="#">
-
-                                    <img class="w-100" th:src=" @{/image/{id}(id=${animal.abphonto})}"
-                                         alt="Animal">
+                                    <img class="w-100" src="assets/images/products/large-product/1.png" alt="Product">
+                                </a>
+                                <a class="swiper-slide" href="#">
+                                    <img class="w-100" src="assets/images/products/large-product/2.png" alt="Product">
+                                </a>
+                                <a class="swiper-slide" href="#">
+                                    <img class="w-100" src="assets/images/products/large-product/3.png" alt="Product">
+                                </a>
+                                <a class="swiper-slide" href="#">
+                                    <img class="w-100" src="assets/images/products/large-product/4.png" alt="Product">
+                                </a>
+                                <a class="swiper-slide" href="#">
+                                    <img class="w-100" src="assets/images/products/large-product/5.png" alt="Product">
                                 </a>
                             </div>
 
@@ -190,10 +198,8 @@
                             <!-- Swiper Pagination End -->
 
                             <!-- Next Previous Button Start -->
-                            <div class="swiper-product-button-next swiper-button-next"><i class="ti-arrow-right"></i>
-                            </div>
-                            <div class="swiper-product-button-prev swiper-button-prev"><i class="ti-arrow-left"></i>
-                            </div>
+                            <div class="swiper-product-button-next swiper-button-next"><i class="ti-arrow-right"></i></div>
+                            <div class="swiper-product-button-prev swiper-button-prev"><i class="ti-arrow-left"></i></div>
                             <!-- Next Previous Button End -->
                         </div>
                         <!-- Single Product Image End -->
@@ -209,7 +215,7 @@
 
                         <!-- Product Head Start -->
                         <div class="product-head m-b-15">
-                            <h2 class="product-title">[[${animal.ab_type}]]</h2>
+                            <h2 class="product-title">Single Product Slider</h2>
                         </div>
                         <!-- Product Head End -->
 
@@ -225,41 +231,49 @@
 
                         <!-- Price Box Start -->
                         <div class="price-box m-b-10">
-                            $<span class="regular-price">[[${animal.ab_variety}]]</span>
+                            <span class="regular-price">$70.00</span>
+                            <span class="old-price"><del>$85.00</del></span>
                         </div>
                         <!-- Price Box End -->
 
+                        <!-- SKU Start -->
+                        <div class="sku m-b-15">
+                            <span>SKU: 12345</span>
+                        </div>
+                        <!-- SKU End -->
+
+                        <!-- Product Inventory Start -->
+                        <div class="product-inventroy m-b-15">
+                            <span class="inventroy-title"> <strong>Availability:</strong></span>
+                            <span class="inventory-varient">12 Left in Stock</span>
+                        </div>
+                        <!-- Product Inventory End -->
+
                         <!-- Description Start -->
-                        <p class="desc-content m-b-25">[[${animal.ab_sex}]]</p>
+                        <p class="desc-content m-b-25">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
                         <!-- Description End -->
 
                         <!-- Quantity Start -->
                         <div class="quantity d-flex align-items-center justify-content-start m-b-25">
-                            <span class="m-r-10"><strong>數量: </strong></span>
-                            <form action="/Lung/addToCart" method="post">
-                                <input type="hidden" name="id" th:value="${animal.abid}"/>
-                                <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" value="1" name="quantity">
-                                    <div class="dec qtybutton">-</div>
-                                    <div class="inc qtybutton">+</div>
-                                </div>
-                                <!-- Cart Button Start -->
-                                <div class="cart-btn action-btn m-b-30">
-                                    <div class="action-cart-btn-wrapper d-flex justify-content-start">
-                                        <div class="add-to_cart">
-                                            <button class="btn btn-primary btn-hover-dark rounded-0 " type="submit"
-                                                    th:onclick="addCart([[${animal.abid}]])">
-                                                加入購物車
-                                            </button>
-                                        </div>
-                                        <a href="wishlist.html" title="Wishlist" class="action"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
-                                <!-- Cart Button End -->
-                            </form>
+                            <span class="m-r-10"><strong>Qty: </strong></span>
+                            <div class="cart-plus-minus">
+                                <input class="cart-plus-minus-box" value="1" type="text">
+                                <div class="dec qtybutton"></div>
+                                <div class="inc qtybutton"></div>
+                            </div>
                         </div>
                         <!-- Quantity End -->
 
+                        <!-- Cart Button Start -->
+                        <div class="cart-btn action-btn m-b-30">
+                            <div class="action-cart-btn-wrapper d-flex justify-content-start">
+                                <div class="add-to_cart">
+                                    <a class="btn btn-primary btn-hover-dark rounded-0" href="cart.html">Add to cart</a>
+                                </div>
+                                <a href="wishlist.html" title="Wishlist" class="action"><i class="ti-heart"></i></a>
+                            </div>
+                        </div>
+                        <!-- Cart Button End -->
 
                         <!-- Social Shear Start -->
                         <div class="social-share">
@@ -277,9 +291,7 @@
                         <div class="payment-option m-t-20 d-flex justify-content-start">
                             <span><strong>Payment: </strong></span>
                             <a href="#">
-                                <img class="fit-image m-l-5"
-                                     th:src="@{/FrontEnd/assets/images/payment/payment_large.png}"
-                                     alt="Payment Option Image">
+                                <img class="fit-image m-l-5" src="assets/images/payment/payment_large.png" alt="Payment Option Image">
                             </a>
                         </div>
                         <!-- Payment Option End -->
@@ -294,10 +306,12 @@
 </div>
 <!-- Modal End  -->
 
-
-<!-- Breadcrumb Area End -->
-<div th:include="BackEnd/includes/footer :: footer"></div>
-
+<!-- Scroll Top Start -->
+<a href="#" class="scroll-top show" id="scroll-top">
+    <i class="arrow-top ti-angle-double-up"></i>
+    <i class="arrow-bottom ti-angle-double-up"></i>
+</a>
+<!-- Scroll Top End -->
 
 <!-- Mobile Menu Start -->
 <div class="mobile-menu-wrapper">
@@ -339,7 +353,7 @@
                         <li class="has-children">
                             <a href="#">Shop <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                             <ul class="dropdown">
-                                <li><a href="animal.html">Animal Grid</a></li>
+                                <li><a href="shop.html">Shop Grid</a></li>
                                 <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
                                 <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
                                 <li><a href="shop-list-fullwidth.html">Shop List Fullwidth</a></li>
@@ -395,8 +409,7 @@
                 <div class="header-top-lan-curr-link">
                     <div class="header-top-lan dropdown">
                         <h4 class="title">Language:</h4>
-                        <button class="dropdown-toggle" data-bs-toggle="dropdown">English <i
-                                class="fa fa-angle-down"></i></button>
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown">English <i class="fa fa-angle-down"></i></button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a class="dropdown-item" href="#">English</a></li>
                             <li><a class="dropdown-item" href="#">Japanese</a></li>
@@ -406,8 +419,7 @@
                     </div>
                     <div class="header-top-curr dropdown">
                         <h4 class="title">Currency:</h4>
-                        <button class="dropdown-toggle" data-bs-toggle="dropdown">USD <i
-                                class="fa fa-angle-down"></i></button>
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown">USD <i class="fa fa-angle-down"></i></button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a class="dropdown-item" href="#">USD</a></li>
                             <li><a class="dropdown-item" href="#">Pound</a></li>
@@ -424,7 +436,7 @@
                 <ul class="contact-links">
                     <li><i class="fa fa-phone"></i><a href="#"> +012 3456 789</a></li>
                     <li><i class="fa fa-envelope-o"></i><a href="#"> info@example.com</a></li>
-                    <li><i class="fa fa-clock-o"></i> <span>Monday - Sunday 9.00 - 18.00</span></li>
+                    <li><i class="fa fa-clock-o"></i> <span>Monday - Sunday 9.00 - 18.00</span> </li>
                 </ul>
                 <!-- Contact Links End -->
 
@@ -445,15 +457,13 @@
     </div>
     <!-- Mobile Menu Inner End -->
 </div>
+<!-- Mobile Menu End -->
+
+<!-- Global Vendor, plugins JS -->
+
+<!-- Vendor JS -->
+
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
-<!-- Blog Section End -->
-<script>
-    $(function () {
-        $("button.test").click(function () {
-
-
-        })
-    })
-</script>
 </body>
+
 </html>

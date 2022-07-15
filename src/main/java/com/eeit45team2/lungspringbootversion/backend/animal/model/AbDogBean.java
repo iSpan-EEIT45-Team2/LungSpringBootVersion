@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 
 @Entity //實體類
-@Table(name="abdog_table1") //資料表
+@Table(name="abdog_table") //資料表
 @Getter
 @Setter
 @ToString

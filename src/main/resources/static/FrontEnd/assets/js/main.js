@@ -37,6 +37,14 @@
       $(".header-cart-content").slideToggle("slow");
     });
 
+    /*--------------------------
+        Header Account Toggle
+    -------------------------- */
+    $(".account-visible").on('click', function(){
+        $(".header-account-content").slideToggle("slow");
+    });
+
+
     /*-----------------------------------------
       Off Canvas Mobile Menu
     -------------------------------------------*/

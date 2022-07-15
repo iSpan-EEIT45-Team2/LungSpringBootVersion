@@ -6,10 +6,14 @@ import com.eeit45team2.lungspringbootversion.backend.animal.repository.AbDogRepo
 import com.eeit45team2.lungspringbootversion.backend.animal.service.AbDogService;
 import com.eeit45team2.lungspringbootversion.backend.animal.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -27,6 +31,8 @@ public class AbDogController {
 //	@Autowired
 //	private EmailSenderService senderService;
 
+	@Autowired
+	private JavaMailSender mailSender;
 	@Autowired
 	private AbDogService abdogService;
 	//自動實現
@@ -86,6 +92,8 @@ public class AbDogController {
 	@PostMapping("/saveAbDog")
 	public RedirectView AbDogSave(AbDogBean abdogbean,
 								  @RequestParam("image") MultipartFile multipartFile) throws IOException {
+		SimpleMailMessage message = new SimpleMailMessage();
+
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		abdogbean.setAbphonto(fileName);
 		abdogService.save(abdogbean);
@@ -93,7 +101,14 @@ public class AbDogController {
 		//   String uploadDir = "./user-photos/"  ;// ./是當前目錄/user-photos
 		String uploadDir = "./src/main/resources/static/BackEnd/images/animal/";
 		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		message.setFrom("Lunghipeace0302@gmail.com");
+		message.setTo(abdogbean.getAbemail());
+		message.setSubject("謝謝您的來信");
+		message.setText("目前表單正在審核中");
+		mailSender.send(message);
+		System.out.println("Mail Sent succesfully...");
 		return new RedirectView("/abdoglist", true);
+
 	}
 
 
@@ -128,7 +143,7 @@ public class AbDogController {
 		List<AbDogBean> abdogbeans = (List<AbDogBean>) abdogRepository.findAll();
 		String abdogJsonString = jsonExporter.export(abdogbeans);
 		//byte[] productJsonBytes = productJsonString.getBytes();
-		byte[] abdogJsonBytes = abdogJsonString.getBytes(Charset.forName("GBK"));
+		byte[] abdogJsonBytes = abdogJsonString.getBytes(Charset.forName("utf-8"));
 		//(json.getBytes(Charset.forName("GBK"))); //將json資料寫入流中
 		return ResponseEntity
 				.ok()
@@ -138,21 +153,8 @@ public class AbDogController {
 				.body(abdogJsonBytes);
 	}
 
-//
-//	@EventListener(ApplicationReadyEvent.class)
-//	public void sendMail() {
-//		senderService.sendEmail("shen775207@gmail.com"),
-//				"This is object",
-//				"This is Body of Email";
-//
-//
-//	}
+
+
 }
-	
-	
 
-	
-	
-	
 
-	
