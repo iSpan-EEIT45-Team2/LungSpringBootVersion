@@ -65,6 +65,8 @@
                                     <button type="button" id="oneClickEnter"
                                             class="btn btn-sm btn-outline-primary btn-fw"><i
                                             class="fa-solid fa-check"></i>一鍵輸入
+                                        <button type="button" class="btn btn-light" onclick="quickData();">一鍵輸入</button>
+
                                     </button>
                                 </div>
                                 <div class="form-group">
@@ -83,7 +85,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>活動簡介</label>
-                                    <input type="text" th:field="*{ac_participant}" class="form-control" id="ac_participant"/>
+                                    <textarea type="text" th:field="*{ac_participant}" class="form-control" id="ac_participant"/>
                                 </div>
                                 <div class="form-group">
                                     <label>活動地點</label>
@@ -174,6 +176,48 @@
 
     }
 
+    function quickData() {
+        // 各欄位預設內容
+        let ac_name = [
+            '浪犬入侵騷擾遊客頻傳,花蓮婦幼親創園區架驅狗器',
+            '終養不棄養',
+            '推動大規模犬貓絕育計畫'
+        ];
+        let ac_venue = [
+            '浪犬入侵騷擾遊客頻傳,花蓮婦幼親創園區架驅狗器',
+            '終養不棄養',
+            '推動大規模犬貓絕育計畫'
+        ];
+        let ac_quota = [20, 50, 100];
+        let ac_waitlist_quota = [5, 10, 20];
+        let ac_fee = [100, 200, 500];
+        let ac_participant = [
+            '花蓮婦幼親創園區於去底揭牌啟用後，由於鄰近環境多有草叢林木容易有遊蕩犬隻出沒，縣府農業處及社會處合作，在圍牆旁設置了10支驅狗器，避免因為遊蕩犬而導致人犬衝突。',
+            '毛孩飼養數已高過嬰兒出生率，不當棄養情形日漸衍生',
+            '透過推動大規模犬貓絕育行動，並搭配教育推廣及政策倡議，達到遊蕩犬貓族群控制的效果。台灣之心行動足跡遍布全台，深入到動物醫療資源缺乏的偏區及離島，為的就是解決這些地方的犬貓不斷繁殖生育的問題。'
+        ];
+        let ac_organizer = [
+            '花蓮婦幼親創園區於去底揭牌啟用後，由於鄰近環境多有草叢林木容易有遊蕩犬隻出沒，縣府農業處及社會處合作，在圍牆旁設置了10支驅狗器，避免因為遊蕩犬而導致人犬衝突。',
+            '毛孩飼養數已高過嬰兒出生率，不當棄養情形日漸衍生',
+            '透過推動大規模犬貓絕育行動，並搭配教育推廣及政策倡議，達到遊蕩犬貓族群控制的效果。台灣之心行動足跡遍布全台，深入到動物醫療資源缺乏的偏區及離島，為的就是解決這些地方的犬貓不斷繁殖生育的問題。'
+        ];
+        let titleIndex = Math.floor(Math.random() * 3); // 若有新增預設標題及內容, 這裡的數字也要修正成對應的數量
+        let now = new Date();
+        let nowYear = now.getFullYear();
+        let nowMonth = now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1;
+        let nowDay = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
+        let today = nowYear + '-' + nowMonth + '-' + nowDay;
+        // 各個欄位給值
+        document.getElementById('ac_name').value = ac_name[titleIndex];
+        document.getElementById('ac_venue').value = ac_venue[titleIndex];
+        document.getElementById('ac_quota').value = ac_quota[titleIndex];
+        document.getElementById('ac_waitlist_quota').value = ac_waitlist_quota[titleIndex];
+        document.getElementById('ac_fee').value = ac_fee[titleIndex];
+        document.getElementById('ac_participant').value = ac_participant[titleIndex];
+        document.getElementById('ac_organizer').value = ac_organizer[titleIndex];
+        document.getElementById('type').value = "0";
+        document.getElementById('ac_date').value = today;
+    }
 
 
 
