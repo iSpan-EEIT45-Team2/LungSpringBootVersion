@@ -10,7 +10,7 @@ window.onload = function(){
             navbarMiName1.innerHTML = xhr.responseText ;
         }
     }
-    xhr.open("GET", "/Lung/memberInfo/getCurrentUserMiName", true);
+    xhr.open("GET", "/Lung/memberInfo/getCurrentUserMiNameString", true);
     xhr.send();
     /*--------------------END後台首頁navbar的USER姓名-------------------*/
 
