@@ -46,7 +46,7 @@
                                 <div  class="form-group">
                                     <label>公告圖片</label>
                                     <input type="file" name="image" accept="image/png, image/jpeg" />
-                                    <!-- <input type="text" th:field="*{anphoto}" class="form-control" id="anphoto"/>-->
+                                    <input type="hidden" th:field="*{anPhoto}" class="form-control" id="anPhoto"/>
                                 </div>
                                 <div class="form-group">
                                     <label>公告標題</label>
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                         <label>公告內容</label>
 <!--                                        <input type="text" th:field="*{anContent}" class="form-control" id="anContent" style="width: 500px; height:100px"/>-->
-                                        <textarea th:field="*{anContent}" class="form-control" id="anContent" style="width: 500px; height:100px"></textarea>
+                                        <textarea th:field="*{anContent}" class="form-control" id="anContent" style="width: 450px; height:100px"></textarea>
                                     </label>
                                 </div>
                                 <div class="form-group">

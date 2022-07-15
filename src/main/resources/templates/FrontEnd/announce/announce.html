@@ -10,24 +10,6 @@
 <!-- _navbar -->
 <div th:include="FrontEnd/includes/navbar :: navbar"></div>
 
-<!-- Breadcrumb Area Start -->
-<div class="section breadcrumb-area bg-name-bright">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="breadcrumb-wrapper">
-                    <h2 class="breadcrumb-title">公告</h2>
-                    <ul>
-                        <li><a href="index.html">新聞</a></li>
-                        <li>教育</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Breadcrumb Area End -->
-
 <!-- Blog Grid Section Start -->
 <div class="section section-margin">
     <div class="container">
@@ -49,6 +31,7 @@
                             <ul>
                                 <li><span>By</span><span th:text="${announce.anEditor}"></span><a href="#/"></a></li>
                                 <li><span th:text="${announce.anDate}"></span></li>
+                                <li><span th:text="${announce.anType}"></span></li>
                             </ul>
                         </div>
                         <h2 class="blog-title" th:text="${announce.anTitle}"><a href="blog-details.html"></a></h2>
