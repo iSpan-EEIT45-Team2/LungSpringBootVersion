@@ -41,3 +41,9 @@ INSERT INTO ANNOUNCE_Table ( anPhoto,anTitle, anContent, anType, anEditor, anDat
 INSERT INTO ANNOUNCE_Table ( anPhoto,anTitle, anContent, anType, anEditor, anDate) VALUES
     ('dog7.jpg','晶片寵登立大功！ 走失米克斯犬找到家', '日前於台中潭子舉辦下鄉犬貓絕育活動時，民眾帶來一隻剛拾獲的母犬，經協會掃描晶片時發現牠原本就有飼主、疑似走失。原飼主接獲通知時欣喜若狂，表示狗狗不見多日，全家非常心急卻遍尋不著，飼主慶幸當初有替寵物植入晶片，才能重新找回毛小孩。協會呼籲，為寵物植入晶片為落實飼主責任不可或缺的動作。','新聞', '奕成', CAST('2022/07/15' AS DATE) );
 
+--商品資料
+
+INSERT INTO Product_Table ( localfileName, pd_amount, pd_content, pd_items, pd_product_name, pd_quantity, pd_specification) VALUES
+ ('1657910934743_6-5.png', 50, '《Daily Delight 爵士貓吧》真愛鮮肉餐主食罐使用新鮮海鮮、雞肉、蔬果，100%人類級食材', '食品', '《爵士貓吧》鮮肉餐主食罐(鰹魚+雞肉+南瓜)80g｜高適口性', 100, '罐頭');
+INSERT INTO Product_Table ( localfileName, pd_amount, pd_content, pd_items, pd_product_name, pd_quantity, pd_specification) VALUES
+ ('1657910988415_羅浮大餐犬罐雞肉起司.jpg', 720, '【產品規格】 ■ 重量：400g ■ 產地：泰國 ■ 適用對象：犬', '食品', '《亞米亞米YAMIYAMI》亞米羅浮大餐(雞肉+起司 )400g│24罐組│', 100, '罐頭');
