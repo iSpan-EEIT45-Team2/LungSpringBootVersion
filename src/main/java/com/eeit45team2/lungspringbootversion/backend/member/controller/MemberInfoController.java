@@ -31,9 +31,13 @@ public class MemberInfoController {
     }
 
 
-    @GetMapping("/getCurrentUserMiName")
-    public @ResponseBody String getCurrentUserMiName(){
-        return commonService.getCurrentUserMiName(); // 呼叫CustomUserDetails.java取得那裡變數member的name
+    @GetMapping("/getCurrentUserMiNameString")
+    public @ResponseBody String getCurrentUserMiNameString(){
+//        return commonService.getCurrentUserMiName(); // 呼叫CustomUserDetails.java取得那裡變數member的name
+        if(commonService.getCurrentUserMiNameString().equals("anonymousUser")){
+            return "";
+        }
+        return commonService.getCurrentUserMiNameString(); // 呼叫CustomUserDetails.java取得那裡變數member的name
     }
 
     @GetMapping("/getCurrentUserImage")
