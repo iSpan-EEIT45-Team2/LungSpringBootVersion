@@ -1,6 +1,7 @@
 package com.eeit45team2.lungspringbootversion.backend.springmvc.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,15 +19,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()  //開始自訂授權規則
-                .anyRequest().permitAll()  // 第一次登入前都要先打開這個!! 然後建一個會員，才會拿到帳號和加密後的密碼!!
-                // 操作說明: 開啟anyRequest()，關閉下面所有的antMatchers()
-//                .antMatchers(HttpMethod.GET,"/loginPage**").permitAll()  //不限授權皆可進到登入
-//                .antMatchers(HttpMethod.GET,"/BackEnd/css/**").permitAll()
-//                .antMatchers(HttpMethod.GET,"/BackEnd/images/**").permitAll()
-//                .antMatchers(HttpMethod.GET, "/Backendmember/**").hasAuthority(UserAuthority.ADMIN.name())
+                .anyRequest().permitAll()  // TODO 第一次登入前都要先打開這個!! 然後建一個會員，才會拿到帳號和加密後的密碼!!
+                // TODO 開啟anyRequest()後，註解下面所有的antMatchers()
+//                .antMatchers(HttpMethod.GET,"/loginPage**","/BackEnd/css/**","/BackEnd/images/**","/BackEnd/js/**").permitAll()  //不限授權皆可進到登入
+//                .antMatchers(HttpMethod.GET,"/FrontEnd/assets/**").permitAll()
+//                .antMatchers(HttpMethod.GET,"/Front/**").permitAll()
+//                .antMatchers(HttpMethod.GET,"/memberInfo/checkUserLogin").permitAll()
+//                .antMatchers(HttpMethod.GET,"/memberInfo/getCurrentUserImage").permitAll()
+//                .antMatchers(HttpMethod.GET, "/Backendmember/**").hasAuthority("EMPLOYEE") //有EMPLOYEE權限以上的角色才能進到會員頁面
+//                .antMatchers(HttpMethod.GET, "/Backendmember/delete/**","/Backendmember/updateForm/**").hasAuthority("ADMIN") //有ADMIN權限才能修改、刪除會員
+//                .antMatchers(HttpMethod.POST,"/Front/**").permitAll()
 //                .anyRequest().authenticated()  //其他請求，都要經過驗證
+                // TODO 以上都註解掉
                 .and()
-                    .formLogin().loginPage("/loginPage").failureUrl("/loginPage-error")
+                    .formLogin().loginPage("/loginPage").failureUrl("/loginPage-error").defaultSuccessUrl("/Front", true)
                 .and()
                     .exceptionHandling().accessDeniedPage("/loginPage") //如果有權限錯誤時，重導到「/login」
                 .and()

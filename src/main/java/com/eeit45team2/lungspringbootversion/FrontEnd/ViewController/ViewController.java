@@ -17,10 +17,6 @@ public class ViewController {
     }
 
 
-    @GetMapping("/my-account-home")
-    public String myAccountHome() {
-        return "FrontEnd/member/my-account"; }
-
     @GetMapping("/announcedetailspage")
     public String announcedetails() {
         return "FrontEnd/announce/announceDetail";
@@ -31,10 +27,17 @@ public class ViewController {
         return "FrontEnd/announce/announce";
     }
 
+    //測試用: 拿來看session id
+    @RequestMapping("/security")
+    public String security() {
+        return "security";
+    }
+
     @GetMapping("/animals")
     public String animal() {
         return "FrontEnd/Animal/animal";
     }
+
 }
 
 

@@ -94,7 +94,7 @@
                                             <a th:href="@{/animals}">認領養</a>
                                         </li>
                                         <li>
-                                            <a th:href="@{/animalForm}">寵物媒合</a>
+                                            <a th:href="@{/animalForm}">填寫寵物表單  </a>
                                         </li>
                                         <li><a href="contact.html">Contact Us</a></li>
                                         <li><a href="error-404.html">Error 404</a></li>
@@ -113,12 +113,12 @@
                                         <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>
                                     </ul>
                                 </li>
-                                <li class="has-children"><a th:href="@{/Front/announcepage}">公告</a>
+                                <li class="has-children"><a th:href="@{/announcelist2}">公告</a>
 <!--                                    <ul class="sub-menu">-->
 <!--                                        <li><a href="blog.html">Blog</a></li>-->
 <!--                                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>-->
 <!--                                        <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>-->
-<!--                                        <li><a href="blog-details.html">Blog Details</a></li>-->
+<!--                                        <li><a href="anblog-details.html">Blog Details</a></li>-->
 <!--                                        <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>-->
 <!--                                    </ul>-->
                                 </li>
@@ -161,15 +161,9 @@
                             <!-- Header Action Search Button End -->
 
                             <!-- Header My Account Button Start -->
-                            <a href="/Lung/loginPage" class="header-action-btn header-action-btn-wishlist" sec:authorize="!isAuthenticated()">
-                                <i class="icon-user icons"></i>
-                            </a>
-                            <!-- Header My Account Button End -->
-
-                            <!-- Header Action Button Start -->
-                            <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
-                                <a class="cart-visible" href="javascript:void(0)">
-                                    <i class="icon-handbag icons"></i>
+                                <a id="navbarHeadshot" class="account-visible"  href="javascript:void(0)">
+                                    <img  class="img-sm rounded-circle" th:src="@{/memberInfo/getCurrentUserImage}">
+                                    <!--                                        <span class="header-action-num">1</span>-->
                                 </a>
 
                                 <!-- Header Cart Content Start -->

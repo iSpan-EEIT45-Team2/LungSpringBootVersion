@@ -1,12 +1,21 @@
 package com.eeit45team2.lungspringbootversion.backend.animal.service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 import com.eeit45team2.lungspringbootversion.backend.animal.model.AbDogBean;
 import com.eeit45team2.lungspringbootversion.backend.animal.repository.AbDogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.mail.SimpleMailMessage;
 //import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -14,7 +23,8 @@ import java.util.List;
 @Transactional
 public class AbDogService {
 
-
+	@Autowired
+	private JavaMailSender mailSender;
 	@Autowired
 	private AbDogRepository abdogrepo;
 
@@ -29,19 +39,6 @@ public class AbDogService {
 //		return abdogrepo.findAll(pageable);
 //
 ////
-//	@Autowired
-//	private JavaMailSender mailSender;
-//	public void setMailSender(String toEmail,
-//							  String subject,
-//							  String body){
-//		SimpleMaill message =new SimpleMailMessage();
-//		message.setFrom("shen775207@gmail.com");
-//		message.setTo(toEmail);
-//		message.setText(body);
-//		message.setSubject(subject);
-//		mailSender.send(message);
-//		System.out.println("Mail Sent succesfully...");
-//	}
 
 	public List<AbDogBean> abdoglistAll(String keyword){
 	if (keyword != null) {

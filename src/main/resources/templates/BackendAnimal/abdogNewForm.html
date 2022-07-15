@@ -38,19 +38,9 @@
                 <div class="col-md-6 grid-margin stretch-card container">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">新增寵物單</h4>
-                            <form name="form4" method="post" action="">
-                                <input type="text" name="idno">
-                                <input type="text" name="addr">
-                                <input type="text" name="ab_area">
-                                <input type="button" name="Submit" value="C->A-B" onClick="ok3()">
-                            </form>
-
-
-
-
-
-                            <form action="#" id="form"    class="forms-sample" th:action="@{/saveAbDog}"
+                            <input type="button" name="Submit" value="一鍵輸入 " onClick="ok4()">
+                            <h4 class="card-title">新增寵物表單</h4>
+                            <form  name="form4"  action="#" id="form"    class="forms-sample" th:action="@{/saveAbDog}"
                                   enctype="multipart/form-data"
                                   method="post"
                                   th:object="${abdog}">
@@ -67,7 +57,7 @@
 
                                 <div class="form-group">
                                     <label> <span>品種</span>
-                                        <select th:field="*{abvariety}" class="js-example-basic-single w-100 select2-hidden-accessible" id="ab_variety">
+                                        <select th:field="*{abvariety}" class="js-example-basic-single w-100 select2-hidden-accessible"  id="ab_variety">
                                             <option value="混種貓">混種貓</option>
                                             <option value="金絲貓">金絲貓</option>
                                             <option value="緬因貓">緬因貓</option>
@@ -101,32 +91,32 @@
                                 <br/>
 
                                 <div class="form-group">
-                                    <label>行政區</label>
-                                    <input type="text" th:field="*{abarea}" class="form-control" id="ab_area" th:name="ab_area" />
+                                    <label>帳戶名稱</label>
+                                    <input type="text" th:field="*{abarea}" class="form-control" id="ab_area" name="abarea" th:name="ab_area" />
                                 </div>
 
                                 <div class="form-group">
                                     <label>收容所地址</label>
-                                    <input type="text" th:field="*{abname}" class="form-control" id="ab_name"/>
+                                    <input type="text" th:field="*{abname}" class="form-control" name="abname" id="ab_name"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label>電話</label>
-                                    <input type="text" th:field="*{abphone}" class="form-control" id="ab_phone"/>
+                                    <input type="text" th:field="*{abphone}" class="form-control" name="abphone" id="ab_phone"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label>收容所信箱</label>
-                                    <input type="text" th:field="*{abemail}" class="form-control" id="ab_email"/>
+                                    <input type="text" th:field="*{abemail}" class="form-control" name="abemail" id="ab_email"/>
                                 </div>
                                 <div class="form-group">
                                     <label>日期</label>
-                                    <input type="date" th:field="*{abdate}" class="form-control" id="ab_date"/>
+                                    <input type="date" th:field="*{abdate}" class="form-control"  id="ab_date"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label>描述</label>
-                                    <input type="text" th:field="*{abremark}" class="form-control" id="ab_remark"/>
+                                    <input type="text" th:field="*{abremark}" class="form-control" name="abremark" id="ab_remark"/>
                                 </div>
 
                                 <div class="form-group">
@@ -151,7 +141,6 @@
 
                                 <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -230,119 +219,101 @@
     }
 </script>
 <script>
-    var form = document.getElementById("form").value;
-    var ab_id = document.getElementById("ab_id").value;
-    var ab_area = document.getElementById("ab_area").value;
-    var ab_name = document.getElementById("ab_name").value;
-    var ab_phone = document.getElementById("ab_phone").value;
-    var ab_email = document.getElementById("ab_email").value;
-    var ab_remark = document.getElementById("ab_remark").value;
-    // const count = Math.floor(Math.random() * 10 + 1);
-    function oneClick1() {
+    // var form = document.getElementById("form").value;
+    // var ab_id = document.getElementById("ab_id").value;
+    // var document.form4.abarea.value = document.getElementById("document.form4.abarea.value").value;
+    // var document.form4.abname.value = document.getElementById("document.form4.abname.value").value;
+    // var document.form4.abphone.value = document.getElementById("document.form4.abphone.value").value;
+    // var document.form4.abemail.value = document.getElementById("document.form4.abemail.value").value;
+    // var document.form4.abremark.value = document.getElementById("document.form4.abremark.value").value;
+    function ok4()
+    {var count=Math.floor(Math.random()*10+1);
+        if (count == 1)
+        { document.form4.abarea.value= "active";
+            document.form4.abname.value = "台北市大安區認養中心";
+            document.form4.abphone.value = "0912345678";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value = "它的眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
+        }
+        if (count == 2) {
+            document.form4.abarea.value = "active";
+            document.form4.abname.value = "台中巿西區認養中心";
+            document.form4.abphone.value = "0908776891";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value= "它的眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
+        }
 
-        // if (count == 1) {
-            ab_id = "1";
-            ab_area = "台北市";
-            ab_name = "台北市大安區認養中心";
-            ab_phone = "0912345678";
-            ab_email = "apple.con.am";
-            ab_remark = "它的眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
 
-            // if (count == 2) {
-            //     ab_id = "2";
-            //     ab_area = "台中市";
-            //     ab_name = "台中巿西區認養中心";
-            //     ab_phone = "0912345678";
-            //     ab_email = "apple.con.am";
-            //     ab_remark= "它的眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
-            // }
-            //
+        if (count == 3) {
+            document.form4.abarea.value = "active";
+            document.form4.abname.value = "台中巿東區認養中心";
+            document.form4.abphone.value = "0907787877";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value = "它的眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
+        }
 
-            // if (count === 3) {
-            //     ab_area = "台中市";
-            //     ab_name.value = "台中巿東區認養中心";
-            //     ab_phone.value = "0912345678";
-            //     ab_email.value = "apple.con.am";
-            //     ab_remark.value = "它的眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
-            // }
-            //
-            //
-            // if (count === 4) {
-            //     ab_area.value = "新北市";
-            //     ab_name.value = "新北市清水認養中心";
-            //     ab_phone.value = "0912345678";
-            //     ab_email.value = "apple.con.am";
-            //     ab_remark.value = "眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
-            // }
-            //
-            //
-            // if (count === 5) {
-            //     ab_area.value = "台北市";
-            //     ab_name.value = "台北市松山區認養中心";
-            //     ab_phone.value = "0912345678";
-            //     ab_email.value = "apple.con.am";
-            //     ab_remark.value = "圓圓的腦袋上豎起兩只尖尖的耳朵，顯得特別神氣。";
-            // }
-            //
-            //
-            // if (count === 6) {
-            //     ab_area.value = "新北市";
-            //     ab_name.value = "汐止洪國認養中心";
-            //     ab_phone.value = "0912345678";
-            //     ab_email.value = "apple.con.am";
-            //     ab_remark.value = "小貓鼻子下面有一張人字形的嘴巴，兩旁有6根白色的胡須，常常一扇一扇的，挺神氣。";
-            // }
-            //
-            //
-            // if (count === 7) {
-            //     ab_area.value = "台中市";
-            //     ab_name.value = "台中市泰北寵物認養中心";
-            //     ab_phone.value = "0912345678";
-            //     ab_email.value = "apple.con.am";
-            //     ab_remark.value = "小貓“咪咪”的那一雙大耳朵，一天到晚都直豎著，哪個地方有聲音，馬上往那邊轉，活像一架有特殊性能的雷達";
-            // }
-            //
-            // if (count === 8) {
-            //     ab_area.value = "台東市";
-            //     ab_name.value = "台東市民寵物流浪中心";
-            //     ab_phone.value = "0912345678";
-            //     ab_email.value = "apple.con.am";
-            //     ab_remark.value = "它一身的白毛像雪似的，中間夾著數塊墨色的細毛，黑白相間，白的顯得越白，而黑的越發顯得黑了";
-            // }
-            // if (count === 9) {
-            //     ab_area.value = "彰化縣";
-            //     ab_name.value = "彰化縣貓狗認養中心";
-            //     ab_phone.value = "0912345678";
-            //     ab_email.value = "apple.con.am";
-            //     ab_remark.value = "它見什么都好奇，就用爪子先輕輕地碰一碰，看看沒有危險再用爪子滾來滾去，從這個屋子滾到那個屋子";
-            // }
-            //
-            // if (count === 10) {
-            //     ab_area.value = "花蓮縣";
-            //     ab_name.value = "花蓮縣貓狗祝福認養中心";
-            //     ab_phone.value = "0912345678";
-            //     ab_email.value = "apple.con.am";
-            //     ab_remark.value = "這只花貓的全身是白底黑斑，遠看上去，像一團雪白的棉花點上了幾滴墨汁";
-            // }
+
+        if (count == 4) {
+            document.form4.abarea.value = "active";
+            document.form4.abname.value = "新北市清水認養中心";
+            document.form4.abphone.value = "097876788";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value = "眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
+        }
+
+
+        if (count == 5) {
+            document.form4.abarea.value= "active";
+            document.form4.abname.value= "台北市松山區認養中心";
+            document.form4.abphone.value= "0924524545";
+            document.form4.abemail.value= "shen775207@gmail.com";
+            document.form4.abremark.value= "圓圓的腦袋上豎起兩只尖尖的耳朵，顯得特別神氣。";
+        }
+
+
+        if (count == 6) {
+            document.form4.abarea.value = "admin";
+            document.form4.abname.value = "汐止洪國認養中心";
+            document.form4.abphone.value = "0978622678";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value = "小貓鼻子下面有一張人字形的嘴巴，兩旁有6根白色的胡須，常常一扇一扇的，挺神氣。";
+        }
+
+
+        if (count == 7) {
+            document.form4.abarea.value = "admin";
+            document.form4.abname.value = "台中市泰北寵物認養中心";
+            document.form4.abphone.value = "0911254678";
+            document.form4.abemail.value= "shen775207@gmail.com";
+            document.form4.abremark.value = "小貓“咪咪”的那一雙大耳朵，一天到晚都直豎著，哪個地方有聲音，馬上往那邊轉，活像一架有特殊性能的雷達";
+        }
+
+        if (count == 8) {
+            document.form4.abarea.value = "admin";
+            document.form4.abname.value = "台東市民寵物流浪中心";
+            document.form4.abphone.value = "09188845454";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value = "它一身的白毛像雪似的，中間夾著數塊墨色的細毛，黑白相間，白的顯得越白，而黑的越發顯得黑了";
+        }
+        if (count == 9) {
+            document.form4.abarea.value = "admin";
+            document.form4.abname.value= "彰化縣貓狗認養中心";
+            document.form4.abphone.value = "0917882278";
+            document.form4.abemail.value= "shen775207@gmail.com";
+            document.form4.abremark.value = "它見什么都好奇，就用爪子先輕輕地碰一碰，看看沒有危險再用爪子滾來滾去，從這個屋子滾到那個屋子";
+        }
+
+        if (count == 10) {
+            document.form4.abarea.value = "admin";
+            document.form4.abname.value = "花蓮縣貓狗祝福認養中心";
+            document.form4.abphone.value = "0917537878";
+            document.form4.abemail.value= "shen775207@gmail.com";
+            document.form4.abremark.value = "這只花貓的全身是白底黑斑，遠看上去，像一團雪白的棉花點上了幾滴墨汁";
+        }
 
     }
 </script>
-<script>
-function ok3()
-{var count=Math.floor(Math.random()*2+1);
-if (count == 1)
-{document.form4.idno.value="a1001";
-document.form4.addr.value="基隆";
 
-    document.form4.ab_area.value="aaaaadddCatssss"};
-if (count == 2)
-{document.form4.idno.value="a1002";
-document.form4.addr.value="台南";
-
-    document.form4.ab_area.value="Catssss"};
-
-}
-</script>
 
 </body>
 </html>

@@ -27,4 +27,6 @@ public interface MemberService {
 	MemberBean findByUsername(String username);
 
 
+	public MemberBean saveHeadshotInDB(MemberBean memberBean, Boolean isInsert);
+	
 }

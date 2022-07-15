@@ -1334,6 +1334,19 @@ only screen and (max-width: 767px) {
     z-index: 9
 }
 
+.header-account-content {
+    padding: 26px 30px;
+    width: 260px;
+    position: absolute;
+    top: 100%;
+    right: 0%;
+    background: #ffffff;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    display: none;
+    z-index: 9
+}
+
 .cart-product-wrapper {
     max-height: 300px;
     overflow-y: auto
@@ -1471,7 +1484,18 @@ only screen and (max-width: 767px) {
     color: #000000
 }
 
-.cart-product-btn .btn {
+/*.cart-product-btn .btn {*/
+/*    border-radius: 40px;*/
+/*    text-transform: uppercase;*/
+/*    -webkit-box-pack: center;*/
+/*    -webkit-justify-content: center;*/
+/*    -ms-flex-pack: center;*/
+/*    justify-content: center;*/
+/*    font-size: 13px;*/
+/*    font-weight: 500*/
+/*}*/
+
+.cart-account-btn .btn {
     border-radius: 40px;
     text-transform: uppercase;
     -webkit-box-pack: center;
@@ -5979,7 +6003,8 @@ only screen and (max-width: 767px) {
     width: 100%;
     padding: 12px 10px;
     border: 1px solid #ebebeb;
-    font-size: 14px
+    font-size: 16px; /*改字體大小*/
+    font-weight: 400; /*改粗細*/
 }
 
 .myaccount-content form .single-input-item input:focus {
@@ -6150,10 +6175,10 @@ only screen and (min-width: 768px) and (max-width: 991px) {
     -webkit-box-shadow: none;
     box-shadow: none;
     color: #000000;
-    font-size: 14px;
-    height: 50px;
-    margin-bottom: 20px;
-    padding-left: 10px;
+    font-size: 18px;
+    height: 44px;
+    margin-bottom: 20px;  /*20px;*/
+    padding-left: 1.375rem;/*10px;*/
     padding-right: 10px;
     width: 100%;
     border: 1px solid #ebebeb
@@ -6177,7 +6202,7 @@ only screen and (min-width: 768px) and (max-width: 991px) {
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
-    justify-content: space-between
+    justify-content: flex-end; /*space-between*/
 }
 
 .login-wrapper .single-input-item .login-reg-form-meta .btn,

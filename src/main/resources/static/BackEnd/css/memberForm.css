@@ -2,6 +2,33 @@
 
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
+/* 會員權限checkbox的label */
+.membertype-label {
+	padding: 0;
+	margin-right: 3px;
+	cursor: pointer;
+}
+ /*Start -- 會員權限checkbox */
+input[type=checkbox] {
+	display: none;
+}
+input[type=checkbox]+span {
+	display: inline-block;
+	padding: 6px 8px;
+	border: 1px solid ;
+	border-radius: 10px;
+	color: #474544;
+	user-select: none; /* 防止文字被滑鼠選取反白 */
+}
+
+input[type=checkbox]:checked+span {
+	color: #F2F3EB;
+	background-color: #474544;
+}
+
+
+/* End -- 會員權限checkbox */
+
 /* 隱藏密碼 */
 .hidetext { -webkit-text-security: disc;}
 
@@ -122,7 +149,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	color: #F2F3EB;
 }
 
-/* 設定上台按鈕的margin */
+/* 設定上排按鈕的margin */
 .btn-wrapper{
 	margin:10px 0;
 }
