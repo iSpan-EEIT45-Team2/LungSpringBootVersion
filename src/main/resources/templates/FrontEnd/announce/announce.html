@@ -39,7 +39,7 @@
                     <!-- Blog Thumb Start -->
                     <div class="blog-thumb thumb-effect">
                         <a class="image" href="blog-details.html">
-                            <img class="fit-image" th:src="${announce.anPhoto}" alt="Blog Image">
+                            <img class="fit-image" th:src="@{${'/FrontEnd/assets/images/announce/' + announce.anPhoto}}" alt="Blog Image">
                         </a>
                     </div>
                     <!-- Blog Thumb End -->

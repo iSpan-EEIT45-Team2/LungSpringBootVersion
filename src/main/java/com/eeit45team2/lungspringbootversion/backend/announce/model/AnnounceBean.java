@@ -21,6 +21,7 @@ public class AnnounceBean {
 
 	String anPhoto;
 	String anTitle;
+	@Column(columnDefinition = "NVARCHAR(MAX)")
 	String anContent;
 	String anType;
 	String anEditor;
@@ -33,7 +34,7 @@ public class AnnounceBean {
 	public AnnounceBean() {
 	}
 
-	public AnnounceBean(String anPhoto,String anTitle, String anContent, String anType, String anEditor,
+	public AnnounceBean(String anPhoto, String anTitle, String anContent, String anType, String anEditor,
 						Date anDate) {
 		super();
 		this.anPhoto = anPhoto;
@@ -44,7 +45,7 @@ public class AnnounceBean {
 		this.anDate = anDate;
 	}
 
-	public AnnounceBean(Long anNo,String anPhoto, String anTitle, String anContent, String anType, String anEditor,
+	public AnnounceBean(Long anNo, String anPhoto, String anTitle, String anContent, String anType, String anEditor,
 						Date anDate) {
 		super();
 		this.anNo = anNo;

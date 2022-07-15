@@ -13,9 +13,8 @@
 <!-- Blog Details Section Start -->
 <div class="section section-margin">
     <div class="container">
-        <form action="#" id="form" class="forms-sample" th:action="" method="post" th:object="${announce}">
         <div class="row" >
-            <input type="hidden" th:field="*{anNo}">
+            <input type="hidden" th:text="${announce.anNo}">
             <div class="col-lg-9 m-auto overflow-hidden">
                 <!-- Blog Details Wrapper Start -->
                 <div class="blog-details-wrapper">
@@ -23,20 +22,20 @@
                     <div class="blog-details-content">
                         <!-- Blog Image Start -->
                         <div class="blog-image">
-                            <img th:src="*{anPhoto}" alt="Blog Image" class="fit-image">
+                            <img class="fit-image" src="/Lung/FrontEnd/assets/images/slider/cat.jpg" alt="Blog Image">
                         </div>
                         <!-- Blog Image End -->
                         <!-- Blog details title & Meta Start -->
                         <div class="blog-details-title-meta">
-                            <h2 class="title" th:field="*{anTitle}"></h2>
+                            <h2 class="title" th:text="${announce.anTitle}"></h2>
                             <ul class="blog-meta">
-                                <li>By: <span th:field="*{anEditor}"></span> <span th:field="*{anDate}"></span></li>
+                                <li>By: <span th:text="${announce.anEditor}"></span> <span th:text="${announce.anDate}"></span></li>
                                 <li>03 Comments</li>
                             </ul>
                         </div>
                         <!-- Blog details title & Meta End -->
                         <!-- Content Start -->
-                        <p th:field="*{anContent}"></p>
+                        <p th:text="${announce.anContent}"></p>
                     </div>
                 </div>
             </div>

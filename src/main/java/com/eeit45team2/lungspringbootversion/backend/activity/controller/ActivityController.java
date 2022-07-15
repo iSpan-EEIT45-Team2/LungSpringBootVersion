@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletContext;
 import java.io.ByteArrayOutputStream;
@@ -20,9 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -69,8 +68,8 @@ public class ActivityController {
 	}
 
 	@PostMapping("/saveActivity")
-	public String saveActivity(ActivityBean ActivityBean,
-							   @RequestParam("image") MultipartFile multipartFile) throws IOException {
+	public RedirectView saveActivity(ActivityBean ActivityBean,
+									 @RequestParam("image") MultipartFile multipartFile) throws IOException {
 //		System.out.println("getImage: " + (ActivityBean.getImage()==null));
 		String fileName = System.currentTimeMillis() + "_" + StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		ActivityBean.setLocalFileName(fileName);
@@ -78,7 +77,9 @@ public class ActivityController {
 //		String uploadDir = "./src/main/resources/static/BackEnd/images/activity/"  ;
 //		FileUploadUtil.saveFile(imageLocation, fileName, multipartFile);
 		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-		return "redirect:/Backendactivity/activitylist";
+		return new RedirectView("/Backendactivity/activitylist", true);
+
+//		return "redirect:/Backendactivity/activitylist";
 	}
 	@PostMapping("/saveAP")
 	public String saveAP(MemberActivityBean memberActivityBean,

@@ -66,7 +66,9 @@
                                 <tbody>
                                 <tr th:each="announce : ${announces}">
                                     <td th:text="${announce.anNo}"/>
-                                    <td th:text="${announce.anPhoto}"/>
+                                    <td>
+                                        <img class="fit-image" th:src="@{${'/FrontEnd/assets/images/announce/' + announce.anPhoto}}" alt="Blog Image">
+                                    </td>
                                     <td th:text="${announce.anTitle}"/>
                                     <td th:text="${announce.anContent}"/>
                                     <td th:text="${announce.anType}"/>
