@@ -35,20 +35,43 @@ public class CommonService {
     ServletContext ctx;
 
 
+    public String getCurrentUserMiGender() {
+        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("當前登入的會員性別是: " + customUserDetails.getMigender());
+        return customUserDetails.getMigender();
+
+    }
+
+    public MemberBean getCurrentMemerBean() {
+        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("當前登入的會員是: " + customUserDetails.getUser());
+        return customUserDetails.getUser();
+
+    }
+
+    public Long getCurrentUserMiNo() {
+        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("當前登入的會員編號是: " + customUserDetails.getMino());
+        return customUserDetails.getMino();
+
+    }
+
     public String getCurrentUserMiNameString() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) { // user不是anonymousUser
             CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            System.out.println("當前登入的會員姓名是: " + customUserDetails.getMiname());
             return customUserDetails.getMiname();
         } else {
             return (String) authentication.getPrincipal(); //是anonymousUser
         }
     }
 
-    public @ResponseBody String getCurrentUserMiName() {
-        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return customUserDetails.getMiname(); // 呼叫CustomUserDetails.java取得那裡變數member的name
-    }
+        /*疑似有bug*/
+//    public @ResponseBody String getCurrentUserMiName() {
+//        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        return customUserDetails.getMiname(); // 呼叫CustomUserDetails.java取得那裡變數member的name
+//    }
 
 
     public ResponseEntity<byte[]> getCurrentUserImage() {
