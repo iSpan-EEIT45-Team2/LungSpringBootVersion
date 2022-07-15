@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
+@RequestMapping("FrontEndAnimalF")
 public class AnimalControllerF {
     @Autowired
     private AbDogService abDogService;
