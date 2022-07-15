@@ -49,10 +49,13 @@ public class MemberController {
 
 
 
-	/* 匯入CSV時把專案下的圖片set到DB，查詢會員頁面時再把DB的圖片抓到畚箕Server下  */
+
+
+
 	@GetMapping("/memberlist")  // 查詢(用GET)
 	public String listMembers(Model model) {
 		List<MemberBean> memberBeans = memberService.findAll();
+		/* 匯入CSV時把專案下的圖片set到DB，查詢會員頁面時再把DB的圖片抓到畚箕Server下  */
 //		for( MemberBean member  : memberBeans  ) {
 //				downloadDBInitImage(member);
 //		}
@@ -193,7 +196,6 @@ public class MemberController {
 			return responseEntity;
 		}	
 	}
-		
 
 
 	// MultipartFile 轉 BLOB型態 ，塞進DB

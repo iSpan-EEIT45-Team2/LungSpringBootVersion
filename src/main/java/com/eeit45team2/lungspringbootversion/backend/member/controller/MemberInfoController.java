@@ -1,5 +1,6 @@
 package com.eeit45team2.lungspringbootversion.backend.member.controller;
 
+import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.service.impl.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ public class MemberInfoController {
     }
 
 
+    /*取得當前登入的會員姓名*/
     @GetMapping("/getCurrentUserMiNameString")
     public @ResponseBody String getCurrentUserMiNameString(){
 //        return commonService.getCurrentUserMiName(); // 呼叫CustomUserDetails.java取得那裡變數member的name
@@ -40,6 +42,25 @@ public class MemberInfoController {
         return commonService.getCurrentUserMiNameString(); // 呼叫CustomUserDetails.java取得那裡變數member的name
     }
 
+    /*取得當前登入的會員編號*/
+    @GetMapping("/getCurrentUserMiGender")
+    public @ResponseBody String getCurrentUserMiGender(){
+        return commonService.getCurrentUserMiGender();
+    }
+
+    /*取得當前登入的會員編號*/
+    @GetMapping("/getCurrentUserMiNo")
+    public @ResponseBody Long getCurrentUserMiNo(){
+        return commonService.getCurrentUserMiNo();
+    }
+
+    /*取得當前登入會員所有資訊*/
+    @GetMapping("/getCurrentMemerBean")
+    public @ResponseBody MemberBean getCurrentMemerBean(){
+        return commonService.getCurrentMemerBean();
+    }
+
+    /*取得當前登入的會員大頭貼*/
     @GetMapping("/getCurrentUserImage")
     public ResponseEntity<byte[]> getCurrentUserImage(){
         return commonService.getCurrentUserImage();

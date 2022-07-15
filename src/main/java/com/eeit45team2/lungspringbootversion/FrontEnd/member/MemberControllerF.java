@@ -163,4 +163,9 @@ public class MemberControllerF {
         return "FrontEnd/registerconfirm";
     }
 
+    /*會員中心頁面*/
+    @GetMapping("/my-account-home")
+    public String myAccountHome() {
+        return "FrontEnd/member/my-account"; }
+
 }
