@@ -47,7 +47,7 @@ public class ProductControllerF {
             principal.getName();
             System.out.println("--------------------------");
             System.out.println("目前登入是: " + principal.getName());
-            MemberBean memberBean = memberService.findByUsername(principal.getName());
+            MemberBean memberBean = memberService.findByMiAccount(principal.getName());
             return "FrontEnd/Shop/shop";
         } else {
             return "login";
@@ -65,8 +65,11 @@ public class ProductControllerF {
         if(principal==null){
             return "redirect:/login";
         }
-        MemberBean memberBean = memberService.findByUsername(principal.getName());
-//        model.addAttribute("MiAddress", memberBean.getMiAddress());
+        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
+        model.addAttribute("MiAddress", memberBean.getMiAddress());
+        model.addAttribute("MiName", memberBean.getMiName());
+        model.addAttribute("MiPhone", memberBean.getMiPhone());
+        model.addAttribute("MiEmail", memberBean.getMiEmail());
         return "FrontEnd/Shop/CheckOut";
     }
 

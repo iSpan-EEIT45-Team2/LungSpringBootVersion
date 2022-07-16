@@ -10,7 +10,6 @@ public interface MemberRepository extends JpaRepository<MemberBean, Long> {
 
     public MemberBean findByMiAccount(String miAccount);
 
-    MemberBean findByMiName(String username);
 
 
 

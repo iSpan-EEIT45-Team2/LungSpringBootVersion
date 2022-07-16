@@ -76,7 +76,7 @@
                             <div class="col-md-6">
                                 <div class="checkout-form-list">
                                     <label>訂購人<span class="required" style="color:red">*</span></label>
-                                    <input placeholder="請輸入姓名" type="text" id="name" th:value="${name}" name="name">
+                                    <input placeholder="請輸入姓名" type="text" id="name" th:value="${MiName}" name="name">
                                 </div>
                             </div>
                             <!-- 訂購人結束 -->
@@ -85,7 +85,7 @@
                             <div class="col-md-12">
                                 <div class="checkout-form-list">
                                     <label>送貨地址 <span class="required" style="color:red">*</span></label>
-                                    <input placeholder="請輸入完整地址" type="text" id="address" required="required" th:value="${address}" name="address">
+                                    <input placeholder="請輸入完整地址" type="text" id="address" required="required" th:value="${MiAddress}" name="address">
                                 </div>
                             </div>
                             <!-- 地址結束 -->
@@ -94,7 +94,7 @@
                             <div class="col-md-6">
                                 <div class="checkout-form-list">
                                     <label>電子信箱 <span class="required" style="color:red">*</span></label>
-                                    <input placeholder="請輸入電子信箱" type="email" id="email" name="email">
+                                    <input placeholder="請輸入電子信箱" type="email" id="email" name="email" th:value="${MiEmail}">
                                 </div>
                             </div>
                             <!-- Email End -->
@@ -103,7 +103,7 @@
                             <div class="col-md-6">
                                 <div class="checkout-form-list">
                                     <label>手機號碼 <span class="required" style="color:red">*</span></label>
-                                    <input type="text" name="phone" id="phone" th:value="${phone}">
+                                    <input type="text" name="phone" id="phone" th:value="${MiPhone}">
                                 </div>
                             </div>
                             <!-- 手機號碼結束 -->

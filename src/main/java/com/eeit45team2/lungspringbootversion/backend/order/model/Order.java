@@ -55,6 +55,9 @@ public class Order implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItem> orderItems = new LinkedHashSet<>();
 
+    @Transient
+    private String code;
+
     public Integer getOrderId() {
         return orderId;
     }

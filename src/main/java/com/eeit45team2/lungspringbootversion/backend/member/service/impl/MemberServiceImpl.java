@@ -70,10 +70,7 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByMiAccount(miAccount);
     }
 
-	@Override
-	public MemberBean findByUsername(String username) {
-		return memberRepository.findByMiName(username);
-	}
+
 
 
 
