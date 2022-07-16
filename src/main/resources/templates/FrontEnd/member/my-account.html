@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>LungHi Peace會員中心</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div th:include="FrontEnd/includes/head :: head"></div>
+    <link rel="stylesheet" th:href="@{/FrontEnd/assets/css/myAccount.css}">
 </head>
 
 <body>
@@ -41,25 +43,24 @@
 <!-- My Account Section Start -->
 <div class="section section-margin">
     <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- My Account Page Start -->
+                    <div class="myaccount-page-wrapper">
+                        <div class="row">
 
-        <div class="row">
-            <div class="col-lg-12">
-
-                <!-- My Account Page Start -->
-                <div class="myaccount-page-wrapper">
-                    <div class="row">
-
-                        <!-- My Account Tab Menu Start -->
-                        <div class="col-lg-3 col-md-4">
-                            <div class="myaccount-tab-menu nav" role="tablist">
-                                <a href="#account-info" class="active" data-bs-toggle="tab"><i class="fa fa-user"></i>
-                                    會員基本資料</a>
-                                <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> 訂單查詢</a>
-                                <a href="#download" data-bs-toggle="tab"><i class="fa-solid fa-hand-holding-heart"></i> 志工記錄查詢</a>
-                                <a th:href="@{/animal1}"><i class="fa-solid fa-hand-holding-heart"></i> 認養/送養記錄查詢</a>
-                                <a href="#payment-method" data-bs-toggle="tab"><i class="fa-solid fa-star"></i> 商品收藏</a>
-                                <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> 登出</a>
-
+                            <!-- My Account Tab Menu Start -->
+                            <div class="col-lg-3 col-md-4">
+                                <div class="myaccount-tab-menu nav" role="tablist">
+                                    <a href="#account-info" id="memberCenterBasic" class="active" data-bs-toggle="tab"><i class="fa fa-user"></i>
+                                        會員基本資料</a>
+                                    <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i> 訂單查詢</a>
+                                    <a href="#download" data-bs-toggle="tab"><i class="fa-solid fa-hand-holding-heart"></i> 志工記錄查詢</a>
+                                    <a th:href="@{/animal1}" data-bs-toggle="tab"><i class="fa-solid fa-hand-holding-heart"></i> 認養/送養記錄查詢</a>
+                                    <a href="#payment-method" data-bs-toggle="tab"><i class="fa-solid fa-star"></i> 商品收藏</a>
+                                    <a href="#update-password" data-bs-toggle="tab"><i class="fa-solid fa-shield-halved"></i>安全性</a>
+                                    <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> 登出</a>
+                                </div>
                             </div>
                         </div>
                         <!-- My Account Tab Menu End -->
@@ -179,61 +180,158 @@
                                         <a href="#" class="btn btn btn-dark btn-hover-primary rounded-0"><i class="fa fa-edit m-r-10"></i>Edit Address</a>
                                     </div>
                                 </div>
-                                <!-- Single Tab Content End -->
 
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade show active" id="account-info" role="tabpanel">
-                                    <div class="myaccount-content">
+                                    <div class="myaccount-content" id="memberBlock">
                                         <h3 class="title">會員基本資料</h3>
                                         <div class="account-details-form">
-                                            <form action="#">
+                                            <form action="#" id="form" method="post"  enctype='multipart/form-data'>
+                                                <div class="single-input-item m-b-20 outofimg">
+                                                    <img id="blah"
+                                                            th:src="@{/memberInfo/getCurrentUserImage}"
+                                                            style="display:block;width: 130px; height: 130px; margin:20px auto;border:2px solid #c0c3c4;border-radius:50%;background-color:#ebeff2;"/>
+                                                    <label for="productImage" class="custom-file-upload">
+                                                        <i class="fa-solid fa-cloud-arrow-up"></i>上傳會員大頭貼
+                                                        <input id="productImage" type='file' class="form-control"
+                                                                onchange="previewHeadshot(event)" accept="image/*"/>
+                                                    </label>
+                                                </div>
                                                 <div class="row">
-                                                    <div class="col-lg-6">
+                                                    <div class="col-lg-6 m-b-20">
                                                         <div class="single-input-item m-b-15">
-                                                            <label for="miName" class="required m-b-10">姓名</label>
-                                                            <input type="text" id="miName" placeholder="" />
+                                                            <label class="required m-b-5">姓名</label>
+                                                            <input disabled id="miName" type="text" class="form-control"
+                                                                    autocomplete="off" oninput="oninputCheckName()"/>
+                                                            <i class="fas fa-check-circle"></i>
+                                                            <i class="fas fa-exclamation-circle"></i>
+                                                            <small>Error message</small>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6">
+                                                    <div class="col-lg-6 m-b-20">
                                                         <div class="single-input-item m-b-15">
-                                                            <label for="miPhone" class="required m-b-10">電話</label>
-                                                            <input type="text" id="miPhone" placeholder="" />
+                                                            <label class="required m-b-5">帳號</label>
+                                                            <input disabled id="miAccount" type="text" class="form-control"
+                                                                    autocomplete="off" onblur="onblurCheckAccount()"/>
+                                                            <i class="fas fa-check-circle"></i>
+                                                            <i class="fas fa-exclamation-circle"></i>
+                                                            <small id='result0c'>Error message</small>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="single-input-item m-b-15">
-                                                    <label for="miBirth" class="required m-b-10">生日</label>
-                                                    <input type="text" id="miBirth" placeholder="" />
+                                                <div class="single-input-item m-b-30">
+                                                    <label  class="required m-b-5">性別</label>
+                                                    <select disabled id="miGender" class="js-example-basic-single w-100">
+                                                        <option value="女">女</option>
+                                                        <option value="男" selected>男</option>
+                                                        <option value="不公開">不公開</option>
+                                                    </select>
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    <small id="smallofGender">Error message</small>
                                                 </div>
-                                                <div class="single-input-item m-b-15">
-                                                    <label for="miId" class="required m-b-10">身分證字號</label>
-                                                    <input type="text" id="miId" placeholder="" />
+                                                <div class="single-input-item m-b-30">
+                                                    <label class="required m-b-5">生日</label>
+                                                    <input disabled id="miBirth" type="date" class="form-control"
+                                                            max="3000-12-31" autocomplete="off" maxlength="10" oninput="oninputCheckBirth()"/>
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    <small>Error message</small>
                                                 </div>
-                                                <div class="single-input-item m-b-15">
-                                                    <label for="email" class="required m-b-5">Email</label>
-                                                    <input type="email" id="email" placeholder="Email Address" />
+                                                <div class="single-input-item m-b-30">
+                                                    <label  class="required m-b-5">身分證字號</label>
+                                                    <input disabled id="miId" type="text" class="form-control"
+                                                            maxlength="10" autocomplete="off" oninput="oninputCheckId()"/>
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    <small>Error message</small>
                                                 </div>
+                                                <div class="single-input-item m-b-30">
+                                                    <label class="required m-b-5">電話</label>
+                                                    <input disabled id="miPhone" type="text" class="form-control"
+                                                            onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"
+                                                            maxlength="10"
+                                                            autocomplete="off" oninput="oninputCheckPhone()"/>
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    <small>Error message</small>
+                                                </div>
+                                                <div class="single-input-item m-b-30">
+                                                    <label class="required m-b-5">Email</label>
+                                                    <input disabled id="miEmail" type="text" class="form-control"
+                                                            autocomplete="off" onblur="oninputCheckEmail()"/>
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    <small>Error message</small>
+                                                </div>
+                                                <div class="single-input-item m-b-30">
+                                                    <div>
+                                                        <label class="required m-b-5">會員地址<span class="isEssential">*</span></label>
+                                                    </div>
+                                                    <div class="js-demeter-tw-zipcode-selector" data-city="#miCity" data-dist="#miDistrict">
+                                                        <select disabled autofocus onchange="onblurCheckAddress()" id="miCity" placeholder="縣市" ></select>
+                                                        <select disabled autofocus onchange="onblurCheckAddress()" id="miDistrict"  placeholder="鄉鎮市區"></select>
+                                                    </div>
+                                                    <div style="margin: 5px 0;">
+                                                        <input disabled autofocus onblur="onblurCheckAddress()" id="miAddress" type="text" placeholder="詳細地址，例如:街道名稱、門牌號" class="form-control" >
+                                                    </div>
+                                                    <i style="top:108px;" class="fas fa-check-circle"></i>
+                                                    <i style="top:108px;" class="fas fa-exclamation-circle"></i>
+                                                    <small id="smallofAddress">Error message</small>
+                                                </div>
+
+                                                <div class="single-input-item single-item-button m-t-30">
+                                                    <button class="btn btn btn-primary btn-hover-dark rounded-30" id="account_form_button" type="button">修改</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="update-password" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3 class="title">修改密碼</h3>
+                                        <div class="account-details-form">
+                                            <form action="#">
                                                 <fieldset>
-                                                    <legend>Password change</legend>
                                                     <div class="single-input-item m-b-15">
-                                                        <label for="current-pwd" class="required m-b-10">Current Password</label>
-                                                        <input type="password" id="current-pwd" placeholder="Current Password" />
+                                                        <label class="required m-b-10">目前密碼</label>
+                                                        <input type="password" class="form-control"
+                                                                oninput="oninputCheckPassword()"/>
+                                                        <i class="fa-solid fa-eye" ></i>
+                                                        <i class="fas fa-check-circle"></i>
+                                                        <i class="fas fa-exclamation-circle"></i>
+                                                        <small>Error message</small>
                                                     </div>
                                                     <div class="row m-b-n15">
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item m-b-15">
-                                                                <label for="new-pwd" class="required m-b-10">New Password</label>
-                                                                <input type="password" id="new-pwd" placeholder="New Password" />
+                                                                <label class="required m-b-10">新密碼</label>
+                                                                <input type="password" class="form-control"
+                                                                        oninput="oninputCheckPassword()"/>
+                                                                <i class="fa-solid fa-eye"></i>
+                                                                <i class="fas fa-check-circle"></i>
+                                                                <i class="fas fa-exclamation-circle"></i>
+                                                                <small>Error message</small>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item m-b-15">
-                                                                <label for="confirm-pwd" class="required m-b-10">Confirm Password</label>
-                                                                <input type="password" id="confirm-pwd" placeholder="Confirm Password" />
+                                                                <label class="required m-b-10">確認新密碼</label>
+                                                                <input id="miPassword2" type="password" class="form-control"
+                                                                        onblur="onblurCheckPasswordSame()"/>
+                                                                <i class="fa-solid fa-eye" ></i>
+                                                                <i class="fas fa-check-circle"></i>
+                                                                <i class="fas fa-exclamation-circle"></i>
+                                                                <small>Error message</small>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </fieldset>
+                                                <div class="single-input-item single-item-button m-t-30">
+                                                    <button class="btn btn btn-primary btn-hover-dark rounded-0">儲存</button>
+                                                </div>
                                                 <div class="single-input-item single-item-button m-t-30">
                                                     <button class="btn btn btn-primary btn-hover-dark rounded-0">Save Changes</button>
                                                 </div>
@@ -241,18 +339,14 @@
                                         </div>
                                     </div>
                                 </div> <!-- Single Tab Content End -->
-
                             </div>
                         </div>
                         <!-- My Account Tab Content End -->
-
                     </div>
                 </div>
                 <!-- My Account Page End -->
-
             </div>
         </div>
-
     </div>
 </div>
 <!-- My Account Section End -->
@@ -649,6 +743,28 @@
 <!-- Mobile Menu End -->
 
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
+<script th:src="@{/FrontEnd/assets/js/myAccount.js}"></script>
+<!-- 引用Zipcode -->
+<script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
+<script type='text/javascript' class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#location" /></script>
+<script type="text/javascript">
+
+    // 顯示選取的照片
+    function previewHeadshot(event) {
+        /*
+        files = ['src']
+        法一:
+            const file = files[0] -> file = 'src'
+        法二:
+            const [file] = files -> file = 'src'
+        */
+        const [file] = document.getElementById("productImage").files
+        if (file) {
+            document.getElementById("blah").src = URL.createObjectURL(file)
+        }
+    }
+
+</script>
 </body>
 
 </html>
