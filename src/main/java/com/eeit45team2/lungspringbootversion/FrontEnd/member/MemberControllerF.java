@@ -5,19 +5,22 @@ import com.alibaba.fastjson.JSONObject;
 import com.eeit45team2.lungspringbootversion.backend.member.model.ConfirmationToken;
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.repository.ConfirmationTokenRepository;
+import com.eeit45team2.lungspringbootversion.backend.member.repository.MemberRepository;
 import com.eeit45team2.lungspringbootversion.backend.member.repository.UserRepository;
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
+import com.eeit45team2.lungspringbootversion.backend.member.service.impl.CommonService;
 import com.eeit45team2.lungspringbootversion.backend.member.service.impl.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
+import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -28,7 +31,13 @@ public class MemberControllerF {
     private MemberService memberService;
 
     @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    CommonService commonService;
 
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
@@ -55,10 +64,24 @@ public class MemberControllerF {
 //        }
 //        else
 //        {
+        Boolean isInsert = (member.getMiNo() ==null); // 判斷是否為insert
+        //------密碼加密開始
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if(!isInsert){ //是修改時
+            String oldPassword = memberRepository.findById(member.getMiNo()).get().getMiPassword();
+            if(!member.getMiPassword().equals(oldPassword)){ //有修改密碼
+                member.setMiPassword(passwordEncoder.encode(member.getMiPassword())); //對密碼進行加密
+            }
+        }else{  //是新增時
+            member.setMiPassword(passwordEncoder.encode(member.getMiPassword())); //對密碼進行加密
+        }
+        //------密碼加密完成
+        //------儲存圖片
+        MemberBean memberBean1 = memberService.saveHeadshotInDB(member,isInsert);
+
         userRepository.save(member);
 
         ConfirmationToken confirmationToken = new ConfirmationToken(member);
-
         confirmationTokenRepository.save(confirmationToken);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -167,5 +190,62 @@ public class MemberControllerF {
     @GetMapping("/my-account-home")
     public String myAccountHome() {
         return "FrontEnd/member/my-account"; }
+
+    /* 修改會員 */
+    @GetMapping("/getMemberforUpdate")
+    public @ResponseBody Map<String, String> getMemberforUpdate(){
+        String miName = commonService.getCurrentMemerBean().getMiName();
+        String miAccount = commonService.getCurrentMemerBean().getMiAccount();
+        String miGender = commonService.getCurrentMemerBean().getMiGender();
+        Date miBirth =commonService.getCurrentMemerBean().getMiBirth();
+        String miId = commonService.getCurrentMemerBean().getMiId();
+        String miPhone =commonService.getCurrentMemerBean().getMiPhone();
+        String miEmail = commonService.getCurrentMemerBean().getMiEmail();
+        String miCity = commonService.getCurrentMemerBean().getMiCity();
+        String miDistrict =commonService.getCurrentMemerBean().getMiDistrict();
+        String miAddress = commonService.getCurrentMemerBean().getMiAddress();
+
+        Map<String, String> member = new HashMap<String, String>();
+        member.put("miName",miName);
+        member.put("miAccount",miAccount);
+        member.put("miGender",miGender);
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        member.put("miBirth", f.format(new java.util.Date(miBirth.getTime())));
+        member.put("miId",miId);
+        member.put("miPhone",miPhone);
+        member.put("miEmail",miEmail);
+        member.put("miCity",miCity);
+        member.put("miDistrict",miDistrict);
+        member.put("miAddress",miAddress);
+
+        return member;
+    }
+
+
+    @GetMapping(value = "/saveMemberforUpdate", produces = { "application/json" })
+    public void saveMemberforUpdate(@RequestBody String member){
+        JSONObject object= JSON.parseObject(member);
+        MemberBean saveMember = commonService.getCurrentMemerBean();
+        saveMember.setMiName((String) object.get("miName"));
+        saveMember.setMiAccount((String) object.get("miAccount"));
+        saveMember.setMiGender((String) object.get("miGender"));
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        String sMiBirth = (String) object.get("miBirth");
+        Date miBirth;
+        try {
+            java.util.Date tmp = f.parse(sMiBirth);
+            miBirth = new Date(tmp.getTime());
+            saveMember.setMiBirth(miBirth);
+        } catch (Exception ex) {
+            // 用原本生日改
+        }
+        saveMember.setMiId((String) object.get("miId"));
+        saveMember.setMiPhone((String) object.get("miPhone"));
+        saveMember.setMiEmail((String) object.get("miEmail"));
+        saveMember.setMiCity((String) object.get("miCity"));
+        saveMember.setMiDistrict((String) object.get("miDistrict"));
+        saveMember.setMiAddress((String) object.get("miAddress"));
+        memberService.save(saveMember);
+    }
 
 }
