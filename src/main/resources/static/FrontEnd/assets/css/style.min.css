@@ -6222,7 +6222,8 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 
 .login-wrapper .lost-password a,
 .register-wrapper .lost-password a {
-    font-size: 14px;
+    font-size: 16px;
+    margin-right: 20px;
     -webkit-transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s

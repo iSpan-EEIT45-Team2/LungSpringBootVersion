@@ -39,13 +39,23 @@ public class OrderController {
             }
         }
         model.addFlashAttribute("orderNo", order.getOrderNo());
-        return "redirect:/Order/PaySuccess";
+        return "redirect:/Front/products";
     }
 
-    @GetMapping("/Order/PaySuccess")
-    public String paySuccess(){
-        return "order/PaySuccess";
+    @GetMapping ("/Order/PAYPAL/Result")
+    public String resultPaypal(@RequestParam String token,
+                               RedirectAttributes  model) {
+        System.out.println("Token: " + token);
+        String orderNo = PaypalPayment.captureOrder(token);
+        Order order = orderService.findByOrderNo(orderNo).orElse(null);
+        if(order!=null) {
+            Order pay = orderService.pay(order.getOrderId());
+        }
+        model.addFlashAttribute("orderNo", order.getOrderNo());
+        return "redirect:/Front/products";
     }
+
+
 
     @GetMapping(value = "/Order/{orderNo}/Pay",produces = "text/html;charset=UTF-8")
     public ResponseEntity<String> pay(@PathVariable String orderNo, HttpServletRequest request){
