@@ -53,12 +53,11 @@
                             <table class="table table-hover" id="datatable">
                                 <thead>
                                 <tr>
+                                    <th>訂單ID</th>
                                     <th>訂單編號</th>
-                                    <th>商品名稱</th>
-                                    <th>商品目錄</th>
-                                    <th>訂單內容</th>
-                                    <th>訂單規格</th>
-                                    <th>訂單數量</th>
+                                    <th>訂購會員</th>
+                                    <th>訂單日期</th>
+                                    <th>付款方式</th>
                                     <th>訂單金額</th>
                                     <th>訂單狀態</th>
                                     <th>訂單操作</th>
@@ -66,25 +65,15 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="order : ${orders}">
-                                    <td th:text="${order.od_id}"/>
-                                    <td th:text="${order.od_name}"/>
-                                    <td th:text="${order.od_catalogue}"/>
-                                    <td th:text="${order.od_content}"/>
-                                    <td th:text="${order.od_amount}"/>
-                                    <td th:text="${order.od_number}"/>
-                                    <td th:text="${order.od_money}"/>
-                                    <td><label class="badge badge-danger" th:if="${order.type} eq '0'">未付款</label>
-                                        <label class="badge badge-success" th:if="${order.type} eq '1'">已付款</label>
-                                    </td>
-                                    <td>
-                                        <a th:href="@{'/Backendorder/updateForm/' + ${order.od_id} }"
-                                           class="btn btn-sm btn-success"><i
-                                                class="bi bi-pencil-fill"></i></a>
-                                        <button class="btn btn-sm btn-danger"
-                                                th:onclick="deleteajax([[${order.od_id}]])" type="button"
-                                                id="deleteajax"><i class="bi bi-trash-fill"></i>
-                                        </button>
-                                    </td>
+                                    <td th:text="${order.orderId}"/>
+                                    <td th:text="${order.orderNo}"/>
+                                    <td th:text="${order.memberBean.miAccount}"/>
+                                    <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}"/>
+                                    <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}"/>
+                                    <td th:text="|NT$${order.totalPrice}|"/>
+                                    <td th:text="${order.orderStatus.code}"/>
+
+
                                 </tr>
                                 </tbody>
                             </table>

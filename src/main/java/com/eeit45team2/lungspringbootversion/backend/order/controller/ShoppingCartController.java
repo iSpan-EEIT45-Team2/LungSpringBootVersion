@@ -77,7 +77,7 @@ public class ShoppingCartController {
         return ResponseEntity.status(HttpStatus.OK).body(cart);
     }
 
-    @PostMapping(path = "/Front/CheckOut", produces = "text/html;charset=UTF-8")
+    @PostMapping(path = "/Front/CheckOut")
     public ResponseEntity<String> checkOut(@ModelAttribute Cart cart,
                                            @RequestParam String address,
                                            @RequestParam String name,
@@ -106,7 +106,7 @@ public class ShoppingCartController {
 
                 order.setPayType(payType);
 
-                MemberBean memberBean = memberService.findByUsername(principal.getName());
+                MemberBean memberBean = memberService.findByMiAccount(principal.getName());
 
                 order.setMemberBean(memberBean);
                 order.setAddress(address);
