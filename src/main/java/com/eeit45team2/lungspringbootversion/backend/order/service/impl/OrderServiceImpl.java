@@ -1,12 +1,12 @@
 package com.eeit45team2.lungspringbootversion.backend.order.service.impl;
 
+import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
 import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatus;
 import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatusChangeEvent;
 import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
 import com.eeit45team2.lungspringbootversion.backend.order.repository.OrderRepository;
 import com.eeit45team2.lungspringbootversion.backend.order.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
@@ -84,13 +84,100 @@ public class OrderServiceImpl implements OrderService {
         }
         return order;
     }
+
+    @Override
+    public Optional<Order> findByOrderId(Integer orderId) {
+        return orderRepository.findById(orderId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteOrder(Integer orderId) {
+        orderRepository.deleteById(orderId);
+    }
+
+    @Override
+    @Transactional
+    public Order deliver(Integer orderId, String trackingNumber) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        order.setTrackingNumber(trackingNumber);
+        order.setShipDate(new Date());
+        Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.DELIVERY).setHeader("order", order).build());
+        if (sendEvent(message, order)) {
+            System.out.println("訂單號：" + orderId + " 發貨失敗");
+        }
+        orderRepository.save(order);
+        return order;
+    }
+
+    @Override
+    @Transactional
+    public Order cancel(Integer orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.RECEIVED).setHeader("order", order).build());
+        if (sendEvent(message, order)) {
+            System.out.println("訂單號：" + orderId + " 取消訂單失敗");
+        }
+        return order;
+    }
+
+    @Override
+    @Transactional
+    public Order receive(Integer orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.CANCEL).setHeader("order", order).build());
+        if (sendEvent(message, order)) {
+            System.out.println("訂單號：" + orderId + " 收貨失敗");
+        }
+        return order;
+    }
+
+    @Override
+    @Transactional
+    public Order refund(Integer orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.REFUND).setHeader("order", order).build());
+        if (sendEvent(message, order)) {
+            System.out.println("訂單號：" + orderId + " 提出退款失敗");
+        }
+        return order;
+    }
+
+    @Override
+    @Transactional
+    public Order accept(Integer orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.ACCEPT).setHeader("order", order).build());
+        if (sendEvent(message, order)) {
+            System.out.println("訂單號：" + orderId + " 同意退款失敗");
+        }
+        return order;
+    }
+
+    @Override
+    @Transactional
+    public Order reject(Integer orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.REJECT).setHeader("order", order).build());
+        if (sendEvent(message, order)) {
+            System.out.println("訂單號：" + orderId + " 拒絕退款失敗");
+        }
+        return order;
+    }
+
+    @Override
+    public Order findAllByMember(MemberBean memberBean) {
+        if (memberBean == null) {
+            return null;
+        }
+        return orderRepository.findAllByMemberBean(memberBean);
+    }
+
     private synchronized boolean sendEvent(Mono<Message<OrderStatusChangeEvent>> message, Order order) {
         boolean result = false;
         try {
-            //嘗試恢復狀態機狀態
             persister.restore(orderStateMachine, order);
             result = orderStateMachine.sendEvent(message).subscribe().isDisposed();
-            //持久化狀態機狀態
             persister.persist(orderStateMachine, order);
         } catch (Exception e) {
             e.printStackTrace();

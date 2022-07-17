@@ -1,9 +1,12 @@
 package com.eeit45team2.lungspringbootversion.backend.order.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@JsonIgnoreProperties("order")
 public class OrderItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
