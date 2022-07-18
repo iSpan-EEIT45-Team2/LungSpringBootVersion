@@ -30,7 +30,7 @@
                             <h2 class="title" th:text="${activities.ac_name}"></h2>
                             <ul class="blog-meta">
                                 <li>主辦單位: <span th:text="${activities.ac_organizer}"></span> <span th:text="${activities.ac_date}"></span></li>
-<!--                                <li><span th:text="${activities.anType}"></span></li>-->
+                                <!--                                <li><span th:text="${activities.anType}"></span></li>-->
                             </ul>
                         </div>
                         <!-- Blog details title & Meta End -->
@@ -41,7 +41,7 @@
                         活動名額:<p th:text="${activities.ac_quota}"></p><br>
                         候補名額:<p th:text="${activities.ac_waitlist_quota}"></p><br>
                         報名費用:<p th:text="${activities.ac_fee}"></p><br>
-                         </div>
+                    </div>
                 </div>
                 <!-- Comments Post Area Start -->
                 <div class="comment-post-area">
@@ -50,7 +50,7 @@
                             <!-- Submit Button Start -->
                             <div class="col-12 col-custom m-t-20">
                                 <button type="submit" class="btn btn-primary btn-hover-dark">立即報名</button>
-                                <button type="submit" class="btn btn-info btn-hover-gray-deep" th:onclick="add([[${activities.ac_id}]])">加入收藏</button>
+                                <button type="submit" class="btn btn-info btn-hover-gray-deep">加入收藏</button>
                             </div>
                             <!-- Submit Button End -->
 
@@ -64,6 +64,8 @@
         </form>
     </div>
 </div>
+<!-- Breadcrumb Area End -->
+<div th:include="BackEnd/includes/footer :: footer"></div>
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
 <!-- Blog Section End -->
 </body>
