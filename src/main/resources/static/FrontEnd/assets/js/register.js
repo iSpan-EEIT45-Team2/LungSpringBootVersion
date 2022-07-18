@@ -25,7 +25,7 @@ form_button_submit.addEventListener('click', e => {
     /* 前台不用驗證權限是誰 */
     // verifyRole();
     // if(!checkInputsError()){
-        miActive.value = "Y";
+        miActive.value = "N";
         miRole.value = "USER";
         form.submit(); /* 如果沒有error，就執行送出*/
     // }else{

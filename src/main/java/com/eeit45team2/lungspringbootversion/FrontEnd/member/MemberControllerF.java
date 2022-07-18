@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -57,48 +58,53 @@ public class MemberControllerF {
 
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ModelAndView registerUser(ModelAndView modelAndView, MemberBean member) {
-//        MemberBean existingUser = userRepository.findByMiEmailIgnoreCase(member.getMiEmail());
-//        if(existingUser != null) {
-//            modelAndView.addObject("message","This email already exists!");
-//            modelAndView.setViewName("error");
-//        }
-//        else
-//        {
         Boolean isInsert = (member.getMiNo() ==null); // 判斷是否為insert
         //------密碼加密開始
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if(!isInsert){ //是修改時
-            String oldPassword = memberRepository.findById(member.getMiNo()).get().getMiPassword();
-            if(!member.getMiPassword().equals(oldPassword)){ //有修改密碼
-                member.setMiPassword(passwordEncoder.encode(member.getMiPassword())); //對密碼進行加密
-            }
-        }else{  //是新增時
-            member.setMiPassword(passwordEncoder.encode(member.getMiPassword())); //對密碼進行加密
-        }
+        member.setMiPassword(passwordEncoder.encode(member.getMiPassword()));
         //------密碼加密完成
         //------儲存圖片
         MemberBean memberBean1 = memberService.saveHeadshotInDB(member,isInsert);
 
         userRepository.save(member);
 
+//        ConfirmationToken confirmationToken = new ConfirmationToken(member);
+//        confirmationTokenRepository.save(confirmationToken);
+//        SimpleMailMessage mailMessage = new SimpleMailMessage();
+//        mailMessage.setTo(member.getMiEmail());
+//        mailMessage.setSubject("LungHi Peace浪孩和平Email認證信");
+//        mailMessage.setFrom("LungHiPeace0302@gmail.com");
+//        mailMessage.setText("您好： 請點選以下連結驗證您的電子郵件信箱。 "
+//                + "http://localhost:8080/Lung/Front/confirm-account?token=" + confirmationToken.getConfirmationToken());
+//        emailSenderService.sendEmail(mailMessage);
+        sendEmailToUser(member,member.getMiEmail());
+
+        modelAndView.addObject("miEmail", member.getMiEmail());
+        modelAndView.setViewName("/FrontEnd/registerconfirm");
+        return modelAndView;
+    }
+
+
+    public void sendEmailToUser(MemberBean member, String email){
         ConfirmationToken confirmationToken = new ConfirmationToken(member);
         confirmationTokenRepository.save(confirmationToken);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(member.getMiEmail());
+        mailMessage.setTo(email);
         mailMessage.setSubject("LungHi Peace浪孩和平Email認證信");
         mailMessage.setFrom("LungHiPeace0302@gmail.com");
         mailMessage.setText("您好： 請點選以下連結驗證您的電子郵件信箱。 "
                 + "http://localhost:8080/Lung/Front/confirm-account?token=" + confirmationToken.getConfirmationToken());
-
         emailSenderService.sendEmail(mailMessage);
+    }
 
-        modelAndView.addObject("miEmail", member.getMiEmail());
-
-        modelAndView.setViewName("/FrontEnd/registerconfirm");
-//    }
-
-        return modelAndView;
+    /* 重寄驗證信 */
+    @RequestMapping(value="/resendEmail", method = RequestMethod.POST)
+    public void resendEmail(@RequestBody String req){
+        JSONObject object= JSON.parseObject(req);
+        MemberBean member = (MemberBean) object.get("member");
+        String email = (String) object.get("email");
+        sendEmailToUser(member,email);
     }
 
 
@@ -221,11 +227,15 @@ public class MemberControllerF {
         return member;
     }
 
-
-    @GetMapping(value = "/saveMemberforUpdate", produces = { "application/json" })
-    public void saveMemberforUpdate(@RequestBody String member){
+    /* 修改會員基本資料 */
+    @PostMapping(value = "/saveMemberforUpdate", produces = { "application/json" })
+    public @ResponseBody Map<String, String> saveMemberforUpdate(@RequestBody String member){
         JSONObject object= JSON.parseObject(member);
         MemberBean saveMember = commonService.getCurrentMemerBean();
+
+        //------儲存圖片
+//        MemberBean memberBean1 = memberService.saveHeadshotInDB(member);
+
         saveMember.setMiName((String) object.get("miName"));
         saveMember.setMiAccount((String) object.get("miAccount"));
         saveMember.setMiGender((String) object.get("miGender"));
@@ -246,6 +256,50 @@ public class MemberControllerF {
         saveMember.setMiDistrict((String) object.get("miDistrict"));
         saveMember.setMiAddress((String) object.get("miAddress"));
         memberService.save(saveMember);
+
+        HashMap<String, String> msg = new HashMap<>();
+        msg.put("success","success");
+        return msg;
     }
+
+
+    /* 確認密碼是否和自己db中的一樣 */
+    @PostMapping(value = "/checkPassword", produces = { "application/json" })
+    public @ResponseBody Map<String, String> checkPassword(@RequestBody String inputpwd){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        JSONObject object= JSON.parseObject(inputpwd);
+        String passwordToCheck = (String) object.get("passwordToCheck");
+
+        String currentMemberPassword = commonService.getCurrentMemerBean().getMiPassword();
+//        Long currentMiNo = commonService.getCurrentMemerBean().getMiNo();
+
+        Map<String, String> msg = new HashMap<>();  // 塞訊息的map
+
+        System.out.println();
+        if(passwordEncoder.matches(passwordToCheck, currentMemberPassword)){
+            msg.put("checkPasswordResult","success");
+        }else{
+            msg.put("checkPasswordResult","fail");
+        }
+        return msg;
+    }
+
+
+    /* 修改密碼 */
+    @PostMapping(value = "/savePasswordforUpdate", produces = { "application/json" })
+    public @ResponseBody Map<String, String> savePasswordforUpdate(@RequestBody String pwd){
+        JSONObject object= JSON.parseObject(pwd);
+        MemberBean savePassword = commonService.getCurrentMemerBean();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        //密碼加密
+        savePassword.setMiPassword(passwordEncoder.encode((String) object.get("newPassword")));
+
+        memberService.save(savePassword);
+
+        HashMap<String, String> msg = new HashMap<>();
+        msg.put("success","success");
+        return msg;
+    }
+
 
 }

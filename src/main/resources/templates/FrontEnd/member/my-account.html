@@ -186,7 +186,7 @@
                                     <div class="myaccount-content" id="memberBlock">
                                         <h3 class="title">會員基本資料</h3>
                                         <div class="account-details-form">
-                                            <form action="#" id="form" method="post"  enctype='multipart/form-data'>
+                                            <form action="#" id="form" method="post" enctype='multipart/form-data'>
                                                 <div class="single-input-item m-b-20 outofimg">
                                                     <img id="blah"
                                                             th:src="@{/memberInfo/getCurrentUserImage}"
@@ -279,10 +279,18 @@
                                                     <i style="top:108px;" class="fas fa-exclamation-circle"></i>
                                                     <small id="smallofAddress">Error message</small>
                                                 </div>
-
-                                                <div class="single-input-item single-item-button m-t-30">
-                                                    <button class="btn btn btn-primary btn-hover-dark rounded-30" id="account_form_cancel" type="button">取消</button>
-                                                    <button class="btn btn btn-primary btn-hover-dark rounded-30" id="account_form_button" type="button">修改</button>
+                                                <div class="row">
+                                                    <div class="col-lg-6 m-b-20">
+                                                        <div class="single-input-item">
+                                                    <!--single-input-item single-item-button m-t-30-->
+                                                            <button class="btn btn btn-primary btn-hover-dark rounded-30" id="form_button_cancel" type="button">取消</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 m-b-20">
+                                                        <div class="single-input-item">
+                                                            <button class="btn btn btn-primary btn-hover-dark rounded-30" id="form_button_update" type="button">修改</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -296,11 +304,11 @@
                                         <div class="account-details-form">
                                             <form action="#">
                                                 <fieldset>
-                                                    <div class="single-input-item m-b-15">
-                                                        <label class="required m-b-10">目前密碼</label>
-                                                        <input type="password" class="form-control"
-                                                                oninput="oninputCheckPassword()"/>
-                                                        <i class="fa-solid fa-eye" ></i>
+                                                    <div class="single-input-item m-b-30">
+                                                        <label class="required m-b-5">目前密碼</label>
+                                                        <input type="password" class="form-control" id="miPassword"
+                                                                onblur="onblurCheckOldPassword()"/>
+                                                        <i class="fa-solid fa-eye" id="togglePassword"></i>
                                                         <i class="fas fa-check-circle"></i>
                                                         <i class="fas fa-exclamation-circle"></i>
                                                         <small>Error message</small>
@@ -308,10 +316,10 @@
                                                     <div class="row m-b-n15">
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item m-b-15">
-                                                                <label class="required m-b-10">新密碼</label>
-                                                                <input type="password" class="form-control"
-                                                                        oninput="oninputCheckPassword()"/>
-                                                                <i class="fa-solid fa-eye"></i>
+                                                                <label class="required m-b-5">新密碼</label>
+                                                                <input type="password" class="form-control" id="miPassword1"
+                                                                        oninput="oninputCheckPassword1()"/>
+                                                                <i class="fa-solid fa-eye" id="togglePassword1"></i>
                                                                 <i class="fas fa-check-circle"></i>
                                                                 <i class="fas fa-exclamation-circle"></i>
                                                                 <small>Error message</small>
@@ -319,10 +327,10 @@
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item m-b-15">
-                                                                <label class="required m-b-10">確認新密碼</label>
+                                                                <label class="required m-b-5">確認新密碼</label>
                                                                 <input id="miPassword2" type="password" class="form-control"
-                                                                        onblur="onblurCheckPasswordSame()"/>
-                                                                <i class="fa-solid fa-eye" ></i>
+                                                                        onblur="onblurCheckPassword1SamePassword2()"/>
+                                                                <i class="fa-solid fa-eye" id="togglePassword2"></i>
                                                                 <i class="fas fa-check-circle"></i>
                                                                 <i class="fas fa-exclamation-circle"></i>
                                                                 <small>Error message</small>
@@ -331,7 +339,7 @@
                                                     </div>
                                                 </fieldset>
                                                 <div class="single-input-item single-item-button m-t-30">
-                                                    <button class="btn btn btn-primary btn-hover-dark rounded-0">儲存</button>
+                                                    <button class="btn btn btn-primary btn-hover-dark rounded-0" id="btnUpdatePassword">儲存</button>
                                                 </div>
                                             </form>
                                         </div>
