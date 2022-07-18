@@ -20,23 +20,30 @@
                 <div class="single-blog-wrapper">
                     <!-- Blog Thumb Start -->
                     <div class="blog-thumb thumb-effect">
-                        <a class="image" href="blog-details.html">
+                        <a class="image" th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }">
                             <img class="fit-image" th:src="@{/image3/{id}(id=${activity.localFileName})}" alt="Blog Image">
                         </a>
                     </div>
+
                     <!-- Blog Thumb End -->
                     <!-- Blog Content Start -->
                     <div class="blog-content">
                         <div class="blog-meta">
                             <ul>
-                                <li><span>By</span><span th:text="${activity.ac_organizer}"></span><a href="#/"></a></li>
+                                <li><span>主辦單位: </span><span th:text="${activity.ac_organizer}"></span><a href="#/"></a></li>
                                 <li><span th:text="${activity.ac_date}"></span></li>
                             </ul>
                         </div>
                         <h2 class="blog-title" th:text="${activity.ac_name}"><a href="blog-details.html"></a></h2>
                         <p th:text="${activity.ac_participant}"></p>
-                        <a class="more-link" th:href="@{'/viewForm/' + ${activity.ac_id} }">Read More</a>
+                        <a class="more-link" th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }">更多內容</a>
                     </div>
+                    <!-- Submit Button Start -->
+                    <div class="col-12 col-custom m-t-20">
+                        <button type="submit" class="btn btn-primary btn-hover-dark">立即報名</button>
+                        <button type="submit" class="btn btn-info btn-hover-gray-deep" th:onclick="add([[${activities.ac_id}]])">加入收藏</button>
+                    </div>
+                    <!-- Submit Button End -->
                     <!-- Blog Content End -->
                 </div>
                 <!-- Single Blog End -->
@@ -58,7 +65,7 @@
                 </nav>
             </div>
         </div>
-        <!--<div th:include="BackEnd/includes/footer :: footer"></div>-->
+        <div th:include="BackEnd/includes/footer :: footer"></div>
 
         <!-- Modal Start  -->
         <div class="modalquickview modal fade" id="quick-view" tabindex="-1" aria-labelledby="quick-view" role="dialog"
