@@ -2,6 +2,7 @@
 
 /*@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);*/
 
+
 .single-input-item select:disabled, .single-input-item select[readonly] {
     background-color: #e9ecef;
     opacity: 1;
@@ -62,7 +63,7 @@ input[type="file"] {
     cursor: pointer;
     visibility: visible;
     position: absolute;
-    top: 38px;
+    top: 46px;
     right: 34px;
 }
 
@@ -70,7 +71,6 @@ input[type="file"] {
 .single-input-item.error input {
     border-color: #8c1c11;  /*#e74c3c*/
 }
-
 
 
 .single-input-item i {
@@ -95,7 +95,7 @@ input[type="file"] {
     color: #8c1c11;  /*#e74c3c*/
     position: absolute;
     left:4px;
-    top: 81px;
+    top: 78px;
     /* 	left:0; */
     visibility: hidden; /*visible; hidden;*/
 }
@@ -150,15 +150,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     position: absolute;
     left: 10px;
     top: 38px;
-}
-
-
-#account_form_cancel{
-
-}
-
-#account_form_button{
-
 }
 
 

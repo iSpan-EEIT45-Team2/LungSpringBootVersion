@@ -42,11 +42,13 @@
                                   method="post"
                                   th:object="${announce}">
 
-                                <input type="hidden" th:field="*{anNo}">
+                                <input type="hidden" th:field="*{anNo}"/>
+                                <input type="hidden" th:field="*{anPhoto}"/>
+<!--                                <input th:field=“*{anPhoto}” type="hidden"/>-->
                                 <div  class="form-group">
                                     <label>公告圖片</label>
                                     <input type="file" name="image" accept="image/png, image/jpeg" />
-                                    <input type="hidden" th:field="*{anPhoto}" class="form-control" id="anPhoto"/>
+                                    <img class="fit-image" th:src="@{${'/FrontEnd/assets/images/announce/' + announce.anPhoto}}" alt="Blog Image">
                                 </div>
                                 <div class="form-group">
                                     <label>公告標題</label>
