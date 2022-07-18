@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/Front")
+@RequestMapping("/FrontMember")
 public class MemberControllerF {
 
     @Autowired
@@ -75,7 +75,7 @@ public class MemberControllerF {
 //        mailMessage.setSubject("LungHi Peace浪孩和平Email認證信");
 //        mailMessage.setFrom("LungHiPeace0302@gmail.com");
 //        mailMessage.setText("您好： 請點選以下連結驗證您的電子郵件信箱。 "
-//                + "http://localhost:8080/Lung/Front/confirm-account?token=" + confirmationToken.getConfirmationToken());
+//                + "http://localhost:8080/Lung/FrontMember/confirm-account?token=" + confirmationToken.getConfirmationToken());
 //        emailSenderService.sendEmail(mailMessage);
         sendEmailToUser(member,member.getMiEmail());
 
@@ -94,7 +94,7 @@ public class MemberControllerF {
         mailMessage.setSubject("LungHi Peace浪孩和平Email認證信");
         mailMessage.setFrom("LungHiPeace0302@gmail.com");
         mailMessage.setText("您好： 請點選以下連結驗證您的電子郵件信箱。 "
-                + "http://localhost:8080/Lung/Front/confirm-account?token=" + confirmationToken.getConfirmationToken());
+                + "http://localhost:8080/Lung/FrontMember/confirm-account?token=" + confirmationToken.getConfirmationToken());
         emailSenderService.sendEmail(mailMessage);
     }
 

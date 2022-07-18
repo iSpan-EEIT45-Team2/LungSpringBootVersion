@@ -325,7 +325,7 @@ function verifyEmailExisted(miEmailValue){
         miNoValue = miNo.value.trim();
     }
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/Lung/Front/CheckMemberEmail", false);
+    xhr.open("POST", "/Lung/FrontMember/CheckMemberEmail", false);
     xhr.setRequestHeader("Content-Type",
         "application/json");
     // xhr.send("accountToCheck=" + mi_accountValue);  //送出user輸入的值

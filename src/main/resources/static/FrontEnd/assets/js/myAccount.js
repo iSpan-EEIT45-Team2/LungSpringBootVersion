@@ -33,7 +33,7 @@ window.onload = function() {
 
             }
         };
-        xhr.open("GET", "/Lung/Front/getMemberforUpdate", false);
+        xhr.open("GET", "/Lung/FrontMember/getMemberforUpdate", false);
         xhr.send();
 
     /*--------------------END塞value到會員表單中-------------------*/
@@ -104,7 +104,7 @@ document.getElementById('form_button_update').addEventListener('click', function
         }
         let jsonString = JSON.stringify(memberToSave);
         console.log(jsonString);
-        xhr1.open("POST", "/Lung/Front/saveMemberforUpdate", true);
+        xhr1.open("POST", "/Lung/FrontMember/saveMemberforUpdate", true);
         xhr1.setRequestHeader("Content-type", "application/json");
         xhr1.send(jsonString);
 
@@ -164,7 +164,7 @@ function onblurCheckOldPassword(){
             }
         }
     }
-    xhr1.open("POST", "/Lung/Front/checkPassword", true);
+    xhr1.open("POST", "/Lung/FrontMember/checkPassword", true);
     // xhr1.setRequestHeader("Content-type", "application/json");
     xhr1.send(jsonString);
 }
@@ -181,9 +181,6 @@ document.getElementById('btnUpdatePassword').addEventListener('click', function 
         }
         let jsonString = JSON.stringify(pwdToSave);
         console.log(jsonString);
-        xhr1.open("POST", "/Lung/Front/savePasswordforUpdate", true);
-        xhr1.setRequestHeader("Content-type", "application/json");
-        xhr1.send(jsonString);
         xhr1.onreadystatechange = function () {
             // 向伺服器提出的請求已經收到回應
             if (xhr1.readyState === 4 && xhr1.status === 200) {
@@ -191,7 +188,7 @@ document.getElementById('btnUpdatePassword').addEventListener('click', function 
                 let obj = JSON.parse(xhr1.responseText);
 
                 // console.log("obj: " + obj.success);
-                if (obj.success === 'success') {
+                if(obj.success === 'success'){
                     Swal.fire({
                         icon: 'success',
                         title: '修改密碼成功囉!',
@@ -199,6 +196,9 @@ document.getElementById('btnUpdatePassword').addEventListener('click', function 
                 }
             }
         }
+        xhr1.open("POST", "/Lung/FrontMember/savePasswordforUpdate", true);
+        xhr1.setRequestHeader("Content-type", "application/json");
+        xhr1.send(jsonString);
     // }
 })
 
@@ -541,7 +541,7 @@ function verifyEmailExisted(miEmailValue){
         miNoValue = miNo.value.trim();
     }
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/Lung/Front/CheckMemberEmail", false);
+    xhr.open("POST", "/Lung/FrontMember/CheckMemberEmail", false);
     xhr.setRequestHeader("Content-Type",
         "application/json");
     // xhr.send("accountToCheck=" + mi_accountValue);  //送出user輸入的值
