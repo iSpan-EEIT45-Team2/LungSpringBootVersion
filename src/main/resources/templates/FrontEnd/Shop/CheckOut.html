@@ -30,40 +30,41 @@
 
 <!-- Checkout Section Start -->
 <form action="" method="post">
-<div class="section section-margin">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <!-- Coupon Accordion Start -->
-                <div class="coupon-accordion">
+    <div class="section section-margin">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Coupon Accordion Start -->
+                    <div class="coupon-accordion">
 
-                    <!-- Title Start -->
-                    <h3 class="title">有優惠券? <span id="showcoupon">點擊輸入</span></h3>
-                    <!-- Title End -->
+                        <!-- Title Start -->
+                        <h3 class="title">有優惠券? <span id="showcoupon">點擊輸入</span></h3>
+                        <!-- Title End -->
 
-                    <!-- 優惠券開始 -->
-                    <div id="checkout_coupon" class="coupon-checkout-content">
-                        <div class="coupon-info">
-                            <form action="#">
-                                <p class="checkout-coupon d-flex">
-                                    <input placeholder="請輸入優惠券" type="text">
-                                    <input class="btn btn-primary btn-hover-dark rounded-0" value="完成" type="submit">
-                                </p>
-                            </form>
+                        <!-- 優惠券開始 -->
+                        <div id="checkout_coupon" class="coupon-checkout-content">
+                            <div class="coupon-info">
+                                <form action="#">
+                                    <p class="checkout-coupon d-flex">
+                                        <input placeholder="請輸入優惠券" type="text">
+                                        <input class="btn btn-primary btn-hover-dark rounded-0" value="完成"
+                                               type="submit">
+                                    </p>
+                                </form>
+                            </div>
                         </div>
+                        <!-- 優惠券結束 -->
+
                     </div>
-                    <!-- 優惠券結束 -->
-
+                    <!-- Coupon Accordion End -->
                 </div>
-                <!-- Coupon Accordion End -->
             </div>
-        </div>
-        <div class="row m-b-n20">
-            <div class="col-lg-6 col-12 m-b-20">
+            <div class="row m-b-n20">
+                <div class="col-lg-6 col-12 m-b-20">
 
-                <!-- Checkbox Form Start -->
+                    <!-- Checkbox Form Start -->
 
-                    <input type="hidden"  name="shoppingCartId">
+                    <input type="hidden" name="shoppingCartId">
                     <div class="checkbox-form">
 
                         <!-- Checkbox Form Title Start -->
@@ -85,7 +86,8 @@
                             <div class="col-md-12">
                                 <div class="checkout-form-list">
                                     <label>送貨地址 <span class="required" style="color:red">*</span></label>
-                                    <input placeholder="請輸入完整地址" type="text" id="address" required="required" th:value="${MiAddress}" name="address">
+                                    <input placeholder="請輸入完整地址" type="text" id="address" required="required"
+                                           th:value="${MiCity+MiDistrict+MiAddress}" name="address">
                                 </div>
                             </div>
                             <!-- 地址結束 -->
@@ -94,7 +96,8 @@
                             <div class="col-md-6">
                                 <div class="checkout-form-list">
                                     <label>電子信箱 <span class="required" style="color:red">*</span></label>
-                                    <input placeholder="請輸入電子信箱" type="email" id="email" name="email" th:value="${MiEmail}">
+                                    <input placeholder="請輸入電子信箱" type="email" id="email" name="email"
+                                           th:value="${MiEmail}">
                                 </div>
                             </div>
                             <!-- Email End -->
@@ -110,7 +113,8 @@
                             <div class="col-md-12 m-b-30">
                                 <div class="country-select">
                                     <label>付款方式: <span class="required">*</span></label>
-                                    <select class="myniceselect nice-select wide rounded-0" name="payType" id="ECPAY" value="ECPAY">
+                                    <select class="myniceselect nice-select wide rounded-0" name="payType" id="ECPAY"
+                                            value="ECPAY">
                                         <option value="ECPAY">綠界支付</option>
                                         <option value="PAYPAL">PAYPAL</option>
                                     </select>
@@ -240,125 +244,129 @@
                         <!-- Different Address End -->
                     </div>
 
-                <!-- Checkbox Form End -->
+                    <!-- Checkbox Form End -->
 
-            </div>
-
-            <div class="col-lg-6 col-12 m-b-20">
-
-                <!-- 訂單明細 -->
-                <div class="your-order-area border">
-
-                    <!-- Title Start -->
-                    <h3 class="title">訂單明細</h3>
-                    <!-- Title End -->
-
-                    <!-- Your Order Table Start -->
-                    <div class="your-order-table table-responsive" id="cart">
-                        <table class="table" th:each="item:${cart.cart.values()}">
-
-                            <!-- Table Head Start -->
-                            <thead>
-                            <tr class="cart-product-head">
-                                <input type="hidden" class="product-id" value="1" />
-                                <th class="cart-product-name text-start">商品</th>
-                                <th class="cart-product-total text-end">總金額</th>
-                            </tr>
-                            </thead>
-                            <!-- Table Head End -->
-
-                            <!-- Table Body Start -->
-                            <tbody  >
-                            <input type="hidden" name="shoppingCartId">
-                            <tr class="cart_item" >
-                                <td class="cart-product-name text-start ps-0">
-                                    [[${item.productName}]]<strong
-                                        class="product-quantity">x [[${item.qty}]]</strong></td>
-                                <td class="cart-product-total text-end pe-0"><span class="amount">$[[${item.price}*${item.qty}]]</span>
-                                </td>
-                            </tr>
-
-                            <!-- Table Body End -->
-
-                            <!-- Table Footer Start -->
-                            <tfoot>
-                            <tr class="cart-subtotal">
-                                <th class="text-start ps-0">購物車小計</th>
-                                <td class="text-end pe-0"><span class="amount">$ [[${item.subTotal}]]</span>
-                                </td>
-                            </tr>
-                            <tr class="order-total">
-                                <th class="text-start ps-0">訂單總金額</th>
-                                <td class="text-end pe-0"><strong><span
-                                        class="amount">$ [[${cart.total}]]</span></strong></td>
-                            </tr>
-                            </tfoot>
-                            <!-- Table Footer End -->
-
-                        </table>
-                    </div>
-                    <!-- Your Order Table End -->
-
-                    <!-- Payment Accordion Order Button Start -->
-                    <div class="payment-accordion-order-button">
-                        <div class="payment-accordion">
-                            <div class="single-payment">
-                                <h5 class="panel-title m-b-15">
-                                    <a class="collapse-off" data-bs-toggle="collapse" href="#collapseExample"
-                                       aria-expanded="false" aria-controls="collapseExample">
-                                        Direct Bank Transfer.
-                                    </a>
-                                </h5>
-                                <div class="collapse show" id="collapseExample">
-                                    <div class="card card-body rounded-0">
-                                        <p>Make your payment directly into our bank account. Please use your Order ID as
-                                            the payment reference. Your order won’t be shipped until the funds have
-                                            cleared in our account.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-payment">
-                                <h5 class="panel-title m-b-15">
-                                    <a class="collapse-off" data-bs-toggle="collapse" href="#collapseExample-2"
-                                       aria-expanded="false" aria-controls="collapseExample-2">
-                                        Cheque Payment.
-                                    </a>
-                                </h5>
-                                <div class="collapse" id="collapseExample-2">
-                                    <div class="card card-body rounded-0">
-                                        <p>Make your payment directly into our bank account. Please use your Order ID as
-                                            the payment reference. Your order won’t be shipped until the funds have
-                                            cleared in our account.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-payment">
-                                <h5 class="panel-title m-b-15">
-                                    <a class="collapse-off" data-bs-toggle="collapse" href="#collapseExample-3"
-                                       aria-expanded="false" aria-controls="collapseExample-3">
-                                        Paypal.
-                                    </a>
-                                </h5>
-                                <div class="collapse" id="collapseExample-3">
-                                    <div class="card card-body rounded-0">
-                                        <p>Make your payment directly into our bank account. Please use your Order ID as
-                                            the payment reference. Your order won’t be shipped until the funds have
-                                            cleared in our account.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="order-button-payment">
-                            <button class="btn btn-primary btn-hover-dark rounded-0 w-100" type="submit">送出訂單</button>
-                        </div>
-                    </div>
-                    <!-- Payment Accordion Order Button End -->
                 </div>
-                <!-- Your Order Area End -->
+
+                <div class="col-lg-6 col-12 m-b-20">
+
+                    <!-- 訂單明細 -->
+                    <div class="your-order-area border">
+
+                        <!-- Title Start -->
+                        <h3 class="title">訂單明細</h3>
+                        <!-- Title End -->
+
+                        <!-- Your Order Table Start -->
+                        <div class="your-order-table table-responsive" id="cart">
+                            <table class="table" th:each="item:${cart.cart.values()}">
+
+                                <!-- Table Head Start -->
+                                <thead>
+                                <tr class="cart-product-head">
+                                    <input type="hidden" class="product-id" value="1"/>
+                                    <th class="cart-product-name text-start">商品</th>
+                                    <th class="cart-product-total text-end">總金額</th>
+                                </tr>
+                                </thead>
+                                <!-- Table Head End -->
+
+                                <!-- Table Body Start -->
+                                <tbody>
+                                <input type="hidden" name="shoppingCartId">
+                                <tr class="cart_item">
+                                    <td class="cart-product-name text-start ps-0">
+                                        [[${item.productName}]]<strong
+                                            class="product-quantity">x [[${item.qty}]]</strong></td>
+                                    <td class="cart-product-total text-end pe-0"><span class="amount">$[[${item.price}*${item.qty}]]</span>
+                                    </td>
+                                </tr>
+
+                                <!-- Table Body End -->
+
+                                <!-- Table Footer Start -->
+                                <tfoot>
+                                <tr class="cart-subtotal">
+                                    <th class="text-start ps-0">購物車小計</th>
+                                    <td class="text-end pe-0"><span class="amount">$ [[${item.subTotal}]]</span>
+                                    </td>
+                                </tr>
+                                <tr class="order-total">
+                                    <th class="text-start ps-0">訂單總金額</th>
+                                    <td class="text-end pe-0"><strong><span
+                                            class="amount">$ [[${cart.total}]]</span></strong></td>
+                                </tr>
+                                </tfoot>
+                                <!-- Table Footer End -->
+
+                            </table>
+                        </div>
+                        <!-- Your Order Table End -->
+
+                        <!-- Payment Accordion Order Button Start -->
+                        <div class="payment-accordion-order-button">
+                            <div class="payment-accordion">
+                                <div class="single-payment">
+                                    <h5 class="panel-title m-b-15">
+                                        <a class="collapse-off" data-bs-toggle="collapse" href="#collapseExample"
+                                           aria-expanded="false" aria-controls="collapseExample">
+                                            Direct Bank Transfer.
+                                        </a>
+                                    </h5>
+                                    <div class="collapse show" id="collapseExample">
+                                        <div class="card card-body rounded-0">
+                                            <p>Make your payment directly into our bank account. Please use your Order
+                                                ID as
+                                                the payment reference. Your order won’t be shipped until the funds have
+                                                cleared in our account.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-payment">
+                                    <h5 class="panel-title m-b-15">
+                                        <a class="collapse-off" data-bs-toggle="collapse" href="#collapseExample-2"
+                                           aria-expanded="false" aria-controls="collapseExample-2">
+                                            Cheque Payment.
+                                        </a>
+                                    </h5>
+                                    <div class="collapse" id="collapseExample-2">
+                                        <div class="card card-body rounded-0">
+                                            <p>Make your payment directly into our bank account. Please use your Order
+                                                ID as
+                                                the payment reference. Your order won’t be shipped until the funds have
+                                                cleared in our account.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-payment">
+                                    <h5 class="panel-title m-b-15">
+                                        <a class="collapse-off" data-bs-toggle="collapse" href="#collapseExample-3"
+                                           aria-expanded="false" aria-controls="collapseExample-3">
+                                            Paypal.
+                                        </a>
+                                    </h5>
+                                    <div class="collapse" id="collapseExample-3">
+                                        <div class="card card-body rounded-0">
+                                            <p>Make your payment directly into our bank account. Please use your Order
+                                                ID as
+                                                the payment reference. Your order won’t be shipped until the funds have
+                                                cleared in our account.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-button-payment">
+                                <button class="btn btn-primary btn-hover-dark rounded-0 w-100" type="submit">送出訂單
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Payment Accordion Order Button End -->
+                    </div>
+                    <!-- Your Order Area End -->
+                </div>
             </div>
         </div>
     </div>
-</div>
 </form>
 <!-- Checkout Section End -->
 
@@ -531,6 +539,7 @@
 </html>
 <script>
     import Buttons from "../../../static/BackEnd/pages/ui-features/buttons.html";
+
     export default {
         components: {Buttons}
     }
