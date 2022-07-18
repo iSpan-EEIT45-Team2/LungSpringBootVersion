@@ -79,3 +79,21 @@ INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quot
 ('717帶著毛孩一起FUN幸福', CAST('2022/07/17' AS DATE) , '#活動內容#免費狂犬病疫苗注射/寵物登記(限量100劑/組)#推廣臺北市狗運動公園與狗活動區及動物保護觀念#寵物飾品手作活動(限量60名)#萌寵走秀競賽活動(提供30名飼主報名)----#️本次活動還有邀請到公益大使喔!#️蕭秉治 、周予天 、鄭心慈、夏沐及唐仲彣歡迎毛媽們在假日午後帶著毛小孩一起到活動現場認識臺北市動物友善空間及設施喔!🎵', '紫陽綠地公園', 50, 10, 50, '臺北市九重葛協會', 0, '717帶著毛孩一起FUN幸福.jpg');
 INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quota, ac_waitlist_quota, ac_fee, ac_organizer, type, localFileName) VALUES
 ('苗栗場下鄉志工招募說明會', CAST('2022/07/10' AS DATE) , '成為下鄉志工隊的一員，首先需要先參與協會不定期辦理的下鄉志工招募說明會。在說明會中，我們會與您分享台灣流浪犬貓現況、介紹下鄉絕育行動及下鄉志工的工作。參與過下鄉志工招募說明會後，就可以參加下鄉活動囉！下鄉志工隊有專屬的寶藍色志工服，在參與5場下鄉絕育活動後，再參與1場動保講座暨志工提昇班，就可以獲得寶藍色的下鄉志工志工服，成為正式的下鄉志工！', '苗栗縣生態保育教育中心', 50, 10, 50, '苗栗縣動物收容協會', 0, '忠誠狗勾2.jpg');
+
+--動物資料for LineBot
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('貓', '暹羅貓', '母', 'https://i.imgur.com/gHRDOxY.jpg', '花花', '新竹縣竹北市縣政五街192號');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('貓', '折耳貓', '公', 'https://i.imgur.com/cGzTPR8.jpg', '餅乾', '新北市八里區長坑里6鄰長坑道路36號');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('貓', '布偶貓', '母', 'https://i.imgur.com/Ou7WGms.jpg', '瑪莉', '新北市新店區安泰路235號');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('貓', '混種貓', '母', 'https://i.imgur.com/sx8dR0P.jpg', '無', '彰化縣流浪狗中途之家');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('狗', '柴犬', '母', 'https://i.imgur.com/JYkdCH0.jpg', 'Oreo', '基隆市七堵區大華三路45-12號');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('狗', '黃金獵犬', '公', 'https://i.imgur.com/FK7F5VD.jpg', '嘟嘟', '嘉義市彌陀路31號旁');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('狗', '貴賓犬', '公', 'https://i.imgur.com/QI0rvj4.jpg', 'Pen', '嘉義縣大林鎮中坑里中興2-6號');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('狗', '混種狗', '公', 'https://i.imgur.com/R4nIzrP.jpg', '黃金', '臺北市動物之家');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('鼠', '黃金鼠', '公', 'https://i.imgur.com/rdgnbTb.jpg', 'Vicky', '臺中市南屯區中台路601號');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('鼠', '一線鼠', '母', 'https://i.imgur.com/FEGMObW.jpg', '小咪', '新北市新店區安泰路235號');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('鼠', '倉鼠', '公', 'https://i.imgur.com/71ONTSJ.jpg', '發財', '臺中市南屯區中台路601號');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('兔', '荷蘭兔', '公', 'https://i.imgur.com/AONk0nw.jpg', '飛飛', '新竹縣竹北市縣政五街192號');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('兔', '荷蘭侏儒兔', '公', 'https://i.imgur.com/Infk7OE.jpg', '小兵', '新竹縣竹北市縣政五街192號');
+INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('兔', '荷蘭兔', '母', 'https://i.imgur.com/oFGGSaa.jpg', '妹妹', '新竹縣竹北市縣政五街192號');
+
+
