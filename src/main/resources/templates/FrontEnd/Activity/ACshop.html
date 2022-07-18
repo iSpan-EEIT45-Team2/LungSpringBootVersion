@@ -24,7 +24,6 @@
                             <img class="fit-image" th:src="@{/image3/{id}(id=${activity.localFileName})}" alt="Blog Image">
                         </a>
                     </div>
-
                     <!-- Blog Thumb End -->
                     <!-- Blog Content Start -->
                     <div class="blog-content">
@@ -38,10 +37,11 @@
                         <p th:text="${activity.ac_participant}"></p>
                         <a class="more-link" th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }">更多內容</a>
                     </div>
+
                     <!-- Submit Button Start -->
                     <div class="col-12 col-custom m-t-20">
                         <button type="submit" class="btn btn-primary btn-hover-dark">立即報名</button>
-                        <button type="submit" class="btn btn-info btn-hover-gray-deep" th:onclick="add([[${activities.ac_id}]])">加入收藏</button>
+                        <button type="submit" class="btn btn-info btn-hover-gray-deep">加入收藏</button>
                     </div>
                     <!-- Submit Button End -->
                     <!-- Blog Content End -->
@@ -65,7 +65,7 @@
                 </nav>
             </div>
         </div>
-        <div th:include="BackEnd/includes/footer :: footer"></div>
+        <!--<div th:include="BackEnd/includes/footer :: footer"></div>-->
 
         <!-- Modal Start  -->
         <div class="modalquickview modal fade" id="quick-view" tabindex="-1" aria-labelledby="quick-view" role="dialog"
@@ -230,7 +230,8 @@
             <i class="arrow-bottom ti-angle-double-up"></i>
         </a>
         <!-- Scroll Top End -->
-
+        <!-- Breadcrumb Area End -->
+        <div th:include="BackEnd/includes/footer :: footer"></div>
         <!-- Mobile Menu Start -->
         <div class="mobile-menu-wrapper">
             <div class="offcanvas-overlay"></div>
