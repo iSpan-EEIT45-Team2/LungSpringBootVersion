@@ -20,11 +20,6 @@ public class MemberStatisticController {
     private MemberService memberService;
 
 
-    @RequestMapping("/memberChar")
-    public String memberChat() {
-        return "Backendmember/memberChar";
-    }
-
     @GetMapping("/CountAllGender")
     public @ResponseBody Map<String, Integer> CountAllGender() {
         List<MemberBean> memberBeans = memberService.findAll();
@@ -32,7 +27,7 @@ public class MemberStatisticController {
         int countMale =0;
         int countSecret =0;
         for (MemberBean memberBean : memberBeans) {
-            System.out.println(memberBean.getMiGender());
+//            System.out.println(memberBean.getMiGender());
             if (memberBean.getMiGender().equals("女")) {
                 countFemale++;
             } else if (memberBean.getMiGender().equals("男")) {
@@ -40,9 +35,9 @@ public class MemberStatisticController {
             } else {
                 countSecret++;
             }
-            System.out.println("countFemale: " + countFemale);
-            System.out.println("countMale: " + countMale);
-            System.out.println("countSecret: " + countSecret);
+//            System.out.println("countFemale: " + countFemale);
+//            System.out.println("countMale: " + countMale);
+//            System.out.println("countSecret: " + countSecret);
         }
         Map<String, Integer> conuntMemberGender = new HashMap<String, Integer>();
         conuntMemberGender.put("countFemale",countFemale);
@@ -51,4 +46,8 @@ public class MemberStatisticController {
 
         return conuntMemberGender;
     }
+
+
+
+
 }

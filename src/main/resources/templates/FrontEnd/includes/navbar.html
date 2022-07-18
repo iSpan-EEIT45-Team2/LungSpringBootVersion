@@ -94,7 +94,6 @@
                                             <a th:href="@{/animals}">認領養</a>
                                         </li>
                                         <li>
-
                                             <a th:href="@{/animalForm}">填寫寵物表單  </a>
                                         </li>
                                         <li><a href="contact.html">Contact Us</a></li>
@@ -107,7 +106,9 @@
                                 <li class="has-children">
                                     <a href="#">志工活動</a>
                                     <ul class="sub-menu">
-                                        <li><a href="blog.html">Blog</a></li>
+                                        <li>
+                                            <a th:href="@{/Frontendactivity/activities}">活動</a>
+                                        </li>
                                         <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
                                         <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
                                         <li><a href="blog-details.html">Blog Details</a></li>
@@ -188,7 +189,6 @@
                                 <a class="cart-visible" href="javascript:void(0)">
                                     <i class="icon-handbag icons"></i>
                                 </a>
-
                                 <!-- Header Cart Content Start -->
                                 <div class="header-cart-content">
 
@@ -271,7 +271,7 @@
 
                                     <!-- Cart Product Button Start -->
                                     <div class="cart-product-btn m-t-20">
-                                        <a th:href="@{/Front/shoppingCart}"
+                                        <a th:href="@{/Front/Cart}"
                                            class="btn btn-outline-light btn-hover-primary w-100 m-t-20">前往購物車</a>
                                     </div>
                                     <!-- Cart Product Button End -->

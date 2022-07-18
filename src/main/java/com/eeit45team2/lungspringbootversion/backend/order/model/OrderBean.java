@@ -25,9 +25,7 @@ public class OrderBean {
     Integer od_money;
 
     Integer type;
-    @OneToMany
-    @JoinColumn(name = "orderId")
-    private Set<CartItem> cartId;
+
 
     public OrderBean() {
     }

@@ -29,15 +29,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductBean FindById(Long pd_id) {
-        return productRepository.findById(pd_id).get();
+    public ProductBean FindById(Integer id) {
+        return productRepository.findById(id).get();
         //找到這筆資料回傳,Update方法
     }
 
     @Override
-    public void delete(Long pd_id) {
-        productRepository.deleteById(pd_id);
+    public void delete(Integer id) {
+        productRepository.deleteById(id);
     }
 
-   
+    @Override
+    public ProductBean getProducts(int id) {
+        return productRepository.findProductBeansById(id);
+    }
+
+
 }

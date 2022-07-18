@@ -5,6 +5,7 @@ import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatus;
 import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatusConverter;
 import com.eeit45team2.lungspringbootversion.backend.order.constant.PayType;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,14 +28,16 @@ public class Order implements Serializable {
 
     @Transient
     private String username;
-
     @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "miNo")
+    @JsonIgnore
     private MemberBean memberBean;
 
     private String name;
 
     private String address;
+
+    private String trackingNumber;
 
     private Integer phone;
 
@@ -42,6 +45,8 @@ public class Order implements Serializable {
     private Date orderDate;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date payDate;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date shipDate;
 
     @Convert(converter = OrderStatusConverter.class)
     private OrderStatus orderStatus;
@@ -54,12 +59,39 @@ public class Order implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItem> orderItems = new LinkedHashSet<>();
 
+    @Transient
+    private String code;
+
     public Integer getOrderId() {
         return orderId;
     }
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
+
+    public Date getShipDate() {
+        return shipDate;
+    }
+
+    public void setShipDate(Date shipDate) {
+        this.shipDate = shipDate;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getOrderNo() {
@@ -132,6 +164,14 @@ public class Order implements Serializable {
 
     public OrderStatus getOrderStatus() {
         return orderStatus;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {

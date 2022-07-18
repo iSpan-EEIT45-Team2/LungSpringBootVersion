@@ -3,6 +3,7 @@ package com.eeit45team2.lungspringbootversion.backend.member.service.impl;
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.repository.MemberRepository;
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -68,6 +69,11 @@ public class MemberServiceImpl implements MemberService {
     public MemberBean findByMiAccount(String miAccount) {
         return memberRepository.findByMiAccount(miAccount);
     }
+
+
+
+
+
 
 	// MultipartFile 轉 BLOB型態 ，塞進DB
 	public MemberBean saveHeadshotInDB(MemberBean memberBean, Boolean isInsert) {

@@ -1,5 +1,6 @@
 package com.eeit45team2.lungspringbootversion.backend.animal.model;
 
+import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,13 +23,24 @@ public class AbDogBean {
 	private String abvariety; //品種
 	private String absex;//姓 公 母
 	private String abphonto;//圖片
-	private String abarea;//行政區
+//	@Transient
+	private String abarea;
+//	@OneToOne(cascade = {CascadeType.PERSIST})
+//	@JoinColumn(name = "miNo")
+//	private MemberBean memberBean;
+//	public String getAbarea() {
+//		if (memberBean != null) {
+//			return memberBean.getMiName();
+//		} else {
+//			return null;
+//		}
+//	}
+
 	private String abname;//收容所地址
 	private String abphone;//收容所電話
 	private String abemail;//收容所信箱
 	private String abdate;//入所日期
 	private String abremark;//描述
-
 
 	private int abaudit;//審核 是否開放認領養
 
