@@ -1,21 +1,17 @@
 package com.eeit45team2.lungspringbootversion.FrontEnd.Product;
 
-import com.eeit45team2.lungspringbootversion.backend.Cart.model.ShoppingCart;
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
 import com.eeit45team2.lungspringbootversion.backend.order.model.Cart;
-import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
 import com.eeit45team2.lungspringbootversion.backend.order.service.OrderService;
+import com.eeit45team2.lungspringbootversion.backend.product.model.ProductBean;
 import com.eeit45team2.lungspringbootversion.backend.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @Controller
@@ -23,9 +19,10 @@ import java.security.Principal;
 @RequestMapping("/Front")
 public class ProductControllerF {
 
-    private  ProductService productService;
-    private  MemberService memberService;
-    private  OrderService orderService;
+    private ProductService productService;
+    private MemberService memberService;
+    private OrderService orderService;
+
     @Autowired
     public ProductControllerF(ProductService productService, MemberService memberService, OrderService orderService) {
         this.productService = productService;
@@ -41,38 +38,45 @@ public class ProductControllerF {
 //        return modelAndView;
 //    }
     @GetMapping("/products")
-    public String showProducts(@ModelAttribute("cart")Cart cart, Model model, Principal principal) {
+    public String showProducts(@ModelAttribute("cart") Cart cart, Model model, Principal principal) {
         model.addAttribute("products", productService.findAll());
-        if (principal != null) {
-            principal.getName();
-            System.out.println("--------------------------");
-            System.out.println("目前登入是: " + principal.getName());
-            MemberBean memberBean = memberService.findByUsername(principal.getName());
-            return "FrontEnd/Shop/shop";
-        } else {
-            return "login";
-        }
+        return "FrontEnd/Shop/shop";
+
     }
 
     @GetMapping("/Cart")
-    public String viewcart(@ModelAttribute Cart cart){
+    public String viewcart(@ModelAttribute Cart cart) {
         return "FrontEnd/Shop/cart2";
     }
 
     @GetMapping("CheckOut")
     public String viewCheckOut(@ModelAttribute("cart") Cart cart,
                                Model model, Principal principal) {
-        if(principal==null){
+        if (principal == null) {
             return "redirect:/login";
         }
-        MemberBean memberBean = memberService.findByUsername(principal.getName());
-//        model.addAttribute("MiAddress", memberBean.getMiAddress());
+        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
+        model.addAttribute("MiCity", memberBean.getMiCity());
+        model.addAttribute("MiDistrict", memberBean.getMiDistrict());
+        model.addAttribute("MiAddress", memberBean.getMiAddress());
+        model.addAttribute("MiName", memberBean.getMiName());
+        model.addAttribute("MiPhone", memberBean.getMiPhone());
+        model.addAttribute("MiEmail", memberBean.getMiEmail());
         return "FrontEnd/Shop/CheckOut";
     }
 
+    @GetMapping("/productDetail/{id}")
+    public ModelAndView showFormForView(@PathVariable Integer id) {
+        ModelAndView mav1 = new ModelAndView("/FrontEnd/Product/single-product");
+        ProductBean productBean = productService.FindById(id);
+        mav1.addObject("product", productBean);
+        return mav1;
+    }
+
+
     @ModelAttribute
-    public Cart cart(@ModelAttribute Cart cart){
-        if(cart == null){
+    public Cart cart(@ModelAttribute Cart cart) {
+        if (cart == null) {
             return new Cart();
         }
         return cart;

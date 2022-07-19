@@ -1,9 +1,9 @@
-package com.eeit45team2.lungspringbootversion.backend.Cart.service;
+package com.eeit45team2.lungspringbootversion.backend.activity.Favorite.service;
 
-import com.eeit45team2.lungspringbootversion.backend.Cart.model.CartItem;
-import com.eeit45team2.lungspringbootversion.backend.Cart.model.ShoppingCart;
-import com.eeit45team2.lungspringbootversion.backend.Cart.repository.CartItemRepository;
-import com.eeit45team2.lungspringbootversion.backend.Cart.repository.ShoppingCartRepository;
+import com.eeit45team2.lungspringbootversion.backend.activity.Favorite.model.FavoriteItem;
+import com.eeit45team2.lungspringbootversion.backend.activity.Favorite.model.ShoppingFavorite;
+import com.eeit45team2.lungspringbootversion.backend.activity.Favorite.repository.FavoriteItemRepository;
+import com.eeit45team2.lungspringbootversion.backend.activity.Favorite.repository.ShoppingFavoriteRepository;
 import com.eeit45team2.lungspringbootversion.backend.product.model.ProductBean;
 import com.eeit45team2.lungspringbootversion.backend.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +13,19 @@ import java.util.Date;
 import java.util.Set;
 
 @Service
-public class ShoppingCartService {
+public class ShoppingFavoriteService {
 
     @Autowired
-    private ShoppingCartRepository shoppingCartRepository;
+    private ShoppingFavoriteRepository shoppingCartRepository;
     @Autowired
     private ProductService productService;
     @Autowired
-    private CartItemRepository cartItemRepository;
+    private FavoriteItemRepository cartItemRepository;
 
 
-    public ShoppingCart addShoppingCartFirstTime(Integer id, String sessionToken, int quantity) {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        CartItem cartItem = new CartItem();
+    public ShoppingFavorite addShoppingCartFirstTime(Integer id, String sessionToken, int quantity) {
+        ShoppingFavorite shoppingCart = new ShoppingFavorite();
+        FavoriteItem cartItem = new FavoriteItem();
         cartItem.setQuantity(quantity);
         cartItem.setDate(new Date());
         cartItem.setProduct(productService.FindById(id));
@@ -35,14 +35,14 @@ public class ShoppingCartService {
         return shoppingCartRepository.save(shoppingCart);
     }
 
-    public ShoppingCart addToExistingShoppingCart(Integer id, String sessionToken, int quantity) {
+    public ShoppingFavorite addToExistingShoppingCart(Integer id, String sessionToken, int quantity) {
 
-        ShoppingCart shoppingCart = shoppingCartRepository.findBySessionToken(sessionToken);
+        ShoppingFavorite shoppingCart = shoppingCartRepository.findBySessionToken(sessionToken);
         ProductBean productBean = productService.FindById(id);
         boolean productDoesExistInTheCart = false;
         if (shoppingCart != null) {
-            Set<CartItem> items = shoppingCart.getItems();
-            for (CartItem item : items) {
+            Set<FavoriteItem> items = shoppingCart.getItems();
+            for (FavoriteItem item : items) {
                 if (item.getProduct().equals(productBean)) {
                     productDoesExistInTheCart = true;
                     item.setQuantity(item.getQuantity() + quantity);
@@ -53,7 +53,7 @@ public class ShoppingCartService {
 
         }
         if (shoppingCart != null) {
-            CartItem cartItem1 = new CartItem();
+            FavoriteItem cartItem1 = new FavoriteItem();
             cartItem1.setDate(new Date());
             cartItem1.setQuantity(quantity);
             cartItem1.setProduct(productBean);
@@ -76,21 +76,21 @@ public class ShoppingCartService {
 //        return shoppingCartRepository.save(shoppingCart);
     }
 
-    public ShoppingCart getShoppingCartBySessionToken(String sessionToken) {
+    public ShoppingFavorite getShoppingCartBySessionToken(String sessionToken) {
         return shoppingCartRepository.findBySessionToken(sessionToken);
     }
 
-    public CartItem updateShoppingCartItem(Long id, int quantity) {
-        CartItem cartItem = cartItemRepository.findById(id).get();
+    public FavoriteItem updateShoppingCartItem(Long id, int quantity) {
+        FavoriteItem cartItem = cartItemRepository.findById(id).get();
         cartItem.setQuantity(quantity);
         return cartItemRepository.saveAndFlush(cartItem);
     }
 
-    public ShoppingCart removeCartItemFromShoppingCart(Long id, String sessionToken) {
-        ShoppingCart shoppingCart = shoppingCartRepository.findBySessionToken(sessionToken);
-        Set<CartItem> items = shoppingCart.getItems();
-        CartItem cartItem = null;
-        for (CartItem item : items) {
+    public ShoppingFavorite removeCartItemFromShoppingCart(Long id, String sessionToken) {
+        ShoppingFavorite shoppingCart = shoppingCartRepository.findBySessionToken(sessionToken);
+        Set<FavoriteItem> items = shoppingCart.getItems();
+        FavoriteItem cartItem = null;
+        for (FavoriteItem item : items) {
             if (item.getId().equals(id)) {
                 cartItem = item;
             }
@@ -103,7 +103,7 @@ public class ShoppingCartService {
     }
 
     public void clearShoppingCart(String sessionToken) {
-        ShoppingCart sh = shoppingCartRepository.findBySessionToken(sessionToken);
+        ShoppingFavorite sh = shoppingCartRepository.findBySessionToken(sessionToken);
         shoppingCartRepository.delete(sh);
     }
 }

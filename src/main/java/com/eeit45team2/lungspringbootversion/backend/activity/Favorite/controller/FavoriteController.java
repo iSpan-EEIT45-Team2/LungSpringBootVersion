@@ -1,7 +1,7 @@
-package com.eeit45team2.lungspringbootversion.backend.Cart.controller;
+package com.eeit45team2.lungspringbootversion.backend.activity.Favorite.controller;
 
-import com.eeit45team2.lungspringbootversion.backend.Cart.model.ShoppingCart;
-import com.eeit45team2.lungspringbootversion.backend.Cart.service.ShoppingCartService;
+import com.eeit45team2.lungspringbootversion.backend.activity.Favorite.model.ShoppingFavorite;
+import com.eeit45team2.lungspringbootversion.backend.activity.Favorite.service.ShoppingFavoriteService;
 import com.eeit45team2.lungspringbootversion.backend.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,15 +13,15 @@ import java.util.UUID;
 
 @Controller
 @SessionAttributes(value = {"sessionToken", "shoppingCart"})
-@RequestMapping("/Front")
-public class CartController {
+@RequestMapping("/Frontactivity")
+public class FavoriteController {
 
 
-    private ShoppingCartService shoppingCartService;
+    private ShoppingFavoriteService shoppingCartService;
     private OrderService orderService;
 
     @Autowired
-    public CartController(ShoppingCartService shoppingCartService, OrderService orderService) {
+    public FavoriteController(ShoppingFavoriteService shoppingCartService, OrderService orderService) {
         this.shoppingCartService = shoppingCartService;
         this.orderService = orderService;
     }
@@ -44,10 +44,10 @@ public class CartController {
     public String showShoppingCartView(HttpServletRequest request, Model model) {
         String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
         if (sessionToken == null) {
-            model.addAttribute("shoppingCart", new ShoppingCart());
+            model.addAttribute("shoppingCart", new ShoppingFavorite());
 
         } else {
-            ShoppingCart shoppingCart = shoppingCartService.getShoppingCartBySessionToken(sessionToken);
+            ShoppingFavorite shoppingCart = shoppingCartService.getShoppingCartBySessionToken(sessionToken);
             model.addAttribute("shoppingCart", shoppingCart);
         }
         return "FrontEnd/Shop/cart";

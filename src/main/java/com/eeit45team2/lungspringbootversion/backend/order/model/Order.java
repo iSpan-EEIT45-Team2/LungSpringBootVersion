@@ -37,12 +37,16 @@ public class Order implements Serializable {
 
     private String address;
 
+    private String trackingNumber;
+
     private Integer phone;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderDate;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date payDate;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date shipDate;
 
     @Convert(converter = OrderStatusConverter.class)
     private OrderStatus orderStatus;
@@ -55,12 +59,39 @@ public class Order implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItem> orderItems = new LinkedHashSet<>();
 
+    @Transient
+    private String code;
+
     public Integer getOrderId() {
         return orderId;
     }
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
+
+    public Date getShipDate() {
+        return shipDate;
+    }
+
+    public void setShipDate(Date shipDate) {
+        this.shipDate = shipDate;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getOrderNo() {

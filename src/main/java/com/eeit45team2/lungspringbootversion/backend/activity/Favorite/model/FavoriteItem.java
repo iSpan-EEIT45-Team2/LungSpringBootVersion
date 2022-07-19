@@ -1,4 +1,4 @@
-package com.eeit45team2.lungspringbootversion.backend.Cart.model;
+package com.eeit45team2.lungspringbootversion.backend.activity.Favorite.model;
 
 import com.eeit45team2.lungspringbootversion.backend.product.model.ProductBean;
 
@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "cartitem")
-public class CartItem {
+@Table(name = "favoriteitem")
+public class FavoriteItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -70,7 +70,7 @@ public class CartItem {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        CartItem other = (CartItem) obj;
+        FavoriteItem other = (FavoriteItem) obj;
         if (date == null) {
             if (other.date != null)
                 return false;

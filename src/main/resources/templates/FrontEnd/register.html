@@ -54,7 +54,7 @@
 
                     <!-- Form Action Start -->
                     <form action="#" id="form" class="forms-sample"
-                          th:action="@{/Front/register}"
+                          th:action="@{/FrontMember/register}"
                           method="post" th:object="${member}" enctype='multipart/form-data'>
                         <input type="hidden" th:field="*{miActive}">
                         <input type="hidden" th:field="*{miRole}">
@@ -80,8 +80,17 @@
                         <div class="single-input-item m-b-30">
                             <label>會員密碼<span class="isEssential">*</span></label>
                             <input th:field="*{miPassword}" type="password" class="form-control"
-                                    autocomplete="off" oninput="oninputCheckPassword()"/>
+                                    oninput="oninputCheckPassword()"/>
                             <i class="fa-solid fa-eye" id="togglePassword"></i>
+                            <i class="fas fa-check-circle"></i>
+                            <i class="fas fa-exclamation-circle"></i>
+                            <small>Error message</small>
+                        </div>
+                        <div class="single-input-item m-b-30">
+                            <label>再次輸入會員密碼<span class="isEssential">*</span></label>
+                            <input id="miPassword2" type="password" class="form-control"
+                                   onblur="onblurCheckPasswordSame()"/>
+                            <i class="fa-solid fa-eye" id="togglePassword2"></i>
                             <i class="fas fa-check-circle"></i>
                             <i class="fas fa-exclamation-circle"></i>
                             <small>Error message</small>
@@ -476,9 +485,9 @@
     <!-- Mobile Menu Inner End -->
 </div>
 <!-- Mobile Menu End -->
-<script th:inline="javascript">
-    let allRole = [[${allRole}]];
-</script>
+<!--<script th:inline="javascript">-->
+<!--    let allRole = [[${allRole}]];-->
+<!--</script>-->
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
 
 <script type="text/javascript" th:src="@{/FrontEnd/assets/js/register.js}"></script>

@@ -20,8 +20,8 @@
                 <div class="single-blog-wrapper">
                     <!-- Blog Thumb Start -->
                     <div class="blog-thumb thumb-effect">
-                        <a class="image" href="blog-details.html">
-                            <img class="fit-image" th:src="@{${'/FrontEnd/assets/images/announce/' + announce.anPhoto}}" alt="Blog Image">
+                        <a class="image" th:href="@{'/viewForm/' + ${announce.anNo} }">
+                            <img class="fit-image" style="height: 300px" th:src="@{${'/FrontEnd/assets/images/announce/' + announce.anPhoto}}" alt="Blog Image">
                         </a>
                     </div>
                     <!-- Blog Thumb End -->

@@ -1,4 +1,4 @@
-package com.eeit45team2.lungspringbootversion.backend.Cart.model;
+package com.eeit45team2.lungspringbootversion.backend.activity.Favorite.model;
 
 import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
 
@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "shoppingcart")
-public class ShoppingCart {
+@Table(name = "shoppingfavorite")
+public class ShoppingFavorite {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +24,14 @@ public class ShoppingCart {
     private int itemsNumber;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<CartItem> items = new HashSet<CartItem>();
+    private Set<FavoriteItem> items = new HashSet<FavoriteItem>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId")
     private Order order;
     private String sessionToken;
 
-    public ShoppingCart() {
+    public ShoppingFavorite() {
     }
 
     public Long getId() {
@@ -52,7 +52,7 @@ public class ShoppingCart {
 
     public Double getTotalPrice() {
         Double sum = 0.0;
-        for (CartItem item : this.items) {
+        for (FavoriteItem item : this.items) {
             sum = sum + item.getProduct().getPd_amount() * item.getQuantity();
         }
         return sum;
@@ -62,11 +62,11 @@ public class ShoppingCart {
         return this.items.size();
     }
 
-    public Set<CartItem> getItems() {
+    public Set<FavoriteItem> getItems() {
         return items;
     }
 
-    public void setItems(Set<CartItem> items) {
+    public void setItems(Set<FavoriteItem> items) {
         this.items = items;
     }
 
@@ -96,7 +96,7 @@ public class ShoppingCart {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        ShoppingCart other = (ShoppingCart) obj;
+        ShoppingFavorite other = (ShoppingFavorite) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

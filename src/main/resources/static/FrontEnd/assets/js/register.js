@@ -6,6 +6,7 @@ const miNo = document.getElementById('miNo');
 const miRole = document.getElementById('miRole');
 const miAccount = document.getElementById('miAccount');
 const miPassword = document.getElementById('miPassword');
+const miPassword2 = document.getElementById('miPassword2');
 const miName = document.getElementById('miName');
 const miGender = document.getElementById('miGender');
 const miId = document.getElementById('miId');
@@ -24,7 +25,7 @@ form_button_submit.addEventListener('click', e => {
     /* 前台不用驗證權限是誰 */
     // verifyRole();
     // if(!checkInputsError()){
-        miActive.value = "Y";
+        miActive.value = "N";
         miRole.value = "USER";
         form.submit(); /* 如果沒有error，就執行送出*/
     // }else{
@@ -74,6 +75,15 @@ togglePassword.addEventListener('click', function () {
     miPassword.setAttribute('type', type);  //改變type
     this.classList.toggle('fa-eye-slash'); //轉換眼睛圖示
     miPassword.focus();
+});
+
+let togglePassword2 = document.querySelector("#togglePassword2");
+togglePassword2.addEventListener('click', function () {
+    // 判斷password 還是text
+    let type = miPassword2.getAttribute('type') === 'password' ? 'text' : 'password';  //三元運算式，把抓到的type存回type
+    miPassword2.setAttribute('type', type);  //改變type
+    this.classList.toggle('fa-eye-slash'); //轉換眼睛圖示
+    miPassword2.focus();
 });
 
 
@@ -174,7 +184,7 @@ function verifyPassword (miPasswordValue) {
 function oninputCheckPassword(){
     //確認密碼
     let miPasswordValue = miPassword.value.trim();
-    console.log("密碼1: " + miPasswordValue)
+    // console.log("密碼1: " + miPasswordValue)
     if(miPasswordValue === '') {
         setErrorFor(miPassword, '密碼不能為空');
         return false;
@@ -189,6 +199,19 @@ function oninputCheckPassword(){
         }
     }
 }
+
+function onblurCheckPasswordSame(){
+    let miPasswordValue = miPassword.value.trim();
+    let miPassword2Value = miPassword2.value.trim();
+    if(miPasswordValue !== miPassword2Value) {
+        setErrorFor(miPassword2, '密碼不相同，請重新確認密碼');
+        return false;
+    } else {
+        setSuccessFor(miPassword2);
+        return true;
+    }
+}
+
 
 //驗證姓名
 function oninputCheckName(){
@@ -302,7 +325,7 @@ function verifyEmailExisted(miEmailValue){
         miNoValue = miNo.value.trim();
     }
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/Lung/Front/CheckMemberEmail", false);
+    xhr.open("POST", "/Lung/FrontMember/CheckMemberEmail", false);
     xhr.setRequestHeader("Content-Type",
         "application/json");
     // xhr.send("accountToCheck=" + mi_accountValue);  //送出user輸入的值
