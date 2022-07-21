@@ -5,18 +5,20 @@
 -- DELETE FROM MemberTable WHERE miAccount = 'active';
 -- DELETE FROM MemberTable WHERE miAccount = 'user';
 
-insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress) values
-    ('ADMIN魯夫','C248835717',cast('1999/01/23' as date),'0962594416','abc10@mail.com','admin','$2a$10$0zynuTZo0/NVJlTz5WFAHeRU0EuoUWuCrCSXbUiJv.GPBbcrvUE3y','USER;ACTIVE;EMPLOYEE;ADMIN', '女', 'Y', '臺北市', '中正區', '思源街1號' );
+insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
+    ('ADMIN魯夫','C248835717',cast('1999/01/23' as date),'0962594416','abc10@mail.com','admin','$2a$10$0zynuTZo0/NVJlTz5WFAHeRU0EuoUWuCrCSXbUiJv.GPBbcrvUE3y','USER;ACTIVE;EMPLOYEE;ADMIN', '女', 'Y', '臺北市', '中正區', '思源街1號', 'luffy.jpg' );
 
-insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress) values
-    ('EMPLOYEE娜美','O241686379',cast('1987/12/01' as date),'0926287495','abc20@mail.com','employee','$2a$10$CC006YClBxiYQDhfiIKsyeDgruLWMTQjURSSXAzudRtbuzNidLWMC','USER;ACTIVE;EMPLOYEE', '男', 'Y', '台南市', '安平區', '漁光路114號' );
+insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
+    ('EMPLOYEE娜美','O241686379',cast('1987/12/01' as date),'0926287495','abc20@mail.com','employee','$2a$10$CC006YClBxiYQDhfiIKsyeDgruLWMTQjURSSXAzudRtbuzNidLWMC','USER;ACTIVE;EMPLOYEE', '男', 'Y', '台南市', '安平區', '漁光路114號', 'nami.jpg' );
 
-insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress) values
-    ('ACTIVE喬巴','X181771234',cast('2005/03/16' as date),'0930152563','abc30@mail.com','active','$2a$10$aBcQul7PMtaZLRanssTeO3r2n3sIy1S9YkUyWdPFbDB3iYc7XX6','USER;ACTIVE', '男', 'Y', '屏東縣', '恆春鎮', '大光路79號' );
+insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
+    ('ACTIVE喬巴','X181771234',cast('2005/03/16' as date),'0930152563','abc30@mail.com','active','$2a$10$k8K5wToDodcpTs1Phu97S.sZ7n5geCGabJf.z/QjuQ38pzO35A8oq','USER;ACTIVE', '男', 'Y', '屏東縣', '恆春鎮', '大光路79號', 'choppa.jpg' );
 
-insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress) values
-    ('USER香吉士','W143802241',cast('1996/06/30' as date),'0956410662','abc40@mail.com','user','$2a$10$Zy.cMMbYSb6x0PS5WYVDwOEokd0bMkAjpw/W9jyBmIuijkAulJ6Ee','USER', '不公開', 'Y', '花蓮縣', '壽豐鄉', '189號');
+insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
+    ('USER香吉士','W143802241',cast('1996/06/30' as date),'0956410662','abc40@mail.com','user','$2a$10$Zy.cMMbYSb6x0PS5WYVDwOEokd0bMkAjpw/W9jyBmIuijkAulJ6Ee','USER', '不公開', 'Y', '花蓮縣', '壽豐鄉', '189號', 'sanji.jpg');
 
+insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
+    ('jin','W143802241',cast('1996/06/30' as date),'0956410662','kiki19990204@gmail.com','jin','$2a$10$Zy.cMMbYSb6x0PS5WYVDwOEokd0bMkAjpw/W9jyBmIuijkAulJ6Ee','USER;ACTIVE;EMPLOYEE;ADMIN', '不公開', 'Y', '花蓮縣', '壽豐鄉', '189號', 'sanji.jpg');
 --新增公告資料
 -- DELETE FROM ANNOUNCE_Table WHERE anNo = '';
 -- DELETE FROM ANNOUNCE_Table WHERE anNo = '';
@@ -105,4 +107,27 @@ INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, aml
 INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('兔', '荷蘭侏儒兔', '公', 'https://i.imgur.com/Infk7OE.jpg', '小兵', '新竹縣竹北市縣政五街192號');
 INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('兔', '荷蘭兔', '母', 'https://i.imgur.com/oFGGSaa.jpg', '妹妹', '新竹縣竹北市縣政五街192號');
 
+
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '混種貓', '公', 'cat1.jpg', 'admin', '台北市大安收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '緬因貓', '母', 'cat2.jpg', 'admin', '台中市中華收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '金絲貓', '公', 'cat8.jpg', 'admin', '台南市政權收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '折耳貓', '母', 'cat9.jpg', 'admin', '台中市新生路寵物中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '混種貓', '公', 'cat10.jpg', 'active', '台中市新生路寵物中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '緬因貓', '母', 'cat12.jpg', 'active', '台南市政權收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '金絲貓', '公', 'cat13.jpg', 'active', '台中市中華收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '折耳貓', '母', '1_2.jpg', 'active', '台北市大安收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+
+
+
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '混種貓', '公', 'cat10.jpg', 'active', '台中市新生路寵物中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '緬因貓', '母', 'cat12.jpg', 'active', '台南市政權收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '金絲貓', '公', 'cat13.jpg', 'active', '台中市中華收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '貓', '折耳貓', '母', '1_2.jpg', 'active', '台北市大安收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '狗', '哈士奇', '公', 'dog3.jpg', 'active', '台中市新生路寵物中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '狗', '米格魯', '母', 'dog4.jpg', 'active', '台南市政權收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '狗', '高山犬', '公', 'dog5.jpg', 'active', '台中市中華收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '狗', '柯基', '母', 'dog7.jpg', 'admin', '台北市大安收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
+insert into abdog_table ( abtype, abvariety, absex, abphonto, abarea, abname, abphone, abemail, abdate, abremark, abaudit) values ( '狗', '混種狗', '母', 'dog11.jpg', 'admin', '台北市大安收養中心',' 0962594416', 'shen775207@gmail.com', '2022-07-17', '有一雙圓圓的眼睛,小小的手掌', 1);
 

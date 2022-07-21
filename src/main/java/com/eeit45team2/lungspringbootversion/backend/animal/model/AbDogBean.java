@@ -1,6 +1,5 @@
 package com.eeit45team2.lungspringbootversion.backend.animal.model;
 
-import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

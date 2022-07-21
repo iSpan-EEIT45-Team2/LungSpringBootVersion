@@ -3,7 +3,6 @@ package com.eeit45team2.lungspringbootversion.FrontEnd.ViewController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -17,15 +16,15 @@ public class ViewController {
     }
 
 
-    @GetMapping("/announcedetailspage")
-    public String announcedetails() {
-        return "FrontEnd/announce/announceDetail";
-    }
+//    @GetMapping("/announcedetailspage")
+//    public String announcedetails() {
+//        return "FrontEnd/announce/announceDetail";
+//    }
 
-    @GetMapping("/announcepage")
-    public String announce() {
-        return "FrontEnd/announce/announce";
-    }
+//    @GetMapping("/announcepage")
+//    public String announce() {
+//        return "FrontEnd/announce/announce";
+//    }
 
     //測試用: 拿來看session id
     @RequestMapping("/security")
@@ -34,8 +33,13 @@ public class ViewController {
     }
 
     @GetMapping("/animals")
-    public String animal() {
+    public String animals() {
         return "FrontEnd/Animal/animal";
+    }
+
+    @GetMapping("/aboutUs")
+    public String aboutUs() {
+        return "FrontEnd/aboutus";
     }
 
 }

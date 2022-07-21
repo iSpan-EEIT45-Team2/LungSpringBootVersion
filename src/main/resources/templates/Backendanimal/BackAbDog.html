@@ -45,7 +45,7 @@
                             <!-- Table標題 -->
 
                             <span class="table-title">寵物媒合表單</span>
-                            <a th:href="@{'/down'  }" class="btn btn-sm btn-success">Json<i
+                            <a th:href="@{'/Backendanimal/down'}" class="btn btn-sm btn-success">Json<i
                                     class="bi bi-pencil-fill"></i></a>
 
 
@@ -65,26 +65,24 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>品種</th>
+                                    <th>姓</th>
                                     <th>圖片</th>
                                     <th>帳戶名稱</th>
-                                    <th>審核狀態</th>
-                                    <th>操作</th>
+                                    <th>　　　　審核狀態</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="abdog : ${abdogs}">
                                     <td th:text="${abdog.abid}"/>
                                     <td th:text="${abdog.abvariety}"/>
-                                    <td><img th:src="@{image/{id}(id=${abdog.abphonto})}"width="50" ></td>
+                                    <td th:text="${abdog.absex}"/>
+                                    <td><img th:src="@{/image/{id}(id=${abdog.abphonto})}"width="50" ></td>
                                     <td th:text="${abdog.abarea}"/>
-
                                     <td th:if="${abdog.abaudit} eq '0'" th:text="審核完成">long</td>
                                     <td th:if="${abdog.abaudit} eq '1'" th:text="審核中">long</td>
-
                                     <td>
-                                    <a th:href="@{'/abupdateForm/' + ${abdog.abid} }" class="btn btn-sm btn-success"><i
+                                        <a th:href="@{'/Backendanimal/abupdateForm/' + ${abdog.abid} }" class="btn btn-sm btn-success"><i
                                                 class="bi bi-pencil-fill"></i></a>
-
                                         <button class="btn btn-sm btn-danger"
                                                 th:onclick="deleteajax([[${abdog.abid}]])" type="button"
                                                 id="deleteajax"><i class="bi bi-trash-fill"></i>
@@ -93,7 +91,7 @@
 <!--                                     <a th:href="@{Lung/pass/{id}(id=${abdog.abid})}" class="btn btn-sm btn-success">審核<i-->
 <!--                                                class="bi bi-pencil-fill"></i></a>-->
 
-                                        <a th:href="@{'/pass/' + ${abdog.abid} }" class="btn btn-sm btn-success">審核<i
+                                        <a th:href="@{'/Backendanimal/pass/' + ${abdog.abid} }" class="btn btn-sm btn-success">審核<i
                                                 class="bi bi-pencil-fill"></i></a>
 
 
@@ -142,7 +140,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "get",
-                    url: "/Lung/abdelete/" + abid,
+                    url: "/Lung/Backendanimal/abdelete/" + abid,
 
                     success: function (msg) {
                         Swal.fire(

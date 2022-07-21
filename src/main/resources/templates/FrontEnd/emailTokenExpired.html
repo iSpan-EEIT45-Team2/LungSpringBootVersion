@@ -6,6 +6,13 @@
     <title>LungHi Peace請重新進行Email認證</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div th:include="FrontEnd/includes/head :: head"></div>
+<style>
+    .w-100-emailInput{
+        width: 100%;
+        /*font-size: 18px;*/
+    }
+</style>
+</head>
 <body>
 <!-- Header Section Start -->
 <!--<div class="header section">-->
@@ -47,8 +54,9 @@
                                         <!-- Social Shear End -->
                                     </div>
                                     <div class="content" >
-                                        <h4 class="title">您的Email認證已失效! 請重新輸入您的信箱進行認證</h4>
-                                        <h4 class="subtitle"><input type="text" id="inputNewEmail"></h4>
+                                        <h4 class="title m-b-30">您的Email認證已失效! 請重新輸入您的信箱進行認證</h4>
+                                        <h6 class="w-100-emailInput m-b-30"><label>Email: <input class="resendEmailiInput" type="text" id="inputNewEmail"></label></h6>
+                                        <button type="button" class="btn btn-primary">送出</button>
                                     </div>
                                 </div>
                                 <!-- Single Team Wrapper End -->

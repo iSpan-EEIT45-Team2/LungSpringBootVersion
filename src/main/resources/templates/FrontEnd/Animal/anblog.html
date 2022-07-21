@@ -130,7 +130,7 @@
     <!-- Breadcrumb Area End -->
 
     <!-- Blog Grid Section Start -->
-<form th:action="@{/animals}">
+<form th:action="@{/FrontEndAnimalF/animals}">
     查詢: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
     &nbsp;
     <input type="submit" value="Search" />
@@ -142,7 +142,7 @@
 
 
 </form>
-<form th:action="@{/animals}">
+<form th:action="@{/FrontEndAnimalF/animals}">
 
     <select name="keyword">
         <option value="請選擇狗的類型"selected>請選擇狗的類型 </option>
@@ -161,7 +161,7 @@
 
 
 </form>
-<form th:action="@{/animals}">
+<form th:action="@{/FrontEndAnimalF/animals}">
 
     <select name="keyword">
         <option value="">請選擇貓的類型</option>
@@ -219,7 +219,7 @@
                                 <p><h3>行政區域：<td th:text="${animal.abname}"/></p></h3>
 
                             </p>
-                            <a class="more-link" th:href="@{'/animalUpdateForm/' +${animal.abid}}">Read More</a>
+                            <a class="more-link" th:href="@{'/FrontEndAnimalF/animalUpdateForm/' +${animal.abid}}">Read More</a>
                             </tr>
 
                         </div>

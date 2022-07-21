@@ -40,7 +40,7 @@
                         <div class="card-body">
                             <input type="button" name="Submit" value="一鍵輸入 " onClick="ok4()">
                             <h4 class="card-title">新增寵物表單</h4>
-                            <form  name="form4"  action="#" id="form"    class="forms-sample" th:action="@{/saveAbDog}"
+                            <form  name="form4"  action="#" id="form"    class="forms-sample" th:action="@{/Backendanimal/saveAbDog}"
                                   enctype="multipart/form-data"
                                   method="post"
                                   th:object="${abdog}">
@@ -82,11 +82,27 @@
                                             <option value="母">母</option>
                                         </select>
                                     </label>
-                                </div>                                <div>
+                                </div>
+
+                                <div class="form-group">
                                     <label>Photos: </label>
-                                    <input type="file" name="image" accept="image/png, image/jpeg" />
+                                    <input type="file" name="image"  class="form-control"  accept="image/png, image/jpeg" />
                                     <!-- <input type="text" th:field="*{abphonto}" class="form-control" id="abphonto"/>-->
                                 </div>
+
+
+
+<!--                                <div class="form-group">-->
+<!--                                    <label>活動照片</label>-->
+<!--                                    <img id="blah" th:src="@{/BackEnd/images/memberHeadshot/defaultHeadshot.jpg}"-->
+<!--                                         style="display:block;width: 50%"/>-->
+<!--                                    <input type="file" name="image" class="form-control" id="localfileName" onchange="previewHeadshot(event)" />-->
+<!--                                </div>-->
+
+
+
+
+
 
                                 <br/>
 
@@ -139,7 +155,7 @@
 
 
 
-                                <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>
+                                <button type="button" class="btn btn-light" th:href="@{/Backendanimal/abdoglist}" onclick="cancel();">Cancel</button>
                             </form>
                         </div>
                     </div>
