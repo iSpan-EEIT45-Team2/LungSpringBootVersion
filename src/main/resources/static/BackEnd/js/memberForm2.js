@@ -104,8 +104,8 @@ oneClickEnter.addEventListener('click', e => {
 });
 
 //轉換eye -> 顯示密碼
-const togglePassword = document.querySelector("#togglePassword");
-togglePassword.addEventListener('click', function() {
+// const togglePassword = document.querySelector("#togglePassword");
+document.getElementById("togglePassword").addEventListener('click', function() {
 	// 判斷password 還是text
 	const type = miPassword.getAttribute('type') === 'password' ? 'text' : 'password';  //三元運算式，把抓到的type存回type
 	miPassword.setAttribute('type', type);  //改變type
@@ -414,8 +414,8 @@ function oneClickToEnter(){
 	document.getElementById("check-roleACTIVE").checked = true;
 	document.getElementById("check-roleUSER").checked = true;
 
-	document.getElementById("newcountry1").value = '台中市';
-	document.getElementById("newdistrict1").setAttribute("data-value","大雅區");
+	// document.getElementById("newcountry1").value = '台中市';
+	// document.getElementById("newdistrict1").setAttribute("data-value","大雅區");
 
 	// $(".city-selector-set").each(function() {
 	// 	$(this).attr("data-value", "大雅區");
