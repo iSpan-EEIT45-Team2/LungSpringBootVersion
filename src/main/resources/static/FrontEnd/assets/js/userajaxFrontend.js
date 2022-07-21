@@ -1,4 +1,3 @@
-window.onload = function() {
     /*--------------------START前台首頁navbar會員頭貼下的三個btn-------------------*/
     document.getElementById('navbarHeadshot').addEventListener('mouseover', function () {
         let navbarLoginBtn = document.getElementById("navbarLoginBtn");
@@ -27,7 +26,7 @@ window.onload = function() {
 
 
 
-}
+
 
 
 

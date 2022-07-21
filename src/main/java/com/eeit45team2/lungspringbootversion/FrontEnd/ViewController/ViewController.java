@@ -17,15 +17,15 @@ public class ViewController {
     }
 
 
-    @GetMapping("/announcedetailspage")
-    public String announcedetails() {
-        return "FrontEnd/announce/announceDetail";
-    }
+//    @GetMapping("/announcedetailspage")
+//    public String announcedetails() {
+//        return "FrontEnd/announce/announceDetail";
+//    }
 
-    @GetMapping("/announcepage")
-    public String announce() {
-        return "FrontEnd/announce/announce";
-    }
+//    @GetMapping("/announcepage")
+//    public String announce() {
+//        return "FrontEnd/announce/announce";
+//    }
 
     //測試用: 拿來看session id
     @RequestMapping("/security")
@@ -36,6 +36,11 @@ public class ViewController {
     @GetMapping("/animals")
     public String animal() {
         return "FrontEnd/Animal/animal";
+    }
+
+    @GetMapping("/aboutUs")
+    public String aboutUs() {
+        return "FrontEnd/aboutus";
     }
 
 }

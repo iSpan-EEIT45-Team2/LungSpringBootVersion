@@ -34,6 +34,7 @@ public class CommonService {
     @Autowired
     ServletContext ctx;
 
+    String memberHeadshotDir = "./src/main/resources/static/BackEnd/images/memberHeadshot/";
 
     public String getCurrentUserMiGender() {
         CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -89,6 +90,7 @@ public class CommonService {
             CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             member = customUserDetails.getUser();
             String localfilename = member.getLocalfileName();
+            Blob image = member.getImage();
             // 有local檔名 -> 因為csv直接匯入 || 有新增照片
             if (localfilename != null) {
                 // 設定ResponseHeaders
@@ -99,31 +101,38 @@ public class CommonService {
                     headers.setContentType(mediaType);
                 }
                 // 設定ResponseBody
-                body = commonFunction.blobToByteArray(member.getImage()); // 改成抓DB圖片
+                if(image!=null){
+                    // 有圖片就抓圖片
+                    body = commonFunction.blobToByteArray(image); // 改成抓DB圖片
+                }else{
+                    // 沒圖片就抓檔名
+                    body = commonFunction.getProjectFileToByteArray(memberHeadshotDir + localfilename);
+                    String memberHeadshotDir = "./src/main/resources/static/BackEnd/images/memberHeadshot/";
+                }
             } else {
                 //沒有local檔名 -> 新增不傳圖片
 //                member.getMiAccount().equals(defaultAccount);
                 switch (member.getMiAccount()) {
                     case "admin":
-                        body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/luffy.jpg");
+                        body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"luffy.jpg");
                         break;
                     case "employee":
-                        body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/nami.jpg");
+                        body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"nami.jpg");
                         break;
                     case "active":
-                        body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/choppa.jpg");
+                        body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"choppa.jpg");
                         break;
                     case "user":
-                        body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/sanji.jpg");
+                        body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"sanji.jpg");
                         break;
                     default:
                         // 顯示預設圖片
-                        body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/defaultHeadshot.jpg");
+                        body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"defaultHeadshot.jpg");
                 }
             }
         } else {
             // user未登入 -> show default
-            body = commonFunction.getProjectFileToByteArray("./src/main/resources/static/BackEnd/images/memberHeadshot/defaultUserIcon.jpg");
+            body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"defaultUserIcon.jpg");
 //            return (String) authentication.getPrincipal(); //是anonymousUser
         }
         responseEntity = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
