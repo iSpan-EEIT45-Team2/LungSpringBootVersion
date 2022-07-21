@@ -2,16 +2,16 @@
     /*--------------------START後台首頁navbar的USER姓名-------------------*/
     let navbarMiName = document.getElementById("navbarMiName");  // 首頁顯示的姓名
     let navbarMiName1 = document.getElementById("navbarMiName1");  // 大頭貼位置下拉選單的姓名
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
+    let xhrBackNavbar = new XMLHttpRequest();
+    xhrBackNavbar.onreadystatechange = function(){
         // alert(xhr.responseText + ", readyState=" + xhr.readyState);
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            navbarMiName.innerHTML = xhr.responseText ;
-            navbarMiName1.innerHTML = xhr.responseText ;
+        if (xhrBackNavbar.readyState === 4 && xhrBackNavbar.status === 200) {
+            navbarMiName.innerHTML = xhrBackNavbar.responseText ;
+            navbarMiName1.innerHTML = xhrBackNavbar.responseText ;
         }
     }
-    xhr.open("GET", "/Lung/memberInfo/getCurrentUserMiNameString", true);
-    xhr.send();
+    xhrBackNavbar.open("GET", "/Lung/memberInfo/getCurrentUserMiNameString", true);
+    xhrBackNavbar.send();
     /*--------------------END後台首頁navbar的USER姓名-------------------*/
 
     /*--------------------START測試取得USER資訊-------------------*/

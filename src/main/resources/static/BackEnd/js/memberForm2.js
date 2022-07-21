@@ -536,6 +536,21 @@ function randomBirth(){
 	return code;
 }
 
+// 顯示選取的照片
+function previewHeadshot(event) {
+	/*
+    files = ['src']
+    法一:
+        const file = files[0] -> file = 'src'
+    法二:
+        const [file] = files -> file = 'src'
+    */
+	const [file] = document.getElementById("productImage").files
+	if (file) {
+		document.getElementById("blah").src = URL.createObjectURL(file)
+	}
+}
+
 
 /* 只有ADMIN權限的人可以新增/修改他人成為ADMIN */
 // document.querySelectorAll("#type option").forEach(opt => {

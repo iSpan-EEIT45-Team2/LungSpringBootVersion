@@ -15,24 +15,32 @@
     <script src="https://kit.fontawesome.com/ae6733f6ec.js" crossorigin="anonymous"></script>
 <!--    <script src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.1/dist/tw-city-selector.min.js"></script> &lt;!&ndash;測試另一個地址api&ndash;&gt;-->
 <!--    <style>-->
-<!--        /* 替換適合的 css 樣式 */-->
-<!--        .my-style-selector select {-->
-<!--            -webkit-appearance: none;-->
-<!--            -moz-appearance: none;-->
-<!--            appearance: none;-->
-<!--            border-color: #6ec3f5;-->
-<!--            border-width: 2px;-->
-<!--            border-radius: 10em;-->
-<!--            color: #1390e8;-->
-<!--            margin-right: 10px;-->
-<!--            outline: none;-->
-<!--            padding: .3em 1.25em;-->
+<!--        #oneClickBtnDiv {-->
+<!--            position: fixed;-->
+<!--            z-index: 299;-->
+<!--            width: 150px;-->
+<!--            height: 150px;-->
+<!--            font-size: 36px;-->
+<!--            line-height: 60px;-->
+<!--            text-align: center;-->
+<!--            /*color: rgb(255, 255, 255);*/-->
+<!--            inset: auto 10px 10px auto;-->
+<!--            cursor: pointer;-->
+<!--            /*border-radius: 2px;*/-->
+<!--            transform: translateY(0px);-->
+<!--            transition: transform 0.3s ease 0s;-->
 <!--        }-->
 <!--    </style>-->
 </head>
 <body>
 <!-- _navbar -->
 <div th:include="BackEnd/includes/navbar :: navbar"></div>
+<div id="oneClickBtnDiv">
+    <button type="button" id="oneClickEnter" onkeydown="setDistrict()"
+            class="btn btn-sm btn-outline-primary"><i
+            class="fa-solid fa-check"></i>一鍵輸入
+    </button>
+</div>
 <!-- partial -->
 <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_settings-panel.jsp -->
@@ -67,10 +75,10 @@
                                     onclick="cancel()"><i
                                     class="fa-solid fa-circle-arrow-left"></i> 返回
                             </button>
-                            <button type="button" id="oneClickEnter" onmousedown="oneClickToEnter()" onkeydown="setDistrict()"
-                                    class="btn btn-sm btn-outline-primary btn-fw"><i
-                                    class="fa-solid fa-check"></i>一鍵輸入
-                            </button>
+<!--                            <button type="button" id="oneClickEnter" onkeydown="setDistrict()"-->
+<!--                                    class="btn btn-sm btn-outline-primary btn-fw"><i-->
+<!--                                    class="fa-solid fa-check"></i>一鍵輸入-->
+<!--                            </button>-->
                         </div>
                     </div>
                 </div>
@@ -310,20 +318,6 @@
             //     console.log("role"+ i + role.checked);
             // }
         // });
-
-
-        // 顯示選取的照片
-        function previewHeadshot(event) {
-            /*
-            files = ['src']
-            法一:  const file = files[0] -> file = 'src'
-            法二:  const [file] = files -> file = 'src'
-            */
-            const [file] = document.getElementById("productImage").files
-            if (file) {
-                document.getElementById("blah").src = URL.createObjectURL(file)
-            }
-        }
 
 
         function cancel() {

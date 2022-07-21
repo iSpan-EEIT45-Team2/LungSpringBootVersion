@@ -16,9 +16,15 @@ public class IndexController {
     @GetMapping("/default")
     public String redirect(){
         MemberBean member = commonService.getCurrentMemerBean();
-        if(member.getMiRole().equals("EMPLOYEE")){
-            return "redirect:/index";
+        if(member.getMiRole().contains("EMPLOYEE")){
+            return "redirect:/Back";
         }
         return "redirect:/Front";
     }
+
+    @GetMapping("/Back")
+    public String BackendIndex(){
+        return "redirect:/";
+    }
+
 }

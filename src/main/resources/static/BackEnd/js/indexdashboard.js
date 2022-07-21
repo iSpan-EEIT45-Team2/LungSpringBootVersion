@@ -60,7 +60,7 @@ xhr.onreadystatechange = function () {
                 var text = [];
                 text.push('<div class="chartjs-legend"><ul class="justify-content-center">');
                 for (var i = 0; i < chart.data.datasets[0].data.length; i++) {
-                    text.push('<li><span style="background-color:' + chart.data.datasets[0].backgroundColor[i] + '">');
+                    text.push('<li style="font-size: 16px;"><span style="background-color:' + chart.data.datasets[0].backgroundColor[i] + '">');
                     text.push('</span>');
                     if (chart.data.labels[i]) {
                         text.push(chart.data.labels[i]);
@@ -88,12 +88,11 @@ xhr.onreadystatechange = function () {
                         return data['datasets'][0]['data'][tooltipItem['index']];
                     }
                 },
-
                 backgroundColor: '#fff',
-                titleFontSize: 16,
+                titleFontSize: 18,
                 titleFontColor: '#0B0F32',
                 bodyFontColor: '#737F8B',
-                bodyFontSize: 14,
+                bodyFontSize: 18,
                 displayColors: false
             }
         };
@@ -188,7 +187,7 @@ xhr1.onreadystatechange = function () {
                         beginAtZero: true,
                         autoSkip: true,
                         maxTicksLimit: 5,
-                        fontSize: 10,
+                        fontSize: 14,
                         color: "#6B778C"
                     }
                 }],
@@ -203,7 +202,7 @@ xhr1.onreadystatechange = function () {
                         beginAtZero: false,
                         autoSkip: true,
                         maxTicksLimit: 12,
-                        fontSize: 10,
+                        fontSize: 14,
                         color: "#6B778C"
                     }
                 }],
