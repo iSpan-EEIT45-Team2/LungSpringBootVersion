@@ -234,27 +234,27 @@
                         <!-- Quantity Start -->
                         <div class="quantity d-flex align-items-center justify-content-start m-b-25" id="cart">
                             <span class="m-r-10"><strong>數量: </strong></span>
-<!--                            <form action="/Lung/Front/addToCart" method="post">-->
-                                <input type="hidden" name="id" th:value="${product.id}"/>
-                                <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" value="1" name="qty" id="qty"  >
-                                    <div class="dec qtybutton">-</div>
-                                    <div class="inc qtybutton">+</div>
-                                </div>
-                                <!-- Cart Button Start -->
-                                <div class="cart-btn action-btn m-b-30">
-                                    <div class="action-cart-btn-wrapper d-flex justify-content-start">
-                                        <div class="add-to_cart">
-                                            <button class="btn btn-primary btn-hover-dark rounded-0 "
-                                                     th:onclick="add([[${product.id}]])">
-                                                加入購物車
-                                            </button>
-                                        </div>
-                                        <a href="wishlist.html" title="Wishlist" class="action"><i class="ti-heart"></i></a>
+                            <!--                            <form action="/Lung/Front/addToCart" method="post">-->
+                            <input type="hidden" name="id" th:value="${product.id}"/>
+                            <div class="cart-plus-minus">
+                                <input class="cart-plus-minus-box" value="1" name="qty" id="qty">
+                                <div class="dec qtybutton">-</div>
+                                <div class="inc qtybutton">+</div>
+                            </div>
+                            <!-- Cart Button Start -->
+                            <div class="cart-btn action-btn m-b-30">
+                                <div class="action-cart-btn-wrapper d-flex justify-content-start">
+                                    <div class="add-to_cart">
+                                        <button class="btn btn-primary btn-hover-dark rounded-0 "
+                                                th:onclick="add([[${product.id}]])">
+                                            加入購物車
+                                        </button>
                                     </div>
+                                    <a href="wishlist.html" title="Wishlist" class="action"><i class="ti-heart"></i></a>
                                 </div>
-                                <!-- Cart Button End -->
-<!--                            </form>-->
+                            </div>
+                            <!-- Cart Button End -->
+                            <!--                            </form>-->
                         </div>
                         <!-- Quantity End -->
 
@@ -294,7 +294,7 @@
 
 
 <!-- Breadcrumb Area End -->
-<div th:include="BackEnd/includes/footer :: footer"></div>
+<div th:include="/FrontEnd/includes/footer :: footer"></div>
 
 
 <!-- Mobile Menu Start -->
@@ -446,21 +446,19 @@
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
 <!-- Blog Section End -->
 <script>
-    function add(id){
+    function add(id) {
         Swal.fire({
-            icon: 'success',
-            title: '成功加入購物車',
-            showConfirmButton: false,
-            timer: 1500
+                icon: 'success',
+                title: '成功加入購物車',
+                showConfirmButton: false,
+                timer: 1500
 
-        },
-        fetch('[[@{/Carts/Add}]]' + '?itemId=' + id)
-            .then(response => response.json())
+            },
+            fetch('[[@{/Carts/Add}]]' + '?itemId=' + id)
+                .then(response => response.json())
         )
 
     }
-
-
 
 
 </script>

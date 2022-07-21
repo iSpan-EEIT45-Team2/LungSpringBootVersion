@@ -7,6 +7,8 @@ import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatusC
 import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
 import com.eeit45team2.lungspringbootversion.backend.order.repository.OrderRepository;
 import com.eeit45team2.lungspringbootversion.backend.order.service.OrderService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
@@ -125,9 +127,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public Order receive(Integer orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
-        Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.CANCEL).setHeader("order", order).build());
+        Mono<Message<OrderStatusChangeEvent>> message = Mono.just(MessageBuilder.withPayload(OrderStatusChangeEvent.RECEIVED).setHeader("order", order).build());
         if (sendEvent(message, order)) {
-            System.out.println("訂單號：" + orderId + " 收貨失敗");
+            System.out.println("訂單號：" + orderId + " 收貨失敗，狀態異常");
         }
         return order;
     }
@@ -166,12 +168,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findAllByMember(MemberBean memberBean) {
+    public Page<Order> findAllByOrderStatusAndMember(OrderStatus status, MemberBean memberBean, Pageable pageable) {
+        return orderRepository.findAllByOrderStatusAndMemberBean(status, memberBean, pageable);
+    }
+
+    @Override
+    public Page<Order> findAllByMember(MemberBean memberBean, Pageable pageable) {
         if (memberBean == null) {
             return null;
         }
-        return orderRepository.findAllByMemberBean(memberBean);
+        return orderRepository.findAllByMemberBean(memberBean, pageable);
     }
+
 
     private synchronized boolean sendEvent(Mono<Message<OrderStatusChangeEvent>> message, Order order) {
         boolean result = false;
