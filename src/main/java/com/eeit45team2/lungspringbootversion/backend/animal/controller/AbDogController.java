@@ -67,7 +67,7 @@ private JavaMailSender mailSender;
 		model.addAttribute("abdogs", abdogbeans);
 		model.addAttribute("keyword", keyword);
 
-		return "/BackendAnimal/BackAbDog";
+		return "/Backendanimal/BackAbDog";
 		//真實程式 非虛擬路徑
 	}
 
