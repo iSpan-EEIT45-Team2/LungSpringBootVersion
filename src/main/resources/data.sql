@@ -18,7 +18,7 @@ insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, mi
     ('會員-香吉士','W143802241',cast('1996/06/30' as date),'0956410662','abc40@mail.com','user','$2a$10$Zy.cMMbYSb6x0PS5WYVDwOEokd0bMkAjpw/W9jyBmIuijkAulJ6Ee','USER', '不公開', 'Y', '花蓮縣', '壽豐鄉', '中華路20號', 'sanji.jpg');
 
 insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
-    ('金金','W143802241',cast('1996/06/30' as date),'0956410662','jin991824@gmail.com','jin','$2a$10$O8Jt62LuimioJ29CBhAAgeTXlkqDWPkOJK.qRaEa9SSp8.l3h1S6.','USER;ACTIVE;EMPLOYEE;ADMIN', '女', 'Y', '新北市', '三峽區', '民族路50號', 'ace.jpg');
+    ('金金','W143802241',cast('1996/06/30' as date),'0956410662','kiki19990204@gmail.com','jin','$2a$10$O8Jt62LuimioJ29CBhAAgeTXlkqDWPkOJK.qRaEa9SSp8.l3h1S6.','USER;ACTIVE;EMPLOYEE;ADMIN', '女', 'Y', '新北市', '三峽區', '民族路50號', 'ace.jpg');
 --新增公告資料
 -- DELETE FROM ANNOUNCE_Table WHERE anNo = '';
 -- DELETE FROM ANNOUNCE_Table WHERE anNo = '';

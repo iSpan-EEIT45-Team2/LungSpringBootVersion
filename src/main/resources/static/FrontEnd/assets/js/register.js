@@ -62,10 +62,10 @@ function checkInputsError() {
 
 
 /*一鍵輸入*/
-// oneClickEnter.addEventListener('click', e => {
-//     e.preventDefault();
-//     oneClickToEnter();
-// });
+oneClickEnter.addEventListener('click', e => {
+    e.preventDefault();
+    oneClickToEnter();
+});
 
 //轉換eye -> 顯示密碼
 let togglePassword = document.querySelector("#togglePassword");
@@ -367,48 +367,49 @@ function oninputCheckEmail(){
 
 
 /* 執行一鍵輸入*/
-// function oneClickToEnter(){
-//     /* 取消變顏色*/
-//     console.log('onmousedown')
-//     let errorNodes = document.getElementsByClassName('form-group error');
-//     let successNodes = document.getElementsByClassName('form-group success');
-//     for(let i = 0 ; i<errorNodes.length ; i++){
-//         errorNodes[i].className = 'form-group'
-//     }
-//     for(let i = 0 ; i<successNodes.length ; i++){
-//         successNodes[i].className = 'form-group'
-//     }
-//     /*塞入值到input框*/
-//     miAccount.value = randomAccount();
-//     miPassword.value = randomPassword();
-//     miName.value = randomName();
-//     miId.value = randomId();
-//     miBirth.value = randomBirth();
-//     miPhone.value = '0987993557';
-//     miEmail.value = 'email@mail.com';
-//     miCity.value = '臺北市';
-//     miCity.dispatchEvent(new Event('change')); //觸發change事件
-//
-//     miAddress.value = '羅斯福路三段126之5號';
-//     document.getElementById("check-roleADMIN").checked = true;
-//     document.getElementById("check-roleEMPLOYEE").checked = true;
-//     document.getElementById("check-roleACTIVE").checked = true;
-//     document.getElementById("check-roleUSER").checked = true;
-//
-//     document.getElementById("newcountry1").value = '台中市';
-//     document.getElementById("newdistrict1").setAttribute("data-value","大雅區");
-//
-//     // $(".city-selector-set").each(function() {
-//     // 	$(this).attr("data-value", "大雅區");
-//     // });
-//
-//     /* 重新把success加上去 */
-//     let nodes = document.getElementsByClassName('form-group');
-//     for(let i = 0 ; i<nodes.length ; i++){
-//         nodes[i].className = 'form-group success'
-//     }
-//
-// }
+function oneClickToEnter(){
+    /* 取消變顏色*/
+    // let errorNodes = document.getElementsByClassName('single-input-item error');
+    // let successNodes = document.getElementsByClassName('single-input-item success');
+    // for(let i = 0 ; i<errorNodes.length ; i++){
+    //     errorNodes[i].className = 'form-group'
+    // }
+    // for(let i = 0 ; i<successNodes.length ; i++){
+    //     successNodes[i].className = 'form-group'
+    // }
+
+    /*塞入值到input框*/
+    miAccount.value = 'eeit45group2';/*randomAccount();*/
+    miPassword.value = 'Aa123456';/*randomPassword();*/
+    miPassword2.value = 'Aa123456';/*randomPassword();*/
+    miName.value = '蛇姬';/*randomName();*/
+    miId.value = 'a123456789';/*randomId();*/
+    miBirth.value = '1977-09-03';/*randomBirth();*/
+    miPhone.value = '0987993557';
+    miEmail.value = 'jin991824@gmail.com';
+    miCity.value = '臺北市';
+    // miCity.dispatchEvent(new Event('change')); //觸發change事件
+
+    miAddress.value = '羅斯福路三段126之5號';
+    // document.getElementById("check-roleADMIN").checked = true;
+    // document.getElementById("check-roleEMPLOYEE").checked = true;
+    // document.getElementById("check-roleACTIVE").checked = true;
+    // document.getElementById("check-roleUSER").checked = true;
+
+    // document.getElementById("newcountry1").value = '台中市';
+    // document.getElementById("newdistrict1").setAttribute("data-value","大雅區");
+
+    // $(".city-selector-set").each(function() {
+    // 	$(this).attr("data-value", "大雅區");
+    // });
+
+    /* 重新把success加上去 */
+    // let nodes = document.getElementsByClassName('single-input-item');
+    // for(let i = 0 ; i<nodes.length ; i++){
+    //     nodes[i].className = 'single-input-item success'
+    // }
+
+}
 
 // function setDistrict(){
 //     console.log('onmouseup')

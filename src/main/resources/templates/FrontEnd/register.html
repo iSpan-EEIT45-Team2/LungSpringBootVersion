@@ -16,6 +16,12 @@
 
 <!-- _navbar -->
 <div th:include="FrontEnd/includes/navbar :: navbar"></div>
+<div id="oneClickBtnDiv">
+    <button type="button" id="oneClickEnter"
+            class="btn btn-sm btn-outline-primary"><i
+            class="fa-solid fa-check"></i>一鍵輸入
+    </button>
+</div>
 
 <!--</div>-->
 <!-- Header Section End -->
@@ -79,7 +85,7 @@
 
                         <div class="single-input-item m-b-30">
                             <label>會員密碼<span class="isEssential">*</span></label>
-                            <input th:field="*{miPassword}" type="password" class="form-control"
+                            <input th:field="*{miPassword}" id="miPassword" type="password" class="form-control"
                                     oninput="oninputCheckPassword()"/>
                             <i class="fa-solid fa-eye" id="togglePassword"></i>
                             <i class="fas fa-check-circle"></i>
