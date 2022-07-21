@@ -8,6 +8,28 @@
     <title>LungHi Peace登入</title>
     <div th:include="FrontEnd/includes/head :: head"></div>
     <link th:href="@{/BackEnd/css/login.css}" rel="stylesheet" type="text/css">
+    <!--jQuery-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <!--Bootstrap-->
+<!--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"></link>-->
+    <!--google login api-->
+    <script src="https://apis.google.com/js/platform.js" async="async"></script>
+    <meta name="google-signin-client_id" content="949331375315-4kuetli2rtqjh0ragjo98sffnnapkuc4.apps.googleusercontent.com"/>
+    <script>
+        // 登入之後
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile(),
+                target = document.getElementById("GOOGLE_STATUS_1"),
+                html = "";
+
+            html += "ID: " + profile.getId() + "<br/>";
+            html += "會員暱稱： " + profile.getName() + "<br/>";
+            html += "會員頭像：" + profile.getImageUrl() + "<br/>";
+            html += "會員 email：" + profile.getEmail() + "<br/>";
+            console.log(html);
+            target.innerHTML = html;
+        }
+    </script>
 
 </head>
 
@@ -15,30 +37,11 @@
 <!-- _navbar -->
 <div th:include="FrontEnd/includes/navbar :: navbar"></div>
 
-<!--主畫面開始-->
-<!-- Breadcrumb Area Start -->
-<!--<div class="section breadcrumb-area bg-name-bright">-->
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-12 text-center">-->
-<!--                <div class="breadcrumb-wrapper">-->
-<!--                    <h2 class="breadcrumb-title">登入</h2>-->
-<!--                    <ul>-->
-<!--                        <li><a href="index.html">首頁</a></li>-->
-<!--                        <li>登入</li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!-- Breadcrumb Area End -->
-
 <!-- Login Section Start -->
 <div class="section section-margin">
     <div class="container">
         <div class="row">
-            <div class="col-lg-7 col-md-8 m-auto">
+            <div class="col-lg-7 col-md-8 m-auto p-b-45">
                 <div class="login-wrapper">
 
                     <!-- Login Title & Content Start -->
@@ -70,7 +73,12 @@
                         <!-- Button/Forget Password Start -->
                         <div class="single-input-item m-b-15">
                             <div class="login-reg-form-meta m-b-n15">
-                                <button type="submit" class="btn btn btn-gray-deep btn-hover-primary m-b-15 loginbtn">Sign In</button>
+                                <!--登入、登出按鈕-->
+                                <a th:href="@{/oauth2/authorization/google}"><button type="button" class="btn btn login-with-google-btn m-b-15"> GOOGLE登入</button></a>
+
+<!--                                目前狀態：-->
+<!--                                <span id="GOOGLE_STATUS_1"></span>-->
+                                <button id="loginSubmitBtn" type="submit" class="btn btn btn-gray-deep btn-hover-primary m-b-15 m-l-20 ">登入</button>
 
                             </div>
                         </div>
@@ -78,10 +86,18 @@
 
                         <!-- Lost Password & Creat New Account Start -->
                         <div class="lost-password">
-                            <a href="#" class="forget-pwd m-b-15">忘記密碼</a>
+                            <a th:href="@{/FrontMember/forgetPassword}" class="forget-pwd m-b-15">忘記密碼</a>
                             <a th:href="@{/FrontMember/register}">註冊會員</a>
                         </div>
                         <!-- Lost Password & Creat New Account End -->
+                        <div class="single-input-item m-t-50">
+                            <div class="login-reg-form-meta m-b-n15">
+                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="adminLoginBtn">ADMIN</button>
+                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="employeeLoginBtn">EMPLOYEE</button>
+                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="activeLoginBtn">ACTIVE</button>
+                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="userLoginBtn">USER</button>
+                            </div>
+                        </div>
 
                     </form>
                     <!-- Form Action End -->
@@ -402,6 +418,36 @@
         this.classList.toggle('fa-eye-slash'); //轉換眼睛圖示
         password.focus();
     });
+
+    let username = document.getElementById("username");
+    let login = document.getElementById("login");
+    // let loginSubmitBtn = document.getElementById("loginSubmitBtn");
+
+    let adminLoginBtn = document.getElementById("adminLoginBtn");
+    adminLoginBtn.addEventListener("click",function (){
+        username.value = "admin";
+        password.value = "admin";
+        login.submit();
+    })
+
+    let employeeLoginBtn = document.getElementById("employeeLoginBtn");
+    employeeLoginBtn.addEventListener("click",function (){
+        username.value = "employee";
+        password.value = "employee";
+        login.submit();
+    })
+    let activeLoginBtn = document.getElementById("activeLoginBtn");
+    activeLoginBtn.addEventListener("click",function (){
+        username.value = "active";
+        password.value = "active";
+        login.submit();
+    })
+    let userLoginBtn = document.getElementById("userLoginBtn");
+    userLoginBtn.addEventListener("click",function (){
+        username.value = "user";
+        password.value = "user";
+        login.submit();
+    })
 
 </script>
 

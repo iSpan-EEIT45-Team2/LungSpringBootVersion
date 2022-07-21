@@ -16,12 +16,14 @@ document.getElementById('navbarHeadshot').addEventListener('mouseover', function
                 navbarMemberCenterBtn.style.display = 'none';
                 navbarLogoutBtn.style.display = 'none';
             }
-        }
-    };
-    xhr.open("GET", "/Lung/memberInfo/checkUserLogin", true);
-    xhr.send();
+        };
+        xhr.open("GET", "/Lung/memberInfo/checkUserLogin", true);
+        xhr.send();
+    }
 });
-/*--------------------END前台首頁navbar會員頭貼下的三個btn-------------------*/
+    
+    /*--------------------END前台首頁navbar會員頭貼下的三個btn-------------------*/
+
 
 
 

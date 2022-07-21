@@ -170,10 +170,9 @@ function onblurCheckOldPassword(){
 }
 
 
-
-
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 /* 修改會員密碼 */
-document.getElementById('btnUpdatePassword').addEventListener('click', function () {
+/*document.getElementById('btnUpdatePassword').addEventListener('click', function () {
     // TODO ------if(onblurCheckOldPassword() === true){
         let xhr1 = new XMLHttpRequest();
         let pwdToSave = {
@@ -181,25 +180,53 @@ document.getElementById('btnUpdatePassword').addEventListener('click', function 
         }
         let jsonString = JSON.stringify(pwdToSave);
         console.log(jsonString);
-        xhr1.onreadystatechange = function () {
+
+        xhr1.onreadystatechange = async function () {
             // 向伺服器提出的請求已經收到回應
             if (xhr1.readyState === 4 && xhr1.status === 200) {
                 console.log("修改會員密碼 responseText:" + xhr1.responseText);
                 let obj = JSON.parse(xhr1.responseText);
 
                 // console.log("obj: " + obj.success);
-                if(obj.success === 'success'){
+                if (obj.success === 'success') {
                     Swal.fire({
                         icon: 'success',
                         title: '修改密碼成功囉!',
                     })
+                    await sleep(800);
                 }
             }
         }
         xhr1.open("POST", "/Lung/FrontMember/savePasswordforUpdate", true);
-        xhr1.setRequestHeader("Content-type", "application/json");
+        // xhr1.setRequestHeader("Content-type", "application/json");
         xhr1.send(jsonString);
     // }
+})*/
+
+document.getElementById('btnUpdatePassword').addEventListener('click', function () {
+    // TODO ------if(onblurCheckOldPassword() === true){
+
+    $.ajax({
+        type: 'POST',
+        url: '/Lung/FrontMember/savePasswordforUpdate',
+        dataType: "json",
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify({"newPassword": document.getElementById('miPassword2').value.trim()}),
+        success: function (result) {
+            if (result.success === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: '修改密碼成功囉!',
+                })
+            }
+            //alert('Data Saved: ' + msg);
+            //console.log(msg);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+        }
+    });
 })
 
 

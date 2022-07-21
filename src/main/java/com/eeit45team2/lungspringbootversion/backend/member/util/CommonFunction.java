@@ -60,7 +60,8 @@ public class CommonFunction {
 
 
     /* tomcat下路徑 */
-    private byte[] getServerFileToByteArray(String path) {
+    //有問題: 每次都產生暫時目錄
+    public byte[] getServerFileToByteArray(String path) {
         byte[] result = null;
         try (InputStream is = ctx.getResourceAsStream(path);
              ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
