@@ -39,18 +39,12 @@ public class MemberController {
 
 	String imageLocation = "resources\\images\\memberHeadshot";
 	String memberHeadshotDir = "./src/main/resources/static/BackEnd/images/memberHeadshot/";
-	
+
 	@Autowired
 	public MemberController(MemberService memberService,ServletContext ctx) {
 		this.memberService = memberService;
 		this.ctx = ctx;
 	}
-
-
-
-
-
-
 
 	@GetMapping("/memberlist")  // 查詢(用GET)
 	public String listMembers(Model model) {
@@ -174,7 +168,7 @@ public class MemberController {
 		}else {
 		// 有會員資料
 			String localfilename = member.getLocalfileName();
-//			Blob image = member.getImage();
+			Blob image = member.getImage();
 			// 有local檔名 -> 因為csv直接匯入 || 有新增照片
 			if(localfilename != null) {
 				// 設定ResponseHeaders
@@ -186,11 +180,16 @@ public class MemberController {
 					headers.setContentType(mediaType);
 				}
 				// 設定ResponseBody
-//				body = getServerFileToByteArray("/resources/images/memberHeadshot" + localfilename);  //有問題: 每次都產生暫時目錄
-				body = commonFunction.blobToByteArray(member.getImage()); // 改成抓DB圖片
+				if(image!=null){
+					// 有圖片就抓圖片
+					body = commonFunction.blobToByteArray(member.getImage()); // 改成抓DB圖片
+				}else{
+					// 沒圖片就抓檔名
+					body = commonFunction.getProjectFileToByteArray(memberHeadshotDir + localfilename);
+				}
 			}else {
 			//沒有local檔名 -> 新增不傳圖片 -> 所以要顯示預設圖片
-				body = commonFunction.getProjectFileToByteArray(".\\src\\main\\resources\\static\\BackEnd\\images\\memberHeadshot\\defaultHeadshot.jpg");  //如果圖片為空，就上傳預設圖片
+				body = commonFunction.getProjectFileToByteArray(memberHeadshotDir + "defaultHeadshot.jpg");
 			}
 			responseEntity = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
 			return responseEntity;

@@ -8,6 +8,28 @@
     <title>LungHi Peace登入</title>
     <div th:include="FrontEnd/includes/head :: head"></div>
     <link th:href="@{/BackEnd/css/login.css}" rel="stylesheet" type="text/css">
+    <!--jQuery-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <!--Bootstrap-->
+<!--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"></link>-->
+    <!--google login api-->
+    <script src="https://apis.google.com/js/platform.js" async="async"></script>
+    <meta name="google-signin-client_id" content="949331375315-4kuetli2rtqjh0ragjo98sffnnapkuc4.apps.googleusercontent.com"/>
+    <script>
+        // 登入之後
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile(),
+                target = document.getElementById("GOOGLE_STATUS_1"),
+                html = "";
+
+            html += "ID: " + profile.getId() + "<br/>";
+            html += "會員暱稱： " + profile.getName() + "<br/>";
+            html += "會員頭像：" + profile.getImageUrl() + "<br/>";
+            html += "會員 email：" + profile.getEmail() + "<br/>";
+            console.log(html);
+            target.innerHTML = html;
+        }
+    </script>
 
 </head>
 
@@ -15,30 +37,11 @@
 <!-- _navbar -->
 <div th:include="FrontEnd/includes/navbar :: navbar"></div>
 
-<!--主畫面開始-->
-<!-- Breadcrumb Area Start -->
-<!--<div class="section breadcrumb-area bg-name-bright">-->
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-12 text-center">-->
-<!--                <div class="breadcrumb-wrapper">-->
-<!--                    <h2 class="breadcrumb-title">登入</h2>-->
-<!--                    <ul>-->
-<!--                        <li><a href="index.html">首頁</a></li>-->
-<!--                        <li>登入</li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!-- Breadcrumb Area End -->
-
 <!-- Login Section Start -->
 <div class="section section-margin">
     <div class="container">
         <div class="row">
-            <div class="col-lg-7 col-md-8 m-auto">
+            <div class="col-lg-7 col-md-8 m-auto p-b-45">
                 <div class="login-wrapper">
 
                     <!-- Login Title & Content Start -->
@@ -70,7 +73,12 @@
                         <!-- Button/Forget Password Start -->
                         <div class="single-input-item m-b-15">
                             <div class="login-reg-form-meta m-b-n15">
-                                <button type="submit" class="btn btn btn-gray-deep btn-hover-primary m-b-15 loginbtn">Sign In</button>
+                                <!--登入、登出按鈕-->
+                                <a th:href="@{/oauth2/authorization/google}"><button type="button" class="btn btn login-with-google-btn m-b-15"> GOOGLE登入</button></a>
+
+<!--                                目前狀態：-->
+<!--                                <span id="GOOGLE_STATUS_1"></span>-->
+                                <button id="loginSubmitBtn" type="submit" class="btn btn btn-gray-deep btn-hover-primary m-b-15 m-l-20 ">登入</button>
 
                             </div>
                         </div>
@@ -78,10 +86,18 @@
 
                         <!-- Lost Password & Creat New Account Start -->
                         <div class="lost-password">
-                            <a href="#" class="forget-pwd m-b-15">忘記密碼</a>
-                            <a th:href="@{/Front/register}">註冊會員</a>
+                            <a th:href="@{/FrontMember/forgetPassword}" class="forget-pwd m-b-15">忘記密碼</a>
+                            <a th:href="@{/FrontMember/register}">註冊會員</a>
                         </div>
                         <!-- Lost Password & Creat New Account End -->
+                        <div class="single-input-item m-t-50">
+                            <div class="login-reg-form-meta m-b-n15">
+                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="adminLoginBtn">ADMIN</button>
+                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="employeeLoginBtn">EMPLOYEE</button>
+                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="activeLoginBtn">ACTIVE</button>
+                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="userLoginBtn">USER</button>
+                            </div>
+                        </div>
 
                     </form>
                     <!-- Form Action End -->
@@ -93,99 +109,7 @@
 </div>
 <!-- Login Section End -->
 
-<!-- Footer Section Start -->
-<footer class="section footer-section">
-    <!-- Footer Top Start -->
-    <div class="footer-top bg-name-bright section-padding">
-        <div class="container">
-            <div class="row m-b-n40">
-                <div class="col-12 col-sm-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="1000">
-                    <div class="single-footer-widget">
-                        <h1 class="widget-title">About Us</h1>
-                        <p class="desc-content">Lorem ipsum dolor sit amet, co adipisi elit, sed eiusmod tempor incididunt ut labore et dolore</p>
-                        <!-- Soclial Link Start -->
-                        <div class="widget-social justify-content-start m-b-n10">
-                            <a title="Twitter" href="#/"><i class="icon-social-twitter"></i></a>
-                            <a title="Instagram" href="#/"><i class="icon-social-instagram"></i></a>
-                            <a title="Linkedin" href="#/"><i class="icon-social-linkedin"></i></a>
-                            <a title="Skype" href="#/"><i class="icon-social-skype"></i></a>
-                            <a title="Dribble" href="#/"><i class="icon-social-dribbble"></i></a>
-                        </div>
-                        <!-- Social Link End -->
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="1200">
-                    <div class="single-footer-widget">
-                        <h2 class="widget-title">Useful Links</h2>
-                        <ul class="widget-list">
-                            <li><a href="wishlist.html">Help & Contact Us</a></li>
-                            <li><a href="contact.html">Returns & Refunds</a></li>
-                            <li><a href="contact.html">Online Stores</a></li>
-                            <li><a href="contact.html">Terms & Conditions</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="1400">
-                    <div class="single-footer-widget">
-                        <h2 class="widget-title">Help</h2>
-                        <ul class="widget-list">
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="contact.html">Pricing Plans</a></li>
-                            <li><a href="contact.html">Order Traking</a></li>
-                            <li><a href="contact.html">Returns</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3 m-b-40" data-aos="fade-up" data-aos-duration="1600">
-                    <div class="single-footer-widget">
-                        <h2 class="widget-title">Send newsletter</h2>
-                        <div class="widget-body">
-                            <p class="desc-content m-b-20">Subscribe to our newsletter and get 10% off your first purchase..</p>
-                            <!-- Newsletter Form Start -->
-                            <div class="newsletter-form-wrap p-t-5">
-                                <form id="mc-form" class="mc-form">
-                                    <input type="email" id="mc-email" class="form-control email-box" placeholder="demo@example.com" name="EMAIL">
-                                    <button id="mc-submit" class="newsletter-btn" type="submit">Send</button>
-                                </form>
-                                <!-- mailchimp-alerts Start -->
-                                <div class="mailchimp-alerts text-centre">
-                                    <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                    <div class="mailchimp-success text-success"></div><!-- mailchimp-success end -->
-                                    <div class="mailchimp-error text-danger"></div><!-- mailchimp-error end -->
-                                </div>
-                                <!-- mailchimp-alerts end -->
-                            </div>
-                            <!-- Newsletter Form End -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer Top End -->
-
-    <!-- Footer Bottom Start -->
-    <div class="footer-bottom bg-name-light p-t-20 p-b-20">
-        <div class="container">
-            <div class="row align-items-center m-b-n20">
-                <div class="col-md-6 text-center text-md-start order-2 order-md-1 m-b-20">
-                    <div class="copyright-content">
-                        <p class="mb-0">Copyright &copy; 2021.Company name All rights reserved.<a target="_blank" href="https://sc.51qianduan.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
-                    </div>
-                </div>
-                <div class="col-md-6 text-center text-md-end order-1 order-md-2 m-b-20">
-                    <div class="payment">
-                        <a href="#/">
-                            <img class="fit-image" src="assets/images/payment/payment_large.png" alt="Payment">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer Bottom End -->
-</footer>
-<!-- Footer Section End -->
+<div th:include="BackEnd/includes/footer :: footer"></div>
 
 <!-- Modal Start  -->
 <div class="modalquickview modal fade" id="quick-view" tabindex="-1" aria-labelledby="quick-view" role="dialog" aria-hidden="true">
@@ -494,6 +418,36 @@
         this.classList.toggle('fa-eye-slash'); //轉換眼睛圖示
         password.focus();
     });
+
+    let username = document.getElementById("username");
+    let login = document.getElementById("login");
+    // let loginSubmitBtn = document.getElementById("loginSubmitBtn");
+
+    let adminLoginBtn = document.getElementById("adminLoginBtn");
+    adminLoginBtn.addEventListener("click",function (){
+        username.value = "admin";
+        password.value = "admin";
+        login.submit();
+    })
+
+    let employeeLoginBtn = document.getElementById("employeeLoginBtn");
+    employeeLoginBtn.addEventListener("click",function (){
+        username.value = "employee";
+        password.value = "employee";
+        login.submit();
+    })
+    let activeLoginBtn = document.getElementById("activeLoginBtn");
+    activeLoginBtn.addEventListener("click",function (){
+        username.value = "active";
+        password.value = "active";
+        login.submit();
+    })
+    let userLoginBtn = document.getElementById("userLoginBtn");
+    userLoginBtn.addEventListener("click",function (){
+        username.value = "user";
+        password.value = "user";
+        login.submit();
+    })
 
 </script>
 

@@ -71,11 +71,14 @@ public class MemberBean {
 //	private String type = UserAuthority.USER.getUserAuthority();
 
 
-	@Column(columnDefinition = "NVARCHAR(100) NOT NULL")
+	@Column(columnDefinition = "NVARCHAR(100)")
 	String miGender;
 
 	@Column(columnDefinition = "NVARCHAR(2) NOT NULL")
 	String miActive;
+
+	@Column(columnDefinition = "NVARCHAR(50)")
+	String miLoginType;  // Google 或 Normal
 
 	//All Constructor  //9個欄位
 

@@ -9,4 +9,6 @@ public interface ProductRepository extends JpaRepository<ProductBean, Integer> {
     //Repository 儲存區
 //    Optional<ProductBean> findById(Long id);
     ProductBean findProductBeansById(Integer id);
+
+//    ProductBean findByItems(String items);
 }

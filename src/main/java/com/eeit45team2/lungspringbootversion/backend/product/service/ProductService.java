@@ -21,6 +21,8 @@ public interface ProductService {
 
     ProductBean getProducts(int id);
 
+//    public ProductBean FindByItems(String items);
+
 
 }
 

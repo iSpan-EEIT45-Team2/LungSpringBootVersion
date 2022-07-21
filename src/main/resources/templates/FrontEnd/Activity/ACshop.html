@@ -20,7 +20,7 @@
                 <div class="single-blog-wrapper">
                     <!-- Blog Thumb Start -->
                     <div class="blog-thumb thumb-effect">
-                        <a class="image" href="blog-details.html">
+                        <a class="image" th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }">
                             <img class="fit-image" th:src="@{/image3/{id}(id=${activity.localFileName})}" alt="Blog Image">
                         </a>
                     </div>
@@ -29,14 +29,21 @@
                     <div class="blog-content">
                         <div class="blog-meta">
                             <ul>
-                                <li><span>By</span><span th:text="${activity.ac_organizer}"></span><a href="#/"></a></li>
+                                <li><span>主辦單位: </span><span th:text="${activity.ac_organizer}"></span><a href="#/"></a></li>
                                 <li><span th:text="${activity.ac_date}"></span></li>
                             </ul>
                         </div>
                         <h2 class="blog-title" th:text="${activity.ac_name}"><a href="blog-details.html"></a></h2>
                         <p th:text="${activity.ac_participant}"></p>
-                        <a class="more-link" th:href="@{'/viewForm/' + ${activity.ac_id} }">Read More</a>
+                        <a class="more-link" th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }">更多內容</a>
                     </div>
+
+                    <!-- Submit Button Start -->
+                    <div class="col-12 col-custom m-t-20">
+                        <button type="submit" class="btn btn-primary btn-hover-dark">立即報名</button>
+                        <button type="submit" class="btn btn-info btn-hover-gray-deep">加入收藏</button>
+                    </div>
+                    <!-- Submit Button End -->
                     <!-- Blog Content End -->
                 </div>
                 <!-- Single Blog End -->
@@ -223,7 +230,8 @@
             <i class="arrow-bottom ti-angle-double-up"></i>
         </a>
         <!-- Scroll Top End -->
-
+        <!-- Breadcrumb Area End -->
+        <div th:include="BackEnd/includes/footer :: footer"></div>
         <!-- Mobile Menu Start -->
         <div class="mobile-menu-wrapper">
             <div class="offcanvas-overlay"></div>

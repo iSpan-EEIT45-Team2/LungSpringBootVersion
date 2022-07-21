@@ -4,14 +4,13 @@ import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
 import com.eeit45team2.lungspringbootversion.backend.order.model.Cart;
 import com.eeit45team2.lungspringbootversion.backend.order.service.OrderService;
+import com.eeit45team2.lungspringbootversion.backend.product.model.ProductBean;
 import com.eeit45team2.lungspringbootversion.backend.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
@@ -70,6 +69,21 @@ public class ProductControllerF {
         model.addAttribute("MiEmail", memberBean.getMiEmail());
         return "FrontEnd/Shop/CheckOut";
     }
+
+    @GetMapping("/productDetail/{id}")
+    public ModelAndView showFormForView(@PathVariable Integer id) {
+        ModelAndView mav1 = new ModelAndView("/FrontEnd/Product/single-product");
+        ProductBean productBean = productService.FindById(id);
+        mav1.addObject("product", productBean);
+        return mav1;
+    }
+
+//    @GetMapping("/products")
+//    public String showProducts(@ModelAttribute("cart") Cart cart, Model model, Principal principal,String items) {
+//        model.addAttribute("products", productService.FindByItems(items));
+//        return "FrontEnd/Shop/shop";
+//
+//    }
 
 
     @ModelAttribute

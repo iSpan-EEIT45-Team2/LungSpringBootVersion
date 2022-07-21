@@ -32,12 +32,12 @@ public class StatisticController {
         //第一步
         List<MemberBean> memberBeans = memberService.findAll();
         List<AnnounceBean> announceBeans = announceService.findAll();
-        List<AbDogBean> abDogBeans = abDogService.abdoglistAll("keyword");
+//        List<AbDogBean> abDogBeans = abDogService.abdoglistAll("keyword");
 
         //第二步
         int sumMember =0;
         int sumAnnounce =0;
-        int sumAnimal =0;
+//        int sumAnimal =0;
 
         //第三步
         for (MemberBean memberBean : memberBeans) {
@@ -46,14 +46,14 @@ public class StatisticController {
         for (AnnounceBean announceBean : announceBeans) {
             sumAnnounce++;
         }
-        for (AbDogBean abDogBean : abDogBeans) {
-            sumAnimal++;
-        }
+//        for (AbDogBean abDogBean : abDogBeans) {
+//            sumAnimal++;
+//        }
         // 第四步
         Map<String, Integer> conuntAll = new HashMap<String, Integer>();
         conuntAll.put("sumMember",sumMember);
         conuntAll.put("sumAnnounce",sumAnnounce);
-        conuntAll.put("sumAnimal",sumAnimal);
+//        conuntAll.put("sumAnimal",sumAnimal);
 
 
         return conuntAll;
