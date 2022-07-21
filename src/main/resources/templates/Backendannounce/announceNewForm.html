@@ -43,13 +43,20 @@
                                   method="post"
                                   th:object="${announce}">
 
+                                <div>
+                                    <label>公告圖片 </label>
+                                    <input type="file" name="image" accept="image/png, image/jpeg" />
+                                    <input type="hidden" th:field="*{anPhoto}" id="anPhoto" />
+                                    <!-- <input type="text" th:field="*{anphoto}" class="form-control" id="anphoto"/>-->
+                                </div>
                                 <div class="form-group">
                                     <label>公告標題</label>
                                     <input type="text" th:field="*{anTitle}" class="form-control" id="anTitle"/>
                                 </div>
                                 <div class="form-group">
                                     <label> <span>公告內容</span>
-                                        <input type="text" th:field="*{anContent}" class="form-control" id="anContent"/>
+                                        <!--<input type="text" th:field="*{anContent}" class="form-control" id="anContent"/>-->
+                                        <textarea th:field="*{anContent}" class="form-control" id="anContent" style="width: 450px; height:100px"></textarea>
                                     </label>
                                 </div>
 
@@ -57,6 +64,7 @@
                                 <div class="form-group">
                                     <label> <span>公告類型</span>
                                         <select th:field="*{anType}" class="js-example-basic-single w-100 select2-hidden-accessible" id="anType">
+                                            <option value="">請選擇</option>
                                             <option value="新聞">新聞</option>
                                             <option value="教育">教育</option>
                                         </select>
@@ -64,9 +72,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>編輯者</label>
-                                    <select th:field="*{anEditor}"
-                                            class="js-example-basic-single w-100 select2-hidden-accessible"
-                                            id="anEditor">
+                                    <select th:field="*{anEditor}" class="js-example-basic-single w-100 select2-hidden-accessible" id="anEditor">
+                                        <option value="">請選擇</option>
                                         <option value="亭妤">亭妤</option>
                                         <option value="鴻銘">鴻銘</option>
                                         <option value="毓蓉">毓蓉</option>
@@ -81,10 +88,12 @@
 
                                 </div>
 
-                                <button type="button" class="btn btn-warning me-2" onclick="add();"><i
-                                        class="bi bi-send"></i>送出
+                                <button type="button" class="btn btn-warning me-2" onclick="add();">
+                                    <i class="bi bi-send"></i>送出
                                 </button>
-                                <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>
+                                <button type="button" class="btn btn-light" onclick="cancel();">取消</button>
+                                <button type="button" class="btn btn-light" onclick="quickData();">一鍵輸入</button>
+                                <button type="rest" class="btn btn-light">重置</button>
                             </form>
                         </div>
                     </div>
@@ -107,11 +116,19 @@
 
     function add() {
         var form = document.getElementById("form").value;
+        var anPhoto = document.getElementById("anPhoto").value;
         var anTitle = document.getElementById("anTitle").value;
         var anContent = document.getElementById("anContent").value;
         var anType = document.getElementById("anType").value;
         var anEditor = document.getElementById("anEditor").value;
         var anDate = document.getElementById("anDate").value;
+        if (anPhoto == null || anPhoto == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入公告圖片！！',
+            })
+            return;
+        }
         if (anTitle == null || anTitle == ''){
             Swal.fire({
                 icon: 'error',
@@ -169,6 +186,34 @@
         })
 
     }
+
+    function quickData() {
+        // 各欄位預設內容
+        let titles = [
+            '終養不棄養',
+            '推動大規模犬貓絕育計畫'
+        ];
+        let contents = [
+            '根據統計全台飼養寵物戶數約計200餘萬戶，2021年全台犬貓數量已達到295萬隻，寵物產業更創造出超過新台幣500億元的產值！但根據農委會推估，2020年統計遊蕩犬隻數卻也增加至15.5萬隻，全國收容所在養量比例平均已達91%，多個地方縣市收容比例已超過100%，隨著毛孩數量逐年上漲，不當棄養或錯誤動物保護觀念而衍生的社會問題，尚未獲得大眾的關注。毛孩飼養數已高過嬰兒出生率　不當棄養情形日漸衍生。工商時報善盡社會責任，自7月1日起邀請中華民國保護動物協會、中華民國流浪動物花園協會、台灣之心愛護動物協會、台灣防止虐待動物協會、台灣懷生相信動物協會、流浪動物之家基金會，六家公益團體共同聯名宣導「終養不棄養」的公益動保理念，期望透過推廣正確的飼養、動保觀念，讓大家共同關注這個問題。',
+            '透過推動大規模犬貓絕育行動，並搭配教育推廣及政策倡議，達到遊蕩犬貓族群控制的效果。台灣之心行動足跡遍布全台，深入到動物醫療資源缺乏的偏區及離島，為的就是解決這些地方的犬貓不斷繁殖生育的問題。台灣之心自2013年起，多次前往屏東縣進行駐紮任務及下鄉絕育行動。希望透過將絕育資源帶進偏鄉，實際解決民眾因犬貓因發情、繁殖帶來的困擾。志工表示，犬貓絕育活動的目標對象，主要是針對遊蕩在外、高繁殖風險的放養型家犬貓及無主流浪犬貓，藉由為牠們絕育，從源頭減少流浪犬貓產生的機會。除絕育外，活動中也會為家犬貓施打晶片及狂犬病疫苗，落實飼主責任。'
+        ];
+        let titleIndex = Math.floor(Math.random() * 2); // 若有新增預設標題及內容, 這裡的數字也要修正成對應的數量
+        let types = ['新聞', '教育'];
+        let editors = ['亭妤', '鴻銘', '毓蓉', '容緯', '奕成', '鄭漢'];
+        let now = new Date();
+        let nowYear = now.getFullYear();
+        let nowMonth = now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1;
+        let nowDay = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
+        let today = nowYear + '-' + nowMonth + '-' + nowDay;
+        // 各個欄位給值
+        document.getElementById('anPhoto').value = 'cat13.jpg';
+        document.getElementById('anTitle').value = titles[titleIndex];
+        document.getElementById('anContent').value = contents[titleIndex];
+        document.getElementById('anType').value = types[Math.floor(Math.random() * 2)];
+        document.getElementById('anEditor').value = editors[Math.floor(Math.random() * 6)];
+        document.getElementById('anDate').value = today;
+    }
 </script>
 </body>
 </html>
+

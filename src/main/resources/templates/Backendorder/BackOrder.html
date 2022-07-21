@@ -53,36 +53,50 @@
                             <table class="table table-hover" id="datatable">
                                 <thead>
                                 <tr>
+                                    <th>訂單ID</th>
                                     <th>訂單編號</th>
-                                    <th>商品名稱</th>
-                                    <th>商品目錄</th>
-                                    <th>訂單內容</th>
-                                    <th>訂單規格</th>
-                                    <th>訂單數量</th>
+                                    <th>訂購會員</th>
+                                    <th>訂單日期</th>
+                                    <th>付款方式</th>
                                     <th>訂單金額</th>
-                                    <th>test</th>
+                                    <th>訂單狀態</th>
+                                    <th>訂單明細</th>
                                     <th>訂單操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="order : ${orders}">
-                                    <td th:text="${order.od_id}"/>
-                                    <td th:text="${order.od_name}"/>
-                                    <td th:text="${order.od_catalogue}"/>
-                                    <td th:text="${order.od_content}"/>
-                                    <td th:text="${order.od_amount}"/>
-                                    <td th:text="${order.od_number}"/>
-                                    <td th:text="${order.od_money}"/>
-                                    <td><label class="badge badge-danger">未付款</label></td>
+                                    <td th:text="${order.orderId}"/>
+                                    <td th:text="${order.orderNo}"/>
+                                    <td th:text="${order.memberBean.miAccount}"/>
+                                    <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}"/>
+                                    <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}"/>
+                                    <td th:text="|NT$${order.totalPrice}|"/>
+                                    <td th:text="${order.orderStatus.code}"/>
                                     <td>
-                                        <a th:href="@{'/Backendorder/updateForm/' + ${order.od_id} }"
-                                           class="btn btn-sm btn-success"><i
-                                                class="bi bi-pencil-fill"></i></a>
-                                        <button class="btn btn-sm btn-danger"
-                                                th:onclick="deleteajax([[${order.od_id}]])" type="button"
-                                                id="deleteajax"><i class="bi bi-trash-fill"></i>
+                                        <button class="btn btn-sm btn-info"
+                                                th:onclick="|showAlert(${order.orderId})|" type="button"
+                                        ><i class="bi bi-info-circle"></i>
                                         </button>
                                     </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-secondary"
+                                                th:if="${order.orderStatus.code} == '待出貨'" type="button"
+                                                th:attr="onclick=|shipAlert('${order.orderNo}')|"
+                                        ><i class="bi bi-truck"></i>出貨
+                                        </button>
+                                        <button class="btn btn-sm btn-danger"
+                                                th:if="${order.orderStatus.code} == '退款審核中'" type="button"
+                                                th:attr="onclick=|refundingAlert('${order.orderNo}')|"
+                                        ><i class="bi bi-x"></i>退款處理
+                                        </button>
+                                        <button class="btn btn-sm btn-danger"
+                                                th:onclick="|deleteAlert(${order.orderId})|" type="button"
+                                        ><i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </td>
+
+
                                 </tr>
                                 </tbody>
                             </table>
@@ -105,54 +119,12 @@
 <!-- Js匯入 -->
 <!-- plugins:js -->
 <div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
+<script th:src="@{/BackEnd/js/order.js}"></script>
 <!-- End custom js for this page-->
 
 <!-- 寫自己的Js -->
 <script>
 
-    function deleteajax(od_id) {
-        console.log(od_id);
-        Swal.fire({
-            title: '請問是否要刪除此訂單?',
-            text: "已刪除的訂單無法復原，請再次確認",
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonText: '取消',
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: '刪除'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "get",
-                    url: "/Lung/Backendorder/delete/" + od_id,
-
-                    success: function (msg) {
-                        Swal.fire(
-                            '已刪除!',
-                            '訂單已成功刪除!',
-                            'success'
-                        ).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
-                            }
-                        })
-                    },
-                    error: function (msg) {
-                        // console.log(msg.status)
-                        Swal.fire({
-                            icon: 'error',
-                            title: '發生錯誤',
-                            text: 'HTTP 狀態碼為 ' + msg.status,
-                            footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">怎麼有這錯誤?</a>'
-                        })
-                    }
-                });
-
-
-            }
-        })
-    }
 
 </script>
 </body>

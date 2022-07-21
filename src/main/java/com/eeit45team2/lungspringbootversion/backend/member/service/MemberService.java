@@ -11,17 +11,24 @@ public interface MemberService {
 	
 	//save
 	public void save(MemberBean theMemberBean);
+
+	/* 專門for前台重設密碼使用 */
+	public void save(MemberBean theMemberBean, String newPassword);
 	
 	//findById
-	public MemberBean findById(Long mi_no);
+	public MemberBean findById(Long miNo);
 	
 	//delete
-	public void delete(Long mi_no);
+	public void delete(Long miNo);
 
-	public void testDelete(String mi_no);
+	public void testDelete(String miNo);
 
 	public Boolean existsByMiAccount(String miAccount);
 
 	public MemberBean findByMiAccount(String miAccount);
+
+
+
+	public MemberBean saveHeadshotInDB(MemberBean memberBean, Boolean isInsert);
 	
 }

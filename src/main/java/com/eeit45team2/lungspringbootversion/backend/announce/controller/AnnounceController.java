@@ -1,9 +1,7 @@
 package com.eeit45team2.lungspringbootversion.backend.announce.controller;
 
-import com.eeit45team2.lungspringbootversion.backend.animal.model.AdDogBean;
 import com.eeit45team2.lungspringbootversion.backend.announce.model.AnnounceBean;
 import com.eeit45team2.lungspringbootversion.backend.announce.service.AnnounceService;
-import com.eeit45team2.lungspringbootversion.backend.order.model.OrderBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,11 +24,18 @@ public class AnnounceController {
 		return "/Backendannounce/announce";
 	}
 
+	@GetMapping("/announcelist2")
+	public String listAnnounce2(Model model) {
+		List<AnnounceBean> announceBeans = announceService.findAll();
+		model.addAttribute("announces2", announceBeans);
+		return "/FrontEnd/announce/announce";
+	}
+
 	@RequestMapping("/showForm")
 	public String showFormForAdd(Model model) {
 		AnnounceBean announceBean = new AnnounceBean();
 		model.addAttribute("announce", announceBean);
-		return "/Backendannounce/announceNewForm";
+		return "Backendannounce/announceNewForm";
 	}
 
 
@@ -52,6 +57,14 @@ public class AnnounceController {
 	public String deleteAnnounce(@PathVariable Long anNO) {
 		announceService.delete(anNO);
 		return "redirect:/announcelist";
+	}
+
+	@GetMapping("/viewForm/{anNO}")
+	public ModelAndView showFormForView(@PathVariable Long anNO) {
+		ModelAndView mav1 = new ModelAndView("/FrontEnd/announce/announceDetail");
+		AnnounceBean announceBean = announceService.FindById(anNO);
+		mav1.addObject("announce",announceBean);
+		return mav1;
 	}
 }
 

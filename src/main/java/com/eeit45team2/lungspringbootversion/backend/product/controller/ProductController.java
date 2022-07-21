@@ -1,77 +1,70 @@
 package com.eeit45team2.lungspringbootversion.backend.product.controller;
 
 
-
-import com.eeit45team2.lungspringbootversion.backend.product.util.FileUploadUtil;
 import com.eeit45team2.lungspringbootversion.backend.product.model.ProductBean;
 import com.eeit45team2.lungspringbootversion.backend.product.service.ProductService;
+import com.eeit45team2.lungspringbootversion.backend.product.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
-import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletContext;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.util.*;
+import java.util.List;
 
 @Controller
 @RequestMapping("/Backendproduct")
 public class ProductController {
 
 
+    @Autowired
+    private ProductService productService;
 
-	@Autowired
-	private ProductService productService;
+    @Autowired
+    ServletContext ctx;
 
-	@Autowired
-	ServletContext ctx;
+    String imageLocation = "resources\\images\\productImage";
+    String uploadDir = "./src/main/resources/static/BackEnd/images/product/";
 
-	String imageLocation = "resources\\images\\productImage";
-	String uploadDir = "./src/main/resources/static/BackEnd/images/product/"  ;
-
-	@Autowired
-	public ProductController(ProductService productService, ServletContext ctx) {
-		this.productService = productService;
-		this.ctx = ctx;
-	}
+    @Autowired
+    public ProductController(ProductService productService, ServletContext ctx) {
+        this.productService = productService;
+        this.ctx = ctx;
+    }
 
 
-	@RequestMapping("/productlist")
-	public String listProduct(Model model) {
-		List<ProductBean> productBean = productService.findAll();
-		model.addAttribute("products", productBean);
-		return "/Backendproduct/product";
-	}
+    @RequestMapping("/productlist")
+    public String listProduct(Model model) {
+        List<ProductBean> productBean = productService.findAll();
+        model.addAttribute("products", productBean);
+        return "/Backendproduct/product";
+    }
 
-	@RequestMapping("/showForm")
-	public String showFormForAdd(Model model) {
-		ProductBean productBean = new ProductBean();
-		model.addAttribute("product", productBean);
-		return "/Backendproduct/productNewForm";
-	}
+    @RequestMapping("/showForm")
+    public String showFormForAdd(Model model) {
+        ProductBean productBean = new ProductBean();
+        model.addAttribute("product", productBean);
+        return "/Backendproduct/productNewForm";
+    }
 
-	@PostMapping("/saveProduct")
-	public String saveProduct(ProductBean productBean,
-							   @RequestParam("image") MultipartFile multipartFile) throws IOException {
+    @PostMapping("/saveProduct")
+    public RedirectView saveProduct(ProductBean productBean,
+                                    @RequestParam("image4") MultipartFile multipartFile) throws IOException {
 //		System.out.println("getImage: " + (ActivityBean.getImage()==null));
-		String fileName = System.currentTimeMillis() + "_" + StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		productBean.setLocalfileName(fileName);
-		productService.save(productBean);
-		String uploadDir = "./src/main/resources/static/BackEnd/images/product/"  ;
+        String fileName = System.currentTimeMillis() + "_" + StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        productBean.setLocalfileName(fileName);
+        productService.save(productBean);
+        String uploadDir = "./src/main/resources/static/BackEnd/images/product/";
 //		FileUploadUtil.saveFile(imageLocation, fileName, multipartFile);
-		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-		return "redirect:/Backendproduct/productlist";
-	}
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        return new RedirectView("/Backendproduct/productlist", true);
+//		return "redirect:/Backendproduct/productlist";
+    }
 
 
 
@@ -89,19 +82,19 @@ public class ProductController {
 		return "redirect:/productlist";
 	}*/
 
-	@GetMapping("/updateForm/{pd_id}")
-	public ModelAndView showFormForUpdate(@PathVariable Long pd_id) {
-		ModelAndView mav = new ModelAndView("Backendproduct/productEditForm");//指向orderEditForm.html
-		ProductBean productBean = productService.FindById(pd_id);
-		mav.addObject("product", productBean);
-		return mav;
-	}
+    @GetMapping("/updateForm/{id}")
+    public ModelAndView showFormForUpdate(@PathVariable Integer id) {
+        ModelAndView mav = new ModelAndView("Backendproduct/productEditForm");//指向orderEditForm.html
+        ProductBean productBean = productService.FindById(id);
+        mav.addObject("product", productBean);
+        return mav;
+    }
 
-	@GetMapping(value ="/delete/{pd_id}")
-	public String deleteProduct(@PathVariable Long pd_id){
-		productService.delete(pd_id);
-		return "redirect:/Backendproduct/productlist";
-	}
+    @GetMapping(value = "/delete/{id}")
+    public String deleteProduct(@PathVariable Integer id) {
+        productService.delete(id);
+        return "redirect:/Backendproduct/productlist";
+    }
 
 //	@GetMapping("/productpicture/{pd_id}")
 //	public ResponseEntity<byte[]> getPicture(@PathVariable("pd_id") Long pd_id) {
@@ -279,5 +272,5 @@ public class ProductController {
 //			System.out.println("刪除檔案有錯");
 //		}
 //	}
-	}
+}
 

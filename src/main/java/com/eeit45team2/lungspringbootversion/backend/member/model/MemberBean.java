@@ -2,9 +2,11 @@ package com.eeit45team2.lungspringbootversion.backend.member.model;
 
 import java.sql.Blob;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,38 +17,44 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "MemberTable",
-	uniqueConstraints = { @UniqueConstraint(columnNames = "mi_account") })
+	uniqueConstraints = { @UniqueConstraint(columnNames = "miAccount") })
 @Getter
 @Setter
 @ToString
 public class MemberBean {
 	@Id   //PK值
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  //SQL自動新增
-	Long mi_no;  // 會員編號
+	Long miNo;  // 會員編號
 	
 	@Column(columnDefinition = "NVARCHAR(50) NOT NULL")
-	String mi_name;  // 會員姓名
+	String miName;  // 會員姓名
 	
-	@Column(columnDefinition = "NVARCHAR(20) NOT NULL")
-	String mi_id;  // 會員身分證
+	@Column(columnDefinition = "NVARCHAR(20)")
+	String miId;  // 會員身分證
 	
 	@Column(columnDefinition = "DATE NOT NULL")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone="GMT+8")
-	Date mi_birth;  // 會員生日
+	Date miBirth;  // 會員生日
 	
 	@Column(columnDefinition = "NVARCHAR(20) NOT NULL")
-	String mi_phone;  // 會員電話
+	String miPhone;  // 會員電話
 	
 	@Column(columnDefinition = "NVARCHAR(50) NOT NULL")
-	String mi_email;  // 會員Email
+	String miEmail;  // 會員Email
+
+	@Column(columnDefinition = "NVARCHAR(10) NOT NULL")
+	String miCity;  // 會員縣市
+
+	@Column(columnDefinition = "NVARCHAR(20) NOT NULL")
+	String miDistrict;  // 會員鄉鎮市區
+
+	@Column(columnDefinition = "NVARCHAR(100) NOT NULL")
+	String miAddress;  // 會員地址
 	
 	@Column(columnDefinition = "NVARCHAR(100) NOT NULL")
-	String mi_address;  // 會員地址
-	
-	@Column(name="mi_account" , columnDefinition = "NVARCHAR(100) NOT NULL")
 	String miAccount;  // 會員帳號 //UK
 	
-	@Column(name="mi_password" ,columnDefinition = "NVARCHAR(500) NOT NULL")
+	@Column(columnDefinition = "NVARCHAR(500) NOT NULL")
 	String miPassword;  // 會員密碼
 	
 	
@@ -58,38 +66,25 @@ public class MemberBean {
 	@Transient
 	MultipartFile productImage;
 
-	@Column(name="TYPE", length=15, nullable=false)
-	private String type = UserAuthority.USER.getUserAuthority();
+	@Column(columnDefinition = "NVARCHAR(100) NOT NULL")
+	private String miRole;
+//	private String type = UserAuthority.USER.getUserAuthority();
 
+
+	@Column(columnDefinition = "NVARCHAR(100)")
+	String miGender;
+
+	@Column(columnDefinition = "NVARCHAR(2) NOT NULL")
+	String miActive;
+
+	@Column(columnDefinition = "NVARCHAR(50)")
+	String miLoginType;  // Google 或 Normal
 
 	//All Constructor  //9個欄位
-	public MemberBean(Long mi_no, String mi_name, String mi_id, Date mi_birth, String mi_phone, String mi_email,
-			String mi_address, String miAccount, String miPassword) {
-		super();
-		this.mi_no = mi_no;
-		this.mi_name = mi_name;
-		this.mi_id = mi_id;
-		this.mi_birth = mi_birth;
-		this.mi_phone = mi_phone;
-		this.mi_email = mi_email;
-		this.mi_address = mi_address;
-		this.miAccount = miAccount;
-		this.miPassword = miPassword;
-	}
+
 	
 	//Constructor without mi_no  //8個欄位
-	public MemberBean(String mi_name, String mi_id, Date mi_birth, String mi_phone, String mi_email, String mi_address,
-			String miAccount, String miPassword) {
-		super();
-		this.mi_name = mi_name;
-		this.mi_id = mi_id;
-		this.mi_birth = mi_birth;
-		this.mi_phone = mi_phone;
-		this.mi_email = mi_email;
-		this.mi_address = mi_address;
-		this.miAccount = miAccount;
-		this.miPassword = miPassword;
-	}
+
 	
 	// Constructor with account and password
 	public MemberBean(String miAccount, String miPassword) {
@@ -98,9 +93,9 @@ public class MemberBean {
 		this.miPassword = miPassword;
 	}
 
-	public MemberBean(Long mi_no) {
+	public MemberBean(Long miNo) {
 		super();
-		this.mi_no = mi_no;
+		this.miNo = miNo;
 	}
 
 	// Constructor with nothing

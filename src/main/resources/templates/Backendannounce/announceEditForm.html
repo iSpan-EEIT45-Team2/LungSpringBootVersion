@@ -42,24 +42,31 @@
                                   method="post"
                                   th:object="${announce}">
 
-                                <input type="hidden" th:field="*{anNo}">
+                                <input type="hidden" th:field="*{anNo}"/>
+                                <input type="hidden" th:field="*{anPhoto}"/>
+<!--                                <input th:field=“*{anPhoto}” type="hidden"/>-->
+                                <div  class="form-group">
+                                    <label>公告圖片</label>
+                                    <input type="file" name="image" accept="image/png, image/jpeg" />
+                                    <img class="fit-image" th:src="@{${'/FrontEnd/assets/images/announce/' + announce.anPhoto}}" alt="Blog Image">
+                                </div>
                                 <div class="form-group">
                                     <label>公告標題</label>
                                     <input type="text" th:field="*{anTitle}" class="form-control" id="anTitle"/>
                                 </div>
                                 <div class="form-group">
                                         <label>公告內容</label>
-                                        <input type="text" th:field="*{anContent}" class="form-control" id="anContent"/>
+<!--                                        <input type="text" th:field="*{anContent}" class="form-control" id="anContent" style="width: 500px; height:100px"/>-->
+                                        <textarea th:field="*{anContent}" class="form-control" id="anContent" style="width: 450px; height:100px"></textarea>
                                     </label>
                                 </div>
                                 <div class="form-group">
                                     <label> <span>公告類型</span>
                                         <select th:field="*{anType}" class="js-example-basic-single w-100 select2-hidden-accessible" id="anType">
+                                            <option value="">請選擇</option>
                                             <option value="新聞">新聞</option>
                                             <option value="教育">教育</option>
-
                                         </select>
-
                                     </label>
                                 </div>
                                 <div class="form-group">
@@ -67,6 +74,7 @@
                                         <select th:field="*{anEditor}"
                                                 class="js-example-basic-single w-100 select2-hidden-accessible"
                                                 id="anEditor">
+                                            <option value="">請選擇</option>
                                             <option value="亭妤">亭妤</option>
                                             <option value="鴻銘">鴻銘</option>
                                             <option value="毓蓉">毓蓉</option>
@@ -113,11 +121,19 @@
 
     function add() {
         var form = document.getElementById("form").value;
+        // var anPhoto = document.getElementById("anPhoto").value;
         var anTitle = document.getElementById("anTitle").value;
         var anContent = document.getElementById("anContent").value;
         var anType = document.getElementById("anType").value;
         var anEditor = document.getElementById("anEditor").value;
         var anDate = document.getElementById("anDate").value;
+        if (anPhoto == null || anPhoto == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入公告圖片！！',
+            })
+            return;
+        }
         if (anTitle == null || anTitle == ''){
             Swal.fire({
                 icon: 'error',
