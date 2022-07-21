@@ -68,7 +68,16 @@ insert into OrderItem ( price, productId, productName, qty, subTotal, orderId) v
 
 INSERT INTO Product_Table ( localfileName, pd_amount, pd_content, pd_items, pd_product_name, pd_quantity, pd_specification) VALUES
  ('1657910988415_羅浮大餐犬罐雞肉起司.jpg', 720, '【產品規格】 ■ 重量：400g ■ 產地：泰國 ■ 適用對象：犬', '食品', '《亞米亞米YAMIYAMI》亞米羅浮大餐(雞肉+起司 )400g│24罐組│', 100, '罐頭');
+INSERT INTO Product_Table ( localfileName, pd_amount, pd_content, pd_items, pd_product_name, pd_quantity, pd_specification) VALUES
+ ('200739_3_1.jpeg', 157,' ★ 納豆菌維持消化道機能。
 
+ ★ 絲蘭萃取物減少便臭。
+
+
+★ 有機礦物質鋅幫助毛髮亮麗。
+◆ 原物料與成品十大檢驗指標：定期檢驗十大指標，包含物性查核、營養成分、有毒物質、安定性、病原微生物、動物用藥殘留、重金屬、雜質、保存劑、農藥殘留，嚴格要求品質安全，為愛犬健康層層把關。
+◆ 經由AAFCO的動物餵食試驗標準，可提供成犬完善、均衡的營養。
+◆「圓顆粒」設計：適合台灣一般體型成犬叼咬，幫助增加咀嚼，促進腸胃道消化與吸收。','食品','寶多福美食犬餐牛肉口味包2kg', 200, '包');
 
 --志工活動資料
 INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quota, ac_waitlist_quota, ac_fee, ac_organizer, type, localFileName) VALUES

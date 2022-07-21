@@ -73,6 +73,13 @@ public class ProductControllerF {
         return mav1;
     }
 
+//    @GetMapping("/products")
+//    public String showProducts(@ModelAttribute("cart") Cart cart, Model model, Principal principal,String items) {
+//        model.addAttribute("products", productService.FindByItems(items));
+//        return "FrontEnd/Shop/shop";
+//
+//    }
+
 
     @ModelAttribute
     public Cart cart(@ModelAttribute Cart cart) {

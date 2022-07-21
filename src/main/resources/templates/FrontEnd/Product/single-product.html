@@ -63,8 +63,8 @@
                         <div class="swiper-wrapper popup-gallery">
 
                             <a class="swiper-slide w-100"
-                               th:href="@{${'/BackEnd/images/product/' + product.localfileName}}">
-                                <img class="w-100" th:src="@{${'/BackEnd/images/product/' + product.localfileName}}"
+                               th:href="@{/image4/{id}(id=${product.localfileName})}">
+                                <img class="w-100" th:src="@{/image4/{id}(id=${product.localfileName})}"
                                      alt="Product">
                             </a>
 
@@ -76,7 +76,7 @@
                     <div class="single-product-thumb swiper-container product-gallery-thumbs">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img th:src="@{${'/BackEnd/images/product/' + product.localfileName}}" alt="Product">
+                                <img th:src="@{/image4/{id}(id=${product.localfileName})}" alt="Product">
                             </div>
 
                         </div>
@@ -104,6 +104,9 @@
                         <h2 class="product-title">[[${product.pd_product_name}]]</h2>
                     </div>
                     <!-- Product Head End -->
+                    <div class="sku m-b-15">
+                        <span>[[${product.pd_items}]]</span>
+                    </div>
 
                     <!-- Rating Start -->
                     <span class="rating justify-content-start m-b-10">
@@ -117,21 +120,16 @@
 
                     <!-- Price Box Start -->
                     <div class="price-box m-b-10">
-                        <span class="regular-price">[[${product.pd_amount}]]</span>
+                        <span class="regular-price">NT$[[${product.pd_amount}]]</span>
                         <!--                            <span class="old-price"><del>NT$210</del></span>-->
                     </div>
                     <!-- Price Box End -->
                     <!-- SKU Start -->
-                    <div class="sku m-b-15">
-                        <span>[[${product.pd_items}]]</span>
-                    </div>
+
                     <!-- SKU End -->
 
                     <!-- Product Inventory End -->
-                    <div class="product-inventroy m-b-15">
-                        <span class="inventroy-title"> <strong>庫存剩餘:</strong></span>
-                        <span class="inventory-varient">[[${product.pd_quantity}]]</span>
-                    </div>
+
                     <!-- Description Start -->
                     <p class="desc-content m-b-25">[[${product.pd_content}]]</p>
                     <!-- Description End -->
@@ -147,7 +145,10 @@
                         </div>
                     </div>
                     <!-- Quantity End -->
-
+                    <div class="product-inventroy m-b-15">
+                        <span class="inventroy-title"> <strong>庫存剩餘:</strong></span>
+                        <span class="inventory-varient">[[${product.pd_quantity}]]</span>
+                    </div>
                     <!-- Cart Button Start -->
                     <div class="cart-btn action-btn m-b-30">
                         <div class="action-cart-btn-wrapper d-flex">
@@ -171,14 +172,7 @@
                     </div>
                     <!-- Social Shear End -->
 
-                    <!-- Payment Option Start -->
-                    <div class="payment-option m-t-20 d-flex">
-                        <span><strong>Payment: </strong></span>
-                        <a href="#">
-                            <img class="fit-image m-l-5" src="assets/images/payment/payment_large.png"
-                                 alt="Payment Option Image">
-                        </a>
-                    </div>
+
                     <!-- Payment Option End -->
 
                 </div>

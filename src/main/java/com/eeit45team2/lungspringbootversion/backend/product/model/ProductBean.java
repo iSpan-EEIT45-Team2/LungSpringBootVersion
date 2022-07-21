@@ -26,7 +26,7 @@ public class ProductBean implements CartItem {
 //	@Transient
 //	MultipartFile productImage;
 
-
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String pd_content;
 
     private String pd_specification;
