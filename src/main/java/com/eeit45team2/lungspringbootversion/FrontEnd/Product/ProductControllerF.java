@@ -44,6 +44,11 @@ public class ProductControllerF {
 
     }
 
+    @GetMapping("/ordersview")
+    public String showOrders() {
+        return "FrontEnd/Order/order-account";
+    }
+
     @GetMapping("/Cart")
     public String viewcart(@ModelAttribute Cart cart) {
         return "FrontEnd/Shop/cart2";

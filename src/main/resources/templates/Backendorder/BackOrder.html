@@ -80,10 +80,15 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-danger"
+                                        <button class="btn btn-sm btn-secondary"
                                                 th:if="${order.orderStatus.code} == '待出貨'" type="button"
                                                 th:attr="onclick=|shipAlert('${order.orderNo}')|"
-                                        ><i class="bi bi-trash-fill"></i>出貨
+                                        ><i class="bi bi-truck"></i>出貨
+                                        </button>
+                                        <button class="btn btn-sm btn-danger"
+                                                th:if="${order.orderStatus.code} == '退款審核中'" type="button"
+                                                th:attr="onclick=|refundingAlert('${order.orderNo}')|"
+                                        ><i class="bi bi-x"></i>退款處理
                                         </button>
                                         <button class="btn btn-sm btn-danger"
                                                 th:onclick="|deleteAlert(${order.orderId})|" type="button"

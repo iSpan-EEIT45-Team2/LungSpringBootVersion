@@ -1,7 +1,10 @@
 package com.eeit45team2.lungspringbootversion.backend.order.service;
 
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
+import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatus;
 import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,5 +52,8 @@ public interface OrderService {
     //退款拒絕
     Order reject(Integer orderId);
 
-    Order findAllByMember(MemberBean memberBean);
+
+    Page<Order> findAllByOrderStatusAndMember(OrderStatus status, MemberBean memberBean, Pageable pageable);
+
+    Page<Order> findAllByMember(MemberBean memberBean, Pageable pageable);
 }

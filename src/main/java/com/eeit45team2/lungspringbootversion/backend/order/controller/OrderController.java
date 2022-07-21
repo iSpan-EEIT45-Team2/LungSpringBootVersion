@@ -40,7 +40,7 @@ public class OrderController {
             }
         }
         model.addFlashAttribute("orderNo", order.getOrderNo());
-        return "redirect:/Front/products";
+        return "redirect:/Front/ordersview";
     }
 
     @GetMapping("/Order/PAYPAL/Result")
@@ -53,7 +53,7 @@ public class OrderController {
             Order pay = orderService.pay(order.getOrderId());
         }
         model.addFlashAttribute("orderNo", order.getOrderNo());
-        return "redirect:/Front/products";
+        return "redirect:/Front/ordersview";
     }
 
 

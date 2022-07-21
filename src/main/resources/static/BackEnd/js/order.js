@@ -162,3 +162,106 @@ function shipAlert(orderNo) {
         }
     })
 }
+
+function refundingAlert(orderNo) {
+    Swal.fire({
+        title: '請問是否要通過此訂單的退款請求',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: '接受',
+        denyButtonText: `拒絕`,
+        cancelButtonText: '取消',
+    }).then((result) => {
+        let baseUrl = 'http://localhost:8080/Lung/Order/' + orderNo + '/Refunding?choose=';
+        if (result.isConfirmed) {
+            fetch(baseUrl + 'accept',
+                {
+                    method: "POST"
+                }).then(
+                Swal.fire('退款請求已同意', '', 'success')
+            )
+        } else if (result.isDenied) {
+            fetch(baseUrl + 'reject',
+                {
+                    method: "POST"
+                }).then(
+                Swal.fire('退款請求已拒絕', '', 'success')
+            )
+        }
+    })
+}
+
+function refundAlert(orderNo) {
+    Swal.fire({
+        title: '請問是否要提出此訂單的退款請求',
+        showCancelButton: true,
+        confirmButtonText: '提出',
+        cancelButtonText: '放棄',
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            fetch('http://localhost:8080/Lung/Order/' + orderNo + '/Refund',
+                {
+                    method: "POST"
+                }).then(
+                Swal.fire('退款請求已提出', '', 'success')
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+            )
+        }
+    })
+}
+
+function cancelAlert(orderNo) {
+    Swal.fire({
+        title: '確認取消訂單嗎?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '確定',
+        cancelButtonText: '返回',
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            fetch('http://localhost:8080/Lung/Order/' + orderNo + '/Cancel',
+                {
+                    method: "POST"
+                }).then(
+                Swal.fire('訂單已取消', '', 'success')
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+            )
+        }
+    })
+}
+
+function receiveAlert(orderNo) {
+    Swal.fire({
+        title: '請確認是否已收到商品',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '確定',
+        cancelButtonText: '還沒',
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            fetch('http://localhost:8080/Lung/Order/' + orderNo + '/Receive',
+                {
+                    method: "POST"
+                }).then(
+                Swal.fire('謝謝您的惠顧', '', 'success')
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+            )
+        }
+    })
+}
+

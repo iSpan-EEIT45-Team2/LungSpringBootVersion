@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function () {
     //先不show取消按鈕
     // let account_form_cancel = document.getElementById('account_form_cancel');
     // account_form_cancel.style.display = 'none';
@@ -15,26 +15,26 @@ window.onload = function() {
     let miDistrict = document.getElementById('miDistrict');
     let miAddress = document.getElementById('miAddress');
 
-        let xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                let result = JSON.parse(xhr.responseText);
-                console.log(result);
-                miName.value = result.miName;
-                miAccount.value = result.miAccount;
-                miGender.value = result.miGender;
-                miBirth.value = result.miBirth;
-                miId.value = result.miId;
-                miPhone.value = result.miPhone;
-                miEmail.value = result.miEmail;
-                miCity.value = result.miCity;
-                miDistrict.value = result.miDistrict;
-                miAddress.value = result.miAddress;
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            let result = JSON.parse(xhr.responseText);
+            console.log(result);
+            miName.value = result.miName;
+            miAccount.value = result.miAccount;
+            miGender.value = result.miGender;
+            miBirth.value = result.miBirth;
+            miId.value = result.miId;
+            miPhone.value = result.miPhone;
+            miEmail.value = result.miEmail;
+            miCity.value = result.miCity;
+            miDistrict.value = result.miDistrict;
+            miAddress.value = result.miAddress;
 
-            }
-        };
-        xhr.open("GET", "/Lung/FrontMember/getMemberforUpdate", false);
-        xhr.send();
+        }
+    };
+    xhr.open("GET", "/Lung/Front/getMemberforUpdate", false);
+    xhr.send();
 
     /*--------------------END塞value到會員表單中-------------------*/
 
