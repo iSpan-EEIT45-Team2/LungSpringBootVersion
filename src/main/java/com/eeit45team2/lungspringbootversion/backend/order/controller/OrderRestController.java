@@ -2,14 +2,15 @@ package com.eeit45team2.lungspringbootversion.backend.order.controller;
 
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
-import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatus;
-import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatusConverter;
 import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
 import com.eeit45team2.lungspringbootversion.backend.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
@@ -22,15 +23,11 @@ public class OrderRestController {
 
 
     @GetMapping("/Orders")
-    public ResponseEntity<Order> getOrders(
-            @RequestParam(required = false) String orderStatus,
-            @RequestParam(required = false) Integer page,
-            Principal principal) {
+    public ResponseEntity<Order> getOrders(Principal principal) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        OrderStatusConverter orderStatusConverter = new OrderStatusConverter();
-        OrderStatus status = null;
+
         MemberBean memberBean = memberService.findByMiAccount(principal.getName());
 
         Order orders = null;

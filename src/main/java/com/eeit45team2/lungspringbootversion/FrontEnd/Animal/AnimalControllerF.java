@@ -21,7 +21,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-//@RequestMapping("FrontEndAnimalF")
+@RequestMapping("FrontEndAnimalF")
 public class AnimalControllerF {
     @Autowired
     private AbDogService abDogService;
@@ -83,7 +83,6 @@ public class AnimalControllerF {
                                   @RequestParam("image") MultipartFile multipartFile) throws IOException {
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         SimpleMailMessage message = new SimpleMailMessage();
-
         abdogbean.setAbphonto(fileName);
         abDogService.save(abdogbean);
         //String uploadDir = "./user-photos/" +book.getId();./是當前目錄/user-photos/book.getId()
@@ -96,8 +95,7 @@ public class AnimalControllerF {
         message.setText("目前表單正在審核中");
         mailSender.send(message);
         System.out.println("Mail Sent succesfully...");
-
-        return new RedirectView("/animals", true);
+        return new RedirectView("/FrontEndAnimalF/animals", true);
     }
 
 

@@ -990,7 +990,11 @@ only screen and (max-width: 767px) {
 }
 
 .mega-menu {
-    background: #ffffff;
+    background-image: url("../images/header/20210202005563.jpg");
+    background-color: #FCF7F1;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: right bottom;
     padding: 30px;
     -webkit-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
@@ -1002,7 +1006,7 @@ only screen and (max-width: 767px) {
     -ms-transform: scaleY(0);
     transform: scaleY(0);
     position: absolute;
-    width: 1000px;
+    width: 500px;
     left: 0;
     right: 0;
     top: 100%;
