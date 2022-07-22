@@ -165,7 +165,7 @@ function shipAlert(orderNo) {
 
 function refundingAlert(orderNo) {
     Swal.fire({
-        title: '請問是否要通過此訂單的退款請求',
+        title: '是否要通過退款請求?',
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: '接受',
@@ -193,7 +193,7 @@ function refundingAlert(orderNo) {
 
 function refundAlert(orderNo) {
     Swal.fire({
-        title: '請問是否要提出此訂單的退款請求',
+        title: '請確認是否要提出退款請求',
         showCancelButton: true,
         confirmButtonText: '提出',
         cancelButtonText: '放棄',
