@@ -1,9 +1,11 @@
 package com.eeit45team2.lungspringbootversion.backend.activity.service.impl;
 
+import com.eeit45team2.lungspringbootversion.backend.activity.model.AcApplyBean;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.MemberActivityBean;
 import com.eeit45team2.lungspringbootversion.backend.activity.repository.APRepository;
 import com.eeit45team2.lungspringbootversion.backend.activity.repository.ActivityRepository;
+import com.eeit45team2.lungspringbootversion.backend.activity.repository.ApplyRepository;
 import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
 
+    private ApplyRepository applyRepository;
     @Autowired
     private APRepository apRepository;
 
@@ -35,6 +38,9 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public void save(ActivityBean theActivityBean) {
         activityRepository.save(theActivityBean);
+    }
+    public void saveapply(AcApplyBean theActivityBean) {
+        applyRepository.save(theActivityBean);
     }
 
     @Override
