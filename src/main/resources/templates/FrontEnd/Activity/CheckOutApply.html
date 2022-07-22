@@ -259,7 +259,7 @@
 
                         <!-- Your Order Table Start -->
                         <div class="your-order-table table-responsive" id="cart">
-                            <table class="table" th:each="item:${cart}">
+                            <table class="table">
 
                                 <!-- Table Head Start -->
                                 <thead>
@@ -275,9 +275,10 @@
                                 <tbody>
                                 <input type="hidden" name="shoppingCartId">
                                 <tr class="cart_item">
+
                                     <td class="cart-product-name text-start ps-0">
-                                        [[${item.ac_name}]]<strong
-                                            class="product-quantity">x [[${item.ac_fee}]]</strong></td>
+                                        <input type="text" name="phone" id="acname" th:value="${ACNAME}"><strong
+                                            class="product-quantity">新台幣<input type="text" name="phone" id="acfee" th:value="${ACFEE}"></strong></td>
                                     </td>
                                 </tr>
 

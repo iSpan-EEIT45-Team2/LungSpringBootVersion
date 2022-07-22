@@ -1,25 +1,38 @@
 package com.eeit45team2.lungspringbootversion.FrontEnd.Activity;
 
 import com.eeit45team2.lungspringbootversion.backend.activity.model.AcApplyBean;
+import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityApply;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
 import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityService;
 import com.eeit45team2.lungspringbootversion.backend.animal.util.FileUploadUtil;
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
+import com.eeit45team2.lungspringbootversion.backend.order.constant.OrderStatus;
+import com.eeit45team2.lungspringbootversion.backend.order.constant.PayType;
 import com.eeit45team2.lungspringbootversion.backend.order.model.Cart;
+import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.URI;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedHashSet;
 
 @Controller
 @RequestMapping("/Frontendactivity")
@@ -97,36 +110,36 @@ public class ActivityControllerF {
             return "login";
         }
     }
-    @PostMapping("/CheckOutApply/{ac_id}")
-    public ModelAndView viewCheckOut(@PathVariable Long ac_id,
-                                     Model model, Principal principal) {
-        if (principal == null) {
-//            return "redirect:/login";
-            ModelAndView mav = new ModelAndView("login");
-            return mav;
-
-        }
-        ModelAndView mav = new ModelAndView("FrontEnd/Activity/CheckOutApply");
-        ActivityBean activityBean = activityService.FindById(ac_id);
-        System.out.println("活動號碼="+ac_id);
-        mav.addObject("activities", activityBean);
-        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
-        System.out.println("帳號名稱是" + memberBean);
-        model.addAttribute("MiCity", memberBean.getMiCity());
-        model.addAttribute("MiDistrict", memberBean.getMiDistrict());
-        model.addAttribute("MiAddress", memberBean.getMiAddress());
-        model.addAttribute("MiName", memberBean.getMiName());
-        model.addAttribute("MiPhone", memberBean.getMiPhone());
-        model.addAttribute("MiEmail", memberBean.getMiEmail());
-        return mav;
-    }
-    @GetMapping("CheckOutApply")
-    public String viewCheckOut(@ModelAttribute("cart") ActivityBean cart,
+//    @PostMapping("/CheckOutApply/{ac_id}")
+//    public ModelAndView viewCheckOut(@PathVariable Long ac_id,
+//                                     Model model, Principal principal) {
+//        if (principal == null) {
+////            return "redirect:/login";
+//            ModelAndView mav = new ModelAndView("login");
+//            return mav;
+//
+//        }
+//        ModelAndView mav = new ModelAndView("FrontEnd/Activity/CheckOutApply");
+//        ActivityBean activityBean = activityService.FindById(ac_id);
+//        System.out.println("活動號碼="+ac_id);
+//        mav.addObject("activities", activityBean);
+//        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
+//        System.out.println("帳號名稱是" + memberBean);
+//
+//        return mav;
+//    }
+    @GetMapping("CheckOutApply/{ac_id}")
+    public String viewCheckOut(@PathVariable Long ac_id,
                                Model model, Principal principal) {
         if (principal == null) {
             return "redirect:/login";
         }
+        ActivityBean activityBean = activityService.FindById(ac_id);
+        System.out.println("活動號碼="+ac_id);
         MemberBean memberBean = memberService.findByMiAccount(principal.getName());
+        System.out.println("帳號名稱是" + memberBean);
+        model.addAttribute("ACNAME",activityBean.getAc_name());
+        model.addAttribute("ACFEE",activityBean.getAc_fee());
         model.addAttribute("MiCity", memberBean.getMiCity());
         model.addAttribute("MiDistrict", memberBean.getMiDistrict());
         model.addAttribute("MiAddress", memberBean.getMiAddress());
@@ -135,5 +148,66 @@ public class ActivityControllerF {
         model.addAttribute("MiEmail", memberBean.getMiEmail());
         return "FrontEnd/Activity/CheckOutApply";
     }
+//    @GetMapping("CheckOutApply")
+//    public String viewCheckOut(@ModelAttribute("cart") ActivityBean cart,
+//                               Model model, Principal principal) {
+//        if (principal == null) {
+//            return "redirect:/login";
+//        }
+//        System.out.println("活動ID : "+cart.getAc_id());
+//        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
+//        model.addAttribute("MiCity", memberBean.getMiCity());
+//        model.addAttribute("MiDistrict", memberBean.getMiDistrict());
+//        model.addAttribute("MiAddress", memberBean.getMiAddress());
+//        model.addAttribute("MiName", memberBean.getMiName());
+//        model.addAttribute("MiPhone", memberBean.getMiPhone());
+//        model.addAttribute("MiEmail", memberBean.getMiEmail());
+//        return "FrontEnd/Activity/CheckOutApply";
+//    }
 
+//    @PostMapping(path = "/Front/CheckOut")
+//    public ResponseEntity<String> checkOut(@ModelAttribute ActivityBean cart,
+//                                           @RequestParam String address,
+//                                           @RequestParam String name,
+//                                           @RequestParam Integer phone,
+//                                           @RequestParam PayType payType,
+//                                           HttpServletRequest request,
+//                                           SessionStatus status,
+//                                           Principal principal){
+//        if(principal==null){
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//        }
+//        String baseURL = request.getRequestURL().substring(0, request.getRequestURL().length() - request.getRequestURI().length()) + request.getContextPath();
+//        String orderNo = null;
+//
+//        if(cart != null){
+//            ActivityApply order = new ActivityApply();
+//            //訂單編號
+//            DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+//            Date current = new Date();
+//            int end = (int) (Math.random() * 20);
+//            order.setOrderNo(df.format(current) + end);
+//            orderNo = order.getOrderNo();
+//            order.setOrderDate(current);
+//            //狀態
+//            order.setOrderStatus(OrderStatus.WAIT_PAYMENT);
+//
+//            order.setPayType(payType);
+//
+//            MemberBean memberBean = memberService.findByMiAccount(principal.getName());
+//
+//            order.setMemberBean(memberBean);
+//            order.setAddress(address);
+//            order.setName(name);
+//            order.setPhone(phone);
+//            order.setOrderItems(new LinkedHashSet<>(cart.getCart().values()));
+//
+//            order.getOrderItems().forEach((e) -> e.setOrder(order));
+//            order.setTotalPrice(cart.getTotal());
+//            orderService.createOrder(order);
+//            status.setComplete();
+//        }
+//
+//        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(baseURL + "/Order/" + orderNo + "/Pay")).build();
+//    }
 }
