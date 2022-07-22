@@ -22801,7 +22801,7 @@ code {
 .card .card-title.card-title-dash {
   font-style: normal;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 20px;/*16px;*/
   line-height: 22px;
   color: #1F1F1F;
   margin-bottom: 2px;
@@ -23660,7 +23660,7 @@ code {
 .tt-hint {
   border: 1px solid #dee2e6;
   font-weight: 400;
-  font-size: 0.875rem;
+  font-size: 0.9rem;/*0.875rem;*/
   border-radius: 4px;
   height: 2rem;
 }
@@ -23785,7 +23785,7 @@ select.border-dark.tt-hint:focus {
 }
 
 .form-group label {
-  font-size: 0.812rem;
+  font-size: 1rem;
   line-height: 1.4rem;
   vertical-align: top;
   margin-bottom: .5rem;

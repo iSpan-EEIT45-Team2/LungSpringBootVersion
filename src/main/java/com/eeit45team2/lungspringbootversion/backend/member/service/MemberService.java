@@ -11,6 +11,9 @@ public interface MemberService {
 	
 	//save
 	public void save(MemberBean theMemberBean);
+
+	/* 專門for前台重設密碼使用 */
+	public void save(MemberBean theMemberBean, String newPassword);
 	
 	//findById
 	public MemberBean findById(Long miNo);

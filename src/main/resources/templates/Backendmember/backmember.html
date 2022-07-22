@@ -69,7 +69,7 @@
 <!--                                    <th>會員密碼</th>-->
                                     <th>會員權限</th>
                                     <th>會員姓名</th>
-                                    <th>會員生日</th>
+                                    <th>會員性別</th>
                                     <!-- 											<th>會員電話</th> -->
                                     <!-- 											<th>會員Email</th> -->
                                     <!-- 											<th>會員地址</th> -->
@@ -85,7 +85,8 @@
 <!--                                    <td th:text="${member.miPassword}" class="hidetext"/>-->
                                     <td th:text="${member.miRole}" name="miRole"/>
                                     <td th:text="${member.miName}"/>
-                                    <td th:text="${member.miBirth}"/>
+                                    <td th:text="${member.miGender}"/>
+<!--                                    <td th:text="${member.miBirth}"/>-->
                                     <td>
                                         <a th:href="@{'/Backendmember/updateForm/' + ${member.miNo} }"
                                            class="btn btn-sm"><i class="fa-solid fa-user-pen" style="color:#003D79"></i></a>

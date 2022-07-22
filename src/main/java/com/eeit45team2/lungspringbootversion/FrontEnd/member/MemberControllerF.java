@@ -203,9 +203,9 @@ public class MemberControllerF {
 
         try{
             MemberBean member = userRepository.findByMiEmailIgnoreCase(miEmail);
-            member.setMiPassword(miPassword);
+            //member.setMiPassword(miPassword);
             //丟進service再做密碼加密
-            memberService.save(member);
+            memberService.save(member, miPassword); /* 呼叫專門for前台重設密碼用的 */
             msg.put("msg","success");
         }catch(Exception e){
             msg.put("msg","fail");

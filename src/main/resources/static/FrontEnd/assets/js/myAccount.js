@@ -1,19 +1,34 @@
-window.onload = function () {
+// window.onload = function () {
     //先不show取消按鈕
     // let account_form_cancel = document.getElementById('account_form_cancel');
     // account_form_cancel.style.display = 'none';
 
     /*--------------------START塞value到會員表單中-------------------*/
-    let miName = document.getElementById('miName');
-    let miAccount = document.getElementById('miAccount');
-    let miGender = document.getElementById('miGender');
-    let miBirth = document.getElementById('miBirth');
-    let miId = document.getElementById('miId');
-    let miPhone = document.getElementById('miPhone');
-    let miEmail = document.getElementById('miEmail');
-    let miCity = document.getElementById('miCity');
-    let miDistrict = document.getElementById('miDistrict');
-    let miAddress = document.getElementById('miAddress');
+    // let miName = document.getElementById('miName');
+    // let miAccount = document.getElementById('miAccount');
+    // let miGender = document.getElementById('miGender');
+    // let miBirth = document.getElementById('miBirth');
+    // let miId = document.getElementById('miId');
+    // let miPhone = document.getElementById('miPhone');
+    // let miEmail = document.getElementById('miEmail');
+    // let miCity = document.getElementById('miCity');
+    // let miDistrict = document.getElementById('miDistrict');
+    // let miAddress = document.getElementById('miAddress');
+
+const miNo = document.getElementById('miNo');
+const miAccount = document.getElementById('miAccount');
+const miPassword = document.getElementById('miPassword');
+const miPassword1 = document.getElementById('miPassword1');
+const miPassword2 = document.getElementById('miPassword2');
+const miName = document.getElementById('miName');
+const miGender = document.getElementById('miGender');
+const miId = document.getElementById('miId');
+const miBirth = document.getElementById('miBirth');
+const miPhone = document.getElementById('miPhone');
+const miEmail = document.getElementById('miEmail');
+const miCity = document.getElementById('miCity');
+const miDistrict = document.getElementById('miDistrict');
+const miAddress = document.getElementById('miAddress');
 
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -33,12 +48,12 @@ window.onload = function () {
 
         }
     };
-    xhr.open("GET", "/Lung/Front/getMemberforUpdate", false);
+    xhr.open("GET", "/Lung/FrontMember/getMemberforUpdate", false);
     xhr.send();
 
     /*--------------------END塞value到會員表單中-------------------*/
 
-}
+// }
 
 document.getElementById('form_button_cancel').addEventListener('click', function () {
     if(document.getElementById('form_button_update').innerText === "儲存"){
@@ -219,8 +234,6 @@ document.getElementById('btnUpdatePassword').addEventListener('click', function 
                     title: '修改密碼成功囉!',
                 })
             }
-            //alert('Data Saved: ' + msg);
-            //console.log(msg);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.status);
@@ -234,20 +247,7 @@ document.getElementById('btnUpdatePassword').addEventListener('click', function 
 // const form_button_submit = document.getElementById('form_button_submit');
 // const oneClickEnter = document.getElementById('oneClickEnter');
 
-const miNo = document.getElementById('miNo');
-const miAccount = document.getElementById('miAccount');
-const miPassword = document.getElementById('miPassword');
-const miPassword1 = document.getElementById('miPassword1');
-const miPassword2 = document.getElementById('miPassword2');
-const miName = document.getElementById('miName');
-const miGender = document.getElementById('miGender');
-const miId = document.getElementById('miId');
-const miBirth = document.getElementById('miBirth');
-const miPhone = document.getElementById('miPhone');
-const miEmail = document.getElementById('miEmail');
-const miCity = document.getElementById('miCity');
-const miDistrict = document.getElementById('miDistrict');
-const miAddress = document.getElementById('miAddress');
+
 
 
 /*送出資料*/

@@ -233,4 +233,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: red;
 }
 
+#oneClickBtnDiv {
+    position: fixed;
+    z-index: 299;
+    width: 150px;
+    height: 150px;
+    font-size: 36px;
+    line-height: 60px;
+    text-align: center;
+    /*color: rgb(255, 255, 255);*/
+    inset: 50px 10px auto auto;
+    cursor: pointer;
+    /*border-radius: 2px;*/
+    transform: translateY(0px);
+    transition: transform 0.3s ease 0s;
+}
 

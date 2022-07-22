@@ -33,13 +33,21 @@ public class MemberServiceImpl implements MemberService {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if(theMemberBean.getMiNo()!=null){ //是修改時
 			String oldPassword = memberRepository.findById(theMemberBean.getMiNo()).get().getMiPassword();
-			if(!theMemberBean.getMiPassword().equals(oldPassword)){ //有修改密碼
+			if(!passwordEncoder.matches(theMemberBean.getMiPassword(), oldPassword)){ //有修改密碼
 				theMemberBean.setMiPassword(passwordEncoder.encode(theMemberBean.getMiPassword())); //對密碼進行加密
 			}
 		}else{  //是新增時
 			theMemberBean.setMiPassword(passwordEncoder.encode(theMemberBean.getMiPassword())); //對密碼進行加密
 		}
 		memberRepository.save(theMemberBean);
+	}
+
+	/* 專門for前台重設密碼使用 */
+	@Override
+	public void save(MemberBean theMemberBean, String newPassword) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		theMemberBean.setMiPassword(passwordEncoder.encode(newPassword)); //對密碼進行加密
+		//memberRepository.save(theMemberBean);
 	}
 
 	@Override
