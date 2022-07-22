@@ -4,6 +4,9 @@ import com.eeit45team2.lungspringbootversion.backend.activity.model.AcApplyBean;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
 import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityService;
 import com.eeit45team2.lungspringbootversion.backend.animal.util.FileUploadUtil;
+import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
+import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
+import com.eeit45team2.lungspringbootversion.backend.order.model.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,6 +26,9 @@ import java.security.Principal;
 public class ActivityControllerF {
     @Autowired
     private ActivityService activityService;
+
+    @Autowired
+    private MemberService memberService;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -90,6 +96,44 @@ public class ActivityControllerF {
         } else {
             return "login";
         }
+    }
+    @PostMapping("/CheckOutApply/{ac_id}")
+    public ModelAndView viewCheckOut(@PathVariable Long ac_id,
+                                     Model model, Principal principal) {
+        if (principal == null) {
+//            return "redirect:/login";
+            ModelAndView mav = new ModelAndView("login");
+            return mav;
+
+        }
+        ModelAndView mav = new ModelAndView("FrontEnd/Activity/CheckOutApply");
+        ActivityBean activityBean = activityService.FindById(ac_id);
+        System.out.println("活動號碼="+ac_id);
+        mav.addObject("activities", activityBean);
+        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
+        System.out.println("帳號名稱是" + memberBean);
+        model.addAttribute("MiCity", memberBean.getMiCity());
+        model.addAttribute("MiDistrict", memberBean.getMiDistrict());
+        model.addAttribute("MiAddress", memberBean.getMiAddress());
+        model.addAttribute("MiName", memberBean.getMiName());
+        model.addAttribute("MiPhone", memberBean.getMiPhone());
+        model.addAttribute("MiEmail", memberBean.getMiEmail());
+        return mav;
+    }
+    @GetMapping("CheckOutApply")
+    public String viewCheckOut(@ModelAttribute("cart") ActivityBean cart,
+                               Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
+        model.addAttribute("MiCity", memberBean.getMiCity());
+        model.addAttribute("MiDistrict", memberBean.getMiDistrict());
+        model.addAttribute("MiAddress", memberBean.getMiAddress());
+        model.addAttribute("MiName", memberBean.getMiName());
+        model.addAttribute("MiPhone", memberBean.getMiPhone());
+        model.addAttribute("MiEmail", memberBean.getMiEmail());
+        return "FrontEnd/Activity/CheckOutApply";
     }
 
 }
