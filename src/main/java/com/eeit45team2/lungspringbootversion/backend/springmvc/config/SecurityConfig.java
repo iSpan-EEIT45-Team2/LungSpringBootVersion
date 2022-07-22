@@ -31,13 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers(HttpMethod.GET,"/loginPage**","/BackEnd/css/**","/BackEnd/images/**","/BackEnd/js/**").permitAll()  //不限授權皆可進到登入
                 .antMatchers(HttpMethod.GET,"/FrontEnd/assets/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/Front/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/Back").hasAuthority("EMPLOYEE") //有EMPLOYEE權限以上的角色才能進到後台頁面
                 .antMatchers(HttpMethod.GET,"/memberInfo/checkUserLogin").permitAll()
                 .antMatchers(HttpMethod.GET,"/memberInfo/getCurrentUserImage").permitAll()
                 .antMatchers(HttpMethod.GET,"/FrontMember/register").permitAll()
                 .antMatchers(HttpMethod.GET,"/FrontMember/forgetPassword").permitAll()
                 .antMatchers(HttpMethod.GET,"/FrontMember/resetPassword").permitAll()
                 .antMatchers(HttpMethod.GET,"/FrontMember/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/Back").hasAuthority("EMPLOYEE") //有EMPLOYEE權限以上的角色才能進到後台頁面
                 .antMatchers(HttpMethod.GET, "/Backendmember/**","/Backendactivity/**").hasAuthority("EMPLOYEE") //有EMPLOYEE權限以上的角色才能進到會員頁面
                 .antMatchers(HttpMethod.GET, "/Backendmember/delete/**","/Backendmember/updateForm/**").hasAuthority("ADMIN") //有ADMIN權限才能修改、刪除會員
                 .antMatchers(HttpMethod.POST,"/Front/**").permitAll()
