@@ -19,6 +19,17 @@ const miAddress = document.getElementById('miAddress');
 const check_roleADMIN = document.getElementById('check-roleADMIN');
 
 
+/* 修改時，一進頁面就看到目前member的權限 */
+if(thisMemberRole!==null){
+	for(let i=0; i<thisMemberRole.length ; i++){
+		console.log("thisMemberRole: " + thisMemberRole);
+		let thisRole = thisMemberRole.split(';'); // 切分後長度是1-4
+		for (let j = 0; j < thisRole.length; ++j) {
+			document.getElementById('check-role'+ allRole[j]).checked = true;
+		}
+	}
+}
+
 /*送出資料*/
 form_button_submit.addEventListener('click', e => {
 	e.preventDefault();

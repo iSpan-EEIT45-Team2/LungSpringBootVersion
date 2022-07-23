@@ -49,8 +49,8 @@
                         <div class="row">
                             <!-- Submit Button Start -->
                             <div class="col-12 col-custom m-t-20">
-                                <button type="submit" class="btn btn-primary btn-hover-dark">立即報名</button>
-                                <button type="submit" class="btn btn-info btn-hover-gray-deep">加入收藏</button>
+<!--                                <a type="submit" class="btn btn-primary btn-hover-dark" th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }">立即報名</a>-->
+<!--                                <button type="submit" class="btn btn-info btn-hover-gray-deep">加入收藏</button>-->
                             </div>
                             <!-- Submit Button End -->
 
@@ -65,7 +65,7 @@
     </div>
 </div>
 <!-- Breadcrumb Area End -->
-<div th:include="BackEnd/includes/footer :: footer"></div>
+<div th:include="FrontEnd/includes/footer0 :: footer"></div>
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
 <!-- Blog Section End -->
 </body>

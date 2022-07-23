@@ -8,43 +8,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lung-Hi Peace</title>
-
-    <!-- Favicons -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
-
-    <!-- Vendor CSS (Icon Font) -->
-
-    <!--
-<link rel="stylesheet" href="assets/css/vendor/fontawesome.min.css" />
-<link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css" />
-<link rel="stylesheet" href="assets/css/vendor/simple-line-icons.min.css" />
-<link rel="stylesheet" href="assets/css/vendor/themify-icons-min.css" />
- -->
-
-    <!-- Plugins CSS (All Plugins Files) -->
-
-    <!--
-<link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
-<link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
-<link rel="stylesheet" href="assets/css/plugins/lightgallery.min.css" />
-<link rel="stylesheet" href="assets/css/plugins/aos.min.css" />
-<link rel="stylesheet" href="assets/css/plugins/nice-select.min.css" />
--->
-
-    <!-- Main Style CSS -->
-
-    <!-- <link rel="stylesheet" href="assets/css/style.css" />  -->
-
-    <!-- Use the minified version files listed below for better performance and remove the files listed above -->
-
-
     <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css">
     <link rel="stylesheet" href="assets/css/style.min.css">
-
-
-
-
 </head>
 
 <body>
@@ -117,10 +84,10 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <div class="breadcrumb-wrapper">
-                        <h2 class="breadcrumb-title">寵物媒合</h2>
+                        <h2 class="breadcrumb-title">個人認養表單紀錄</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
-                            <li>Blog Grid</li>
+                            <li>寵物資訊</li>
                         </ul>
                     </div>
                 </div>
@@ -130,57 +97,8 @@
     <!-- Breadcrumb Area End -->
 
     <!-- Blog Grid Section Start -->
-<form th:action="@{/FrontEndAnimalF/animals}">
-    查詢: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
-    &nbsp;
-    <input type="submit" value="Search" />
-    &nbsp;
-    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
-    <a href="animalForm" >新增寵物表單</a><!-- i標籤是icon -->
-
-</form>
 
 
-</form>
-<form th:action="@{/FrontEndAnimalF/animals}">
-
-    <select name="keyword">
-        <option value="請選擇狗的類型"selected>請選擇狗的類型 </option>
-        <option value="混種狗">混種狗</option>
-        <option value="米格魯" >米格魯</option>
-        <option value="哈士奇">哈士奇</option>
-        <option value="柯基">柯基</option>
-        <option value="高山犬">高山犬</option>
-        <option value="柴犬">柴犬</option>
-        <option value="黃金獵犬">黃金獵犬</option>
-        <option value="貴賓犬">貴賓犬</option>
-
-    </select>
-
-    <input type="submit" value="Search" />
-    &nbsp;
-
-</form>
-
-
-</form>
-<form th:action="@{/FrontEndAnimalF/animals}">
-
-    <select name="keyword">
-        <option value="">請選擇貓的類型</option>
-        <option value="金絲">金絲</option>
-        <option value="混種貓" >混種貓</option>
-        <option value="緬因">緬因</option>
-        <option value="加菲">加菲</option>
-        <option value="折耳">折耳</option>
-        <option value="暹羅貓">暹羅貓</option>
-        <option value="布偶貓">布偶貓</option>
-        <option value="折耳貓">折耳貓</option>
-
-    </select>
-
-    <input type="submit" value="Search" />
-    &nbsp;
 <!--    <a href="/saveAnimal"></a>-->
 
 </form>
@@ -189,7 +107,7 @@
         <div class="container">
             <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1 m-b-n40" >
 
-                <div class="col m-b-40" th:each="animal : ${animals}">
+                <div class="col m-b-40" th th:each="animal: ${animal1}">
 
                     <!-- Single Blog Start -->
                     <div class="single-blog-wrapper" >
@@ -199,7 +117,7 @@
                         <div class="blog-thumb thumb-effect" >
                             <a class="image" href="anblog-details.html">
                                 <img class="fit-image"
-                                 th:src="@{/image/{id}(id=${animal.abphonto})}"
+                                     th:src="@{/image/{id}(id=${animal.abphonto})}"
                                  alt="Animal"/>
                             </a>
                         </div>
@@ -218,11 +136,10 @@
 
                               <h2 class="blog-title" >詳細資訊</h2>
                             <tr>
-                                <p><h3>寵物單號碼：<td th:text="${animal.abid}"/></p> </h3>
+                                <p><h3>寵物姓：<td th:text="${animal.abarea}"/> </p></h3>
                                 <p><h3>寵物類型：<td th:text="${animal.abtype}"/></p></h3>
                                 <p><h3>寵物品種：<td th:text="${animal.abvariety}"/></p></h3>
                                 <p><h3>寵物姓：<td th:text="${animal.absex}"/> </p></h3>
-                                <p><h3>行政區域：<td th:text="${animal.abname}"/></p></h3>
 
                             </p>
                             <a class="more-link" th:href="@{'/FrontEndAnimalF/animalUpdateForm/' +${animal.abid}}">Read More</a>

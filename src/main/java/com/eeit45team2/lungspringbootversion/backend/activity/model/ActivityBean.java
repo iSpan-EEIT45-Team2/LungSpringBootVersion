@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Activity_Table")
@@ -14,6 +16,9 @@ import java.sql.Date;
 @Setter
 @ToString
 public class ActivityBean {
+
+//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+//	private Set<ActivityBean> orderItems = new LinkedHashSet<>();
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long ac_id;// 勿寫doble int型態，小寫型態不准用
