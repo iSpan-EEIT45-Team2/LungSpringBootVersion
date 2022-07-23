@@ -55,7 +55,7 @@ public class AnimalControllerF {
             System.out.println("--------------------------");
             System.out.println("沈77: " + principal.getName());
 
-            return "/FrontEnd/Animal/anaaa1";
+            return "/FrontEnd/Animal/anaaaa";
         } else {
             return "login";
         }
