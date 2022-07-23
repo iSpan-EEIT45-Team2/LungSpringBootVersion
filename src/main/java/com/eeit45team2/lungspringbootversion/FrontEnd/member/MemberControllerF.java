@@ -94,8 +94,10 @@ public class MemberControllerF {
         mailMessage.setTo(email);
         mailMessage.setSubject("LungHi Peace浪孩和平Email認證信");
         mailMessage.setFrom("LungHiPeace0302@gmail.com");
-        mailMessage.setText("您好：\n 請點選以下連結驗證您的電子郵件信箱。\n "
-                + "連結: http://localhost:8080/Lung/FrontMember/confirm-account?token=" + confirmationToken.getConfirmationToken());
+        mailMessage.setText("<h1 style='text-align:center;'>LungHi Peace浪孩和平Email認證信</h1>"
+                + "<h4 style='text-align:center;'>親愛的 "+ member.getMiName() +" 您好： </h4>\n"
+                + "<h4 style='text-align:center;'>請點選<a href=''>連結</a>驗證您的電子郵件信箱。</h4>\n"
+                + "驗證連結: http://localhost:8080/Lung/FrontMember/confirm-account?token=" + confirmationToken.getConfirmationToken());
         emailSenderService.sendEmail(mailMessage);
     }
 
@@ -107,8 +109,8 @@ public class MemberControllerF {
         mailMessage.setTo(email);
         mailMessage.setSubject("LungHi Peace浪孩和平重設密碼信");
         mailMessage.setFrom("LungHiPeace0302@gmail.com");
-        mailMessage.setText("您好：\n 請點選以下連結重新設定您的密碼。\n "
-                + "連結: http://localhost:8080/Lung/FrontMember/resetPassword?email="
+        mailMessage.setText("親愛的 "+ member.getMiName() +" 您好： \n請點選以下連結重新設定您的密碼。\n"
+                + "重設密碼連結: http://localhost:8080/Lung/FrontMember/resetPassword?email="
                 + URLEncoder.encode(email, StandardCharsets.UTF_8)
                 + "&token="+ confirmationToken.getConfirmationToken());
         emailSenderService.sendEmail(mailMessage);

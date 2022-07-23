@@ -43,6 +43,8 @@ public class AbDogBean {
 
 	private int abaudit;//審核 是否開放認領養
 
+	private String abnickname; //動物名字
+
 	public AbDogBean() {
 	}
 
