@@ -79,8 +79,8 @@
 <!--                                    <th>候補名額</th>-->
 <!--                                    <th>報名費用</th>-->
 <!--                                    <th>主辦單位</th>-->
-                                    <th>活動報名</th>
-                                    <th>上架狀態</th>
+<!--                                    <th>活動報名</th>-->
+<!--                                    <th>上架狀態</th>-->
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -100,13 +100,13 @@
 <!--                                    <td th:text="${activity.ac_waitlist_quota}"/>-->
 <!--                                    <td th:text="${activity.ac_fee}"/>-->
 <!--                                    <td th:text="${activity.ac_organizer}"/>-->
-                                    <td>
-                                        <a th:href="@{'/Backendactivity/apShowForm/' + ${activity.ac_id} }" class="btn btn-sm btn-warning"><i
-                                                class="bi bi-check-square"></i></a>
-                                    </td>
-                                    <td><label class="badge badge-danger" th:if="${activity.type} eq '0'">未上架</label>
-                                        <label class="badge badge-success" th:if="${activity.type} eq '1'">已上架</label>
-                                    </td>
+<!--                                    <td>-->
+<!--                                        <a th:href="@{'/Backendactivity/apShowForm/' + ${activity.ac_id} }" class="btn btn-sm btn-warning"><i-->
+<!--                                                class="bi bi-check-square"></i></a>-->
+<!--                                    </td>-->
+<!--                                    <td><label class="badge badge-danger" th:if="${activity.type} eq '0'">未上架</label>-->
+<!--                                        <label class="badge badge-success" th:if="${activity.type} eq '1'">已上架</label>-->
+<!--                                    </td>-->
                                     <td>
                                         <a th:href="@{'/Backendactivity/updateacForm/' + ${activity.ac_id} }" class="btn btn-sm btn-success"><i
                                                 class="bi bi-pencil-fill"></i></a>

@@ -1,9 +1,12 @@
 package com.eeit45team2.lungspringbootversion.backend.activity.controller;
 
+import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityApply;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.MemberActivityBean;
+import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityApplyService;
 import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityService;
 import com.eeit45team2.lungspringbootversion.backend.activity.util.FileUploadUtil;
+import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -34,8 +37,8 @@ public class ActivityController {
 	
 	String imageLocation = "resources\\images\\activityImage";
 	String uploadDir = "./src/main/resources/static/BackEnd/images/activity/"  ;
-
-
+	@Autowired
+	private ActivityApplyService orderService;
 
 	@Autowired
 	private ActivityService ActivityService;
@@ -46,6 +49,13 @@ public class ActivityController {
 		this.ctx = ctx;
 	}
 
+	@GetMapping("/orderlist")
+	public String viewBackEndOrder(Model model){
+		List<ActivityApply> orders =null;
+		orders = orderService.findAll();
+		model.addAttribute("orders", orders);
+		return "/Backendactivity/BackActivityApply";
+	}
 	@GetMapping("/activitylist")
 	public String listActivity(Model model) {//model.addAttribute=req.setAttribute
 		List<ActivityBean> activityBeans = ActivityService.findAll();

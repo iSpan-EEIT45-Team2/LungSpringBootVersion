@@ -37,30 +37,83 @@ public class ActivityApply implements Serializable {
 
     private String address;
 
-    private String trackingNumber;
+//    private String trackingNumber;
 
     private Integer phone;
 
+    public String getAcname() {
+        return acname;
+    }
+
+    public void setAcname(String acname) {
+        this.acname = acname;
+    }
+
+
+
+    public String getAcvenue() {
+        return acvenue;
+    }
+
+    public void setAcvenue(String acvenue) {
+        this.acvenue = acvenue;
+    }
+
+    public Integer getAcid() {
+        return acid;
+    }
+
+    public void setAcid(Integer acid) {
+        this.acid = acid;
+    }
+
+    private String acname;
+
+    public String getAcdate() {
+        return acdate;
+    }
+
+    public void setAcdate(String acdate) {
+        this.acdate = acdate;
+    }
+
+    private String acdate;
+    private String acvenue;
+    private Integer acid;
+
+    public String getAcor() {
+        return acor;
+    }
+
+    public void setAcor(String acor) {
+        this.acor = acor;
+    }
+
+    private String acor;
+
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderDate;
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date payDate;
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date shipDate;
+//    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+//    private Date payDate;
+//    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+//    private Date shipDate;
 
     @Convert(converter = OrderStatusConverter.class)
     private OrderStatus orderStatus;
 
-    private Integer totalPrice;
+    public ActivityApply() {
+    }
 
-    private PayType payType;
+//    private Integer totalPrice;
+
+//    private PayType payType;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<ActivityApplyItem> orderItems = new LinkedHashSet<>();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+//    private Set<ActivityApplyItem> orderItems = new LinkedHashSet<>();
 
     @Transient
-    private String code;
+//    private String code;
 
     public Integer getOrderId() {
         return orderId;
@@ -70,29 +123,29 @@ public class ActivityApply implements Serializable {
         this.orderId = orderId;
     }
 
-    public String getTrackingNumber() {
-        return trackingNumber;
-    }
+//    public String getTrackingNumber() {
+//        return trackingNumber;
+//    }
+//
+//    public void setTrackingNumber(String trackingNumber) {
+//        this.trackingNumber = trackingNumber;
+//    }
 
-    public void setTrackingNumber(String trackingNumber) {
-        this.trackingNumber = trackingNumber;
-    }
+//    public Date getShipDate() {
+//        return shipDate;
+//    }
+//
+//    public void setShipDate(Date shipDate) {
+//        this.shipDate = shipDate;
+//    }
 
-    public Date getShipDate() {
-        return shipDate;
-    }
-
-    public void setShipDate(Date shipDate) {
-        this.shipDate = shipDate;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
+//    public String getCode() {
+//        return code;
+//    }
+//
+//    public void setCode(String code) {
+//        this.code = code;
+//    }
 
     public String getOrderNo() {
         return orderNo;
@@ -154,44 +207,44 @@ public class ActivityApply implements Serializable {
         this.orderDate = orderDate;
     }
 
-    public Date getPayDate() {
-        return payDate;
-    }
+//    public Date getPayDate() {
+//        return payDate;
+//    }
+//
+//    public void setPayDate(Date payDate) {
+//        this.payDate = payDate;
+//    }
 
-    public void setPayDate(Date payDate) {
-        this.payDate = payDate;
-    }
+//    public OrderStatus getOrderStatus() {
+//        return orderStatus;
+//    }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
+//    public Set<ActivityApplyItem> getOrderItems() {
+//        return orderItems;
+//    }
 
-    public Set<ActivityApplyItem> getOrderItems() {
-        return orderItems;
-    }
+//    public void setOrderItems(Set<ActivityApplyItem> orderItems) {
+//        this.orderItems = orderItems;
+//    }
 
-    public void setOrderItems(Set<ActivityApplyItem> orderItems) {
-        this.orderItems = orderItems;
-    }
+//    public void setOrderStatus(OrderStatus orderStatus) {
+//        this.orderStatus = orderStatus;
+//    }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
+//    public Integer getTotalPrice() {
+//        return totalPrice;
+//    }
+//
+//    public void setTotalPrice(Integer totalPrice) {
+//        this.totalPrice = totalPrice;
+//    }
 
-    public Integer getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Integer totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public PayType getPayType() {
-        return payType;
-    }
-
-    public void setPayType(PayType payType) {
-        this.payType = payType;
-    }
+//    public PayType getPayType() {
+//        return payType;
+//    }
+//
+//    public void setPayType(PayType payType) {
+//        this.payType = payType;
+//    }
 
 }
