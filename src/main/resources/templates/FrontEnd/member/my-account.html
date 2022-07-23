@@ -191,7 +191,7 @@
                                     <div class="myaccount-content" id="memberBlock">
                                         <h3 class="title">會員基本資料</h3>
                                         <div class="account-details-form">
-                                            <form action="#" id="form" method="post" enctype='multipart/form-data'>
+                                            <form action="#" id="memberImageForm" method="post" enctype='multipart/form-data'>
                                                 <div class="single-input-item m-b-20 outofimg">
                                                     <img id="blah"
                                                          th:src="@{/memberInfo/getCurrentUserImage}"
@@ -202,6 +202,18 @@
                                                                onchange="previewHeadshot(event)" accept="image/*"/>
                                                     </label>
                                                 </div>
+                                            </form>
+                                            <form action="#" id="form" method="post" enctype='multipart/form-data'>
+<!--                                                <div class="single-input-item m-b-20 outofimg">-->
+<!--                                                    <img id="blah"-->
+<!--                                                         th:src="@{/memberInfo/getCurrentUserImage}"-->
+<!--                                                         style="display:block;width: 130px; height: 130px; margin:20px auto;border:2px solid #c0c3c4;border-radius:50%;background-color:#ebeff2;"/>-->
+<!--                                                    <label for="productImage" class="custom-file-upload">-->
+<!--                                                        <i class="fa-solid fa-cloud-arrow-up"></i>上傳會員大頭貼-->
+<!--                                                        <input id="productImage" type='file' class="form-control"-->
+<!--                                                               onchange="previewHeadshot(event)" accept="image/*"/>-->
+<!--                                                    </label>-->
+<!--                                                </div>-->
                                                 <div class="row">
                                                     <div class="col-lg-6 m-b-20">
                                                         <div class="single-input-item m-b-15">
@@ -806,6 +818,7 @@
             document.getElementById("blah").src = URL.createObjectURL(file)
         }
     }
+
 
 </script>
 </body>
