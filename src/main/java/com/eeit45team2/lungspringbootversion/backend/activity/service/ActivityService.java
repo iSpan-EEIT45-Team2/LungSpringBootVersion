@@ -1,13 +1,8 @@
 package com.eeit45team2.lungspringbootversion.backend.activity.service;
 
-import java.util.List;
-
-import com.eeit45team2.lungspringbootversion.backend.activity.model.AcApplyBean;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
-import com.eeit45team2.lungspringbootversion.backend.activity.model.MemberActivityBean;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.List;
 
 
 //@Service
@@ -16,16 +11,11 @@ public interface ActivityService {
 	
 	//show all
 		public List<ActivityBean> findAll();
-		
-		//show all
-		public List<MemberActivityBean> findAllAP();
 
+		public List<ActivityBean> abdoglistAll(String keyword);
 		//save
 		public void save(ActivityBean theActivityBean);
-		public void saveapply(AcApplyBean theActivityBean);
-		//saveAP
-		public void saveAP(MemberActivityBean memberActivityBean);
-		
+
 		//getOrder
 		public ActivityBean FindById(long ac_id);
 		

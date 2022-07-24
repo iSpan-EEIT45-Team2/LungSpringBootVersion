@@ -99,24 +99,24 @@
                                     <label>候補名額</label>
                                     <input type="text" th:field="*{ac_waitlist_quota}" class="form-control" id="ac_waitlist_quota" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
                                 </div>
-                                <div class="form-group">
-                                    <label>報名費用</label>
-                                    <input type="text" th:field="*{ac_fee}" class="form-control" id="ac_fee"/>
-                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label>報名費用</label>-->
+<!--                                    <input type="text" th:field="*{ac_fee}" class="form-control" id="ac_fee"/>-->
+<!--                                </div>-->
                                 <div class="form-group">
                                     <label>主辦單位</label>
                                     <input type="text" th:field="*{ac_organizer}" class="form-control" id="ac_organizer"/>
                                 </div>
-                                <div class="form-group">
-                                    <label> <span>活動狀態</span>
-                                        <select th:field="*{type}"
-                                                class="js-example-basic-single w-100 select2-hidden-accessible"
-                                                id="type">
-                                            <option value="1">上架中</option>
-                                            <option value="0">未上架</option>
-                                        </select>
-                                    </label>
-                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label> <span>活動狀態</span>-->
+<!--                                        <select th:field="*{getAcaudit}"-->
+<!--                                                class="js-example-basic-single w-100 select2-hidden-accessible"-->
+<!--                                                id="type">-->
+<!--                                            <option value="1">上架中</option>-->
+<!--                                            <option value="0">未上架</option>-->
+<!--                                        </select>-->
+<!--                                    </label>-->
+<!--                                </div>-->
 
 
 
@@ -152,7 +152,7 @@
     const ac_venue = document.getElementById('ac_venue');
     const ac_quota = document.getElementById('ac_quota');
     const ac_waitlist_quota = document.getElementById('ac_waitlist_quota');
-    const ac_fee = document.getElementById('ac_fee');
+    // const ac_fee = document.getElementById('ac_fee');
     const ac_organizer = document.getElementById('ac_organizer');
 
     /*一鍵輸入*/
@@ -170,7 +170,7 @@
         ac_venue.value = '地點';
         ac_quota.value = '50';
         ac_waitlist_quota.value = '0';
-        ac_fee.value = '500';
+        // ac_fee.value = '500';
         ac_organizer.value = '主辦';
         type.value = '0';
 
@@ -190,7 +190,7 @@
         ];
         let ac_quota = [20, 50, 100];
         let ac_waitlist_quota = [5, 10, 20];
-        let ac_fee = [100, 200, 500];
+        // let ac_fee = [100, 200, 500];
         let ac_participant = [
             '花蓮婦幼親創園區於去底揭牌啟用後，由於鄰近環境多有草叢林木容易有遊蕩犬隻出沒，縣府農業處及社會處合作，在圍牆旁設置了10支驅狗器，避免因為遊蕩犬而導致人犬衝突。',
             '毛孩飼養數已高過嬰兒出生率，不當棄養情形日漸衍生',
@@ -212,7 +212,7 @@
         document.getElementById('ac_venue').value = ac_venue[titleIndex];
         document.getElementById('ac_quota').value = ac_quota[titleIndex];
         document.getElementById('ac_waitlist_quota').value = ac_waitlist_quota[titleIndex];
-        document.getElementById('ac_fee').value = ac_fee[titleIndex];
+        // document.getElementById('ac_fee').value = ac_fee[titleIndex];
         document.getElementById('ac_participant').value = ac_participant[titleIndex];
         document.getElementById('ac_organizer').value = ac_organizer[titleIndex];
         document.getElementById('type').value = "0";
@@ -249,7 +249,7 @@
         var ac_venue = document.getElementById("ac_venue").value;
         var ac_quota = document.getElementById("ac_quota").value;
         var ac_waitlist_quota = document.getElementById("ac_waitlist_quota").value;
-        var ac_fee = document.getElementById("ac_fee").value;
+        // var ac_fee = document.getElementById("ac_fee").value;
         var ac_organizer = document.getElementById("ac_organizer").value;
         if (ac_name == null || ac_name == '') {
             Swal.fire({
@@ -300,13 +300,13 @@
             })
             return;
         }
-        if (ac_fee == null || ac_fee == '') {
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入報名費用！！',
-            })
-            return;
-        }
+        // if (ac_fee == null || ac_fee == '') {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: '請輸入報名費用！！',
+        //     })
+        //     return;
+        // }
         if (ac_organizer == null || ac_organizer == '') {
             Swal.fire({
                 icon: 'error',

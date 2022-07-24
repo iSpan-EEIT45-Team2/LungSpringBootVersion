@@ -69,24 +69,24 @@
                                     <label>候補名額</label>
                                     <input type="text" th:field="*{ac_waitlist_quota}" class="form-control" id="ac_waitlist_quota" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
                                 </div>
-                                <div class="form-group">
-                                    <label>報名費用</label>
-                                    <input type="text" th:field="*{ac_fee}" class="form-control" id="ac_fee"/>
-                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label>報名費用</label>-->
+<!--                                    <input type="text" th:field="*{ac_fee}" class="form-control" id="ac_fee"/>-->
+<!--                                </div>-->
                                 <div class="form-group">
                                     <label>主辦單位</label>
                                     <input type="text" th:field="*{ac_organizer}" class="form-control" id="ac_organizer"/>
                                 </div>
-                                <div class="form-group">
-                                    <label> <span>活動狀態</span>
-                                        <select th:field="*{type}"
-                                                class="js-example-basic-single w-100 select2-hidden-accessible"
-                                                id="type">
-                                            <option value="1">上架中</option>
-                                            <option value="0">未上架</option>
-                                        </select>
-                                    </label>
-                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label> <span>活動狀態</span>-->
+<!--                                        <select th:field="*{getAcaudit}"-->
+<!--                                                class="js-example-basic-single w-100 select2-hidden-accessible"-->
+<!--                                                id="type">-->
+<!--                                            <option value="1">上架中</option>-->
+<!--                                            <option value="0">未上架</option>-->
+<!--                                        </select>-->
+<!--                                    </label>-->
+<!--                                </div>-->
                                 <button type="button" class="btn btn-warning me-2" onclick="add();"><i
                                         class="bi bi-send"></i>送出
                                 </button>
@@ -137,7 +137,7 @@
         var ac_venue = document.getElementById("ac_venue").value;
         var ac_quota = document.getElementById("ac_quota").value;
         var ac_waitlist_quota = document.getElementById("ac_waitlist_quota").value;
-        var ac_fee = document.getElementById("ac_fee").value;
+        // var ac_fee = document.getElementById("ac_fee").value;
         var ac_organizer = document.getElementById("ac_organizer").value;
         if (ac_name == null || ac_name == '') {
             Swal.fire({
@@ -188,13 +188,13 @@
             })
             return;
         }
-        if (ac_fee == null || ac_fee == '') {
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入報名費用！！',
-            })
-            return;
-        }
+        // if (ac_fee == null || ac_fee == '') {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: '請輸入報名費用！！',
+        //     })
+        //     return;
+        // }
         if (ac_organizer == null || ac_organizer == '') {
             Swal.fire({
                 icon: 'error',

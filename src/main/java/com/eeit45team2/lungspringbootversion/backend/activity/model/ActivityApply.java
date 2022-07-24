@@ -33,70 +33,23 @@ public class ActivityApply implements Serializable {
     @JsonIgnore
     private MemberBean memberBean;
 
+    private Integer acid;
+
     private String name;
 
     private String address;
 
-//    private String trackingNumber;
-
     private Integer phone;
 
-    public String getAcname() {
-        return acname;
-    }
-
-    public void setAcname(String acname) {
-        this.acname = acname;
-    }
-
-
-
-    public String getAcvenue() {
-        return acvenue;
-    }
-
-    public void setAcvenue(String acvenue) {
-        this.acvenue = acvenue;
-    }
-
-    public Integer getAcid() {
-        return acid;
-    }
-
-    public void setAcid(Integer acid) {
-        this.acid = acid;
-    }
+    private int applyaudit;//審核 是否通過申請
 
     private String acname;
-
-    public String getAcdate() {
-        return acdate;
-    }
-
-    public void setAcdate(String acdate) {
-        this.acdate = acdate;
-    }
-
     private String acdate;
     private String acvenue;
-    private Integer acid;
-
-    public String getAcor() {
-        return acor;
-    }
-
-    public void setAcor(String acor) {
-        this.acor = acor;
-    }
-
     private String acor;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderDate;
-//    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-//    private Date payDate;
-//    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-//    private Date shipDate;
 
     @Convert(converter = OrderStatusConverter.class)
     private OrderStatus orderStatus;
@@ -104,48 +57,13 @@ public class ActivityApply implements Serializable {
     public ActivityApply() {
     }
 
-//    private Integer totalPrice;
-
-//    private PayType payType;
-
-
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
-//    private Set<ActivityApplyItem> orderItems = new LinkedHashSet<>();
-
-    @Transient
-//    private String code;
-
-    public Integer getOrderId() {
-        return orderId;
+    public int getApplyaudit() {
+        return applyaudit;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
+    public void setApplyaudit(int applyaudit) {
+        this.applyaudit = applyaudit;
     }
-
-//    public String getTrackingNumber() {
-//        return trackingNumber;
-//    }
-//
-//    public void setTrackingNumber(String trackingNumber) {
-//        this.trackingNumber = trackingNumber;
-//    }
-
-//    public Date getShipDate() {
-//        return shipDate;
-//    }
-//
-//    public void setShipDate(Date shipDate) {
-//        this.shipDate = shipDate;
-//    }
-
-//    public String getCode() {
-//        return code;
-//    }
-//
-//    public void setCode(String code) {
-//        this.code = code;
-//    }
 
     public String getOrderNo() {
         return orderNo;
@@ -207,44 +125,58 @@ public class ActivityApply implements Serializable {
         this.orderDate = orderDate;
     }
 
-//    public Date getPayDate() {
-//        return payDate;
-//    }
-//
-//    public void setPayDate(Date payDate) {
-//        this.payDate = payDate;
-//    }
+    public Integer getOrderId() {
+        return orderId;
+    }
 
-//    public OrderStatus getOrderStatus() {
-//        return orderStatus;
-//    }
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
-//    public Set<ActivityApplyItem> getOrderItems() {
-//        return orderItems;
-//    }
+    public String getAcdate() {
+        return acdate;
+    }
 
-//    public void setOrderItems(Set<ActivityApplyItem> orderItems) {
-//        this.orderItems = orderItems;
-//    }
+    public void setAcdate(String acdate) {
+        this.acdate = acdate;
+    }
 
-//    public void setOrderStatus(OrderStatus orderStatus) {
-//        this.orderStatus = orderStatus;
-//    }
+    public String getAcor() {
+        return acor;
+    }
 
-//    public Integer getTotalPrice() {
-//        return totalPrice;
-//    }
-//
-//    public void setTotalPrice(Integer totalPrice) {
-//        this.totalPrice = totalPrice;
-//    }
+    public void setAcor(String acor) {
+        this.acor = acor;
+    }
 
-//    public PayType getPayType() {
-//        return payType;
-//    }
-//
-//    public void setPayType(PayType payType) {
-//        this.payType = payType;
-//    }
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
 
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+    public String getAcname() {
+        return acname;
+    }
+
+    public void setAcname(String acname) {
+        this.acname = acname;
+    }
+
+    public String getAcvenue() {
+        return acvenue;
+    }
+
+    public void setAcvenue(String acvenue) {
+        this.acvenue = acvenue;
+    }
+
+    public Integer getAcid() {
+        return acid;
+    }
+
+    public void setAcid(Integer acid) {
+        this.acid = acid;
+    }
 }

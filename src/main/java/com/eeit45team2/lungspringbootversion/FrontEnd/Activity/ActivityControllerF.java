@@ -1,31 +1,27 @@
 package com.eeit45team2.lungspringbootversion.FrontEnd.Activity;
 
-import com.eeit45team2.lungspringbootversion.backend.activity.model.AcApplyBean;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityApply;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
 import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityApplyService;
 import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityService;
-import com.eeit45team2.lungspringbootversion.backend.animal.util.FileUploadUtil;
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/Frontendactivity")
@@ -57,6 +53,20 @@ public class ActivityControllerF {
 //        return "FrontEnd/Activity/blog";
         return "FrontEnd/Activity/ACshop";
     }
+    @GetMapping("/animals")
+    public String showAnimal(Model model, @Param("keyword") String keyword ) {
+        List<ActivityBean> ActivityBeans = activityService.abdoglistAll(keyword);
+        model.addAttribute("activities", ActivityBeans);
+        model.addAttribute("keyword", keyword);
+//        if (principal != null) {
+//            principal.getName();
+//            System.out.println("--------------------------");
+//            System.out.println("沈77: " + principal.getName());
+        return "FrontEnd/Activity/ACshop";
+//        } else {
+//            return "login";
+//        }
+    }
 //    @GetMapping("/activitydetails/{ac_id}")
 //    public ModelAndView Update(@PathVariable Long ac_id) {
 //        ModelAndView mav = new ModelAndView("FrontEnd/Activity/activitydetails");
@@ -73,57 +83,8 @@ public class ActivityControllerF {
         return mav;
 
     }
-    @PostMapping("/saveAcApply")
-    public RedirectView AbDogSave(AcApplyBean abdogbean,
-                                  @RequestParam("image") MultipartFile multipartFile) throws IOException {
-        SimpleMailMessage message = new SimpleMailMessage();
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        abdogbean.setAbphonto(fileName);
-        activityService.saveapply(abdogbean);
-        //String uploadDir = "./user-photos/" +book.getId();./是當前目錄/user-photos/book.getId()
-        //   String uploadDir = "./user-photos/"  ;// ./是當前目錄/user-photos
-        String uploadDir = "./src/main/resources/static/BackEnd/images/animal/";
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-        message.setFrom("Lunghipeace0302@gmail.com");
-        message.setTo(abdogbean.getAbemail());
-        message.setSubject("謝謝您的來信");
-        message.setText("目前表單正在審核中");
-        mailSender.send(message);
-        System.out.println("Mail Sent succesfully...");
-        return new RedirectView("/Backendanimal/abdoglist", true);
 
-    }
-    @RequestMapping("/activityForm")
-    public String showFormForAdd(Model model, Principal principal) {
-        AcApplyBean abdogbean = new AcApplyBean();
-        if (principal != null) {
-            principal.getName();
-            System.out.println("--------------------------");
-            System.out.println("目前登入是: " + principal.getName());
-            model.addAttribute("animals", abdogbean);
-            return "/FrontEnd/Activity/acapply-save";
-        } else {
-            return "login";
-        }
-    }
-//    @PostMapping("/CheckOutApply/{ac_id}")
-//    public ModelAndView viewCheckOut(@PathVariable Long ac_id,
-//                                     Model model, Principal principal) {
-//        if (principal == null) {
-////            return "redirect:/login";
-//            ModelAndView mav = new ModelAndView("login");
-//            return mav;
-//
-//        }
-//        ModelAndView mav = new ModelAndView("FrontEnd/Activity/CheckOutApply");
-//        ActivityBean activityBean = activityService.FindById(ac_id);
-//        System.out.println("活動號碼="+ac_id);
-//        mav.addObject("activities", activityBean);
-//        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
-//        System.out.println("帳號名稱是" + memberBean);
-//
-//        return mav;
-//    }
+
     @GetMapping("CheckOutApply/{ac_id}")
     public String viewCheckOut(@PathVariable Long ac_id,
                                Model model, Principal principal) {
@@ -148,22 +109,6 @@ public class ActivityControllerF {
         model.addAttribute("MiEmail", memberBean.getMiEmail());
         return "FrontEnd/Activity/CheckOutApply";
     }
-//    @GetMapping("CheckOutApply")
-//    public String viewCheckOut(@ModelAttribute("cart") ActivityBean cart,
-//                               Model model, Principal principal) {
-//        if (principal == null) {
-//            return "redirect:/login";
-//        }
-//        System.out.println("活動ID : "+cart.getAc_id());
-//        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
-//        model.addAttribute("MiCity", memberBean.getMiCity());
-//        model.addAttribute("MiDistrict", memberBean.getMiDistrict());
-//        model.addAttribute("MiAddress", memberBean.getMiAddress());
-//        model.addAttribute("MiName", memberBean.getMiName());
-//        model.addAttribute("MiPhone", memberBean.getMiPhone());
-//        model.addAttribute("MiEmail", memberBean.getMiEmail());
-//        return "FrontEnd/Activity/CheckOutApply";
-//    }
 
 
     @PostMapping(path = "/saveActivityApply")
