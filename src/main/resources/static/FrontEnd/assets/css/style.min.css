@@ -6206,7 +6206,7 @@ only screen and (min-width: 768px) and (max-width: 991px) {
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
-    justify-content: flex-end; /*space-between*/
+    justify-content: flex-end; /*space-between flex-end*/
 }
 
 .login-wrapper .single-input-item .login-reg-form-meta .btn,
@@ -7189,10 +7189,10 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 }
 
 .error_form .title {
-    font-size: 200px;
+    font-size: 50px;
     font-weight: 700;
     color: #f6ab49;
-    letter-spacing: 10px;
+    letter-spacing: 4px;
     line-height: .73;
     margin: 0 0 52px
 }
@@ -7200,7 +7200,7 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 @media only screen and (min-width: 768px) and (max-width: 991px),
 only screen and (max-width: 767px) {
     .error_form .title {
-        font-size: 130px;
+        font-size: 60px;
         letter-spacing: 4px;
         margin: 0 0 40px
     }
@@ -7208,7 +7208,7 @@ only screen and (max-width: 767px) {
 
 @media only screen and (max-width: 479px) {
     .error_form .title {
-        font-size: 106px;
+        font-size: 60px;
         letter-spacing: 4px;
         margin: 0 0 20px
     }
@@ -7216,7 +7216,7 @@ only screen and (max-width: 767px) {
 
 .error_form .sub-title {
     font-size: 24px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-weight: 500;
     line-height: 1;
     margin-bottom: 20px

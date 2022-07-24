@@ -1,10 +1,4 @@
 --新增會員資料
-
--- DELETE FROM MemberTable WHERE miAccount = 'admin';
--- DELETE FROM MemberTable WHERE miAccount = 'employee';
--- DELETE FROM MemberTable WHERE miAccount = 'active';
--- DELETE FROM MemberTable WHERE miAccount = 'user';
-
 insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
     ('管理者-魯夫','C248835717',cast('1999/01/23' as date),'0962594416','abc10@mail.com','admin','$2a$10$0zynuTZo0/NVJlTz5WFAHeRU0EuoUWuCrCSXbUiJv.GPBbcrvUE3y','USER;ACTIVE;EMPLOYEE;ADMIN', '女', 'Y', '臺北市', '中正區', '思源街1號', 'luffy.jpg' );
 
@@ -19,12 +13,8 @@ insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, mi
 
 insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
     ('金金','W143802241',cast('1996/06/30' as date),'0956410662','kiki19990204@gmail.com','jin','$2a$10$O8Jt62LuimioJ29CBhAAgeTXlkqDWPkOJK.qRaEa9SSp8.l3h1S6.','USER;ACTIVE;EMPLOYEE;ADMIN', '女', 'Y', '新北市', '三峽區', '民族路50號', 'ace.jpg');
---新增公告資料
--- DELETE FROM ANNOUNCE_Table WHERE anNo = '';
--- DELETE FROM ANNOUNCE_Table WHERE anNo = '';
--- DELETE FROM ANNOUNCE_Table WHERE anNo = '';
--- DELETE FROM ANNOUNCE_Table WHERE anNo = '';
 
+--新增公告資料
 insert into ANNOUNCE_Table ( anPhoto,anTitle, anContent, anType, anEditor, anDate ) values
     ('dog3.jpg','浪犬入侵騷擾遊客頻傳,花蓮婦幼親創園區架驅狗器' , '花蓮婦幼親創園區於去底揭牌啟用後，由於鄰近環境多有草叢林木容易有遊蕩犬隻出沒，縣府農業處及社會處合作，在圍牆旁設置了10支驅狗器，避免因為遊蕩犬而導致人犬衝突。' ,'新聞' , '毓蓉',cast('2022/06/01' as date) );
 

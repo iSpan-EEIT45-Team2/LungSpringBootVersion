@@ -32,29 +32,29 @@ public class MemberBean {
 	@Column(columnDefinition = "NVARCHAR(20)")
 	String miId;  // 會員身分證
 	
-	@Column(columnDefinition = "DATE NOT NULL")
+	@Column(columnDefinition = "DATE")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone="GMT+8")
 	Date miBirth;  // 會員生日
 	
-	@Column(columnDefinition = "NVARCHAR(20) NOT NULL")
+	@Column(columnDefinition = "NVARCHAR(20)")
 	String miPhone;  // 會員電話
 	
 	@Column(columnDefinition = "NVARCHAR(50) NOT NULL")
 	String miEmail;  // 會員Email
 
-	@Column(columnDefinition = "NVARCHAR(10) NOT NULL")
+	@Column(columnDefinition = "NVARCHAR(10)")
 	String miCity;  // 會員縣市
 
-	@Column(columnDefinition = "NVARCHAR(20) NOT NULL")
+	@Column(columnDefinition = "NVARCHAR(20)")
 	String miDistrict;  // 會員鄉鎮市區
 
-	@Column(columnDefinition = "NVARCHAR(100) NOT NULL")
+	@Column(columnDefinition = "NVARCHAR(100)")
 	String miAddress;  // 會員地址
 	
 	@Column(columnDefinition = "NVARCHAR(100) NOT NULL")
 	String miAccount;  // 會員帳號 //UK
 	
-	@Column(columnDefinition = "NVARCHAR(500) NOT NULL")
+	@Column(columnDefinition = "NVARCHAR(500)")
 	String miPassword;  // 會員密碼
 	
 	
@@ -79,6 +79,9 @@ public class MemberBean {
 
 	@Column(columnDefinition = "NVARCHAR(50)")
 	String miLoginType;  // Google 或 Normal
+
+	@Column(columnDefinition = "NVARCHAR(500)")
+	String miGoogleHeadshotUrl;  // Google 或 Normal
 
 	//All Constructor  //9個欄位
 

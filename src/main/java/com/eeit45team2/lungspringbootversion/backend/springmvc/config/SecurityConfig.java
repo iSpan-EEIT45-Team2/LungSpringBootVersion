@@ -30,31 +30,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 // TODO 開啟anyRequest()後，註解下面所有的antMatchers()
                 .antMatchers(HttpMethod.GET,"/loginPage**","/BackEnd/css/**","/BackEnd/images/**","/BackEnd/js/**").permitAll()  //不限授權皆可進到登入
                 .antMatchers(HttpMethod.GET,"/FrontEnd/assets/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/Front/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/Front/**").permitAll() // 前台誰都可以進
                 .antMatchers(HttpMethod.GET, "/Back").hasAuthority("EMPLOYEE") //有EMPLOYEE權限以上的角色才能進到後台頁面
+                .antMatchers(HttpMethod.GET, "/Backendmember/CheckMemberAccount","/Backendmember/picture/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/Backendmember/delete/**","/Backendmember/updateForm/**").hasAuthority("ADMIN") //有ADMIN權限才能修改、刪除會員
+                .antMatchers(HttpMethod.GET, "/Backendmember/**","/Backendactivity/**","/Backendanimal/**").hasAuthority("EMPLOYEE") //有EMPLOYEE權限以上的角色才能進到會員頁面
                 .antMatchers(HttpMethod.GET,"/memberInfo/checkUserLogin").permitAll()
                 .antMatchers(HttpMethod.GET,"/memberInfo/getCurrentUserImage").permitAll()
-                .antMatchers(HttpMethod.GET,"/FrontMember/register").permitAll()
-                .antMatchers(HttpMethod.GET,"/FrontMember/forgetPassword").permitAll()
-                .antMatchers(HttpMethod.GET,"/FrontMember/resetPassword").permitAll()
+                .antMatchers(HttpMethod.GET,"/memberInfo/getCurrentUserMiNameString").permitAll()
                 .antMatchers(HttpMethod.GET,"/FrontMember/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/Backendmember/**","/Backendactivity/**").hasAuthority("EMPLOYEE") //有EMPLOYEE權限以上的角色才能進到會員頁面
-                .antMatchers(HttpMethod.GET, "/Backendmember/delete/**","/Backendmember/updateForm/**").hasAuthority("ADMIN") //有ADMIN權限才能修改、刪除會員
-                .antMatchers(HttpMethod.POST,"/Front/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/FrontMember/register").permitAll()
-                .antMatchers(HttpMethod.POST,"/FrontMember/CheckMemberEmail").permitAll()
-                .antMatchers(HttpMethod.POST,"/FrontMember/forgetPassword").permitAll()
-                .antMatchers(HttpMethod.POST,"/FrontMember/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/Frontendactivity/CheckOutApply/**").hasAuthority("ACTIVE") // 要認證才能報名志工活動
+                .antMatchers(HttpMethod.GET,"/Frontendactivity/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/FrontEndAnimalF/animalForm/**").hasAuthority("ACTIVE") // 要認證才能填寫認養表單
+                .antMatchers(HttpMethod.GET,"/FrontEndAnimalF/**").permitAll()
                 .anyRequest().authenticated()  //其他請求，都要經過驗證
                 // TODO 以上都註解掉
                 .and()
-                .oauth2Login().loginPage("/loginPage").defaultSuccessUrl("/default", true).failureUrl("/loginPage-error")
-//                .oauth2Login().loginPage("/loginPage").userInfoEndpoint().userService(oauth2UserService)
-//                .and().successHandler(oauthLoginSuccessHandler)
+                //.oauth2Login().loginPage("/loginPage").defaultSuccessUrl("/default", true).failureUrl("/loginPage-error")
+                    .oauth2Login().loginPage("/loginPage")
+                    .userInfoEndpoint()
+                    .userService(oauth2UserService)
                 .and()
-                .formLogin().loginPage("/loginPage").failureUrl("/loginPage-error").defaultSuccessUrl("/default", true)
+                    .successHandler(oauthLoginSuccessHandler)
                 .and()
-                    .exceptionHandling().accessDeniedPage("/loginPage") //如果有權限錯誤時，重導到「/login」
+                    .formLogin().loginPage("/loginPage").failureUrl("/loginPage-error").defaultSuccessUrl("/default", true)
+                .and()
+                    .exceptionHandling().accessDeniedPage("/Front/errorpage403") //如果有權限錯誤時，重導「/403頁面」
                 .and()
                     .logout().logoutSuccessUrl("/loginPage")
                     .invalidateHttpSession(true)

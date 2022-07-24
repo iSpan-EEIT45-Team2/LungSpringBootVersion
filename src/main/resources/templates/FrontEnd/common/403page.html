@@ -1,192 +1,48 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>
-<head>
-    <meta charset="UTF-8">
-    <title>LungHi Peace註冊</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <div th:include="FrontEnd/includes/head :: head"></div>
-    <link th:href="@{/FrontEnd/assets/css/register.css}" rel="stylesheet" type="text/css">
-</head>
-<body>
-<!-- Header Section Start -->
-<!--<div class="header section">-->
 
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LungHi Peace 403錯誤</title>
+    <div th:include="FrontEnd/includes/head :: head"></div>
+
+
+</head>
+
+<body>
 <!-- _navbar -->
 <div th:include="FrontEnd/includes/navbar :: navbar"></div>
 
-<!--</div>-->
-<!-- Header Section End -->
-
 <!--主畫面開始-->
-<!-- Breadcrumb Area Start -->
-<div class="section breadcrumb-area bg-name-bright">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <div class="breadcrumb-wrapper">
-                    <h2 class="breadcrumb-title">註冊</h2>
-                    <ul>
-                        <li><a href="../index.html">首頁</a></li>
-                        <li>註冊</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Breadcrumb Area End -->
 
-<!-- Register Section Start -->
+<!-- Error 404 Section Start -->
 <div class="section section-margin">
     <div class="container">
         <div class="row">
-            <div class="col-lg-7 col-md-8 m-auto">
-                <div class="login-wrapper">
+            <div class="col-12">
 
-                    <!-- Register Title & Content Start -->
-                    <!--                    <div class="section-content text-center m-b-30">-->
-                    <!--                        <h2 class="title m-b-10">註冊</h2>-->
-                    <!--                    </div>-->
-                    <!-- Register Title & Content End -->
-
-                    <!-- Form Action Start -->
-                    <form action="#" id="form" class="forms-sample"
-                          th:action="@{/FrontMember/register}"
-                          method="post" th:object="${member}" enctype='multipart/form-data'>
-                        <input type="hidden" th:field="*{miActive}">
-                        <input type="hidden" th:field="*{miRole}">
-                        <div class="single-input-item m-b-30">
-                            <img id="blah"
-                                 th:src="@{/BackEnd/images/memberHeadshot/defaultHeadshot.jpg}"
-                                 style="display:block;width: 180px; height: 180px; margin:20px auto;border:2px solid #c0c3c4;border-radius:50%;background-color:#ebeff2;"/>
-                            <label for="productImage" class="custom-file-upload">
-                                <i class="fa-solid fa-cloud-arrow-up"></i>上傳會員大頭貼
-                                <input th:field="*{productImage}" id="productImage" type='file' class="form-control"
-                                       onchange="previewHeadshot(event)" accept="image/*"/>
-                            </label>
-                        </div>
-                        <div class="single-input-item m-b-30">
-                            <label>會員帳號<span class="isEssential">*</span></label>
-                            <input th:field="*{miAccount}" type="text" class="form-control"
-                                   autocomplete="off" onblur="onblurCheckAccount()"/>
-                            <i class="fas fa-check-circle"></i>
-                            <i class="fas fa-exclamation-circle"></i>
-                            <small id='result0c'>Error message</small>
-                        </div>
-
-                        <div class="single-input-item m-b-30">
-                            <label>會員密碼<span class="isEssential">*</span></label>
-                            <input th:field="*{miPassword}" type="password" class="form-control"
-                                   oninput="oninputCheckPassword()"/>
-                            <i class="fa-solid fa-eye" id="togglePassword"></i>
-                            <i class="fas fa-check-circle"></i>
-                            <i class="fas fa-exclamation-circle"></i>
-                            <small>Error message</small>
-                        </div>
-                        <div class="single-input-item m-b-30">
-                            <label>再次輸入會員密碼<span class="isEssential">*</span></label>
-                            <input id="miPassword2" type="password" class="form-control"
-                                   onblur="onblurCheckPasswordSame()"/>
-                            <i class="fa-solid fa-eye" id="togglePassword2"></i>
-                            <i class="fas fa-check-circle"></i>
-                            <i class="fas fa-exclamation-circle"></i>
-                            <small>Error message</small>
-                        </div>
-
-                        <div class="single-input-item m-b-30">
-                            <label>會員姓名<span class="isEssential">*</span></label>
-                            <input th:field="*{miName}" type="text" class="form-control"
-                                   autocomplete="off" oninput="oninputCheckName()"/>
-                            <i class="fas fa-check-circle"></i>
-                            <i class="fas fa-exclamation-circle"></i>
-                            <small>Error message</small>
-                        </div>
-                        <div class="single-input-item m-b-30">
-                            <label>會員性別<span class="isEssential">*</span></label>
-                            <select th:field="*{miGender}"
-                                    class="js-example-basic-single w-100">
-                                <option value="女">女</option>
-                                <option value="男" selected>男</option>
-                                <option value="不公開">不公開</option>
-                            </select>
-                            <i class="fas fa-check-circle"></i>
-                            <i class="fas fa-exclamation-circle"></i>
-                            <small id="smallofGender">Error message</small>
-                        </div>
-                        <div class="single-input-item m-b-30">
-                            <label>會員身分證<span class="isEssential">*</span></label>
-                            <input  th:field="*{miId}" type="text" class="form-control"
-                                    maxlength="10" autocomplete="off" oninput="oninputCheckId()"/>
-                            <i class="fas fa-check-circle"></i>
-                            <i class="fas fa-exclamation-circle"></i>
-                            <small>Error message</small>
-                        </div>
-                        <div class="single-input-item m-b-30">
-                            <label>會員生日<span class="isEssential">*</span></label>
-                            <input th:field="*{miBirth}" type="date" class="form-control"
-                                   max="3000-12-31" autocomplete="off" maxlength="10" oninput="oninputCheckBirth()"/>
-                            <i class="fas fa-check-circle"></i>
-                            <i class="fas fa-exclamation-circle"></i>
-                            <small>Error message</small>
-                        </div>
-                        <div class="single-input-item m-b-30">
-                            <label>會員電話<span class="isEssential">*</span></label>
-                            <input th:field="*{miPhone}" type="text" class="form-control"
-                                   onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"
-                                   maxlength="10"
-                                   autocomplete="off" oninput="oninputCheckPhone()"/>
-                            <i class="fas fa-check-circle"></i>
-                            <i class="fas fa-exclamation-circle"></i>
-                            <small>Error message</small>
-                        </div>
-                        <div class="single-input-item m-b-30">
-                            <label>會員Email<span class="isEssential">*</span></label>
-                            <input th:field="*{miEmail}" type="text" class="form-control"
-                                   autocomplete="off" onblur="oninputCheckEmail()"/>
-                            <i class="fas fa-check-circle"></i>
-                            <i class="fas fa-exclamation-circle"></i>
-                            <small>Error message</small>
-                        </div>
-                        <div class="single-input-item m-b-30">
-                            <div>
-                                <label>會員地址<span class="isEssential">*</span></label>
-                            </div>
-                            <div class="js-demeter-tw-zipcode-selector" data-city="#miCity" data-dist="#miDistrict">
-                                <select autofocus onchange="onblurCheckAddress()" th:field="*{miCity}" placeholder="縣市" ></select>
-                                <select autofocus onchange="onblurCheckAddress()" th:field="*{miDistrict}"  placeholder="鄉鎮市區"></select>
-                            </div>
-                            <div style="margin: 5px 0;">
-                                <input autofocus onblur="onblurCheckAddress()"  th:field="*{miAddress}" type="text" placeholder="詳細地址，例如:街道名稱、門牌號" class="form-control" >
-                            </div>
-                            <i style="top:76px;" class="fas fa-check-circle"></i>
-                            <i style="top:76px;" class="fas fa-exclamation-circle"></i>
-                            <small id="smallofAddress">Error message</small>
-                        </div>
-
-                        <!-- Button/Forget Password Start -->
-                        <div class="single-input-item">
-                            <div class="login-reg-form-meta m-b-n15">
-                                <button id="form_button_submit" type="submit" class="btn btn btn-gray-deep btn-hover-primary m-b-15"><i
-                                        class="fa-solid fa-check"></i>送出</button>
-                            </div>
-                        </div>
-                        <!-- Button/Forget Password End -->
-
-                    </form>
-                    <!-- Form Action End -->
-
+                <!-- Error Form Start -->
+                <div class="error_form m-t-50">
+                    <h1 class="title">您沒有訪問此頁面的權限!</h1>
+                    <h2 class="sub-title" style="font-weight: bold;">浪孩和平提醒您:</h2>
+                    <h2 class="sub-title">您或許可以進行以下處理:</h2>
+                    <h2 class="sub-title">1. 前往您註冊的信箱進行認證</h2>
+                    <h2 class="sub-title">2. 聯繫系統管理員 lunghipeace0302@gmail.com</h2>
+                    <p></p>
+                    <a href="/Lung/Front" class="btn btn-primary btn-hover-dark rounded-0 m-t-40">回到浪孩首頁</a>
                 </div>
+                <!-- Error Form End -->
+
             </div>
         </div>
     </div>
 </div>
-<!-- Register Section End -->
+<!-- Error 404 Section End -->
 
 <!-- Footer Section Start -->
-<div th:include="FrontEnd/includes/footer :: footer"></div>
+<div th:include="FrontEnd/includes/footer0 :: footer"></div>
 <!-- Footer Section End -->
 
 <!-- Modal Start  -->
@@ -371,7 +227,7 @@
                         <li class="has-children">
                             <a href="#">Home <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown">
-                                <li><a href="../index.html">Home One</a></li>
+                                <li><a href="index.html">Home One</a></li>
                                 <li><a href="index-2.html">Home Two</a></li>
                                 <li><a href="index-3.html">Home Three</a></li>
                                 <li><a href="index-4.html">Home Four</a></li>
@@ -411,7 +267,7 @@
                                 <li><a href="faq.html">Faq</a></li>
                                 <li><a href="error-404.html">Error 404</a></li>
                                 <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="../login.html">Login | Register</a></li>
+                                <li><a href="login.html">Login | Register</a></li>
                             </ul>
                         </li>
                         <li class="has-children">
@@ -485,40 +341,9 @@
     <!-- Mobile Menu Inner End -->
 </div>
 <!-- Mobile Menu End -->
-<!--<script th:inline="javascript">-->
-<!--    let allRole = [[${allRole}]];-->
-<!--</script>-->
+
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
 
-<script type="text/javascript" th:src="@{/FrontEnd/assets/js/register.js}"></script>
-<!-- 引用Zipcode -->
-<script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
-<script type='text/javascript' class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#location" /></script>
-<script type="text/javascript">
-    // $("#zipcode3").twzipcode({
-    //     "zipcodeIntoDistrict": false,
-    //     'countySel': '臺北市',
-    //     'districtSel': '大安區',
-    //     'zipcodeSel': '114',
-    //     'readonly': false
-    // });
-
-
-
-    // 顯示選取的照片
-    function previewHeadshot(event) {
-        /*
-        files = ['src']
-        法一:
-            const file = files[0] -> file = 'src'
-        法二:
-            const [file] = files -> file = 'src'
-        */
-        const [file] = document.getElementById("productImage").files
-        if (file) {
-            document.getElementById("blah").src = URL.createObjectURL(file)
-        }
-    }
-</script>
 </body>
+
 </html>
