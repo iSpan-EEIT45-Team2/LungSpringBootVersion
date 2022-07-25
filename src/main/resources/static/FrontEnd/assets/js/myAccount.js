@@ -54,6 +54,8 @@ const miAddress = document.getElementById('miAddress');
     /*--------------------END塞value到會員表單中-------------------*/
 
 // }
+/* 點sidebar的會員基本資料 */
+document.getElementById('memberCenterBasic').click();
 
 document.getElementById('form_button_cancel').addEventListener('click', function () {
     if(document.getElementById('form_button_update').innerText === "儲存"){
@@ -75,6 +77,15 @@ document.getElementById('form_button_cancel').addEventListener('click', function
 
 function updateHeadshot(){
     let data = new FormData();
+    if ((document.getElementById("productImage").value) === '') {
+        Swal.fire({
+            icon: 'success',
+            title: '會員資料修改成功囉!',
+        }).then(() => {
+            location.reload(); /* 讓頁面重整 */
+        })
+        return;
+    }
     data.append('headshot', document.getElementById("productImage").files[0]);
     $.ajax({
         type: "POST",
@@ -85,11 +96,9 @@ function updateHeadshot(){
         success: function () {
             Swal.fire({
                 icon: 'success',
-                title: '修改成功囉!',
+                title: '會員資料修改成功囉!',
             }).then(() => {
                 location.reload(); /* 讓頁面重整 */
-            }).then(() => {
-                document.getElementById('memberCenterBasic').click();
             })
         }
     });
@@ -152,9 +161,6 @@ document.getElementById('form_button_update').addEventListener('click', function
                     let obj = JSON.parse(xhr1.responseText);
                     // console.log("obj: "+obj.success);
                     if(obj.success === 'success'){
-                        //修改圖片
-                        updateHeadshot();
-
                         document.getElementById('miName').disabled = true;
                         document.getElementById('miGender').disabled = true;
                         document.getElementById('miBirth').disabled = true;
@@ -163,6 +169,9 @@ document.getElementById('form_button_update').addEventListener('click', function
                         document.getElementById('miDistrict').disabled = true;
                         document.getElementById('miAddress').disabled = true;
                         document.getElementById('form_button_update').innerText = "修改";
+                        //修改圖片
+                        updateHeadshot();
+
                     }
                 }
             }
@@ -172,8 +181,6 @@ document.getElementById('form_button_update').addEventListener('click', function
                 title: '會員修改失敗！',
             })
         }
-
-
     }
 });
 

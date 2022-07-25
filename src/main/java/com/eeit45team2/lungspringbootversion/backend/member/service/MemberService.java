@@ -12,6 +12,9 @@ public interface MemberService {
 	//save
 	public void save(MemberBean theMemberBean);
 
+	//save no pwd encoding
+	public void updateNoPwdEncoding(MemberBean theMemberBean);
+
 	/* 專門for前台重設密碼使用 */
 	public void save(MemberBean theMemberBean, String newPassword);
 	
