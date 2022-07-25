@@ -99,13 +99,13 @@
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="single-product.html">[[${product.pd_product_name}]]</a></h5>
-                                <span class="rating">
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </span>
+<!--                                <span class="rating">-->
+<!--                                            <i class="fa fa-star-o"></i>-->
+<!--                                            <i class="fa fa-star-o"></i>-->
+<!--                                            <i class="fa fa-star-o"></i>-->
+<!--                                            <i class="fa fa-star-o"></i>-->
+<!--                                            <i class="fa fa-star-o"></i>-->
+<!--                                        </span>-->
                                 <span class="price">
                                             $<span class="new">[[${product.pd_amount}]]</span>
                                     </span>
@@ -211,13 +211,19 @@
                         <!-- Product Head End -->
 
                         <!-- Rating Start -->
-                        <span class="rating justify-content-start m-b-10">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <i class="fa fa-star-o"></i>
-                        </span>
+<!--                        <link rel="stylesheet" href="css/font-awesome.min.css">-->
+<!--                        <script type="text/javascript" src="jquery-360.min.js"></script>-->
+<!--                        <script type="text/javascript" src="jquery.rating-stars.js"></script>-->
+
+<!--                        <div class="rating-stars block" id="another-rating">-->
+<!--                            <input type="hidden" class="rating-value" name="stars-value" id="stars-value" value="2">-->
+<!--                        <span class="rating justify-content-start m-b-10">-->
+<!--                            <i class="fa fa-star"></i>-->
+<!--                            <i class="fa fa-star"></i>-->
+<!--                            <i class="fa fa-star"></i>-->
+<!--                            <i class="fa fa-star-half-o"></i>-->
+<!--                            <i class="fa fa-star-o"></i>-->
+<!--                        </span>-->
                         <!-- Rating End -->
 
                         <!-- Price Box Start -->
@@ -444,6 +450,7 @@
     <!-- Mobile Menu Inner End -->
 </div>
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
+
 <!-- Blog Section End -->
 <script>
     function add(id) {
@@ -462,5 +469,19 @@
 
 
 </script>
+    <script>
+        var ratingOptions = {
+            selectors: {
+                starsSelector: '.rating-stars',
+                starSelector: '.rating-star',
+                starActiveClass: 'is--active',
+                starHoverClass: 'is--hover',
+                starNoHoverClass: 'is--no-hover',
+                targetFormElementSelector: '.rating-value'
+            }
+        };
+
+        $(".rating-stars").ratingStars(ratingOptions);
+    </script>
 </body>
 </html>
