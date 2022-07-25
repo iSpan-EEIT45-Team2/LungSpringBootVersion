@@ -1,10 +1,17 @@
 package com.eeit45team2.lungspringbootversion.backend.activity.service;
 
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityApply;
+import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
+import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
+import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface ActivityApplyService {
+
+    List<ActivityApply> findAllByMember(MemberBean memberBean);
 
     //show all
     public List<ActivityApply> findAll();
@@ -18,8 +25,13 @@ public interface ActivityApplyService {
     //delete
     public void delete(Integer id);
 
+    ActivityApply FindById(Long id);
+
+    void delete(Long id);
+
     ActivityApply createOrder(ActivityApply order);
 
+//    public List<ActivityApply> abdoglistAll(Long keyword);
 
 //    Optional<ActivityApply> findByOrderNo(String orderNo);
 

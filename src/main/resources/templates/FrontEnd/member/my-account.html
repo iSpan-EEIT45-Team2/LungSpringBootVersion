@@ -126,36 +126,36 @@
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="download" role="tabpanel">
                                     <div class="myaccount-content">
-                                        <h3 class="title">Downloads</h3>
-                                        <div class="myaccount-table table-responsive text-center">
+                                        <h3 class="title">志工活動</h3>
+                                        <div class="myaccount-table table-responsive text-center" >
                                             <table class="table table-bordered">
                                                 <thead class="thead-light">
                                                 <tr>
-                                                    <th>Product</th>
-                                                    <th>Date</th>
-                                                    <th>Expire</th>
-                                                    <th>Download</th>
+                                                    <th>活動名稱</th>
+                                                    <th>活動日期</th>
+                                                    <th>會員姓名</th>
+                                                    <th>活動資料</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody th:each="activity : ${activities}">
                                                 <tr>
-                                                    <td>Haven - Free Real Estate PSD Template</td>
-                                                    <td>Aug 22, 2018</td>
-                                                    <td>Yes</td>
-                                                    <td><a href="#"
+                                                    <td th:text="${activity.acname}"></td>
+                                                    <td th:text="${activity.acdate}">Aug 22, 2018</td>
+                                                    <td th:text="${activity.memberBean.miName}">Yes</td>
+                                                    <td><a th:href="@{'/Frontendactivity/activitydetails/' + ${activity.acid} }"
                                                            class="btn btn btn-dark btn-hover-primary rounded-0"><i
-                                                            class="fa fa-cloud-download m-r-5"></i> Download File</a>
+                                                            class="fa fa-cloud-download m-r-5"></i> 前往活動</a>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>TechWorld - Profolio Business Template</td>
-                                                    <td>Sep 12, 2018</td>
-                                                    <td>Never</td>
-                                                    <td><a href="#"
-                                                           class="btn btn btn-dark btn-hover-primary rounded-0"><i
-                                                            class="fa fa-cloud-download m-r-5"></i> Download File</a>
-                                                    </td>
-                                                </tr>
+<!--                                                <tr>-->
+<!--                                                    <td>TechWorld - Profolio Business Template</td>-->
+<!--                                                    <td>Sep 12, 2018</td>-->
+<!--                                                    <td>Never</td>-->
+<!--                                                    <td><a href="#"-->
+<!--                                                           class="btn btn btn-dark btn-hover-primary rounded-0"><i-->
+<!--                                                            class="fa fa-cloud-download m-r-5"></i> Download File</a>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
                                                 </tbody>
                                             </table>
                                         </div>

@@ -2,6 +2,9 @@ package com.eeit45team2.lungspringbootversion.FrontEnd.member;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityApply;
+import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
+import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityApplyService;
 import com.eeit45team2.lungspringbootversion.backend.member.model.ConfirmationToken;
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.repository.ConfirmationTokenRepository;
@@ -14,6 +17,7 @@ import com.jfinal.template.Engine;
 import com.jfinal.template.Template;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -30,9 +34,11 @@ import javax.mail.internet.MimeMessage;
 import javax.sql.rowset.serial.SerialBlob;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -57,6 +63,8 @@ public class MemberControllerF {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    @Autowired
+    private ActivityApplyService activityApplyService;
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public ModelAndView displayRegistration(ModelAndView modelAndView, MemberBean member) {
@@ -258,7 +266,15 @@ public class MemberControllerF {
 
     /*會員中心頁面*/
     @GetMapping("/my-account-home")
-    public String myAccountHome() {
+    public String myAccountHome(Model model, Principal principal) {
+
+        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
+        List<ActivityApply> ActivityBeans = activityApplyService.findAllByMember(memberBean);
+        System.out.println(ActivityBeans);
+        System.out.println(memberBean);
+
+        model.addAttribute("activities", ActivityBeans);
+        model.addAttribute("keyword", memberBean.getMiNo());
         return "FrontEnd/member/my-account"; }
 
     /* 修改會員 */

@@ -3,8 +3,12 @@ package com.eeit45team2.lungspringbootversion.backend.activity.service.impl;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityApply;
 import com.eeit45team2.lungspringbootversion.backend.activity.repository.ActivityApplyRepository;
 import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityApplyService;
+import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
+import com.eeit45team2.lungspringbootversion.backend.order.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +18,13 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ActivityApplyServiceImpl implements ActivityApplyService {
 
-
+    @Override
+    public List<ActivityApply> findAllByMember(MemberBean memberBean) {
+        if (memberBean == null) {
+            return null;
+        }
+        return orderRepository.findAllByMemberBean(memberBean);
+    }
     @Autowired
     private ActivityApplyRepository orderRepository;
     private MemberService memberService;
@@ -44,12 +54,22 @@ public class ActivityApplyServiceImpl implements ActivityApplyService {
 
     @Override
     public ActivityApply FindById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public ActivityApply FindById(Long id) {
         return orderRepository.findById(id).get();
         //找到這筆資料回傳,Update方法
     }
 
     @Override
     public void delete(Integer id) {
+
+    }
+
+    @Override
+    public void delete(Long id) {
         orderRepository.deleteById(id);
     }
 
@@ -58,6 +78,15 @@ public class ActivityApplyServiceImpl implements ActivityApplyService {
     public ActivityApply createOrder(ActivityApply order) {
         return orderRepository.save(order);
     }
+
+//    @Override
+//    public List<ActivityApply> abdoglistAll(Long keyword) {
+//        if (keyword != null) {
+//            return orderRepository.search(keyword);
+//        }
+//
+//        return orderRepository.findAll();//指令 查詢用法
+//    }
 
 //    @Override
 //    public Optional<ActivityApply> findByOrderNo(String orderNo) {
