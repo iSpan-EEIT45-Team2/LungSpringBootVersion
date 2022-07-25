@@ -362,7 +362,7 @@
 <!--                                </div>-->
 <!--                            </div>-->
                             <div class="order-button-payment">
-                                <button class="btn btn-primary btn-hover-dark rounded-0 w-100" type="submit">完成報名
+                                <button class="btn btn-primary btn-hover-dark rounded-0 w-100" type="button"  onclick="oneClickToEnter();">完成報名
                                 </button>
                             </div>
                         </div>
@@ -538,15 +538,31 @@
 
             });
     }
+    function oneClickToEnter(){
+        var form = document.getElementById("form").value;
+        Swal.fire({
+            title: '報名成功',
+            text: "通知信已寄送至您的EMAIL信箱",
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        window.setTimeout((() => document.getElementById("form").submit()), 1000);
+    }
 
 
 </script>
-</body>
-</html>
 <script>
     import Buttons from "../../../static/BackEnd/pages/ui-features/buttons.html";
 
     export default {
         components: {Buttons}
     }
+    // oneClickEnter.addEventListener('click', e => {
+    //     e.preventDefault();
+    //     oneClickToEnter();
+    // });
+
 </script>
+</body>
+</html>

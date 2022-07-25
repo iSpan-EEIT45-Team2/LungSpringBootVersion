@@ -88,8 +88,9 @@ public class MemberControllerF {
         /* START塞值到模板 */
         Template template = Engine.use("memberMail").getTemplate("sendMailTemplate.html");
         Map<String, Object> data = new HashMap<>();
-        data.put("title", "浪孩和平 Email認證信");
+        data.put("title", "浪孩和平 會員Email認證信");
         data.put("toWho",member.getMiName());
+        data.put("contentOne","我們已經收到您的註冊申請!");
         data.put("contentBefore", "請點選<a id=\"astyle\" href=\"" );
         data.put("link","http://localhost:8080/Lung/FrontMember/confirm-account?token=" + confirmationToken.getConfirmationToken());
         data.put("contentAfter", "\">連結</a>進行認證！" );
@@ -100,7 +101,7 @@ public class MemberControllerF {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
             messageHelper.setFrom("LungHiPeace0302@gmail.com");
             messageHelper.setTo(email);
-            messageHelper.setSubject("LungHi Peace浪孩和平Email認證信");
+            messageHelper.setSubject("LungHi Peace浪孩和平 Email認證信");
             messageHelper.setText(html, true);
             emailSenderService.htmlMail(mimeMessage);
         } catch (MessagingException e) {
@@ -115,8 +116,9 @@ public class MemberControllerF {
         /* START塞值到模板 */
         Template template = Engine.use("memberMail").getTemplate("sendMailTemplate.html");
         Map<String, Object> data = new HashMap<>();
-        data.put("title", "浪孩和平 忘記密碼信");
+        data.put("title", "浪孩和平 會員忘記密碼信");
         data.put("toWho",member.getMiName());
+        data.put("contentOne","我們已經收到您的重設密碼申請!");
         data.put("contentBefore", "請點選<a id=\"astyle\" href=\"" );
         data.put("link","http://localhost:8080/Lung/FrontMember/resetPassword?email="
                 + URLEncoder.encode(email, StandardCharsets.UTF_8)

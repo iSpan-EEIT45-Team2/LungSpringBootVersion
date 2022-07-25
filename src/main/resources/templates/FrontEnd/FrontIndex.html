@@ -7,6 +7,13 @@
     <title>Lung-Hi Peace</title>
 </head>
 <body>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+        intent="WELCOME"
+        chat-title="AdoptAnimal"
+        agent-id="7cd2daee-a0d1-400c-afc7-31c7030428de"
+        language-code="zh-tw"
+></df-messenger>
 <!-- _navbar -->
 <div th:include="FrontEnd/includes/navbar :: navbar"></div>
 <!-- Hero/Intro Slider Start -->
@@ -22,8 +29,8 @@
                     <div class="hero-slide-content text-start">
                         <h5 class="sub-title">願景</h5>
                         <h2 class="title m-0">動物不再流浪</h2>
-<!--                        <p class="ms-0">We know your concerns when you are looking for a chewing treat for your dog.-->
-<!--                        </p>-->
+                        <!--                        <p class="ms-0">We know your concerns when you are looking for a chewing treat for your dog.-->
+                        <!--                        </p>-->
                         <a href="shop.html" class="btn btn-light btn-hover-primary">Read More</a>
                     </div>
                 </div>
@@ -37,8 +44,8 @@
                     <div class="hero-slide-content text-start">
                         <h5 class="sub-title">鼓勵</h5>
                         <h2 class="title m-0">以領養代替購買</h2>
-<!--                        <p class="ms-0">We know your concerns when you are looking for a chewing treat for your dog.-->
-<!--                        </p>-->
+                        <!--                        <p class="ms-0">We know your concerns when you are looking for a chewing treat for your dog.-->
+                        <!--                        </p>-->
                         <a href="shop.html" class="btn btn-light btn-hover-primary">Read More</a>
                     </div>
                 </div>
@@ -52,7 +59,7 @@
                     <div class="hero-slide-content text-center text-md-end">
                         <h5 class="sub-title">使命</h5>
                         <h2 class="title m-0">集結所有可用資源，讓一切不再費力</h2>
-<!--                        <p>We know your concerns when you are looking for a chewing treat for your dog.</p>-->
+                        <!--                        <p>We know your concerns when you are looking for a chewing treat for your dog.</p>-->
                         <a href="shop.html" class="btn btn-light btn-hover-primary">Read More</a>
                     </div>
                 </div>
@@ -73,127 +80,6 @@
 </div>
 <!-- Hero/Intro Slider End -->
 
-<!-- Banner Section Start -->
-<div class="section section-margin">
-
-    <div class="container">
-        <!-- Banners Start -->
-        <div class="row m-b-n30">
-
-            <!-- Banner Start -->
-            <div class="col-md-6 col-12 m-b-30" data-aos="fade-up" data-aos-duration="1000">
-                <a href="shop.html" class="banner">
-                    <img class="fit-image" th:src="@{/FrontEnd/assets/images/banner/1.png}" alt="Banner Image"/>
-                </a>
-            </div>
-            <!-- Banner End -->
-
-            <!-- Banner Start -->
-            <div class="col-md-6 col-12 m-b-30" data-aos="fade-up" data-aos-duration="1400">
-                <a href="shop.html" class="banner">
-                    <img class="fit-image" th:src="@{/FrontEnd/assets/images/banner/2.png}" alt="Banner Image"/>
-                </a>
-            </div>
-            <!-- Banner End -->
-
-        </div>
-        <!-- Banners End -->
-    </div>
-
-</div>
-<!-- Banner Section End -->
-
-
-<!-- Testimonial Section Start -->
-<div class="section bg-name-bright section-padding section-margin">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-
-                <!-- Testimonial Carousel Start -->
-                <div class="testimonial-carousel">
-
-                    <!-- Testimonial Gallery Top Start -->
-                    <div class="swiper-container testimonial-gallery-top" data-aos="fade-up"
-                         data-aos-duration="1000">
-                        <div class="swiper-wrapper">
-
-                            <!-- Single Swiper Slide Start -->
-                            <div class="swiper-slide">
-
-                                <!-- Testimonial Content Start -->
-                                <div class="testimonial-content text-center">
-                                    <p>Lorem ipsum dolor sit amet, co adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercita ullamco laboris nisi ut aliquip ex ea commodo</p>
-                                </div>
-                                <!-- Testimonial Content End -->
-
-                            </div>
-                            <!-- Single Swiper Slide End -->
-
-                            <!-- Single Swiper Slide Start -->
-                            <div class="swiper-slide">
-
-                                <!-- Testimonial Content Start -->
-                                <div class="testimonial-content text-center">
-                                    <p>Vivamus a lobortis ipsum, vel condimentum magna. Etiam id turpis tortor. Nunc
-                                        scelerisque, nisi a blandit varius, nunc purus venenatis ligula, sed
-                                        venenatis orci augue nec sapien. Cum sociis natoque</p>
-                                </div>
-                                <!-- Testimonial Content End -->
-
-                            </div>
-                            <!-- Single Swiper Slide End -->
-                        </div>
-
-                    </div>
-                    <!-- Testimonial Gallery Top End -->
-
-                    <!-- Testimonial Gallery Thumb Start -->
-                    <div class="swiper-container testimonial-gallery-thumbs" data-aos="fade-up"
-                         data-aos-duration="1500">
-                        <div class="swiper-wrapper">
-
-                            <!-- Single Swiper Slide Start -->
-                            <div class="swiper-slide">
-                                <!-- Testimonial Thumb Start -->
-                                <div class="testimonial-thumb text-center">
-                                    <img th:src="@{/FrontEnd/assets/images/testimonial/1.png}" alt="Testimonial Image">
-                                    <h3 class="thumb-title">Jonathon Jhon</h3>
-                                    <h6 class="thumb-subtitle">Customer</h6>
-                                </div>
-                                <!-- Testimonial Thumb End -->
-                            </div>
-                            <!-- Single Swiper Slide End -->
-
-                            <!-- Single Swiper Slide Start -->
-                            <div class="swiper-slide">
-                                <!-- Testimonial Thumb Start -->
-                                <div class="testimonial-thumb text-center">
-                                    <img th:src="@{/FrontEnd/assets/images/testimonial/2.png}" alt="Testimonial Image">
-                                    <h3 class="thumb-title">Cristal Jerry</h3>
-                                    <h6 class="thumb-subtitle">Customer</h6>
-                                </div>
-                                <!-- Testimonial Thumb End -->
-                            </div>
-                            <!-- Single Swiper Slide End -->
-
-                        </div>
-
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div>
-                    </div>
-                    <!-- Testimonial Gallery Thumb End -->
-
-                </div>
-                <!-- Testimonial Carousel End -->
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Testimonial Section End -->
 
 <!-- Blog Section Start -->
 <div class="section section-margin-bottom">
@@ -202,7 +88,7 @@
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
             <div class="col-12">
                 <div class="section-title text-center">
-                    <h2 class="title">探索志工活動</h2>
+                    <h2 class="title"></h2>
                 </div>
             </div>
         </div>
@@ -216,7 +102,8 @@
                     <!-- Blog Thumb Start -->
                     <div class="blog-thumb thumb-effect">
                         <a th:href="@{'/Frontendactivity/activitydetails/3'}" class="image">
-                            <img class="fit-image" th:src="@{/BackEnd/images/activity/717帶著毛孩一起FUN幸福.jpg}" alt="Product Image">
+                            <img class="fit-image" th:src="@{/BackEnd/images/activity/717帶著毛孩一起FUN幸福.jpg}"
+                                 alt="Product Image">
                         </a>
                     </div>
                     <!-- Blog Thumb End -->
@@ -232,7 +119,8 @@
                         <h2 class="blog-title">
                             <a th:href="@{'/Frontendactivity/activitydetails/3'}" title="How to take care of your fish">家訪志工招募說明會</a>
                         </h2>
-                        <p>關心動物保護議題，卻不知如何投入動物保護第一線嗎？台中動保處今年的志工招募活動開跑了!台中的朋友們可別錯過這個機會，服務內容包含推廣動物保護觀念、協助追蹤動保案件，以及照顧、陪伴園區內的犬貓，服務內容為協助動保處進行動物保護宣導活動、動保案件稽查，動物之家園區介紹導覽、照顧園內犬貓、推廣認領養等等。多元的服務內容，能讓大家發揮所長一同為動物盡一份力量！</p>
+                        <p>
+                            關心動物保護議題，卻不知如何投入動物保護第一線嗎？台中動保處今年的志工招募活動開跑了!台中的朋友們可別錯過這個機會，服務內容包含推廣動物保護觀念、協助追蹤動保案件，以及照顧、陪伴園區內的犬貓，服務內容為協助動保處進行動物保護宣導活動、動保案件稽查，動物之家園區介紹導覽、照顧園內犬貓、推廣認領養等等。多元的服務內容，能讓大家發揮所長一同為動物盡一份力量！</p>
                         <a class="more-link" th:href="@{'/Frontendactivity/activitydetails/3'}">更多內容</a>
                     </div>
                     <!-- Blog Content End -->
@@ -264,7 +152,8 @@
                         <h2 class="blog-title">
                             <a th:href="@{'/Frontendactivity/activitydetails/2'}" title="How to take care of your fish">家訪志工招募說明會</a>
                         </h2>
-                        <p>#家戶訪查 #志工招募 #全面絕育計畫 春天來臨時，也是狗狗們爭先恐後的來到這個世界上的熱門時間！夥伴們總心想：他們會不會好好地長大呢？未來是不是又會有更多狗狗出生在危機滿滿的街頭上呢？全面絕育計畫透過大規模的地毯式家戶訪查，把有生育可能性的母犬快速找出來，阻止春後的嬰兒潮。如果您喜歡與人溝通，也想要幫助流浪犬，快來加入我們的尋狗之旅吧！</p>
+                        <p>#家戶訪查 #志工招募 #全面絕育計畫
+                            春天來臨時，也是狗狗們爭先恐後的來到這個世界上的熱門時間！夥伴們總心想：他們會不會好好地長大呢？未來是不是又會有更多狗狗出生在危機滿滿的街頭上呢？全面絕育計畫透過大規模的地毯式家戶訪查，把有生育可能性的母犬快速找出來，阻止春後的嬰兒潮。如果您喜歡與人溝通，也想要幫助流浪犬，快來加入我們的尋狗之旅吧！</p>
                         <a class="more-link" th:href="@{'/Frontendactivity/activitydetails/2'}">更多內容</a>
                     </div>
                     <!-- Blog Content End -->
@@ -296,7 +185,9 @@
                         <h2 class="blog-title">
                             <a th:href="@{'/Frontendactivity/activitydetails/1'}" title="How to take care of your fish">家訪志工招募說明會</a>
                         </h2>
-                        <p>#活動內容#免費狂犬病疫苗注射/寵物登記(限量100劑/組)#推廣臺北市狗運動公園與狗活動區及動物保護觀念#寵物飾品手作活動(限量60名)#萌寵走秀競賽活動(提供30名飼主報名)----#本次活動還有邀請到公益大使喔!#蕭秉治 、周予天 、鄭心慈、夏沐及唐仲。歡迎毛媽們在假日午後帶著毛小孩一起到活動現場認識臺北市動物友善空間及設施喔!</p>
+                        <p>
+                            #活動內容#免費狂犬病疫苗注射/寵物登記(限量100劑/組)#推廣臺北市狗運動公園與狗活動區及動物保護觀念#寵物飾品手作活動(限量60名)#萌寵走秀競賽活動(提供30名飼主報名)----#本次活動還有邀請到公益大使喔!#蕭秉治
+                            、周予天 、鄭心慈、夏沐及唐仲。歡迎毛媽們在假日午後帶著毛小孩一起到活動現場認識臺北市動物友善空間及設施喔!</p>
                         <a class="more-link" th:href="@{'/Frontendactivity/activitydetails/1'}">更多內容</a>
                     </div>
                     <!-- Blog Content End -->
