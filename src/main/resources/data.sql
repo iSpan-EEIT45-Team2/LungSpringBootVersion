@@ -3,7 +3,7 @@ insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, mi
     ('管理者-魯夫','C248835717',cast('1999/01/23' as date),'0962594416','ethanshen023@gmail.com','admin','$2a$10$0zynuTZo0/NVJlTz5WFAHeRU0EuoUWuCrCSXbUiJv.GPBbcrvUE3y','USER;ACTIVE;EMPLOYEE;ADMIN', '女', 'Y', '臺北市', '中正區', '思源街1號', 'luffy.jpg' );
 
 insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
-    ('員工-娜美','O241686379',cast('1987/12/01' as date),'0926287495','abc20@mail.com','employee','$2a$10$CC006YClBxiYQDhfiIKsyeDgruLWMTQjURSSXAzudRtbuzNidLWMC','USER;ACTIVE;EMPLOYEE', '男', 'Y', '台南市', '安平區', '漁光路114號', 'nami.jpg' );
+    ('員工-娜美','O241686379',cast('1987/12/01' as date),'0926287495','tomshen1025@gmail.com','employee','$2a$10$CC006YClBxiYQDhfiIKsyeDgruLWMTQjURSSXAzudRtbuzNidLWMC','USER;ACTIVE;EMPLOYEE', '男', 'Y', '台南市', '安平區', '漁光路114號', 'nami.jpg' );
 
 insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
     ('驗證會員-喬巴','X181771234',cast('2005/03/16' as date),'0930152563','abc30@mail.com','active','$2a$10$k8K5wToDodcpTs1Phu97S.sZ7n5geCGabJf.z/QjuQ38pzO35A8oq','USER;ACTIVE', '男', 'Y', '屏東縣', '恆春鎮', '大光路79號', 'choppa.jpg' );
