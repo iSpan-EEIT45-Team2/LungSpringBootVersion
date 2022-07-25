@@ -57,10 +57,10 @@
                                     <th>報名編號</th>
                                     <th>訂購會員</th>
                                     <th>報名日期</th>
-<!--                                    <th>付款方式</th>-->
+                                    <th>活動名稱</th>
 <!--                                    <th>報名金額</th>-->
 <!--                                    <th>報名狀態</th>-->
-                                    <th>報名明細</th>
+                                    <th>活動明細</th>
 <!--                                    <th>報名操作</th>-->
                                 </tr>
                                 </thead>
@@ -70,14 +70,15 @@
                                     <td th:text="${order.orderNo}"/>
                                     <td th:text="${order.memberBean.miAccount}"/>
                                     <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}"/>
+                                    <td th:text="${order.acname}"/>
 <!--                                    <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}"/>-->
 <!--                                    <td th:text="|NT$${order.totalPrice}|"/>-->
 <!--                                    <td th:text="${order.orderStatus.code}"/>-->
                                     <td>
-                                        <button class="btn btn-sm btn-info"
-                                                th:onclick="|showAlert(${order.orderId})|" type="button"
+                                        <a class="btn btn-sm btn-info"
+                                                th:href="@{'/Frontendactivity/activitydetails/' + ${order.acid} }" type="button"
                                         ><i class="bi bi-info-circle"></i>
-                                        </button>
+                                        </a>
                                     </td>
 <!--                                    <td>-->
 <!--                                        <button class="btn btn-sm btn-secondary"-->
