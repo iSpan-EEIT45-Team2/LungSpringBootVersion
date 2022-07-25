@@ -162,10 +162,14 @@
                     },
                     error: function (msg) {
                         // console.log(msg.status)
+                        let errorDetail ='';
+                        if(msg.status === 403){
+                            errorDetail = ', 您沒有權限進行此動作!'
+                        }
                         Swal.fire({
                             icon: 'error',
                             title: '發生錯誤',
-                            text: 'HTTP 狀態碼為 ' + msg.status,
+                            text: 'HTTP 狀態碼為 ' + msg.status +errorDetail,
                             footer: '<a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Status"  target="_blank">怎麼有這錯誤?</a>'
                         })
                     }

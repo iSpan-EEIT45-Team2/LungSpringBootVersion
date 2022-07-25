@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletContext;
 import java.io.*;
+import java.lang.reflect.Member;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -44,9 +46,18 @@ public class CommonService {
     }
 
     public MemberBean getCurrentMemerBean() {
-        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println("當前登入的會員是: " + customUserDetails.getUser());
-        return customUserDetails.getUser();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        MemberBean memberBean = null;
+        if (principal instanceof CustomUserDetails) {
+            CustomUserDetails customUserDetails = (CustomUserDetails) principal;
+            memberBean = customUserDetails.getUser();
+        } else if (principal instanceof DefaultOAuth2User) {
+            DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User) principal;
+            memberBean = oAuthUserToNormalUser(defaultOAuth2User);
+        }
+        //CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("當前登入的會員是: " + memberBean);
+        return memberBean;
 
     }
 
@@ -60,19 +71,16 @@ public class CommonService {
     public String getCurrentUserMiNameString() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) { // user不是anonymousUser
-            CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            System.out.println("當前登入的會員姓名是: " + customUserDetails.getMiname());
-            return customUserDetails.getMiname();
+            MemberBean memberBean = getCurrentMemerBean();
+            if (memberBean == null) {
+                return "anonymousUser";
+            }
+            System.out.println("當前登入的會員姓名是: " + memberBean.getMiName());
+            return memberBean.getMiName();
         } else {
             return (String) authentication.getPrincipal(); //是anonymousUser
         }
     }
-
-        /*疑似有bug*/
-//    public @ResponseBody String getCurrentUserMiName() {
-//        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        return customUserDetails.getMiname(); // 呼叫CustomUserDetails.java取得那裡變數member的name
-//    }
 
 
     public ResponseEntity<byte[]> getCurrentUserImage() {
@@ -87,10 +95,15 @@ public class CommonService {
 
         // user不是anonymousUser ->　已登入
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            member = customUserDetails.getUser();
-            String localfilename = member.getLocalfileName();
-            Blob image = member.getImage();
+            member = getCurrentMemerBean();
+            //CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            //member = customUserDetails.getUser();
+            String localfilename = null;
+            Blob image = null;
+            if (member != null) {
+                localfilename = member.getLocalfileName();
+                image = member.getImage();
+            }
             // 有local檔名 -> 因為csv直接匯入 || 有新增照片
             if (localfilename != null) {
                 // 設定ResponseHeaders
@@ -111,24 +124,8 @@ public class CommonService {
                 }
             } else {
                 //沒有local檔名 -> 新增不傳圖片
-//                member.getMiAccount().equals(defaultAccount);
-                switch (member.getMiAccount()) {
-                    case "admin":
-                        body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"luffy.jpg");
-                        break;
-                    case "employee":
-                        body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"nami.jpg");
-                        break;
-                    case "active":
-                        body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"choppa.jpg");
-                        break;
-                    case "user":
-                        body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"sanji.jpg");
-                        break;
-                    default:
-                        // 顯示預設圖片
-                        body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"defaultHeadshot.jpg");
-                }
+                // 顯示預設圖片
+                body = commonFunction.getProjectFileToByteArray(memberHeadshotDir+"defaultHeadshot.jpg");
             }
         } else {
             // user未登入 -> show default
@@ -137,6 +134,10 @@ public class CommonService {
         }
         responseEntity = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
         return responseEntity;
+    }
+
+    private MemberBean oAuthUserToNormalUser(DefaultOAuth2User oAuth2User) {
+        return memberService.findByMiAccount((String) oAuth2User.getAttributes().get("sub"));
     }
 }
 

@@ -1,7 +1,8 @@
 package com.eeit45team2.lungspringbootversion.backend.activity.controller;
 
+import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityApply;
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
-import com.eeit45team2.lungspringbootversion.backend.activity.model.MemberActivityBean;
+import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityApplyService;
 import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityService;
 import com.eeit45team2.lungspringbootversion.backend.activity.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -34,8 +34,8 @@ public class ActivityController {
 	
 	String imageLocation = "resources\\images\\activityImage";
 	String uploadDir = "./src/main/resources/static/BackEnd/images/activity/"  ;
-
-
+	@Autowired
+	private ActivityApplyService orderService;
 
 	@Autowired
 	private ActivityService ActivityService;
@@ -46,6 +46,13 @@ public class ActivityController {
 		this.ctx = ctx;
 	}
 
+	@GetMapping("/orderlist")
+	public String viewBackEndOrder(Model model){
+		List<ActivityApply> orders =null;
+		orders = orderService.findAll();
+		model.addAttribute("orders", orders);
+		return "/Backendactivity/BackActivityApply";
+	}
 	@GetMapping("/activitylist")
 	public String listActivity(Model model) {//model.addAttribute=req.setAttribute
 		List<ActivityBean> activityBeans = ActivityService.findAll();
@@ -53,12 +60,7 @@ public class ActivityController {
 		return "Backendactivity/BackActivity";
 	}
 
-	@GetMapping("/APlist")
-	public String listAP(Model model) {//model.addAttribute=req.setAttribute
-		List<MemberActivityBean> memberActivityBeans = ActivityService.findAllAP();
-		model.addAttribute("AP", memberActivityBeans);
-		return "Backendactivity/BackAP";
-	}
+
 
 	@RequestMapping("/acShowForm")
 	public String showFormForAdd(Model model) {
@@ -81,103 +83,7 @@ public class ActivityController {
 
 //		return "redirect:/Backendactivity/activitylist";
 	}
-	@PostMapping("/saveAP")
-	public String saveAP(MemberActivityBean memberActivityBean,
-						 @RequestParam("ac_id") Integer ac_id,
-						 @RequestParam("mi_no") Integer mi_no
-	) {
-		memberActivityBean.setDate(LocalDateTime.now());
-		memberActivityBean.setAc_id(ac_id);
-		memberActivityBean.setMi_no(mi_no);
-		ActivityService.saveAP(memberActivityBean);
 
-		return "redirect:/Backendactivity/APlist";
-	}
-
-	@GetMapping ("/saveActivity1")
-	public String saveActivity1(ActivityBean ActivityBean) {
-		ActivityBean.setAc_name("台中市動物保護志工招募");
-		ActivityBean.setLocalFileName("可愛貓貓.jpg");
-		ActivityBean.setAc_date(Date.valueOf("2022-01-01"));
-		ActivityBean.setAc_participant("關心動物保護議題，卻不知如何投入動物保護第一線嗎？台中動保處今年的志工招募活動開跑了!台中的朋友們可別錯過這個機會，服務內容包含推廣動物保護觀念、協助追蹤動保案件，以及照顧、陪伴園區內的犬貓，服務內容為協助動保處進行動物保護宣導活動、動保案件稽查，動物之家園區介紹導覽、照顧園內犬貓、推廣認領養等等。多元的服務內容，能讓大家發揮所長一同為動物盡一份力量！");
-		ActivityBean.setAc_venue("地點");
-		ActivityBean.setAc_quota(50);
-		ActivityBean.setAc_waitlist_quota(0);
-		ActivityBean.setAc_fee(500);
-		ActivityBean.setAc_organizer("主辦");
-		ActivityBean.setType(0);
-		ActivityService.save(ActivityBean);
-		return "redirect:/Backendactivity/activitylist";
-	}
-
-	@GetMapping ("/saveActivity2")
-	public String saveActivity2(ActivityBean ActivityBean) {
-		ActivityBean.setAc_name("家訪志工招募說明會");
-		ActivityBean.setLocalFileName("逗貓貓.jpg");
-		ActivityBean.setAc_date(Date.valueOf("1989-06-04"));
-		ActivityBean.setAc_participant("#家戶訪查 #志工招募 #全面絕育計畫 春天來臨時，也是狗狗們爭先恐後的來到這個世界上的熱門時間！夥伴們總心想：他們會不會好好地長大呢？未來是不是又會有更多狗狗出生在危機滿滿的街頭上呢？✨全面絕育計畫✨透過大規模的地毯式家戶訪查，把有生育可能性的母犬快速找出來，阻止春後的嬰兒潮。如果您喜歡與人溝通，也想要幫助流浪犬，快來加入我們的尋狗之旅吧！");
-		ActivityBean.setAc_venue("地點");
-		ActivityBean.setAc_quota(50);
-		ActivityBean.setAc_waitlist_quota(0);
-		ActivityBean.setAc_fee(500);
-		ActivityBean.setAc_organizer("主辦");
-		ActivityBean.setType(0);
-		ActivityService.save(ActivityBean);
-		return "redirect:/Backendactivity/activitylist";
-	}
-
-	@GetMapping ("/saveActivity3")
-	public String saveActivity3(ActivityBean ActivityBean) {
-		ActivityBean.setAc_name("台中市動物保護志工招募");
-		ActivityBean.setLocalFileName("忠誠狗勾.jpg");
-		ActivityBean.setAc_date(Date.valueOf("1911-10-10"));
-		ActivityBean.setAc_participant("關心動物保護議題，卻不知如何投入動物保護第一線嗎？台中動保處今年的志工招募活動開跑了!台中的朋友們可別錯過這個機會，服務內容包含推廣動物保護觀念、協助追蹤動保案件，以及照顧、陪伴園區內的犬貓，服務內容為協助動保處進行動物保護宣導活動、動保案件稽查，動物之家園區介紹導覽、照顧園內犬貓、推廣認領養等等。多元的服務內容，能讓大家發揮所長一同為動物盡一份力量！");
-		ActivityBean.setAc_venue("地點");
-		ActivityBean.setAc_quota(50);
-		ActivityBean.setAc_waitlist_quota(0);
-		ActivityBean.setAc_fee(500);
-		ActivityBean.setAc_organizer("主辦");
-		ActivityBean.setType(0);
-		ActivityService.save(ActivityBean);
-		return "redirect:/Backendactivity/activitylist";
-	}
-
-	@GetMapping ("/saveActivity4")
-	public String saveActivity4(ActivityBean ActivityBean) {
-		ActivityBean.setAc_name("苗栗場下鄉志工招募說明會");
-		ActivityBean.setLocalFileName("忠誠狗勾2.jpg");
-		ActivityBean.setAc_date(Date.valueOf("1949-10-01"));
-		ActivityBean.setAc_participant("成為下鄉志工隊的一員，首先需要先參與協會不定期辦理的下鄉志工招募說明會。在說明會中，我們會與您分享台灣流浪犬貓現況、介紹下鄉絕育行動及下鄉志工的工作。參與過下鄉志工招募說明會後，就可以參加下鄉活動囉！下鄉志工隊有專屬的寶藍色志工服，在參與5場下鄉絕育活動後，再參與1場動保講座暨志工提昇班，就可以獲得寶藍色的下鄉志工志工服，成為正式的下鄉志工！");
-		ActivityBean.setAc_venue("地點");
-		ActivityBean.setAc_quota(50);
-		ActivityBean.setAc_waitlist_quota(0);
-		ActivityBean.setAc_fee(500);
-		ActivityBean.setAc_organizer("主辦");
-		ActivityBean.setType(0);
-		ActivityService.save(ActivityBean);
-		return "redirect:/Backendactivity/activitylist";
-	}
-
-//	@PostMapping("/saveActivity")
-//	public String saveActivity(@ModelAttribute("activity") ActivityBean ActivityBean) {
-//		System.out.println("getImage: " + (ActivityBean.getImage()==null));
-//		Boolean isInsert = (ActivityBean.getAc_id()==null);
-//
-//		ActivityBean activityBean1 = saveImageInDB(ActivityBean,isInsert);
-//		saveImageInLocal(activityBean1, isInsert);
-//		ActivityService.save(ActivityBean);
-//		return "redirect:/activitylist";
-//	}
-
-
-	@RequestMapping("/apShowForm/{ac_id}")
-	public ModelAndView apshowFormForAdd(@PathVariable long ac_id) {
-		ModelAndView mav = new ModelAndView("Backendactivity/activityNewAPForm");//指向activityEditForm.html
-		ActivityBean ActivityBean = ActivityService.FindById(ac_id);
-		mav.addObject("activity", ActivityBean);
-
-		return mav;
-	}
 	@GetMapping("/updateacForm/{ac_id}")
 	public ModelAndView showFormForUpdate(@PathVariable long ac_id){
 		ModelAndView mav = new ModelAndView("Backendactivity/activityEditForm");//指向activityEditForm.html

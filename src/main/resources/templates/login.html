@@ -15,6 +15,8 @@
     <!--google login api-->
     <script src="https://apis.google.com/js/platform.js" async="async"></script>
     <meta name="google-signin-client_id" content="949331375315-4kuetli2rtqjh0ragjo98sffnnapkuc4.apps.googleusercontent.com"/>
+    <!--google recaptcha-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         // 登入之後
         function onSignIn(googleUser) {
@@ -41,7 +43,7 @@
 <div class="section section-margin">
     <div class="container">
         <div class="row">
-            <div class="col-lg-7 col-md-8 m-auto p-b-45">
+            <div class="col-lg-8 col-md-8 m-auto p-b-45">
                 <div class="login-wrapper">
 
                     <!-- Login Title & Content Start -->
@@ -70,32 +72,37 @@
                         </div>
                         <!-- Input Password End -->
 
-                        <!-- Button/Forget Password Start -->
-                        <div class="single-input-item m-b-15">
-                            <div class="login-reg-form-meta m-b-n15">
-                                <!--登入、登出按鈕-->
-                                <a th:href="@{/oauth2/authorization/google}"><button type="button" class="btn btn login-with-google-btn m-b-15"> GOOGLE登入</button></a>
-
-<!--                                目前狀態：-->
-<!--                                <span id="GOOGLE_STATUS_1"></span>-->
-                                <button id="loginSubmitBtn" type="submit" class="btn btn btn-gray-deep btn-hover-primary m-b-15 m-l-20 ">登入</button>
-
-                            </div>
-                        </div>
-                        <!-- Button/Forget Password End -->
-
                         <!-- Lost Password & Creat New Account Start -->
-                        <div class="lost-password">
+                        <div class="lost-password m-b-15 m-l-20">
                             <a th:href="@{/FrontMember/forgetPassword}" class="forget-pwd m-b-15">忘記密碼</a>
                             <a th:href="@{/FrontMember/register}">註冊會員</a>
                         </div>
                         <!-- Lost Password & Creat New Account End -->
+
+                        <!-- Button/Forget Password Start -->
+                        <div class="single-input-item m-b-15">
+                            <div class="login-reg-form-meta m-b-20" style="justify-content: space-between;">
+                                <div id="recaptchaDiv" class="g-recaptcha"
+                                     data-sitekey="6LczvBYhAAAAAPJjnY3FmZG0zF4uLc20TVQbrIZn"
+                                     data-theme="light" data-size="normal"
+                                     data-callback="verifyCallback">
+                                </div>
+                                <span style="justify-content: flex-end;">
+                                    <!--登入、登出按鈕-->
+                                    <a id="googleLoginBtn" th:href="@{/oauth2/authorization/google}"><button type="button" class="btn btn login-with-google-btn m-b-15"> GOOGLE登入</button></a>
+                                    <button id="loginSubmitBtn" type="submit" class="btn btn m-b-15 m-l-20 ">登入</button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Button/Forget Password End -->
+
+
                         <div class="single-input-item m-t-50">
-                            <div class="login-reg-form-meta m-b-n15">
-                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="adminLoginBtn">ADMIN</button>
-                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="employeeLoginBtn">EMPLOYEE</button>
-                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="activeLoginBtn">ACTIVE</button>
-                                <button type="button" class="btn btn btn-for-Role  m-b-15 m-l-20 " id="userLoginBtn">USER</button>
+                            <div class="login-reg-form-meta m-b-n15" style="justify-content: space-between;">
+                                <button type="button" class="btn btn btn-for-Role  m-b-15 " id="adminLoginBtn">ADMIN</button>
+                                <button type="button" class="btn btn btn-for-Role  m-b-15 " id="employeeLoginBtn">EMPLOYEE</button>
+                                <button type="button" class="btn btn btn-for-Role  m-b-15  " id="activeLoginBtn">ACTIVE</button>
+                                <button type="button" class="btn btn btn-for-Role  m-b-15  " id="userLoginBtn">USER</button>
                             </div>
                         </div>
 
@@ -408,6 +415,43 @@
 </div>
 <!-- Mobile Menu End -->
 <script type="text/javascript">
+    /*先讓送出按鈕隱藏*/
+    document.getElementById("loginSubmitBtn").style.display = 'none';
+    document.getElementById("googleLoginBtn").style.display = 'none';
+
+    /*傳送google recaptcha到後端*/
+    function verifyCallback(token) {
+        // console.log("in verifycallback");
+        var formData = new FormData();
+        formData.append('token', token);
+        // Google Apps Script 部署為網路應用程式後取得的 URL
+        var uriGAS = "https://script.google.com/macros/s/AKfycbzwguehfAUBLj1L6jBwvdxJNEUkce650SRhzHfFG_CdfRBgQksbv7hzFVG8FmmzZtUJ/exec";
+        fetch(uriGAS, {
+            method: "POST",
+            body: formData
+        }).then(response => response.json())
+            .then(result => {
+                if(result.success) {
+                    // 後端驗證成功，success 會是 true
+                    // 送出按紐show出
+                    document.getElementById("loginSubmitBtn").style.display = '';
+                    document.getElementById("googleLoginBtn").style.display = '';
+                } else {
+                    // success 為 false 時，代表驗證失敗，error-codes 會告知原因
+                    Swal.fire({
+                        icon: 'error',
+                        title: result['error-codes'][0],
+                    })
+                }
+            })
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: err,
+                })
+            })
+    }
+
     //轉換eye -> 顯示密碼
     let togglePassword = document.querySelector("#togglePassword");
     let password = document.querySelector("#password");

@@ -14,6 +14,9 @@ import java.sql.Date;
 @Setter
 @ToString
 public class ActivityBean {
+
+//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+//	private Set<ActivityBean> orderItems = new LinkedHashSet<>();
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long ac_id;// 勿寫doble int型態，小寫型態不准用
@@ -31,11 +34,11 @@ public class ActivityBean {
 
 	Integer ac_waitlist_quota;
 
-	Integer ac_fee;
+//	Integer ac_fee;
 
 	String ac_organizer;
 
-	Integer type;
+//	Integer acaudit;//審核 是否上架
 
 	String localFileName;
 
@@ -74,9 +77,9 @@ public class ActivityBean {
 		this.ac_waitlist_quota = ac_waitlist_quota;
 	}
 
-	public void setAc_fee(Integer ac_fee) {
-		this.ac_fee = ac_fee;
-	}
+//	public void setAc_fee(Integer ac_fee) {
+//		this.ac_fee = ac_fee;
+//	}
 
 	public void setAc_organizer(String ac_organizer) {
 		this.ac_organizer = ac_organizer;
@@ -94,8 +97,8 @@ public class ActivityBean {
 		return productImage;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
-	}
+//	public void setAcaudit(Integer type) {
+//		this.acaudit = type;
+//	}
 
 }

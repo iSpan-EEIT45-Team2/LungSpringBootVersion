@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div th:include="FrontEnd/includes/head :: head"></div>
     <link th:href="@{/FrontEnd/assets/css/register.css}" rel="stylesheet" type="text/css">
+    <!--google recaptcha-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <!-- Header Section Start -->
@@ -16,6 +18,16 @@
 
 <!-- _navbar -->
 <div th:include="FrontEnd/includes/navbar :: navbar"></div>
+<div id="oneClickBtnDiv">
+    <button type="button" id="oneClickEnterError"
+            class="btn btn-sm "><i
+            class="fa-solid fa-xmark"></i> 錯誤一鍵輸入
+    </button>
+    <button type="button" id="oneClickEnter"
+            class="btn btn-sm "><i
+            class="fa-solid fa-check"></i> 一鍵輸入
+    </button>
+</div>
 
 <!--</div>-->
 <!-- Header Section End -->
@@ -79,7 +91,7 @@
 
                         <div class="single-input-item m-b-30">
                             <label>會員密碼<span class="isEssential">*</span></label>
-                            <input th:field="*{miPassword}" type="password" class="form-control"
+                            <input th:field="*{miPassword}" id="miPassword" type="password" class="form-control"
                                     oninput="oninputCheckPassword()"/>
                             <i class="fa-solid fa-eye" id="togglePassword"></i>
                             <i class="fas fa-check-circle"></i>
@@ -168,7 +180,12 @@
 
                         <!-- Button/Forget Password Start -->
                         <div class="single-input-item">
-                            <div class="login-reg-form-meta m-b-n15">
+                            <div class="login-reg-form-meta m-b-20" style="justify-content: space-between;">
+                                <div id="recaptchaDiv" class="g-recaptcha"
+                                     data-sitekey="6LczvBYhAAAAAPJjnY3FmZG0zF4uLc20TVQbrIZn"
+                                     data-theme="light" data-size="normal"
+                                     data-callback="verifyCallback">
+                                </div>
                                 <button id="form_button_submit" type="submit" class="btn btn btn-gray-deep btn-hover-primary m-b-15"><i
                                         class="fa-solid fa-check"></i>送出</button>
                             </div>
@@ -186,7 +203,7 @@
 <!-- Register Section End -->
 
 <!-- Footer Section Start -->
-<div th:include="FrontEnd/includes/footer :: footer"></div>
+<div th:include="FrontEnd/includes/footer0 :: footer"></div>
 <!-- Footer Section End -->
 
 <!-- Modal Start  -->
@@ -493,7 +510,7 @@
 <script type="text/javascript" th:src="@{/FrontEnd/assets/js/register.js}"></script>
 <!-- 引用Zipcode -->
 <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
-<script type='text/javascript' class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#location" /></script>
+<!--<script type='text/javascript' class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#location" /></script>-->
 <script type="text/javascript">
     // $("#zipcode3").twzipcode({
     //     "zipcodeIntoDistrict": false,

@@ -54,6 +54,8 @@ const miAddress = document.getElementById('miAddress');
     /*--------------------END塞value到會員表單中-------------------*/
 
 // }
+/* 點sidebar的會員基本資料 */
+document.getElementById('memberCenterBasic').click();
 
 document.getElementById('form_button_cancel').addEventListener('click', function () {
     if(document.getElementById('form_button_update').innerText === "儲存"){
@@ -73,6 +75,35 @@ document.getElementById('form_button_cancel').addEventListener('click', function
     }
 });
 
+function updateHeadshot(){
+    let data = new FormData();
+    if ((document.getElementById("productImage").value) === '') {
+        Swal.fire({
+            icon: 'success',
+            title: '會員資料修改成功囉!',
+        }).then(() => {
+            location.reload(); /* 讓頁面重整 */
+        })
+        return;
+    }
+    data.append('headshot', document.getElementById("productImage").files[0]);
+    $.ajax({
+        type: "POST",
+        url: "/Lung/FrontMember/saveHeadshotforUpdate",
+        data: data,
+        processData: false,
+        contentType: false,
+        success: function () {
+            Swal.fire({
+                icon: 'success',
+                title: '會員資料修改成功囉!',
+            }).then(() => {
+                location.reload(); /* 讓頁面重整 */
+            })
+        }
+    });
+
+}
 
 
 document.getElementById('form_button_update').addEventListener('click', function () {
@@ -80,79 +111,76 @@ document.getElementById('form_button_update').addEventListener('click', function
     if(document.getElementById('form_button_update').innerText === "修改"){
         //一開始是disabled -> 所以當按下"修改"時，變成不是disabled(可以編輯)
         document.getElementById('miName').disabled = false;
-        document.getElementById('miAccount').disabled = false;
+        // document.getElementById('miAccount').disabled = false; /*帳號不可以改*/
         document.getElementById('miGender').disabled = false;
         document.getElementById('miBirth').disabled = false;
-        document.getElementById('miId').disabled = false;
+        // document.getElementById('miId').disabled = false;
         document.getElementById('miPhone').disabled = false;
-        document.getElementById('miEmail').disabled = false;
+        // document.getElementById('miEmail').disabled = false; /*信箱不可以改*/
         document.getElementById('miCity').disabled = false;
         document.getElementById('miDistrict').disabled = false;
         document.getElementById('miAddress').disabled = false;
         //btn變成儲存功能
         document.getElementById('form_button_update').innerText = "儲存";
     }else{
-        /*--------------------START塞value到會員表單中-------------------*/
-        let miNameV = document.getElementById('miName').value.trim();
-        let miAccountV = document.getElementById('miAccount').value.trim();
-        let miGenderV = document.getElementById('miGender').value.trim();
-        let miBirthV = document.getElementById('miBirth').value.trim();
-        let miIdV = document.getElementById('miId').value.trim();
-        let miPhoneV = document.getElementById('miPhone').value.trim();
-        let miEmailV = document.getElementById('miEmail').value.trim();
-        let miCityV = document.getElementById('miCity').value.trim();
-        let miDistrictV = document.getElementById('miDistrict').value.trim();
-        let miAddressV = document.getElementById('miAddress').value.trim();
+        /* 如果沒有error，就執行送出*/
+        if(!checkInputsError()){
+            let miNameV = document.getElementById('miName').value.trim();
+            let miAccountV = document.getElementById('miAccount').value.trim();
+            let miGenderV = document.getElementById('miGender').value.trim();
+            let miBirthV = document.getElementById('miBirth').value.trim();
+            let miIdV = document.getElementById('miId').value.trim();
+            let miPhoneV = document.getElementById('miPhone').value.trim();
+            let miEmailV = document.getElementById('miEmail').value.trim();
+            let miCityV = document.getElementById('miCity').value.trim();
+            let miDistrictV = document.getElementById('miDistrict').value.trim();
+            let miAddressV = document.getElementById('miAddress').value.trim();
 
-        let xhr1 = new XMLHttpRequest();
-        let memberToSave = {
-            "miName": miNameV,
-            "miAccount": miAccountV,
-            "miGender": miGenderV,
-            "miBirth": miBirthV,
-            "miId": miIdV,
-            "miPhone": miPhoneV,
-            "miEmail": miEmailV,
-            "miCity": miCityV,
-            "miDistrict": miDistrictV,
-            "miAddress": miAddressV
-        }
-        let jsonString = JSON.stringify(memberToSave);
-        console.log(jsonString);
-        xhr1.open("POST", "/Lung/FrontMember/saveMemberforUpdate", true);
-        xhr1.setRequestHeader("Content-type", "application/json");
-        xhr1.send(jsonString);
-
-        xhr1.onreadystatechange = function() {
-            // 向伺服器提出的請求已經收到回應
-            if (xhr1.readyState === 4 && xhr1.status === 200) {
-                console.log("修改會員資料xhr1.responseText:" + xhr1.responseText);
-                let obj = JSON.parse(xhr1.responseText);
-
-                console.log("obj: "+obj.success);
-                if(obj.success === 'success'){
-                    Swal.fire({
-                        icon: 'success',
-                        title: '修改成功囉!',
-                    })
-                    document.getElementById('miName').disabled = true;
-                    document.getElementById('miAccount').disabled = true;
-                    document.getElementById('miGender').disabled = true;
-                    document.getElementById('miBirth').disabled = true;
-                    document.getElementById('miId').disabled = true;
-                    document.getElementById('miPhone').disabled = true;
-                    document.getElementById('miEmail').disabled = true;
-                    document.getElementById('miCity').disabled = true;
-                    document.getElementById('miDistrict').disabled = true;
-                    document.getElementById('miAddress').disabled = true;
-
-                    document.getElementById('form_button_update').innerText = "修改";
-                }
-
-
+            let xhr1 = new XMLHttpRequest();
+            let memberToSave = {
+                "miName": miNameV,
+                "miAccount": miAccountV,
+                "miGender": miGenderV,
+                "miBirth": miBirthV,
+                "miId": miIdV,
+                "miPhone": miPhoneV,
+                "miEmail": miEmailV,
+                "miCity": miCityV,
+                "miDistrict": miDistrictV,
+                "miAddress": miAddressV
             }
+            let jsonString = JSON.stringify(memberToSave);
+            console.log(jsonString);
+            xhr1.open("POST", "/Lung/FrontMember/saveMemberforUpdate", true);
+            xhr1.setRequestHeader("Content-type", "application/json");
+            xhr1.send(jsonString);
+            xhr1.onreadystatechange = function() {
+                // 向伺服器提出的請求已經收到回應
+                if (xhr1.readyState === 4 && xhr1.status === 200) {
+                    console.log("修改會員資料xhr1.responseText:" + xhr1.responseText);
+                    let obj = JSON.parse(xhr1.responseText);
+                    // console.log("obj: "+obj.success);
+                    if(obj.success === 'success'){
+                        document.getElementById('miName').disabled = true;
+                        document.getElementById('miGender').disabled = true;
+                        document.getElementById('miBirth').disabled = true;
+                        document.getElementById('miPhone').disabled = true;
+                        document.getElementById('miCity').disabled = true;
+                        document.getElementById('miDistrict').disabled = true;
+                        document.getElementById('miAddress').disabled = true;
+                        document.getElementById('form_button_update').innerText = "修改";
+                        //修改圖片
+                        updateHeadshot();
+
+                    }
+                }
+            }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: '會員修改失敗！',
+            })
         }
-        /*--------------------END塞value到會員表單中-------------------*/
     }
 });
 
@@ -219,27 +247,36 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 })*/
 
 document.getElementById('btnUpdatePassword').addEventListener('click', function () {
-    // TODO ------if(onblurCheckOldPassword() === true){
-
-    $.ajax({
-        type: 'POST',
-        url: '/Lung/FrontMember/savePasswordforUpdate',
-        dataType: "json",
-        contentType: "application/json;charset=utf-8",
-        data: JSON.stringify({"newPassword": document.getElementById('miPassword2').value.trim()}),
-        success: function (result) {
-            if (result.success === 'success') {
-                Swal.fire({
-                    icon: 'success',
-                    title: '修改密碼成功囉!',
-                })
+    if(miPassword.parentElement.className === 'single-input-item success m-b-30' &&
+        miPassword1.parentElement.className === 'single-input-item success m-b-30' &&
+        miPassword2.parentElement.className === 'single-input-item success m-b-30')
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Lung/FrontMember/savePasswordforUpdate',
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({"newPassword": document.getElementById('miPassword2').value.trim()}),
+            success: function (result) {
+                if (result.success === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '修改密碼成功囉!',
+                    })
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
             }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(thrownError);
-        }
-    });
+        });
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: '修改密碼失敗！',
+        })
+    }
+
 })
 
 
@@ -247,43 +284,15 @@ document.getElementById('btnUpdatePassword').addEventListener('click', function 
 // const form_button_submit = document.getElementById('form_button_submit');
 // const oneClickEnter = document.getElementById('oneClickEnter');
 
-
-
-
-/*送出資料*/
-document.getElementById('form_button_update').addEventListener('click', e => {
-    e.preventDefault();
-    /* 前台不用驗證權限是誰 */
-    // verifyRole();
-    // if(!checkInputsError()){
-    miActive.value = "Y";
-    miRole.value = "USER";
-    form.submit(); /* 如果沒有error，就執行送出*/
-    // }else{
-    //     onblurCheckAccount();
-    //     oninputCheckPassword();
-    //     oninputCheckName();
-    //     oninputCheckId();
-    //     oninputCheckBirth();
-    //     oninputCheckPhone();
-    //     oninputCheckEmail();
-    //     onblurCheckAddress();
-    // }
-});
-
-
-
 /*送出時進行資料確認*/
 const isFalse = (element) => element === false;
 function checkInputsError() {
     let checkSuccess;
-    checkSuccess = [onblurCheckAccount(),
-        oninputCheckPassword(),
+    checkSuccess = [
+        // oninputCheckPassword(),
         oninputCheckName(),
-        oninputCheckId(),
         oninputCheckBirth(),
         oninputCheckPhone(),
-        oninputCheckEmail(),
         onblurCheckAddress()]
     // console.log( "表單送出時確認資料: " +checkSuccess);
     return checkSuccess.some(isFalse);  /*翻譯: 陣列中有沒有false?*/

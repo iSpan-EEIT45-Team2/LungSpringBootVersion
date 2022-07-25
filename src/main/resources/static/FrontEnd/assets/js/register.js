@@ -18,26 +18,65 @@ const miDistrict = document.getElementById('miDistrict');
 const miAddress = document.getElementById('miAddress');
 const check_roleADMIN = document.getElementById('check-roleADMIN');
 
+/*先不show送出按紐*/
+form_button_submit.style.display = 'none';
+
+/*傳送google recaptcha到後端*/
+function verifyCallback(token) {
+    // console.log("in verifycallback");
+    var formData = new FormData();
+    formData.append('token', token);
+    // Google Apps Script 部署為網路應用程式後取得的 URL
+    var uriGAS = "https://script.google.com/macros/s/AKfycbzwguehfAUBLj1L6jBwvdxJNEUkce650SRhzHfFG_CdfRBgQksbv7hzFVG8FmmzZtUJ/exec";
+    fetch(uriGAS, {
+        method: "POST",
+        body: formData
+    }).then(response => response.json())
+        .then(result => {
+            if(result.success) {
+                // 後端驗證成功，success 會是 true
+                // 送出按紐show出
+                form_button_submit.style.display = '';
+            } else {
+                // success 為 false 時，代表驗證失敗，error-codes 會告知原因
+                Swal.fire({
+                    icon: 'error',
+                    title: result['error-codes'][0],
+                })
+            }
+        })
+        .catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: err,
+            })
+        })
+}
 
 /*送出資料*/
 form_button_submit.addEventListener('click', e => {
     e.preventDefault();
     /* 前台不用驗證權限是誰 */
     // verifyRole();
-    // if(!checkInputsError()){
+    if(!checkInputsError()){
         miActive.value = "N";
         miRole.value = "USER";
         form.submit(); /* 如果沒有error，就執行送出*/
-    // }else{
-    //     onblurCheckAccount();
-    //     oninputCheckPassword();
-    //     oninputCheckName();
-    //     oninputCheckId();
-    //     oninputCheckBirth();
-    //     oninputCheckPhone();
-    //     oninputCheckEmail();
-    //     onblurCheckAddress();
-    // }
+    }else{
+        onblurCheckAccount();
+        oninputCheckPassword();
+        onblurCheckPasswordSame();
+        oninputCheckName();
+        oninputCheckId();
+        oninputCheckBirth();
+        oninputCheckPhone();
+        oninputCheckEmail();
+        onblurCheckAddress();
+        Swal.fire({
+            icon: 'error',
+            title: '資料有誤! 請再次確認您的輸入!',
+        })
+    }
 });
 
 
@@ -48,6 +87,7 @@ function checkInputsError() {
     let checkSuccess;
     checkSuccess = [onblurCheckAccount(),
         oninputCheckPassword(),
+        onblurCheckPasswordSame(),
         oninputCheckName(),
         oninputCheckId(),
         oninputCheckBirth(),
@@ -62,10 +102,14 @@ function checkInputsError() {
 
 
 /*一鍵輸入*/
-// oneClickEnter.addEventListener('click', e => {
-//     e.preventDefault();
-//     oneClickToEnter();
-// });
+oneClickEnter.addEventListener('click', e => {
+    e.preventDefault();
+    oneClickToEnter();
+});
+document.getElementById("oneClickEnterError").addEventListener('click', e => {
+    e.preventDefault();
+    oneClickToEnterError();
+});
 
 //轉換eye -> 顯示密碼
 let togglePassword = document.querySelector("#togglePassword");
@@ -129,45 +173,46 @@ function setSuccessForAddress(input) {
 
 
 //驗證帳號
-function verifyAccount(miAccountValue){
-    let miNoValue = null;
-    if(miNo!==null){ //是修改 -> 再取user的編號
-        miNoValue = miNo.value.trim();
-    }
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/Lung/Backendmember/CheckMemberAccount", false);
-    xhr.setRequestHeader("Content-Type",
-        "application/json");
-    // xhr.send("accountToCheck=" + mi_accountValue);  //送出user輸入的值
-    xhr.send(JSON.stringify({ "accountToCheck": miAccountValue, "miNo":miNoValue }));  //送出user輸入的值
-
-    let accountCanUse = false;
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        // console.log("第一步");
-        let result = JSON.parse(xhr.responseText);
-        // console.log(result);
-        //帳號不存在就回傳true，帳號存在回傳false
-        accountCanUse = result.accountCanUse; //取key的方式，拿到 map 中的 value
-    }else if(xhr.status !== 200){
-        setErrorFor(miAccount, '錯誤訊息：Server Error! 請聯絡系統管理員。');
-        accountCanUse = false;
-    }
-    console.log('accountCanUse:' + accountCanUse)
-    return accountCanUse;
+function verifyAccount(){
+    // let miNoValue = null;
+    // if(miNo!==null){ //是修改 -> 再取user的編號
+    //     miNoValue = miNo.value.trim();
+    // }
+    let miAccountValue = miAccount.value;
+    $.ajax({
+        type: 'POST',
+        url: '/Lung/FrontMember/CheckMemberAccount',
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify({"accountToCheck": miAccountValue, "miNo":null}),
+        success: function (result) {
+            console.log(result);
+            if(result.accountCanUse === false){  //取key的方式，拿到 map 中的 value
+                setErrorFor(miAccount, '帳號重複，請重新輸入帳號');
+            } else {
+                setSuccessFor(miAccount);
+                return true;
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+            return false;
+        }
+    });
 }
 
 function onblurCheckAccount(){
     //確認帳號
-    let miAccountValue = miAccount.value.trim();
+    let miAccountValue = miAccount.value; /*.trim();*/
     // console.log(mi_accountValue);
     if(miAccountValue === '') {
         setErrorFor(miAccount, '帳號不能為空');
         return false;
-    } else if(verifyAccount(miAccountValue) === false){
-        setErrorFor(miAccount, '帳號重複，請重新輸入帳號');
     } else {
-        setSuccessFor(miAccount);
-        return true;
+        // 把varifyAccount移出去做
+        verifyAccount();
     }
 }
 
@@ -319,31 +364,57 @@ function verifyEmail(email) {
     return regex.test(email)  //規則:任意字符(包括英文數字_-.)無限個  + @ + 任意字符無限個 + . + 二至六位英文字母
 }
 
-function verifyEmailExisted(miEmailValue){
-    let miNoValue = null;
-    if(miNo!==null){ //是修改 -> 再取user的編號
-        miNoValue = miNo.value.trim();
-    }
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/Lung/FrontMember/CheckMemberEmail", false);
-    xhr.setRequestHeader("Content-Type",
-        "application/json");
-    // xhr.send("accountToCheck=" + mi_accountValue);  //送出user輸入的值
-    xhr.send(JSON.stringify({ "emailToCheck": miEmailValue, "miNo":miNoValue }));  //送出user輸入的值
+function verifyEmailExisted(){
+    // let miNoValue = null;
+    // if(miNo!==null){ //是修改 -> 再取user的編號
+    //     miNoValue = miNo.value.trim();
+    // }
+    // let xhr = new XMLHttpRequest();
+    // xhr.open("POST", "/Lung/FrontMember/CheckMemberEmail", false);
+    // xhr.setRequestHeader("Content-Type",
+    //     "application/json");
+    // // xhr.send("accountToCheck=" + mi_accountValue);  //送出user輸入的值
+    // xhr.send(JSON.stringify({ "emailToCheck": miEmailValue, "miNo":miNoValue }));  //送出user輸入的值
+    //
+    // let emailCanUse = false;
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
+    //         // console.log("第一步");
+    //         let result = JSON.parse(xhr.responseText);
+    //         // console.log(result);
+    //         //帳號不存在就回傳true，帳號存在回傳false
+    //         emailCanUse = result.emailCanUse; //取key的方式，拿到 map 中的 value
+    //     } else if (xhr.status !== 200) {
+    //         setErrorFor(miEmail, '錯誤訊息：Server Error! 請聯絡系統管理員。');
+    //         emailCanUse = false;
+    //     }
+    //     console.log('emailCanUse:' + emailCanUse)
+    //     return emailCanUse;
+    // }
 
-    let emailCanUse = false;
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        // console.log("第一步");
-        let result = JSON.parse(xhr.responseText);
-        // console.log(result);
-        //帳號不存在就回傳true，帳號存在回傳false
-        emailCanUse = result.emailCanUse; //取key的方式，拿到 map 中的 value
-    }else if(xhr.status !== 200){
-        setErrorFor(miEmail, '錯誤訊息：Server Error! 請聯絡系統管理員。');
-        emailCanUse = false;
-    }
-    console.log('emailCanUse:' + emailCanUse)
-    return emailCanUse;
+    let miEmailValue = miEmail.value.trim();
+    $.ajax({
+        type: 'POST',
+        url: '/Lung/FrontMember/CheckMemberEmail',
+        dataType: "json",
+        async: false,
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify({"emailToCheck": miEmailValue, "miNo":null}),
+        success: function (result) {
+            console.log(result);
+            if(result.emailCanUse === false){  //取key的方式，拿到 map 中的 value
+                setErrorFor(miEmail, '此Email已被使用');
+            } else {
+                setSuccessFor(miEmail);
+                return true;
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(thrownError);
+            return false;
+        }
+    });
 }
 
 function oninputCheckEmail(){
@@ -355,60 +426,82 @@ function oninputCheckEmail(){
     } else if (verifyEmail(miEmailValue) === false) {
         setErrorFor(miEmail, '無效Email，請重新輸入');
         return false;
-    }else if(verifyEmailExisted(miEmailValue) === false){
-        setErrorFor(miEmail, '此Email已被使用');
-        return false;
     }else {
-        setSuccessFor(miEmail);
-        return true;
+        verifyEmailExisted();
     }
 }
 
 
 
 /* 執行一鍵輸入*/
-// function oneClickToEnter(){
-//     /* 取消變顏色*/
-//     console.log('onmousedown')
-//     let errorNodes = document.getElementsByClassName('form-group error');
-//     let successNodes = document.getElementsByClassName('form-group success');
-//     for(let i = 0 ; i<errorNodes.length ; i++){
-//         errorNodes[i].className = 'form-group'
-//     }
-//     for(let i = 0 ; i<successNodes.length ; i++){
-//         successNodes[i].className = 'form-group'
-//     }
-//     /*塞入值到input框*/
-//     miAccount.value = randomAccount();
-//     miPassword.value = randomPassword();
-//     miName.value = randomName();
-//     miId.value = randomId();
-//     miBirth.value = randomBirth();
-//     miPhone.value = '0987993557';
-//     miEmail.value = 'email@mail.com';
-//     miCity.value = '臺北市';
-//     miCity.dispatchEvent(new Event('change')); //觸發change事件
-//
-//     miAddress.value = '羅斯福路三段126之5號';
-//     document.getElementById("check-roleADMIN").checked = true;
-//     document.getElementById("check-roleEMPLOYEE").checked = true;
-//     document.getElementById("check-roleACTIVE").checked = true;
-//     document.getElementById("check-roleUSER").checked = true;
-//
-//     document.getElementById("newcountry1").value = '台中市';
-//     document.getElementById("newdistrict1").setAttribute("data-value","大雅區");
-//
-//     // $(".city-selector-set").each(function() {
-//     // 	$(this).attr("data-value", "大雅區");
-//     // });
-//
-//     /* 重新把success加上去 */
-//     let nodes = document.getElementsByClassName('form-group');
-//     for(let i = 0 ; i<nodes.length ; i++){
-//         nodes[i].className = 'form-group success'
-//     }
-//
-// }
+function oneClickToEnter(){
+    /* 取消變顏色*/
+    let errorNodes = document.getElementsByClassName('single-input-item error');
+    let successNodes = document.getElementsByClassName('single-input-item success');
+    for(let i = 0 ; i<errorNodes.length ; i++){
+        errorNodes[i].className = 'single-input-item'
+    }
+    for(let i = 0 ; i<successNodes.length ; i++){
+        successNodes[i].className = 'single-input-item'
+    }
+
+    /*塞入值到input框*/
+    miAccount.value = 'zoro';/*randomAccount();*/
+    miPassword.value = 'Zoro1111';/*randomPassword();*/
+    miPassword2.value = 'Zoro1111';/*randomPassword();*/
+    miName.value = '索隆';/*randomName();*/
+    miId.value = 'a123456789';/*randomId();*/
+    miBirth.value = '1977-09-03';/*randomBirth();*/
+    miPhone.value = '0987993557';
+    miEmail.value = 'jin991824@gmail.com';
+    miCity.value = '臺北市';
+    miCity.dispatchEvent(new Event('change')); //觸發change事件
+    miAddress.value = '羅斯福路三段126之5號';
+    // document.getElementById("newcountry1").value = '台中市';
+    // document.getElementById("newdistrict1").setAttribute("data-value","大雅區");
+
+    /* 重新把success加上去 */
+    let nodes = document.getElementsByClassName('single-input-item');
+    for(let i = 0 ; i<nodes.length ; i++){
+        nodes[i].className = 'single-input-item success m-b-30'
+    }
+
+}
+function oneClickToEnterError(){
+    /* 取消變顏色*/
+    let errorNodes = document.getElementsByClassName('single-input-item error');
+    let successNodes = document.getElementsByClassName('single-input-item success');
+    for(let i = 0 ; i<errorNodes.length ; i++){
+        errorNodes[i].className = 'single-input-item'
+    }
+    for(let i = 0 ; i<successNodes.length ; i++){
+        successNodes[i].className = 'single-input-item'
+    }
+
+    /*塞入值到input框*/
+    miAccount.value = '';/*randomAccount();*/
+    miPassword.value = 'zzzz';/*randomPassword();*/
+    miPassword2.value = '1';/*randomPassword();*/
+    miName.value = '';/*randomName();*/
+    miId.value = 'a123456780';/*randomId();*/
+    miBirth.value = '2050-01-05';/*randomBirth();*/
+    miPhone.value = '0123456789';
+    miEmail.value = 'jin991824@gmail.c';
+    miCity.value = '';
+    miAddress.value = '';
+
+    /*呼叫所有驗證的方法，這個有return，不用理就好*/
+    checkInputsError();
+
+    /* 重新把error加上去 */
+    let nodes = document.getElementsByClassName('single-input-item');
+    for(let i = 0 ; i<nodes.length ; i++){
+        nodes[i].className = 'single-input-item error m-b-30'
+    }
+
+}
+
+
 
 // function setDistrict(){
 //     console.log('onmouseup')

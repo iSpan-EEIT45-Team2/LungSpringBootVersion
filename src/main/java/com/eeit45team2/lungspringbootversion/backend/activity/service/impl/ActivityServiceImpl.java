@@ -1,8 +1,6 @@
 package com.eeit45team2.lungspringbootversion.backend.activity.service.impl;
 
 import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
-import com.eeit45team2.lungspringbootversion.backend.activity.model.MemberActivityBean;
-import com.eeit45team2.lungspringbootversion.backend.activity.repository.APRepository;
 import com.eeit45team2.lungspringbootversion.backend.activity.repository.ActivityRepository;
 import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +16,6 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
 
-    @Autowired
-    private APRepository apRepository;
 
     @Override
     public List<ActivityBean> findAll() {
@@ -27,8 +23,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public List<MemberActivityBean> findAllAP() {
-        return apRepository.findAll();
+    public List<ActivityBean> abdoglistAll(String keyword) {
+        if (keyword != null) {
+            return activityRepository.search(keyword);
+        }
+
+        return activityRepository.findAll();//指令 查詢用法
     }
 
 
@@ -37,10 +37,8 @@ public class ActivityServiceImpl implements ActivityService {
         activityRepository.save(theActivityBean);
     }
 
-    @Override
-    public void saveAP(MemberActivityBean memberActivityBean) {
-        apRepository.save(memberActivityBean);
-    }
+
+
 
     @Override
     public ActivityBean FindById(long ac_id) {

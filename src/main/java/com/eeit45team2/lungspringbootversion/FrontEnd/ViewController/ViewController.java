@@ -15,17 +15,6 @@ public class ViewController {
         return "FrontEnd/FrontIndex";
     }
 
-
-//    @GetMapping("/announcedetailspage")
-//    public String announcedetails() {
-//        return "FrontEnd/announce/announceDetail";
-//    }
-
-//    @GetMapping("/announcepage")
-//    public String announce() {
-//        return "FrontEnd/announce/announce";
-//    }
-
     //測試用: 拿來看session id
     @RequestMapping("/security")
     public String security() {
@@ -37,9 +26,9 @@ public class ViewController {
         return "FrontEnd/Animal/animal";
     }
 
-    @GetMapping("/aboutUs")
-    public String aboutUs() {
-        return "FrontEnd/aboutus";
+    @GetMapping("/errorpage403")
+    public String errorpage403() {
+        return "FrontEnd/common/403page";
     }
 
 }

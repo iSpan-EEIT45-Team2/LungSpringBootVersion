@@ -35,58 +35,58 @@
                 <div class="col-md-6 grid-margin stretch-card container">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Edit activity</h4>
-                            <form action="#" id="form" class="forms-sample" th:action="@{/saveActivity}" method="post"
+                            <h4 class="card-title">修改志工活動</h4>
+                            <form action="#" id="form" class="forms-sample" th:action="@{/Backendactivity/saveActivity}" method="post"
                                   enctype="multipart/form-data" th:object="${activity}">
                                 <input type="hidden" th:field="*{ac_id}">
                                 <div class="form-group">
-                                    <label>活動標題</label>
+                                    <i class="mdi mdi-newspaper"></i><label>活動標題</label>
                                     <input type="text" th:field="*{ac_name}" class="form-control" id="ac_name"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>活動照片</label>
+                                    <i class="mdi mdi-image"></i><label>活動照片</label>
                                     <img id="blah" th:src="@{/BackEnd/images/memberHeadshot/defaultHeadshot.jpg}"
                                          style="display:block;width: 50%"/>
                                     <input type="file" name="image" class="form-control" id="localfileName" onchange="previewHeadshot(event)" />
                                 </div>
                                 <div class="form-group">
-                                    <label>活動時間</label>
+                                    <i class="mdi mdi-calendar"></i><label>活動時間</label>
                                     <input type="date" th:field="*{ac_date}" class="form-control" id="ac_date"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>活動簡介</label>
+                                    <i class="mdi mdi-message-text"></i><label>活動簡介</label>
                                     <textarea type="text" th:field="*{ac_participant}" class="form-control" id="ac_participant" style="width: 450px; height:100px"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>活動地點</label>
+                                    <i class="mdi mdi-google-maps"></i><label>活動地點</label>
                                     <input type="text" th:field="*{ac_venue}" class="form-control" id="ac_venue"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>活動名額</label>
+                                    <i class="mdi mdi-dice-d20"></i><label>活動名額</label>
                                     <input type="text" th:field="*{ac_quota}" class="form-control" id="ac_quota" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>候補名額</label>
+                                    <i class="mdi mdi-dice-d6"></i><label>候補名額</label>
                                     <input type="text" th:field="*{ac_waitlist_quota}" class="form-control" id="ac_waitlist_quota" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
                                 </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label>報名費用</label>-->
+<!--                                    <input type="text" th:field="*{ac_fee}" class="form-control" id="ac_fee"/>-->
+<!--                                </div>-->
                                 <div class="form-group">
-                                    <label>報名費用</label>
-                                    <input type="text" th:field="*{ac_fee}" class="form-control" id="ac_fee"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>主辦單位</label>
+                                    <i class="mdi mdi-radio-tower"></i><label>主辦單位</label>
                                     <input type="text" th:field="*{ac_organizer}" class="form-control" id="ac_organizer"/>
                                 </div>
-                                <div class="form-group">
-                                    <label> <span>活動狀態</span>
-                                        <select th:field="*{type}"
-                                                class="js-example-basic-single w-100 select2-hidden-accessible"
-                                                id="type">
-                                            <option value="1">上架中</option>
-                                            <option value="0">未上架</option>
-                                        </select>
-                                    </label>
-                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label> <span>活動狀態</span>-->
+<!--                                        <select th:field="*{getAcaudit}"-->
+<!--                                                class="js-example-basic-single w-100 select2-hidden-accessible"-->
+<!--                                                id="type">-->
+<!--                                            <option value="1">上架中</option>-->
+<!--                                            <option value="0">未上架</option>-->
+<!--                                        </select>-->
+<!--                                    </label>-->
+<!--                                </div>-->
                                 <button type="button" class="btn btn-warning me-2" onclick="add();"><i
                                         class="bi bi-send"></i>送出
                                 </button>
@@ -137,7 +137,7 @@
         var ac_venue = document.getElementById("ac_venue").value;
         var ac_quota = document.getElementById("ac_quota").value;
         var ac_waitlist_quota = document.getElementById("ac_waitlist_quota").value;
-        var ac_fee = document.getElementById("ac_fee").value;
+        // var ac_fee = document.getElementById("ac_fee").value;
         var ac_organizer = document.getElementById("ac_organizer").value;
         if (ac_name == null || ac_name == '') {
             Swal.fire({
@@ -188,13 +188,13 @@
             })
             return;
         }
-        if (ac_fee == null || ac_fee == '') {
-            Swal.fire({
-                icon: 'error',
-                title: '請輸入報名費用！！',
-            })
-            return;
-        }
+        // if (ac_fee == null || ac_fee == '') {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: '請輸入報名費用！！',
+        //     })
+        //     return;
+        // }
         if (ac_organizer == null || ac_organizer == '') {
             Swal.fire({
                 icon: 'error',

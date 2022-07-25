@@ -41,21 +41,7 @@
                             <!-- Table標題 -->
                             <span class="table-title">活動表單</span>
                             <div class="actions">
-                                <!-- 一鍵新增 -->
-                                <a href="saveActivity1" class="modal-trigger waves-effect btn-flat nopadding"  th:action="@{/saveActivity1}" method="post"><i
-                                        class="mdi mdi-plus-one \f50a" ></i></a><!-- i標籤是icon -->
 
-                                <!-- 一鍵新增 -->
-                                <a href="saveActivity2" class="modal-trigger waves-effect btn-flat nopadding"  th:action="@{/saveActivity2}" method="post"><i
-                                        class="mdi mdi-plus-one \f50a" ></i></a><!-- i標籤是icon -->
-
-                                <!-- 一鍵新增 -->
-                                <a href="saveActivity3" class="modal-trigger waves-effect btn-flat nopadding"  th:action="@{/saveActivity3}" method="post"><i
-                                        class="mdi mdi-plus-one \f50a" ></i></a><!-- i標籤是icon -->
-
-                                <!-- 一鍵新增 -->
-                                <a href="saveActivity4" class="modal-trigger waves-effect btn-flat nopadding"  th:action="@{/saveActivity4}" method="post"><i
-                                        class="mdi mdi-plus-one \f50a" ></i></a><!-- i標籤是icon -->
                                 <!-- 新增 -->
                                 <a href="acShowForm" class="modal-trigger waves-effect btn-flat nopadding"><i
                                         class="mdi mdi-plus"></i></a><!-- i標籤是icon -->
@@ -73,14 +59,14 @@
                                     <th>活動標題</th>
                                     <th>活動照片</th>
                                     <th>活動時間</th>
-                                    <th>活動簡介</th>
-                                    <th>活動地點</th>
-                                    <th>活動名額</th>
-                                    <th>候補名額</th>
-                                    <th>報名費用</th>
-                                    <th>主辦單位</th>
-                                    <th>活動報名</th>
-                                    <th>上架狀態</th>
+<!--                                    <th>活動簡介</th>-->
+<!--                                    <th>活動地點</th>-->
+<!--                                    <th>活動名額</th>-->
+<!--                                    <th>候補名額</th>-->
+<!--                                    <th>報名費用</th>-->
+<!--                                    <th>主辦單位</th>-->
+<!--                                    <th>活動報名</th>-->
+<!--                                    <th>上架狀態</th>-->
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -94,19 +80,19 @@
                                     <!--                                    <td><img th:src="@{image/{id}(id=${abdog.abphonto})}"width="50" ></td>-->
                                     <!-- <td><img style=" border-radius : 0px ; width:50px ;height:auto"src="<c:url value='/ActivityImage/${activity.localfileName}'/>"/> </td>-->
                                     <td th:text="${activity.ac_date}"/>
-                                    <td th:text="${activity.ac_participant}"/>
-                                    <td th:text="${activity.ac_venue}"/>
-                                    <td th:text="${activity.ac_quota}"/>
-                                    <td th:text="${activity.ac_waitlist_quota}"/>
-                                    <td th:text="${activity.ac_fee}"/>
-                                    <td th:text="${activity.ac_organizer}"/>
-                                    <td>
-                                        <a th:href="@{'/Backendactivity/apShowForm/' + ${activity.ac_id} }" class="btn btn-sm btn-warning"><i
-                                                class="bi bi-check-square"></i></a>
-                                    </td>
-                                    <td><label class="badge badge-danger" th:if="${activity.type} eq '0'">未上架</label>
-                                        <label class="badge badge-success" th:if="${activity.type} eq '1'">已上架</label>
-                                    </td>
+<!--                                    <td th:text="${activity.ac_participant}"/>-->
+<!--                                    <td th:text="${activity.ac_venue}"/>-->
+<!--                                    <td th:text="${activity.ac_quota}"/>-->
+<!--                                    <td th:text="${activity.ac_waitlist_quota}"/>-->
+<!--                                    <td th:text="${activity.ac_fee}"/>-->
+<!--                                    <td th:text="${activity.ac_organizer}"/>-->
+<!--                                    <td>-->
+<!--                                        <a th:href="@{'/Backendactivity/apShowForm/' + ${activity.ac_id} }" class="btn btn-sm btn-warning"><i-->
+<!--                                                class="bi bi-check-square"></i></a>-->
+<!--                                    </td>-->
+<!--                                    <td><label class="badge badge-danger" th:if="${activity.type} eq '0'">未上架</label>-->
+<!--                                        <label class="badge badge-success" th:if="${activity.type} eq '1'">已上架</label>-->
+<!--                                    </td>-->
                                     <td>
                                         <a th:href="@{'/Backendactivity/updateacForm/' + ${activity.ac_id} }" class="btn btn-sm btn-success"><i
                                                 class="bi bi-pencil-fill"></i></a>
@@ -143,8 +129,8 @@
 <!-- 寫自己的Js -->
 <script>
 
-    function deleteajax(pd_id) {
-        console.log(pd_id);
+    function deleteajax(id) {
+        console.log(id);
         Swal.fire({
             title: '請問是否要刪除此訂單?',
             text: "已刪除的訂單無法復原，請再次確認",
@@ -158,7 +144,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "get",
-                    url: "/Lung/Backendproduct/delete/" + pd_id,
+                    url: "/Lung/Backendactivity/deleteac/" + id,
 
                     success: function (msg) {
                         Swal.fire(

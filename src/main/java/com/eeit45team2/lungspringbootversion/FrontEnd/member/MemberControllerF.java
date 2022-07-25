@@ -2,6 +2,9 @@ package com.eeit45team2.lungspringbootversion.FrontEnd.member;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityApply;
+import com.eeit45team2.lungspringbootversion.backend.activity.model.ActivityBean;
+import com.eeit45team2.lungspringbootversion.backend.activity.service.ActivityApplyService;
 import com.eeit45team2.lungspringbootversion.backend.member.model.ConfirmationToken;
 import com.eeit45team2.lungspringbootversion.backend.member.model.MemberBean;
 import com.eeit45team2.lungspringbootversion.backend.member.repository.ConfirmationTokenRepository;
@@ -10,21 +13,32 @@ import com.eeit45team2.lungspringbootversion.backend.member.repository.UserRepos
 import com.eeit45team2.lungspringbootversion.backend.member.service.MemberService;
 import com.eeit45team2.lungspringbootversion.backend.member.service.impl.CommonService;
 import com.eeit45team2.lungspringbootversion.backend.member.service.impl.EmailSenderService;
+import com.jfinal.template.Engine;
+import com.jfinal.template.Template;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.sql.rowset.serial.SerialBlob;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -33,9 +47,6 @@ public class MemberControllerF {
 
     @Autowired
     private MemberService memberService;
-
-    @Autowired
-    private MemberRepository memberRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -49,6 +60,11 @@ public class MemberControllerF {
     @Autowired
     private EmailSenderService emailSenderService;
 
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    @Autowired
+    private ActivityApplyService activityApplyService;
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public ModelAndView displayRegistration(ModelAndView modelAndView, MemberBean member) {
@@ -60,28 +76,15 @@ public class MemberControllerF {
 
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ModelAndView registerUser(ModelAndView modelAndView, MemberBean member) {
-        Boolean isInsert = (member.getMiNo() ==null); // 判斷是否為insert
-        //------密碼加密開始
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        member.setMiPassword(passwordEncoder.encode(member.getMiPassword()));
-        //------密碼加密完成
-        //------儲存圖片
+        Boolean isInsert = (member.getMiNo() ==null); // 判斷是否為insert -> 因為是註冊，所以基本上就是新增，不是修改
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        member.setMiPassword(passwordEncoder.encode(member.getMiPassword()));
         MemberBean memberBean1 = memberService.saveHeadshotInDB(member,isInsert);
+        memberService.save(memberBean1);
+//        userRepository.save(member);
+        sendEmailToUser(memberBean1,memberBean1.getMiEmail());
 
-        userRepository.save(member);
-
-//        ConfirmationToken confirmationToken = new ConfirmationToken(member);
-//        confirmationTokenRepository.save(confirmationToken);
-//        SimpleMailMessage mailMessage = new SimpleMailMessage();
-//        mailMessage.setTo(member.getMiEmail());
-//        mailMessage.setSubject("LungHi Peace浪孩和平Email認證信");
-//        mailMessage.setFrom("LungHiPeace0302@gmail.com");
-//        mailMessage.setText("您好： 請點選以下連結驗證您的電子郵件信箱。 "
-//                + "http://localhost:8080/Lung/FrontMember/confirm-account?token=" + confirmationToken.getConfirmationToken());
-//        emailSenderService.sendEmail(mailMessage);
-        sendEmailToUser(member,member.getMiEmail());
-
-        modelAndView.addObject("miEmail", member.getMiEmail());
+        modelAndView.addObject("miEmail", memberBean1.getMiEmail());
         modelAndView.setViewName("/FrontEnd/registerconfirm");
         return modelAndView;
     }
@@ -90,28 +93,59 @@ public class MemberControllerF {
     public void sendEmailToUser(MemberBean member, String email){
         ConfirmationToken confirmationToken = new ConfirmationToken(member);
         confirmationTokenRepository.save(confirmationToken);
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(email);
-        mailMessage.setSubject("LungHi Peace浪孩和平Email認證信");
-        mailMessage.setFrom("LungHiPeace0302@gmail.com");
-        mailMessage.setText("您好：\n 請點選以下連結驗證您的電子郵件信箱。\n "
-                + "連結: http://localhost:8080/Lung/FrontMember/confirm-account?token=" + confirmationToken.getConfirmationToken());
-        emailSenderService.sendEmail(mailMessage);
+        /* START塞值到模板 */
+        Template template = Engine.use("memberMail").getTemplate("sendMailTemplate.html");
+        Map<String, Object> data = new HashMap<>();
+        data.put("title", "浪孩和平 會員Email認證信");
+        data.put("toWho",member.getMiName());
+        data.put("contentOne","我們已經收到您的註冊申請!");
+        data.put("contentBefore", "請點選<a id=\"astyle\" href=\"" );
+        data.put("link","http://localhost:8080/Lung/FrontMember/confirm-account?token=" + confirmationToken.getConfirmationToken());
+        data.put("contentAfter", "\">連結</a>進行認證！" );
+        String html = template.renderToString(data);
+        /* END塞值到模板 */
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
+            messageHelper.setFrom("LungHiPeace0302@gmail.com");
+            messageHelper.setTo(email);
+            messageHelper.setSubject("LungHi Peace浪孩和平 Email認證信");
+            messageHelper.setText(html, true);
+            emailSenderService.htmlMail(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void sendEmailForResetPassword(MemberBean member, String email){
         ConfirmationToken confirmationToken = new ConfirmationToken(member);
         confirmationTokenRepository.save(confirmationToken); //?
-
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(email);
-        mailMessage.setSubject("LungHi Peace浪孩和平重設密碼信");
-        mailMessage.setFrom("LungHiPeace0302@gmail.com");
-        mailMessage.setText("您好：\n 請點選以下連結重新設定您的密碼。\n "
-                + "連結: http://localhost:8080/Lung/FrontMember/resetPassword?email="
+        /* START塞值到模板 */
+        Template template = Engine.use("memberMail").getTemplate("sendMailTemplate.html");
+        Map<String, Object> data = new HashMap<>();
+        data.put("title", "浪孩和平 會員忘記密碼信");
+        data.put("toWho",member.getMiName());
+        data.put("contentOne","我們已經收到您的重設密碼申請!");
+        data.put("contentBefore", "請點選<a id=\"astyle\" href=\"" );
+        data.put("link","http://localhost:8080/Lung/FrontMember/resetPassword?email="
                 + URLEncoder.encode(email, StandardCharsets.UTF_8)
                 + "&token="+ confirmationToken.getConfirmationToken());
-        emailSenderService.sendEmail(mailMessage);
+        data.put("contentAfter", "\">連結</a>重新設定您的密碼！" );
+        String html = template.renderToString(data);
+        /* END塞值到模板 */
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
+            messageHelper.setFrom("LungHiPeace0302@gmail.com");
+            messageHelper.setTo(email);
+            messageHelper.setSubject("LungHi Peace浪孩和平 重設密碼信");
+            messageHelper.setText(html, true);
+            emailSenderService.htmlMail(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
@@ -230,26 +264,17 @@ public class MemberControllerF {
 //        return modelAndView;
 //    }
 
-//    @GetMapping("/registerpage")
-//    public String showRegisterPage(Model model) {
-//        MemberBean memberBean = new MemberBean();
-//        model.addAttribute("member", memberBean);
-//        return "FrontEnd/register";
-//    }
-
-//    @PostMapping(value ="/registerMember")  // 新增或更新
-//    public String registerMember(@ModelAttribute("member") MemberBean memberBean) {
-//        Boolean isInsert = (memberBean.getMiNo() ==null); // 判斷是否為insert
-//        MemberBean memberBean1 = memberService.saveHeadshotInDB(memberBean,isInsert);//setImage( ) , setLocalfilename()
-//        memberService.save(memberBean1);  // 塞進DB後才產生miNo
-//        return "redirect:/FrontEnd/registerconfirm";  // 重導到email認證畫面 //redirect不帶資料
-//    }
-
-
-
     /*會員中心頁面*/
     @GetMapping("/my-account-home")
-    public String myAccountHome() {
+    public String myAccountHome(Model model, Principal principal) {
+
+        MemberBean memberBean = memberService.findByMiAccount(principal.getName());
+        List<ActivityApply> ActivityBeans = activityApplyService.findAllByMember(memberBean);
+        System.out.println(ActivityBeans);
+        System.out.println(memberBean);
+
+        model.addAttribute("activities", ActivityBeans);
+        model.addAttribute("keyword", memberBean.getMiNo());
         return "FrontEnd/member/my-account"; }
 
     /* 修改會員 */
@@ -287,10 +312,6 @@ public class MemberControllerF {
     public @ResponseBody Map<String, String> saveMemberforUpdate(@RequestBody String member){
         JSONObject object= JSON.parseObject(member);
         MemberBean saveMember = commonService.getCurrentMemerBean();
-
-        //------儲存圖片
-//        MemberBean memberBean1 = memberService.saveHeadshotInDB(member);
-
         saveMember.setMiName((String) object.get("miName"));
         saveMember.setMiAccount((String) object.get("miAccount"));
         saveMember.setMiGender((String) object.get("miGender"));
@@ -310,8 +331,40 @@ public class MemberControllerF {
         saveMember.setMiCity((String) object.get("miCity"));
         saveMember.setMiDistrict((String) object.get("miDistrict"));
         saveMember.setMiAddress((String) object.get("miAddress"));
-        memberService.save(saveMember);
+        memberService.updateNoPwdEncoding(saveMember); //呼叫修改沒有密碼加密版
 
+        HashMap<String, String> msg = new HashMap<>();
+        msg.put("success","success");
+        return msg;
+    }
+
+    @PostMapping(value = "/saveHeadshotforUpdate", produces = { "application/json" })
+    public @ResponseBody Map<String, String> saveHeadshotforUpdate(@RequestParam("headshot") MultipartFile picture){
+        MemberBean memberBean = commonService.getCurrentMemerBean();
+        // setImage (建立Blob物件，交由 Hibernate 寫入資料庫)
+        if (picture != null && !picture.isEmpty()) {
+            // 如果有上傳照片
+            try {
+                byte[] b = picture.getBytes();
+                Blob blob = new SerialBlob(b);
+                memberBean.setImage(blob);   //塞BLOB
+                memberBean.setLocalfileName(System.currentTimeMillis() + "_" + picture.getOriginalFilename()); // 暫時先這樣寫
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+            }
+        }else {
+            // 如果沒有上傳照片
+                try {
+                    memberBean.setImage(memberBean.getImage());  // 找DB中的舊照片
+                    memberBean.setLocalfileName(memberBean.getLocalfileName());  // 找DB中的舊檔名
+                    System.out.println(" > setImaget 成功");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException("修改時 檔案上傳發生異常: " + e.getMessage());
+                }
+        }
+        memberService.updateNoPwdEncoding(memberBean);
         HashMap<String, String> msg = new HashMap<>();
         msg.put("success","success");
         return msg;
@@ -355,6 +408,35 @@ public class MemberControllerF {
     }
 
 
+    @PostMapping(value = "/CheckMemberAccount", produces = { "application/json" })
+    public @ResponseBody Map<String, Boolean> existsByMiAccount(@RequestBody String res) {
+        JSONObject object= JSON.parseObject(res);
+        String miAccount = (String) object.get("accountToCheck");
+        Long miNo;
+        if(object.get("miNo") == null){
+            miNo = null;
+        } else {
+            miNo = Long.parseLong((String) object.get("miNo"));
+        }
 
+        Map<String, Boolean> map = new HashMap<>();  // 塞訊息的map
+        Boolean accountExisted = memberService.existsByMiAccount(miAccount);
+
+        if(miNo ==null){  // 新增 -> 判斷db中是否有重複的帳號
+            // 帳號存在(true)的相反 -> false , 帳號不存在(false)的相反 -> true
+            map.put("accountCanUse", !accountExisted);
+        }else{  // 修改
+            MemberBean member = memberService.findById(miNo); // 從db抓這筆會員的舊帳號
+            // user沒有修改帳號 ->　user現在輸入的帳號 是否和db中自己的帳號一樣
+            if(member.getMiAccount().equals(miAccount)){
+                //不塞錯誤訊息(不提示帳號重複)
+                map.put("accountCanUse", true);
+            }else {
+                // user有修改帳號 -> 判斷帳號是否重複
+                map.put("accountCanUse", !accountExisted);
+            }
+        }
+        return map;
+    }
 
 }

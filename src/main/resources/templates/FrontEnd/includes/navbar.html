@@ -1,4 +1,7 @@
 <header th:fragment="navbar">
+    <div id="demo">
+        <img th:src="@{/FrontEnd/assets/images/logo/Catmini.png}">
+    </div>
     <!-- Header Bottom Start -->
     <div class="header-bottom">
         <div class="header-sticky">
@@ -56,23 +59,18 @@
                                         <li>
                                             <a th:href="@{/FrontEndAnimalF/animalForm}">填寫寵物表單 </a>
                                         </li>
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                        <li><a href="error-404.html">Error 404</a></li>
-                                        <li><a href="faq.html">FAQ</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="register.html">Register</a></li>
                                     </ul>
                                 </li>
                                 <li class="has-children">
                                     <a href="#">志工活動</a>
                                     <ul class="sub-menu">
                                         <li>
-                                            <a th:href="@{/Frontendactivity/activities}">活動</a>
+                                            <a th:href="@{/Frontendactivity/activities}">所有活動</a>
                                         </li>
-                                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                        <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                        <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>
+                                        <li><a href="#">台北</a></li>
+                                        <li><a href="#">新北</a></li>
+                                        <li><a href="#">桃園</a></li>
+                                        <li><a href="#">新竹</a></li>
                                     </ul>
                                 </li>
                                 <li class="has-children"><a th:href="@{/announcelist2}">公告</a>
@@ -84,16 +82,16 @@
                                     <!--                                        <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>-->
                                     <!--                                    </ul>-->
                                 </li>
-                                <li class="has-children">
-                                    <a href="#">捐款支持</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                        <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                        <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>
-                                    </ul>
-                                </li>
+                                <!--                                <li class="has-children">-->
+                                <!--                                    <a href="#">捐款支持</a>-->
+                                <!--                                    <ul class="sub-menu">-->
+                                <!--                                        <li><a href="blog.html">Blog</a></li>-->
+                                <!--                                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>-->
+                                <!--                                        <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>-->
+                                <!--                                        <li><a href="blog-details.html">Blog Details</a></li>-->
+                                <!--                                        <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </li>-->
                             </ul>
                         </div>
                     </div>
@@ -102,25 +100,7 @@
                     <!-- Header Action Start -->
                     <div class="col-lg-3 col-md-8 col-6">
                         <div class="header-actions">
-                            <div id="demo">
-                                <img th:src="@{/FrontEnd/assets/images/logo/Catmini.png}">
-                            </div>
-                            <!-- Header Action Search Button Start -->
-                            <div class="header-action-btn header-action-btn-search d-none d-md-flex">
-                                <div class="action-execute">
-                                    <a class="action-search-open" href="javascript:void(0)"><i
-                                            class="icon-magnifier icons"></i></a>
-                                    <a class="action-search-close" href="javascript:void(0)"><i
-                                            class="ti-close"></i></a>
-                                </div>
-                                <!-- Search Form and Button Start -->
-                                <form class="header-search-form" action="#">
-                                    <input type="text" class="header-search-input" placeholder="Search Our Store">
-                                    <button class="header-search-button"><i class="icon-magnifier icons"></i></button>
-                                </form>
-                                <!-- Search Form and Button End -->
-                            </div>
-                            <!-- Header Action Search Button End -->
+
 
                             <!-- Header My Account Button Start -->
                             <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
@@ -132,6 +112,11 @@
                                 <div class="header-account-content">
                                     <!-- Cart Product Button Start -->
                                     <div id="refreshNavbarUserButton" class="cart-account-btn m-t-20">
+                                        <span style="display: flex; line-height:20px;">
+                                            <span id="navbarMemberCenterNameFront"
+                                                  style="justify-content: center;align-items: center; margin:1px 1px 1px 4px; font-family: 'Montserrat','Roboto',sans-serif; font-size: 18px; font-weight:bold;"></span>
+                                            <span style="justify-content: center;align-items: center; margin:1px 1px; font-family: 'Montserrat','Roboto',sans-serif; font-size: 18px; font-weight:bold;">您好!</span>
+                                        </span>
                                         <a id="navbarLoginBtn" th:href="@{/loginPage}"
                                            class="btn btn-outline-light btn-hover-primary w-100 m-t-20"><i
                                                 class="fa-solid fa-right-to-bracket"></i><span
