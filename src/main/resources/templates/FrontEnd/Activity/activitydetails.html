@@ -21,7 +21,7 @@
                 <div class="breadcrumb-wrapper">
                     <h2 class="breadcrumb-title">活動內容</h2>
                     <ul>
-                        <li><a href="/Frontendactivity/activities">所有活動</a></li>
+                        <li><a th:href="@{'/Frontendactivity/activities/'}">所有活動</a></li>
                         <li>活動的詳細介紹</li>
                     </ul>
                 </div>
@@ -157,7 +157,9 @@
 
                     <!-- Blog Details Comments area Start -->
                     <div class="blog-details-comment-area m-b-n30">
-                        <h2 class="blog-desc-title m-b-30 m-t-40">活動地圖</h2>
+                        <div class="blog-meta">
+                        <h2 class="blog-desc-title m-b-30 m-t-40"><i class="fa-solid fa-map-location-dot"></i>活動地圖</h2>
+                        </div>
                         <div class="blog-details-comment-wrapper m-b-30">
                             <iframe
                                     width="600"
