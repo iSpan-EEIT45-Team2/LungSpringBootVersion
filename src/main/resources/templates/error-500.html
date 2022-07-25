@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <div th:include="FrontEnd/includes/head :: head"></div>
     <meta charset="UTF-8">
     <title>Lung-Hi Peace</title>
 </head>
 <body>
+
 <!-- _navbar -->
 <div th:include="FrontEnd/includes/navbar :: navbar"></div>
-<!--主畫面開始-->
-<!-- 商品Title -->
+
+
 <!-- Breadcrumb Area Start -->
 <div class="section breadcrumb-area bg-name-bright">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
                 <div class="breadcrumb-wrapper">
-                    <h2 class="breadcrumb-title">寵物商品</h2>
+                    <h2 class="breadcrumb-title">後端伺服器出了些問題</h2>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li>Error 500</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -25,141 +31,39 @@
 </div>
 <!-- Breadcrumb Area End -->
 
-<!-- Shop Section Start -->
+<!-- Error 404 Section Start -->
 <div class="section section-margin">
     <div class="container">
         <div class="row">
             <div class="col-12">
 
-                <!--shop toolbar start-->
-                <div class="shop_toolbar_wrapper flex-column flex-md-row p-2 m-b-40 border">
-
-                    <!-- Shop Top Bar Left start -->
-                    <div class="shop-top-bar-left">
-
-                        <div class="shop_toolbar_btn">
-                            <button data-role="grid_4" type="button" class="active btn-grid-4" title="Grid"><i
-                                    class="ti-layout-grid4-alt"></i></button>
-                            <button data-role="grid_list" type="button" class="btn-list" title="List"><i
-                                    class="ti-align-justify"></i></button>
-                        </div>
-                        <div class="shop-top-show">
-                            <span>Showing 1–12 of 39 results</span>
-                        </div>
-
-                    </div>
-                    <!-- Shop Top Bar Left end -->
-
-                    <!-- Shopt Top Bar Right Start -->
-                    <div class="shop-top-bar-right">
-
-                        <h4 class="title m-r-10">Short By: </h4>
-
-                        <div class="shop-short-by">
-                            <select class="nice-select" aria-label=".form-select-sm example">
-                                <option selected>Short by Default</option>
-                                <option value="1">Short by Popularity</option>
-                                <option value="2">Short by Rated</option>
-                                <option value="3">Short by Latest</option>
-                                <option value="3">Short by Price</option>
-                                <option value="3">Short by Price</option>
-                            </select>
-                        </div>
-                    </div>
-                    <!-- Shopt Top Bar Right End -->
-
+                <!-- Error Form Start -->
+                <div class="error_form">
+                    <h1 class="title">500</h1>
+                    <h2 class="sub-title">這是個大問題</h2>
+                    <p>請趕緊去檢查！</p>
+                    <form class="search-form-error" action="#">
+                        <input class="input-text" placeholder="Search..." type="text">
+                        <button class="submit-btn" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                    <a href="/Lung/Front" class="btn btn-primary btn-hover-dark rounded-0 m-t-40">返回首頁</a>
                 </div>
-                <!--shop toolbar end-->
-
-                <!-- Shop Wrapper Start -->
-                <div class="row shop_wrapper grid_4">
-
-                    <!-- Single Product Start -->
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 product" th:each="product : ${products}">
-                        <div class="product-inner">
-                            <div class="thumb">
-                                <a th:href="@{'/Front/productDetail/' + ${product.id} }" class="image">
-                                    <img class="fit-image"
-                                         th:src="@{/image4/{id}(id=${product.localfileName})}"
-                                         alt="Product"/>
-                                </a>
-                                <div class="action-wrapper">
-                                    <a href="" class="action quickview" data-bs-toggle="modal"
-                                       th:attr="data-bs-target= '#addModel' + *{product.id}" title="Quickview"><i
-                                            class="ti-plus"></i></a>
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                            class="ti-heart"></i></a>
-                                    <a href="cart.html" class="action cart" title="Cart"><i
-                                            class="ti-shopping-cart"></i></a>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <h5 class="title"><a href="single-product.html">[[${product.pd_product_name}]]</a></h5>
-                                <!--                                <span class="rating">-->
-                                <!--                                            <i class="fa fa-star-o"></i>-->
-                                <!--                                            <i class="fa fa-star-o"></i>-->
-                                <!--                                            <i class="fa fa-star-o"></i>-->
-                                <!--                                            <i class="fa fa-star-o"></i>-->
-                                <!--                                            <i class="fa fa-star-o"></i>-->
-                                <!--                                        </span>-->
-                                <span class="price">
-                                            $<span class="new">[[${product.pd_amount}]]</span>
-                                    </span>
-                                <p>[[${product.pd_content}]]</p>
-                                <!-- Cart Button Start -->
-                                <div class="cart-btn action-btn">
-                                    <div class="action-cart-btn-wrapper d-flex">
-                                        <div class="add-to_cart">
-                                            <a class="btn btn-primary btn-hover-dark rounded-0" href="cart.html">Add to
-                                                cart</a>
-                                        </div>
-                                        <a href="wishlist.html" title="Wishlist" class="action"><i class="ti-heart"></i></a>
-                                        <a href="#/" class="action quickview" data-bs-toggle="modal"
-                                           data-bs-target="#addModel" title="Quickview"><i class="ti-plus"></i></a>
-                                    </div>
-                                </div>
-                                <!-- Cart Button End -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single Product End -->
-
-                </div>
-                <!-- Shop Wrapper End -->
-
-                <!--shop toolbar start-->
-                <div class="shop_toolbar_wrapper justify-content-center m-t-50">
-
-                    <!-- 商品分頁 -->
-                    <div class="shop-top-bar-right">
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link active" href="#/">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#/">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#/">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link rounded-0" href="#/" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- Shopt Top Bar Right End -->
-
-                </div>
-                <!--shop toolbar end-->
+                <!-- Error Form End -->
 
             </div>
         </div>
     </div>
 </div>
-<!-- Shop Section End -->
+<!-- Error 404 Section End -->
+
+<!-- Footer Section Start -->
+
+<div th:include="/FrontEnd/includes/footer :: footer"></div>
+<!-- Footer Section End -->
 
 <!-- Modal Start  -->
-<div class="modalquickview modal fade" th:id="*{'addModel'+ {product.id}}" tabindex="-1" aria-labelledby="addModel"
-     role="dialog"
-     aria-hidden="true" th:each="product : ${products}">
+<div class="modalquickview modal fade" id="quick-view" tabindex="-1" aria-labelledby="quick-view" role="dialog"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <button class="btn close" data-bs-dismiss="modal">×</button>
@@ -172,9 +76,20 @@
                         <!-- Single Product Image Start -->
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <a class="swiper-slide" th:href="@{'/Front/productDetail/' + ${product.id} }">
-                                    <img class="w-100" th:src="@{/image4/{id}(id=${product.localfileName})}"
-                                         alt="Product">
+                                <a class="swiper-slide" href="#">
+                                    <img class="w-100" src="assets/images/products/large-product/1.png" alt="Product">
+                                </a>
+                                <a class="swiper-slide" href="#">
+                                    <img class="w-100" src="assets/images/products/large-product/2.png" alt="Product">
+                                </a>
+                                <a class="swiper-slide" href="#">
+                                    <img class="w-100" src="assets/images/products/large-product/3.png" alt="Product">
+                                </a>
+                                <a class="swiper-slide" href="#">
+                                    <img class="w-100" src="assets/images/products/large-product/4.png" alt="Product">
+                                </a>
+                                <a class="swiper-slide" href="#">
+                                    <img class="w-100" src="assets/images/products/large-product/5.png" alt="Product">
                                 </a>
                             </div>
 
@@ -202,64 +117,67 @@
 
                         <!-- Product Head Start -->
                         <div class="product-head m-b-15">
-                            <h2 class="product-title">[[${product.pd_product_name}]]</h2>
+                            <h2 class="product-title">Single Product Slider</h2>
                         </div>
                         <!-- Product Head End -->
 
                         <!-- Rating Start -->
-                        <!--                        <link rel="stylesheet" href="css/font-awesome.min.css">-->
-                        <!--                        <script type="text/javascript" src="jquery-360.min.js"></script>-->
-                        <!--                        <script type="text/javascript" src="jquery.rating-stars.js"></script>-->
-
-                        <!--                        <div class="rating-stars block" id="another-rating">-->
-                        <!--                            <input type="hidden" class="rating-value" name="stars-value" id="stars-value" value="2">-->
-                        <!--                        <span class="rating justify-content-start m-b-10">-->
-                        <!--                            <i class="fa fa-star"></i>-->
-                        <!--                            <i class="fa fa-star"></i>-->
-                        <!--                            <i class="fa fa-star"></i>-->
-                        <!--                            <i class="fa fa-star-half-o"></i>-->
-                        <!--                            <i class="fa fa-star-o"></i>-->
-                        <!--                        </span>-->
+                        <span class="rating justify-content-start m-b-10">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <i class="fa fa-star-o"></i>
+                        </span>
                         <!-- Rating End -->
 
                         <!-- Price Box Start -->
                         <div class="price-box m-b-10">
-                            $<span class="regular-price">[[${product.pd_amount}]]</span>
+                            <span class="regular-price">$70.00</span>
+                            <span class="old-price"><del>$85.00</del></span>
                         </div>
                         <!-- Price Box End -->
 
+                        <!-- SKU Start -->
+                        <div class="sku m-b-15">
+                            <span>SKU: 12345</span>
+                        </div>
+                        <!-- SKU End -->
+
+                        <!-- Product Inventory Start -->
+                        <div class="product-inventroy m-b-15">
+                            <span class="inventroy-title"> <strong>Availability:</strong></span>
+                            <span class="inventory-varient">12 Left in Stock</span>
+                        </div>
+                        <!-- Product Inventory End -->
 
                         <!-- Description Start -->
-                        <p class="desc-content m-b-25">[[${product.pd_content}]]</p>
+                        <p class="desc-content m-b-25">There are many variations of passages of Lorem Ipsum available,
+                            but the majority have suffered alteration in some form, by injected humour, or randomised
+                            words which don't look even slightly believable.</p>
                         <!-- Description End -->
 
                         <!-- Quantity Start -->
-                        <div class="quantity d-flex align-items-center justify-content-start m-b-25" id="cart">
-                            <span class="m-r-10"><strong>數量: </strong></span>
-                            <!--                            <form action="/Lung/Front/addToCart" method="post">-->
-                            <input type="hidden" name="id" th:value="${product.id}"/>
+                        <div class="quantity d-flex align-items-center justify-content-start m-b-25">
+                            <span class="m-r-10"><strong>Qty: </strong></span>
                             <div class="cart-plus-minus">
-                                <input class="cart-plus-minus-box" value="1" name="qty" id="qty">
-                                <div class="dec qtybutton">-</div>
-                                <div class="inc qtybutton">+</div>
+                                <input class="cart-plus-minus-box" value="1" type="text">
+                                <div class="dec qtybutton"></div>
+                                <div class="inc qtybutton"></div>
                             </div>
-                            <!-- Cart Button Start -->
-                            <div class="cart-btn action-btn m-b-30">
-                                <div class="action-cart-btn-wrapper d-flex justify-content-start">
-                                    <div class="add-to_cart">
-                                        <button class="btn btn-primary btn-hover-dark rounded-0 "
-                                                th:onclick="add([[${product.id}]])">
-                                            加入購物車
-                                        </button>
-                                    </div>
-                                    <a href="wishlist.html" title="Wishlist" class="action"><i class="ti-heart"></i></a>
-                                </div>
-                            </div>
-                            <!-- Cart Button End -->
-                            <!--                            </form>-->
                         </div>
                         <!-- Quantity End -->
 
+                        <!-- Cart Button Start -->
+                        <div class="cart-btn action-btn m-b-30">
+                            <div class="action-cart-btn-wrapper d-flex justify-content-start">
+                                <div class="add-to_cart">
+                                    <a class="btn btn-primary btn-hover-dark rounded-0" href="cart.html">Add to cart</a>
+                                </div>
+                                <a href="wishlist.html" title="Wishlist" class="action"><i class="ti-heart"></i></a>
+                            </div>
+                        </div>
+                        <!-- Cart Button End -->
 
                         <!-- Social Shear Start -->
                         <div class="social-share">
@@ -277,8 +195,7 @@
                         <div class="payment-option m-t-20 d-flex justify-content-start">
                             <span><strong>Payment: </strong></span>
                             <a href="#">
-                                <img class="fit-image m-l-5"
-                                     th:src="@{/FrontEnd/assets/images/payment/payment_large.png}"
+                                <img class="fit-image m-l-5" src="assets/images/payment/payment_large.png"
                                      alt="Payment Option Image">
                             </a>
                         </div>
@@ -294,10 +211,12 @@
 </div>
 <!-- Modal End  -->
 
-
-<!-- Breadcrumb Area End -->
-<div th:include="/FrontEnd/includes/footer :: footer"></div>
-
+<!-- Scroll Top Start -->
+<a href="#" class="scroll-top show" id="scroll-top">
+    <i class="arrow-top ti-angle-double-up"></i>
+    <i class="arrow-bottom ti-angle-double-up"></i>
+</a>
+<!-- Scroll Top End -->
 
 <!-- Mobile Menu Start -->
 <div class="mobile-menu-wrapper">
@@ -406,8 +325,8 @@
                     </div>
                     <div class="header-top-curr dropdown">
                         <h4 class="title">Currency:</h4>
-                        <button class="dropdown-toggle" data-bs-toggle="dropdown">USD <i
-                                class="fa fa-angle-down"></i></button>
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown">USD <i class="fa fa-angle-down"></i>
+                        </button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a class="dropdown-item" href="#">USD</a></li>
                             <li><a class="dropdown-item" href="#">Pound</a></li>
@@ -445,39 +364,39 @@
     </div>
     <!-- Mobile Menu Inner End -->
 </div>
+<!-- Mobile Menu End -->
+
+<!-- Global Vendor, plugins JS -->
+
+<!-- Vendor JS -->
+
+
+<!--
+<script src="assets/js/vendor/popper.min.js"></script>
+<script src="assets/js/vendor/bootstrap.min.js"></script>
+<script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+<script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
+<script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
+-->
+
+
+<!-- Plugins JS -->
+
+
+<!--
+<script src="assets/js/plugins/aos.min.js"></script>
+<script src="assets/js/plugins/jquery.ajaxchimp.min.js"></script>
+<script src="assets/js/plugins/jquery-ui.min.js"></script>
+<script src="assets/js/plugins/nice-select.min.js"></script>
+<script src="assets/js/plugins/swiper-bundle.min.js"></script>
+<script src="assets/js/plugins/countdown.min.js"></script>
+<script src="assets/js/plugins/lightgallery-all.min.js"></script>
+-->
+
+
+<!-- Use the minified version files listed below for better performance and remove the files listed above -->
+
 <div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
-
-<!-- Blog Section End -->
-<script>
-    function add(id) {
-        Swal.fire({
-                icon: 'success',
-                title: '成功加入購物車',
-                showConfirmButton: false,
-                timer: 1500
-
-            },
-            fetch('[[@{/Carts/Add}]]' + '?itemId=' + id)
-                .then(response => response.json())
-        )
-
-    }
-
-
-</script>
-<script>
-    var ratingOptions = {
-        selectors: {
-            starsSelector: '.rating-stars',
-            starSelector: '.rating-star',
-            starActiveClass: 'is--active',
-            starHoverClass: 'is--hover',
-            starNoHoverClass: 'is--no-hover',
-            targetFormElementSelector: '.rating-value'
-        }
-    };
-
-    $(".rating-stars").ratingStars(ratingOptions);
-</script>
 </body>
+
 </html>

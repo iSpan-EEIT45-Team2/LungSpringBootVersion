@@ -59,11 +59,6 @@
                                         <li>
                                             <a th:href="@{/FrontEndAnimalF/animalForm}">填寫寵物表單 </a>
                                         </li>
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                        <li><a href="error-404.html">Error 404</a></li>
-                                        <li><a href="faq.html">FAQ</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="register.html">Register</a></li>
                                     </ul>
                                 </li>
                                 <li class="has-children">
@@ -105,22 +100,7 @@
                     <!-- Header Action Start -->
                     <div class="col-lg-3 col-md-8 col-6">
                         <div class="header-actions">
-                            <!-- Header Action Search Button Start -->
-                            <div class="header-action-btn header-action-btn-search d-none d-md-flex">
-                                <div class="action-execute">
-                                    <a class="action-search-open" href="javascript:void(0)"><i
-                                            class="icon-magnifier icons"></i></a>
-                                    <a class="action-search-close" href="javascript:void(0)"><i
-                                            class="ti-close"></i></a>
-                                </div>
-                                <!-- Search Form and Button Start -->
-                                <form class="header-search-form" action="#">
-                                    <input type="text" class="header-search-input" placeholder="Search Our Store">
-                                    <button class="header-search-button"><i class="icon-magnifier icons"></i></button>
-                                </form>
-                                <!-- Search Form and Button End -->
-                            </div>
-                            <!-- Header Action Search Button End -->
+
 
                             <!-- Header My Account Button Start -->
                             <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
@@ -132,9 +112,10 @@
                                 <div class="header-account-content">
                                     <!-- Cart Product Button Start -->
                                     <div id="refreshNavbarUserButton" class="cart-account-btn m-t-20">
-                                        <span style="display: flex; line-height:20px;" >
-                                            <span id="navbarMemberCenterNameFront" style="justify-content: center;align-items: center; margin:1px 1px 1px 4px; font-family: 'Montserrat','Roboto',sans-serif; font-size: 18px; font-weight:bold;"></span>
-                                            <span style="justify-content: center;align-items: center; margin:1px 1px; font-family: 'Montserrat','Roboto',sans-serif; font-size: 18px; font-weight:bold;" >您好!</span>
+                                        <span style="display: flex; line-height:20px;">
+                                            <span id="navbarMemberCenterNameFront"
+                                                  style="justify-content: center;align-items: center; margin:1px 1px 1px 4px; font-family: 'Montserrat','Roboto',sans-serif; font-size: 18px; font-weight:bold;"></span>
+                                            <span style="justify-content: center;align-items: center; margin:1px 1px; font-family: 'Montserrat','Roboto',sans-serif; font-size: 18px; font-weight:bold;">您好!</span>
                                         </span>
                                         <a id="navbarLoginBtn" th:href="@{/loginPage}"
                                            class="btn btn-outline-light btn-hover-primary w-100 m-t-20"><i
