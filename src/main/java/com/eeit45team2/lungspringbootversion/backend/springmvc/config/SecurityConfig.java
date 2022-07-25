@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //                .anyRequest().permitAll()  // TODO 第一次登入前都要先打開這個!! 然後建一個會員，才會拿到帳號和加密後的密碼!!
                 // TODO 開啟anyRequest()後，註解下面所有的antMatchers()
                 .antMatchers(HttpMethod.GET,"/loginPage**","/BackEnd/css/**","/BackEnd/images/**","/BackEnd/js/**").permitAll()  //不限授權皆可進到登入
-                .antMatchers(HttpMethod.GET,"/FrontEnd/assets/**","/FrontEndAnimalF/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/FrontEnd/assets/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/Front/**").permitAll() // 前台誰都可以進
                 .antMatchers(HttpMethod.GET, "/Back").hasAuthority("EMPLOYEE") //有EMPLOYEE權限以上的角色才能進到後台頁面
                 .antMatchers(HttpMethod.GET, "/Backendmember/CheckMemberAccount","/Backendmember/picture/**").permitAll()
