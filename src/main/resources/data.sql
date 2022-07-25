@@ -1,6 +1,6 @@
 --新增會員資料
 insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
-    ('管理者-魯夫','C248835717',cast('1999/01/23' as date),'0962594416','abc10@mail.com','admin','$2a$10$0zynuTZo0/NVJlTz5WFAHeRU0EuoUWuCrCSXbUiJv.GPBbcrvUE3y','USER;ACTIVE;EMPLOYEE;ADMIN', '女', 'Y', '臺北市', '中正區', '思源街1號', 'luffy.jpg' );
+    ('管理者-魯夫','C248835717',cast('1999/01/23' as date),'0962594416','ethanshen023@gmail.com','admin','$2a$10$0zynuTZo0/NVJlTz5WFAHeRU0EuoUWuCrCSXbUiJv.GPBbcrvUE3y','USER;ACTIVE;EMPLOYEE;ADMIN', '女', 'Y', '臺北市', '中正區', '思源街1號', 'luffy.jpg' );
 
 insert into MemberTable ( miName, miId, miBirth, miPhone, miEmail, miAccount, miPassword, miRole, miGender, miActive, miCity, miDistrict, miAddress, localfileName) values
     ('員工-娜美','O241686379',cast('1987/12/01' as date),'0926287495','abc20@mail.com','employee','$2a$10$CC006YClBxiYQDhfiIKsyeDgruLWMTQjURSSXAzudRtbuzNidLWMC','USER;ACTIVE;EMPLOYEE', '男', 'Y', '台南市', '安平區', '漁光路114號', 'nami.jpg' );
@@ -79,7 +79,19 @@ INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quot
 INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quota, ac_waitlist_quota, ac_organizer, localFileName) VALUES
 ('臺北市717帶著毛孩一起FUN幸福', CAST('2022/08/17' AS DATE) , '#活動內容#免費狂犬病疫苗注射/寵物登記(限量100劑/組)#推廣臺北市狗運動公園與狗活動區及動物保護觀念#寵物飾品手作活動(限量60名)#萌寵走秀競賽活動(提供30名飼主報名)----#️本次活動還有邀請到公益大使喔!#️蕭秉治 、周予天 、鄭心慈、夏沐及唐仲彣歡迎毛媽們在假日午後帶著毛小孩一起到活動現場認識臺北市動物友善空間及設施喔!🎵', '紫陽綠地公園', 50, 10, '臺北市九重葛協會', '717帶著毛孩一起FUN幸福.jpg');
 INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quota, ac_waitlist_quota, ac_organizer, localFileName) VALUES
-('苗栗場下鄉志工招募說明會', CAST('2022/08/10' AS DATE) , '成為下鄉志工隊的一員，首先需要先參與協會不定期辦理的下鄉志工招募說明會。在說明會中，我們會與您分享台灣流浪犬貓現況、介紹下鄉絕育行動及下鄉志工的工作。參與過下鄉志工招募說明會後，就可以參加下鄉活動囉！下鄉志工隊有專屬的寶藍色志工服，在參與5場下鄉絕育活動後，再參與1場動保講座暨志工提昇班，就可以獲得寶藍色的下鄉志工志工服，成為正式的下鄉志工！', '苗栗縣生態保育教育中心', 50, 10, '苗栗縣動物收容協會', '忠誠狗勾2.jpg');
+('桃園2022寵物嘉年華', CAST('2022/09/17' AS DATE) , '以「毛孩來趣桃–毛星人回娘家」為主軸的桃園市2021寵物嘉年華活動，13日假環球購物中心Global Mall桃園A19的中庭廣場熱鬧登場，活動結合在地創意特色活動，並邀請轄內動物保護相關協會、獸醫師公會、寵物業同業公會等共襄盛舉。此次特別選在致力於推動環境寵物友善場所的環球購物中心Global Mall桃園A19的中庭(桃園市中壢區高鐵南路二段352號)廣場舉行', '環球購物中心Global Mall桃園A19', 50, 10, '桃園市政府動物保護處', '桃園市政府2021寵物嘉年華.jpg');
+INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quota, ac_waitlist_quota, ac_organizer, localFileName) VALUES
+('新竹市「毛寶貝同樂會」', CAST('2022/08/13' AS DATE) , '毛寶貝同樂會又來了！你家的毛小孩也因疫情悶壞了嗎？新竹市一年一度專屬寵物大型活動「2021毛寶貝同樂會」，本月13日將在左岸狗狗公園登場，現場有寵物趣味競賽、舞台表演等，此外還有毛寶貝專屬特色市集等20個攤位，民眾可踴躍參與。市府邀請市民朋友帶著家中毛寶貝來趟左岸慢活之旅，體驗新竹市友善動物、舒適親水的優質環境。', '新竹左岸狗狗公園', 50, 10, '新竹市動物收容所', '2021新竹毛寶貝同樂會.jpg');
+INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quota, ac_waitlist_quota, ac_organizer, localFileName) VALUES
+('新北市朱銘美術館毛孩藝起Go歡樂', CAST('2022/09/25' AS DATE) , 'GO！GO！帶上家中毛寶貝藝起來過節囉！2022藝起GO歡樂，規劃一系列專屬毛小孩的主題節日及活動，邀請觀眾帶著毛寶貝來朱銘美術館，在草地上玩耍、野餐，一起享受過節的樂趣！活動自四月起至十月止，每月舉辦一場次，月月不同主題驚喜，等您藝起來瘋野餐、過節慶！', '朱銘美術館', 50, 10, '朱銘美術館', '藝起ＧＯ歡樂.jpg');
+INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quota, ac_waitlist_quota, ac_organizer, localFileName) VALUES
+('桃園市「毛寶貝同樂會」', CAST('2022/08/17' AS DATE) , '毛寶貝同樂會又來了！你家的毛小孩也因疫情悶壞了嗎？新竹市一年一度專屬寵物大型活動「2021毛寶貝同樂會」，本月13日將在左岸狗狗公園登場，現場有寵物趣味競賽、舞台表演等，此外還有毛寶貝專屬特色市集等20個攤位，民眾可踴躍參與。市府邀請市民朋友帶著家中毛寶貝來趟左岸慢活之旅，體驗新竹市友善動物、舒適親水的優質環境。', '桃園福林公園寵物遛放區', 50, 10, '桃園市動保處', '福林公園寵物溜放區.png');
+INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quota, ac_waitlist_quota, ac_organizer, localFileName) VALUES
+('2022台北寵物用品博覽會(秋季展)', CAST('2022/09/02' AS DATE) , '9/2-5走進台北世貿一館－萌寵招待所，盡情放鬆玩耍！此次，將為萌寵打造一場身為嘉賓才享有的獨特６大體驗，健康輕寵食 | 瘋玩遊樂場 | Q萌穿搭趣 | 美容SPA體驗 | 院獸醫班森VS毛孩健檢會客室 | 寵愛星球寫真拍，台北寵物展讓毛寶貝享受大人物般的生活，讓心愛的犬/貓充電、補充滿滿糧食！實踐動物保護及動物福利等觀念，為寵物家族提供更好資訊，，打造一個健全優質的寵物展！。', '台北世貿一館', 50, 10, '上聯國際展覽有限公司', '2022上聯台北.png');
+INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quota, ac_waitlist_quota, ac_organizer, localFileName) VALUES
+('新北動保處攜手府中15同為毛寶貝尋幸福', CAST('2022/08/23' AS DATE) , '新北市政府動保處23日與府中15放映院合作，於放映院一樓舉辦「浪你我聆聽回憶，浪牠找家」認養活動，活動集結寵物認養、「浪浪回家」影片放映與紀錄片導演劉新銳經驗分享，藉由現場認養活動，將動物保護觀念推廣到民眾心中，與市民朋友攜手共創動物居住環境，健全動物福祉。到新北市各地愛心認養小棧參觀，並呼籲民眾認養前務必審慎考量自身能力，並且用心照顧毛寶貝一生。', '府中15放映院', 50, 10, '新北動保處', '新北動保處攜手府中同為毛寶貝尋幸福.png');
+INSERT INTO Activity_Table ( ac_name, ac_date, ac_participant, ac_venue, ac_quota, ac_waitlist_quota, ac_organizer, localFileName) VALUES
+('桃園親子寵物日活動邀你一起來放電', CAST('2022/08/12' AS DATE) , '桃園綠色生活悠遊節會場，舉辦「親子寵物日活動」，為期9天的活動，每天都精采熱鬧，除了讓小朋友與爸爸媽媽也能一起體驗低碳運具及學習環保行動外，當日也特別邀請到YOYO台哥哥姐姐、YOYOMAN及YAMY，與現場的大小朋友同樂。而喜愛毛小孩的民眾，也可以來參與桃園動保處配合進行的認養活動，或帶著寵物來參加健檢。', '桃園市蘆竹區坑菓路663號', 50, 10, '桃園環保局', '綠色生活悠遊節.jpg');
 
 --動物資料for LineBot
 INSERT INTO LineAnimalTable (amlType, amlSpecies, amlSex, amlImage, amlName, amlAddress ) VALUES ('貓', '暹羅貓', '母', 'https://i.imgur.com/gHRDOxY.jpg', '花花', '新竹縣竹北市縣政五街192號');

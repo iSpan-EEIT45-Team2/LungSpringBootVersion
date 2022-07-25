@@ -161,8 +161,8 @@ public class ActivityControllerF {
             message.setFrom("Lunghipeace0302@gmail.com");
             System.out.println(email);
             message.setTo(email);
-            message.setSubject("謝謝您的來信");
-            message.setText("目前表單正在審核中");
+            message.setSubject("浪孩和平Lunghipeace報名成功通知信");
+            message.setText("感謝您報名活動，如有疑問歡迎洽詢");
             mailSender.send(message);
             System.out.println("Mail Sent succesfully...");
 
